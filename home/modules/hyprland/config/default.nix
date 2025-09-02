@@ -43,6 +43,10 @@ in {
 
     enable = true;
     settings = {
+      misc = {
+        disable_hyprland_logo = true;
+        disable_splash_rendering = true;
+      };
       plugin = {
         dynamic-cursors = {
           enable = true;
@@ -57,15 +61,14 @@ in {
     };
     extraConfig = ''
       monitor=,preferred,auto,auto
-      # exec-once = nwg-dock-hyprland -d -hd 0
-
+      exec-once = nwg-dock-hyprland -d -hd 0
       exec-once = udiskie -a
       exec-once = hyprpanel
       exec-once = hypridle
       exec-once = ags
-      exec-once = nwg-panel
-      exec-once = /home/simon/nixos-dotfiles/home/scripts/start_waybar.sh
-      exec-once = /home/simon/nixos-dotfiles/home/scripts/battery-monitor.sh
+      # exec-once = nwg-panel
+        exec-once = ~/nixos/home/scripts/start_waybar.sh
+      exec-once = ~/nixos/home/scripts/battery-monitor.sh
       xwayland {
         force_zero_scaling = true;
       }

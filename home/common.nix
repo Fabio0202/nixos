@@ -1,4 +1,8 @@
 {pkgs, ...}: {
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
   home.packages = with pkgs; [
     syncthing
     obsidian
@@ -63,6 +67,7 @@
     ./modules/icons-theme.nix
     ./modules/hyprpanel.nix
     ./modules/wofi.nix
+    ./modules/nwg-dock.nix
     # hier kommen zB setup files aus /modules fuer die einzelnen pkgs bzw softwares
   ];
 }
