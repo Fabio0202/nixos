@@ -4,10 +4,12 @@ username = "fabio";
 homeDirectory = "/home/${username}";
 in 
 {
-  programs.zsh.enable = true;
-  programs.zsh.initExtra = ''
-    echo "Welcome to PC!"
-  '';
+    home.packages = with pkgs; [
+        # alle Software die ich nur am Stand-PC haben will
+    ];
+    imports = [
+        ./common.nix
+    ];
   home = {
     inherit username;
     inherit homeDirectory;
