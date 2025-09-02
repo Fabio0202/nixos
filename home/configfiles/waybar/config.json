@@ -45,7 +45,7 @@
     },
     "network": {
       "format-wifi": "{icon}",
-      "format-ethernet": "󰈀 {ifname}",
+      "format-ethernet": "󰈀 ",
       "format-disconnected": "󰖪 Disconnected",
       "format-icons": {
         "wifi": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
@@ -127,6 +127,7 @@
       "custom/cpu_temp",
       "memory",
       "backlight",
+      "hyprland/language",
       "battery",
       "pulseaudio",
       "custom/mic",
