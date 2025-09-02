@@ -8,9 +8,11 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
 
+    ../modules/hardware.nix
     # Importiere das xserver-gnome Modul
-    ../modules/gnome.nix
-    # ../modules/hyprlandWM.nix
+    # ../modules/gnome.nix
+    ../modules/hyprlandWM.nix
+    ../modules/user.nix
     ../modules/locale.nix
     ../modules/audio.nix
     ../modules/user.nix
@@ -22,7 +24,7 @@
     ../modules/gc.nix
     ../modules/light.nix
     ../modules/networking.nix
-    ../modules/stylix.nix
+    # ../modules/stylix.nix
     ../modules/swap.nix
     ../modules/system.nix
   ];

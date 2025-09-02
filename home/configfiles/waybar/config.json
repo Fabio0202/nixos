@@ -1,0 +1,144 @@
+[
+  {
+    "backlight": {
+      "device": "intel_backlight",
+      "format": "{icon} ",
+      "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+    "battery": {
+      "format": "{icon} {capacity}%",
+      "format-alt": "{icon} {capacity}%",
+      "format-charging": "󰂄 {capacity}%",
+      "format-plugged": "󰂄 {capacity}%",
+      "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󱟢"],
+      "states": {
+        "critical": 15,
+        "warning": 30
+      }
+    },
+    "clock": {
+      "format": "  |  {:%H:%M:%S}",
+      "format-alt": "   {:%d/%m/%Y}",
+      "interval": 1,
+      "timezone": "Austria/Vienna",
+      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+
+    "cpu": {
+      "format": "󰍛  {usage}%",
+      "interval": 5,
+      "tooltip": false,
+      "on-click": "btop"
+    },
+    "memory": {
+      "format": "󰘚  {percentage}%",
+      "interval": 5,
+      "tooltip": false,
+      "on-click": "btop"
+    },
+    "network": {
+      "format-wifi": "{icon}",
+      "format-ethernet": "󰈀 {ifname}",
+      "format-disconnected": "󰖪 Disconnected",
+      "format-icons": {
+        "wifi": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+        "ethernet": "󰈀",
+        "disconnected": "󰖪"
+      },
+      "on-click": "nm-connection-editor",
+      "interval": 5,
+      "tooltip": false
+    },
+    "bluetooth": {
+      "format": "",
+      "format-disabled": "󰂲", // Icon when Bluetooth is off
+      "format-connected": " {device_alias}", // Shows connected device
+      "format-on": "", // Icon when Bluetooth is on but not connected
+      "interval": 5,
+      "on-click": "blueman-manager", // GUI manager (or use 'bluetoothctl' for CLI)
+      "on-click-right": "bluetooth toggle" // Toggle Bluetooth on right-click
+    },
+    "custom/lock": {
+      "format": "",
+      "on-click": "hyprlock",
+      "tooltip": false
+    },
+    "custom/mic": {
+      "exec": "amixer get Capture | grep -q '\\[on\\]' && echo '' || echo ''",
+      "interval": 2,
+      "signal": 9,
+      "on-click": "amixer set Capture toggle; pkill -RTMIN+9 waybar",
+      "format": "{}"
+    },
+
+    "custom/idle-toggle": {
+      "exec": "/home/simon/scripts/idle_status.sh",
+      "on-click": "/home/simon/scripts/toggle_idle.sh",
+      "return-type": "json",
+      "interval": 3
+    },
+    "custom/cpu_temp": {
+      "format": "{}°C ",
+      "interval": 5,
+      "exec": "sensors | awk '/Tctl:/ {print int($2)}'"
+    },
+    "custom/music": {
+      "escape": true,
+      "exec": "playerctl metadata --format='{{ title }}'",
+      "format": "  {}",
+      "interval": 5,
+      "max-length": 50,
+      "on-click": "playerctl play-pause",
+      "tooltip": false
+    },
+    "custom/power": {
+      "format": "",
+      "on-click": "wlogout --buttons-per-row 4",
+      "tooltip": false
+    },
+    "height": 28,
+    "hyprland/workspaces": {
+      "all-outputs": true,
+      "disable-scroll": true,
+      "format": "{icon}",
+      "format-icons": {
+        "active": "󰮯",
+        "default": "",
+        "urgent": ""
+      },
+      "on-click": "activate",
+      "on-scroll-down": "hyprctl dispatch workspace e-1",
+      "on-scroll-up": "hyprctl dispatch workspace e+1"
+    },
+    "layer": "top",
+    "modules-left": ["hyprland/workspaces", "custom/music"],
+    "modules-center": ["clock"],
+    "modules-right": [
+      "network",
+      "bluetooth",
+      "cpu",
+      "custom/cpu_temp",
+      "memory",
+      "backlight",
+      "battery",
+      "pulseaudio",
+      "custom/mic",
+      "custom/idle-toggle",
+      "custom/lock",
+      "custom/power"
+    ],
+    "position": "top",
+    "pulseaudio": {
+      "format": "{icon}  {volume}%",
+      "format-icons": {
+        "default": ["", "", " "]
+      },
+      "format-muted": "",
+      "on-click": "pavucontrol"
+    },
+    "tray": {
+      "icon-size": 21,
+      "spacing": 10
+    }
+  }
+]

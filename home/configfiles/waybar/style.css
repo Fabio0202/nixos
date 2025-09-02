@@ -1,0 +1,197 @@
+* {
+  font-family: FantasqueSansMono Nerd Font;
+  font-size: 17px;
+  min-height: 0;
+  margin: 0px;
+  padding: 0px;
+}
+
+#waybar {
+  background: transparent;
+  color: #cdd6f4;
+  margin: 0px;
+  padding: 0px;
+  border: none;
+}
+
+#workspaces {
+  border-radius: 6px; /* Smaller corner radius */
+  background-color: #313244;
+  margin-top: 8px; /* Reduced horizontal margin */
+  margin-left: 12px; /* Reduced horizontal margin */
+  margin-right: 10px;
+  padding-top: 4px; /* Top/bottom padding for container */
+  padding-right: 4px; /* Reduced horizontal margin */
+  padding-left: 4px; /* Reduced horizontal margin */
+}
+
+#workspaces button {
+  color: #b4befe;
+  padding: 4px 8px; /* More compact padding */
+  transition: all 0.2s ease-in-out;
+  border-radius: 4px; /* Subtle rectangular rounding */
+  font-size: 12px; /* Smaller font size */
+}
+
+#workspaces button.active {
+  color: #89dceb;
+  background-color: #45475a;
+  box-shadow: none; /* Remove inset shadow */
+  border-bottom: 2px solid #89dceb; /* Bottom border instead */
+}
+
+#workspaces button.urgent {
+  color: #f38ba8;
+  background-color: #585b70;
+  animation: urgent-flash 1s infinite;
+  border-radius: 3px;
+}
+
+/* Keep existing keyframes */
+@keyframes urgent-flash {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+#custom-mic {
+  color: #f0c6c6;
+} /* Catppuccin Pink */
+
+#custom-mic.muted {
+  color: #f38ba8; /* Use hex color instead of @red */
+  opacity: 0.4;
+}
+
+#custom-music,
+#custom-cpu_temp,
+#custom-idle-toggle,
+#tray,
+#backlight,
+#clock,
+#battery,
+#network,
+#memory,
+#cpu,
+#bluetooth,
+#pulseaudio,
+#custom-mic,
+#custom-lock,
+#custom-power {
+  border-radius: 6px;
+  background-color: #313244;
+  padding: 0px;
+  padding-right: 12px;
+  padding-left: 12px;
+  min-width: 20px;
+  margin-top: 8px;
+  margin-right: 8px;
+}
+
+#network {
+  padding-right: 14px;
+  padding-left: 9px;
+}
+#bluetooth {
+  padding-right: 10px;
+}
+#clock {
+  color: #89b4fa;
+}
+
+#battery {
+  color: #a6e3a1;
+}
+
+#battery.charging {
+  color: #a6e3a1;
+}
+
+#battery.warning:not(.charging) {
+  color: #f38ba8;
+}
+
+#backlight {
+  color: #f9e2af;
+}
+
+#backlight,
+#battery {
+}
+
+/* #pulseaudio { */
+/*   color: #eba0ac; */
+/*   margin-right: 4px; */
+/*   padding: 8px; */
+/* } */
+
+#custom-music {
+  color: #cba6f7;
+}
+
+#custom-lock {
+  color: #b4befe;
+  padding-right: 15px;
+}
+#custom-power {
+  padding-right: 16px;
+  margin-right: 14px;
+  color: #f38ba8;
+}
+
+#tray {
+}
+/* CPU */
+#cpu {
+  color: #8aadf4;
+} /* Catppuccin Blue */
+#cpu.critical {
+  color: #ed8796;
+} /* Red when overloaded */
+
+/* Memory */
+#memory {
+  color: #c6a0f6;
+} /* Catppuccin Lavender */
+#memory.warning {
+  color: #eed49f;
+} /* Yellow when medium usage */
+#memory.critical {
+  color: #ed8796;
+} /* Red when high usage */
+
+/* Lock/Power */
+#custom-lock {
+  color: #91d7e3;
+} /* Catppuccin Sapphire */
+#custom-power {
+  color: #f5a97f;
+} /* Catppuccin Peach */
+
+/* PulseAudio */
+#pulseaudio {
+  color: #f0c6c6;
+} /* Catppuccin Pink */
+#pulseaudio.muted {
+  color: #6e738d;
+} /* Catppuccin Overlay1 */
+
+/* Battery */
+#battery {
+  color: #a6da95;
+} /* Green */
+#battery.charging {
+  color: #8aadf4;
+} /* Blue */
+#battery.warning {
+  color: #eed49f;
+} /* Yellow */
+#battery.critical {
+  color: #ed8796;
+} /* Red */
