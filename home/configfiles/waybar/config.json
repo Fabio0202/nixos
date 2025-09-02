@@ -16,6 +16,13 @@
         "warning": 30
       }
     },
+
+    "hyprland/language": {
+      "format": "{short}",                
+      "format-en": "EN",                 
+      "format-de": "DE",
+      "on-click": "hyprctl switchxkblayout current next" 
+    },
     "clock": {
       "format": "  |  {:%H:%M:%S}",
       "format-alt": "   {:%d/%m/%Y}",
