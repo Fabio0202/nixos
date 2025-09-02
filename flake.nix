@@ -8,55 +8,56 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel"; # Notifications und so sachen
+    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
     stylix = {
       url = "github:danth/stylix/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
-    };  # stylix ist da, um alles gleich aussehen yu lassen
-    hyprland.url = "github:hyprwm/Hyprland"; # Windowmanager
+    };
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = { self, nixpkgs, home-manager, nixpkgs-unstable, ... }@inputs:
-    let
-      system = "x86_64-linux";
-      mkHost = hostName: {
-        nixosSystem = nixpkgs.lib.nixosSystem {
-          inherit system;
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    nixpkgs-unstable,
+    ...
+  } @ inputs: let
+    system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
 
-          modules = [
-            ./hosts/${hostName}/configuration.nix
-            home-manager.nixosModules.home-manager
+    mkHost = hostName:
+      nixpkgs.lib.nixosSystem {
+        inherit system;
 
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.fabio = import ./home/${hostName}.nix;
-            }
-          ];
+        specialArgs = {inherit inputs;}; # Pass all inputs to modules
 
-          # Explicitly expose nixos-rebuild if needed
-          config.system.build.nixos-rebuild = import nixpkgs.nixosModules.nixos-rebuild;
-        };
+        modules = [
+          ./hosts/${hostName}/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.fabio = import ./home/${hostName}.nix;
+            home-manager.extraSpecialArgs = {inherit inputs;}; # Also pass to home-manager
+          }
+        ];
       };
-    in
-    {
-      # Define configurations for each host
-      nixosConfigurations.pc = mkHost "pc";
-      nixosConfigurations.laptop = mkHost "laptop";
-
-      # Now expose the correct nixosConfigurations for use by other flake commands
-      packages.x86_64-linux = nixpkgs.lib.mkDerivation {
-        name = "nixosConfigurations";
-        buildInputs = [];
-        # You could define the outputs you want to share here, like:
-        outputs = nixosConfigurations;
-      };
-
-      legacyPackages.x86_64-linux = nixpkgs.lib.mkDerivation {
-        name = "legacy-nixosConfigurations";
-        buildInputs = [];
-        # Also expose legacyPackages
-        outputs = nixosConfigurations;
-      };
+  in {
+    # Correct nixosConfigurations output
+    nixosConfigurations = {
+      pc = mkHost "pc";
+      laptop = mkHost "laptop";
     };
+
+    # Optional: You can also expose packages if you want
+    packages.${system} = {
+      # Your custom packages here if any
+    };
+
+    # Optional: Development shell
+    devShells.${system}.default = pkgs.mkShell {
+      buildInputs = [pkgs.nixpkgs-fmt];
+    };
+  };
 }
