@@ -38,8 +38,12 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.fabio = import ./home/${hostName}.nix;
-            home-manager.extraSpecialArgs = {inherit inputs;}; # Also pass to home-manager
+            home-manager.users.fabio = {
+	    imports = [
+	    (import ./home/${hostName}.nix)
+	    inputs.nvf.homeManagerModules.default];
+	    };
+            home-manager.extraSpecialArgs = {inherit inputs; }; # Also pass to home-manager
           }
         ];
       };

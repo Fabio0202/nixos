@@ -1,4 +1,8 @@
-{ pkgs, lib, ... }: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./options.nix
     ./languages.nix
@@ -25,7 +29,7 @@
       vim.utility.yanky-nvim.setupOpts.ring.storage = "memory";
       vim.utility.undotree.enable = true;
       vim.notes.obsidian = {
-        enable = true;
+        enable = false;
         setupOpts = {
           workspaces = [
             {
@@ -36,81 +40,86 @@
         };
       };
 
-    vim.filetree.neo-tree = {
-      enable = true;
-      setupOpts = {
-        auto_clean_after_session_restore = true;
-        close_if_last_window = true;
-        default_source = "git_status";
+      vim.filetree.neo-tree = {
+        enable = true;
+        setupOpts = {
+          auto_clean_after_session_restore = true;
+          close_if_last_window = true;
+          default_source = "git_status";
 
-        sources = [ "git_status" ];
+          sources = ["git_status"];
 
-        source_selector = {
-          winbar = true;
-          content_layout = "center";
-          sources = [
-            { source = "git_status"; display_name = " Git"; }
-          ];
-        };
-
-        default_component_configs = {
-          indent = { padding = 0; indent_size = 1; };
-          icon = {
-            folder_closed = "";
-            folder_open   = "";
-            folder_empty  = "";
-            default       = "";
+          source_selector = {
+            winbar = true;
+            content_layout = "center";
+            sources = [
+              {
+                source = "git_status";
+                display_name = " Git";
+              }
+            ];
           };
-          modified = { symbol = "●"; };
-          git_status = {
-            symbols = {
-              added     = "";
-              deleted   = "";
-              modified  = "";
-              renamed   = "➜";
-              untracked = "★";
-              ignored   = "◌";
-              unstaged  = "✗";
-              staged    = "✓";
-              conflict  = "";
+
+          default_component_configs = {
+            indent = {
+              padding = 0;
+              indent_size = 1;
+            };
+            icon = {
+              folder_closed = "";
+              folder_open = "";
+              folder_empty = "";
+              default = "";
+            };
+            modified = {symbol = "●";};
+            git_status = {
+              symbols = {
+                added = "";
+                deleted = "";
+                modified = "";
+                renamed = "➜";
+                untracked = "★";
+                ignored = "◌";
+                unstaged = "✗";
+                staged = "✓";
+                conflict = "";
+              };
             };
           };
-        };
 
-        window = {
-          position = "right";
-          width = 30;
-          mappings = {
-            "<space>" = null;
-            "[b" = "prev_source";
-            "]b" = "next_source";
-            "o"  = "open";
-            "O"  = "system_open";
-            "h"  = "parent_or_close";
-            "l"  = "child_or_open";
-            "Y"  = "copy_selector";
+          window = {
+            position = "right";
+            width = 30;
+            mappings = {
+              "<space>" = null;
+              "[b" = "prev_source";
+              "]b" = "next_source";
+              "o" = "open";
+              "O" = "system_open";
+              "h" = "parent_or_close";
+              "l" = "child_or_open";
+              "Y" = "copy_selector";
+            };
           };
-        };
 
-        filesystem = {
-          follow_current_file = { enabled = true; };
-          hijack_netrw_behavior = "open_current";
-          use_libuv_file_watcher = true;
-        };
+          filesystem = {
+            follow_current_file = {enabled = true;};
+            hijack_netrw_behavior = "open_current";
+            use_libuv_file_watcher = true;
+          };
 
-        event_handlers = [
-          {
-            event = "neo_tree_buffer_enter";
-            handler = lib.generators.mkLuaInline ''
-              function(_)
-                vim.opt_local.signcolumn = "auto"
-              end
-            '';
-          }
-        ];
+          event_handlers = [
+            {
+              event = "neo_tree_buffer_enter";
+              handler = lib.generators.mkLuaInline ''
+                function(_)
+                  vim.opt_local.signcolumn = "auto"
+                end
+              '';
+            }
+          ];
+        };
       };
-
-    };
       vim.utility.motion.leap.mappings.leapForwardTo = "s";
       vim.utility.motion.leap.mappings.leapBackwardTo = "S";
       vim.dashboard.alpha.enable = false;
@@ -168,7 +177,7 @@
         lazy.plugins = {
           telescope = {
             package = "telescope";
-            cmd = [ "Telescope" ];
+            cmd = ["Telescope"];
             keys = [
               {
                 mode = "n";
@@ -193,30 +202,30 @@
 
           nvim-treesitter = {
             package = "nvim-treesitter";
-            event = [ "BufReadPost" "BufNewFile" ];
+            event = ["BufReadPost" "BufNewFile"];
           };
 
-gitsigns-nvim = {
-  package = "gitsigns-nvim";
-  event = [ "BufReadPre" ];
-  setupModule = "gitsigns";
-  setupOpts = {
-    signs = {
-      add = { text = "│"; };
-      change = { text = "│"; };
-      delete = { text = "󰍵"; };
-      topdelete = { text = "‾"; };
-      changedelete = { text = "󱗜"; };
-      untracked = { text = "│"; };
-    };
-    signcolumn = true;
-    linehl = false;
-  };
-};
+          gitsigns-nvim = {
+            package = "gitsigns-nvim";
+            event = ["BufReadPre"];
+            setupModule = "gitsigns";
+            setupOpts = {
+              signs = {
+                add = {text = "│";};
+                change = {text = "│";};
+                delete = {text = "󰍵";};
+                topdelete = {text = "‾";};
+                changedelete = {text = "󱗜";};
+                untracked = {text = "│";};
+              };
+              signcolumn = true;
+              linehl = false;
+            };
+          };
 
           toggleterm-nvim = {
             package = "toggleterm-nvim";
-            cmd = [ "ToggleTerm" ];
+            cmd = ["ToggleTerm"];
             keys = [
               {
                 mode = "n";
@@ -231,7 +240,6 @@ gitsigns-nvim = {
         # custom keymaps (non-plugin specific or always-on)
 
         keymaps = [
-
           {
             mode = "n";
             key = "<leader>r";
