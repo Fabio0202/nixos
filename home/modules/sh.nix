@@ -4,10 +4,6 @@
   ...
 }: let
   myAliases = {
-    nom = "nix";
-    df = "dysk";
-    oil = "./../scripts/oil.sh";
-    docker-compose = "podman compose";
     mkdir = "mkdir -p";
     l = "eza --icons";
     ls = "eza --icons";
@@ -33,7 +29,7 @@
     tm = "task modify";
     tc = "task context";
     rm = "trash-put";
-    update = "sudo nixos-rebuild switch --flake ~/.nixos/";
+    update = "sudo nixos-rebuild switch --flake ~/nixos#pc";
   };
 in {
   programs.zoxide = {
@@ -72,8 +68,6 @@ in {
   programs.fzf.enable = true;
 
   programs.fish.enable = false;
-
-  programs.zsh.enable = true;
 
   programs.zsh.initExtra = ''
         source ~/.p10k.zsh
