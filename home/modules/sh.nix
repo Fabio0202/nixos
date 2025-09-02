@@ -24,7 +24,7 @@
     cdadd = "zoxide add";
     t = "task";
     tt = "taskwarrior-tui";
-    td = "task done";
+    td = "task done"; #task wird als done markiert
     ta = "task add";
     tm = "task modify";
     tc = "task context";
@@ -71,23 +71,6 @@ in {
 
   programs.zsh.initExtra = ''
         source ~/.p10k.zsh
-        krabby random
-
-    function fzf() {
-      local selected_file
-      selected_file=$(command fzf) || return
-      xdg-open "$selected_file"
-    }
-      function y() {
-      	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-      	yazi "$@" --cwd-file="$tmp"
-      	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-      		builtin cd -- "$cwd"
-      	fi
-      	rm -f -- "$tmp"
-      }
-
-        eval "$(direnv hook zsh)"
   '';
   programs.zsh = {
     enable = true;
@@ -128,7 +111,6 @@ in {
   };
 
   home.packages = with pkgs; [
-    krabby
     fzf
     jq
     eza
@@ -141,7 +123,6 @@ in {
     lf
     cmake
     gcc
-    pokemon-colorscripts-mac
     neofetch
     ripgrep
     kitty
