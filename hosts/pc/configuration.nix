@@ -35,9 +35,9 @@
   boot.loader.grub.useOSProber = true;
   boot.plymouth = {
     enable = true;
-    font = "${pkgs.jetbrains-mono}/share/fonts/truetype/JetBrainsMono-Regular.ttf";
     themePackages = [pkgs.catppuccin-plymouth];
-    # theme = "catppuccin-macchiato";
+    theme = "catppuccin-macchiato"; # check the exact dir name in /run/current-system/sw/share/plymouth/themes
+    # font = "${pkgs.jetbrains-mono}/share/fonts/truetype/JetBrainsMono-Regular.ttf";
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
