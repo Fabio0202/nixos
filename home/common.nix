@@ -15,7 +15,7 @@
     nautilus
     xdg-utils
     discord
-    zathura # ein pdf viewer
+    evince # ein pdf viewer
     audacious # Audio player
     mpv #ein video player
 
@@ -52,7 +52,7 @@
     "video/*" = ["mpv.desktop"]; # Default video player
     "audio/*" = ["audacious.desktop"]; # Default audio player
     "image/*" = ["viewnior.desktop"]; # Default image viewer
-    "application/pdf" = ["zathura.desktop"]; # Default PDF viewer
+    "application/pdf" = ["evince.desktop"]; # Default PDF viewer
     "text/html" = ["firefox.desktop"]; # Default browser for HTML links
     "x-scheme-handler/http" = ["firefox.desktop"]; # For HTTP links
     "x-scheme-handler/https" = ["firefox.desktop"]; # For HTTPS links
