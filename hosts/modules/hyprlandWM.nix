@@ -47,6 +47,8 @@ in {
     DesktopNames=Hyprland          # Name associated with this desktop session
   '';
 
+  # Make GTK handle OpenURI; Hyprland handles screencast
+  config.common.default = ["gtk" "hyprland"];
   # Remove decorations for QT applications
   environment.sessionVariables = {
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
@@ -54,6 +56,7 @@ in {
 
   xdg.portal = {
     enable = true;
+    # hyprland already has it's own portal, having both wlr and hyprland enabled can cause issues
     wlr.enable = true;
     xdgOpenUsePortal = true;
     extraPortals = [
@@ -61,9 +64,4 @@ in {
       pkgs.xdg-desktop-portal-gtk
     ];
   };
-
-  environment.variables.XDG_DATA_DIRS = lib.mkForce [
-    "/var/lib/flatpak/exports/share"
-    "~/.local/share/flatpak/exports/share"
-  ];
 }

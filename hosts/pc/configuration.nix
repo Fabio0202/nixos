@@ -33,9 +33,22 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/nvme0n1";
   boot.loader.grub.useOSProber = true;
+  boot.plymouth = {
+    enable = true;
+    themePackages = [pkgs.catppuccin-plymouth];
+    theme = "catppuccin-macchiato"; # check the exact dir name in /run/current-system/sw/share/plymouth/themes
+    # font = "${pkgs.jetbrains-mono}/share/fonts/truetype/JetBrainsMono-Regular.ttf";
+  };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # Enable Tailscale VPN
+  services.tailscale.enable = true;
+
+  # Add distrobox to the system packages so that it is installed and available.
+  environment.systemPackages = with pkgs; [
+    distrobox
+  ];
   # Installiere Firefox
   programs.firefox.enable = true;
 
