@@ -82,9 +82,7 @@ in {
     # Screenshot/Screencapture
     "${mainMod}, P, exec, pin"
     "${mainMod} SHIFT, S, exec, grim -g \"$(slurp)\" - | wl-copy"
-    # "${mainMod} SHIFT, G, exec, $scrPath/rec.sh"
-    # "${mainMod} ALT, P, exec, $scrPath/screenshot.sh m"
-    # ", print, exec, $scrPath/screenshot.sh p"
+    "Print, exec, grim - | wl-copy"
 
     # Move focus with mainMod + arrow keys
     "${mainMod}, H, movefocus, l"
@@ -123,19 +121,18 @@ in {
 
     "${mainMod} CTRL, j, workspace, r+1"
     "${mainMod} CTRL, k, workspace, r-1"
-    "${mainMod} CTRL, right, workspace, r+1"
-    "${mainMod} CTRL, left, workspace, r-1"
-    "${mainMod} CTRL, down, workspace, empty"
+    "${mainMod} CTRL, up, workspace, r+1"
+    "${mainMod} CTRL, down, workspace, r-1"
 
     # Resize windows
-    "${mainMod} CONTROL ALT, l, resizeactive, 30 0"
-    "${mainMod} CONTROL ALT, h, resizeactive, -30 0"
-    "${mainMod} CONTROL ALT, k, resizeactive, 0 -30"
-    "${mainMod} CONTROL ALT, j, resizeactive, 0 30"
-    "${mainMod} CONTROL ALT, right, resizeactive, 30 0"
-    "${mainMod} CONTROL ALT, left, resizeactive, -30 0"
-    "${mainMod} CONTROL ALT, up, resizeactive, 0 -30"
-    "${mainMod} CONTROL ALT, down, resizeactive, 0 30"
+    "${mainMod} CONTROL ALT, l, resizeactive, 20 0"
+    "${mainMod} CONTROL ALT, h, resizeactive, -20 0"
+    "${mainMod} CONTROL ALT, k, resizeactive, 0 -20"
+    "${mainMod} CONTROL ALT, j, resizeactive, 0 20"
+    "${mainMod} CONTROL ALT, right, resizeactive, 20 0"
+    "${mainMod} CONTROL ALT, left, resizeactive, -20 0"
+    "${mainMod} CONTROL ALT, up, resizeactive, 0 -20"
+    "${mainMod} CONTROL ALT, down, resizeactive, 0 20"
 
     # Move active window
     "${mainMod} SHIFT, h, movewindoworgroup, l"
@@ -155,6 +152,8 @@ in {
     # "${mainMod} SHIFT, j, movetoworkspace, up"
     "${mainMod} SHIFT, j, movetoworkspace, +1"
     "${mainMod} SHIFT, k, movetoworkspace, -1"
+    "${mainMod} SHIFT, down, movetoworkspace, +1"
+    "${mainMod} SHIFT, up, movetoworkspace, -1"
     # Move window silently to workspace Super + Alt + [0-9]
     "${mainMod} ALT, 1, movetoworkspacesilent, 1"
     "${mainMod} ALT, 2, movetoworkspacesilent, 2"
