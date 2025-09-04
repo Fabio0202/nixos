@@ -44,7 +44,8 @@ in {
   # programs.stylix.targets.kitty.enable = true;
   programs.kitty = {
     enable = true;
-    theme = "Rosé Pine";
+    # themeFile = "Rosé Pine";
+    themeFile = "Catppuccin-Mocha";
     settings = {
       enable_audio_bell = false;
       font_family = "JetBrainsMono Nerd Font";
