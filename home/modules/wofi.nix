@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   programs.wofi = {
     enable = true;
   };
@@ -7,4 +7,9 @@
     source = builtins.path {path = ../configfiles/wofi;};
     recursive = true;
   };
+
+  home.packages = with pkgs; [
+    # papirus-icon-theme
+    adwaita-icon-theme
+  ];
 }

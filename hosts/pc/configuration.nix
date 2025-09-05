@@ -7,11 +7,13 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-
     ../modules/hardware.nix
     # Importiere das xserver-gnome Modul
     # ../modules/gnome.nix
     ../modules/hyprlandWM.nix
+    ../modules/stylix.nix
+    ../modules/podman.nix
+    ../modules/nix-ld.nix # to run binaries that require standard libraries
     ../modules/user.nix
     ../modules/locale.nix
     ../modules/audio.nix
@@ -26,7 +28,6 @@
     ../modules/gc.nix
     ../modules/light.nix
     ../modules/networking.nix
-    # ../modules/stylix.nix
     ../modules/swap.nix
     ../modules/system.nix
   ];
@@ -42,15 +43,15 @@
     # font = "${pkgs.jetbrains-mono}/share/fonts/truetype/JetBrainsMono-Regular.ttf";
   };
 
+  environment.systemPackages = with pkgs; [
+    adwaita-icon-theme
+    papirus-icon-theme
+  ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # TODO: Enable Tailscale VPN
   # services.tailscale.enable = true;
 
-  # Add distrobox to the system packages so that it is installed and available.
-  environment.systemPackages = with pkgs; [
-    distrobox
-  ];
   # Installiere Firefox
   programs.firefox.enable = true;
 
@@ -62,4 +63,5 @@
 
   # Systemversion
   system.stateVersion = "25.11";
+  networking.hostName = "pc";
 }

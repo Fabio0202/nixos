@@ -1,4 +1,3 @@
-[
   {
     "height": 28,
     "position": "top",
@@ -92,7 +91,7 @@
         "default": ["", "", " "]
       },
       "format-muted": "",
-      "on-click": "pamixer -t"
+      "on-click": "pavucontrol"
     },
 
     "custom/mic": {

@@ -7,7 +7,7 @@
     shadow = {
       enabled = true;
       range = 12;
-      color = "rgba(49, 50, 68, 0.6)"; # surface0 with transparency
+      # color = "rgba(49, 50, 68, 0.6)"; # surface0 with transparency
     };
     # mac style
     blur = {

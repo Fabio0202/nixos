@@ -1,5 +1,7 @@
 show=drun
 width=750
+allow_images=true
+image_size=40
 height=400
 show-icons=true
 always_parse_args=true
@@ -9,4 +11,5 @@ hide_scroll=true
 print_command=true
 insensitive=true
 prompt=
-columns=2
+columns=1
+icon-theme=Adwaita

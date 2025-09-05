@@ -3,6 +3,7 @@
 
   inputs = {
     nvf.url = "github:notashelf/nvf";
+    # TODO: Update to 25.11
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -35,15 +36,17 @@
         modules = [
           ./hosts/${hostName}/configuration.nix
           home-manager.nixosModules.home-manager
+          inputs.stylix.nixosModules.stylix
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.fabio = {
-	    imports = [
-	    (import ./home/${hostName}.nix)
-	    inputs.nvf.homeManagerModules.default];
-	    };
-            home-manager.extraSpecialArgs = {inherit inputs; }; # Also pass to home-manager
+              imports = [
+                (import ./home/${hostName}.nix)
+                inputs.nvf.homeManagerModules.default
+              ];
+            };
+            home-manager.extraSpecialArgs = {inherit inputs;}; # Also pass to home-manager
           }
         ];
       };

@@ -35,8 +35,8 @@
         gaps_out = 10;
         border_size = 2;
 
-        "col.active_border" = "rgb(b4befe) rgb(89b4fa) 45deg"; # lavender → blue gradient
-        "col.inactive_border" = "0xb3313244";
+        # "col.active_border" = "rgb(b4befe) rgb(89b4fa) 45deg"; # lavender → blue gradient
+        # "col.inactive_border" = "0xb3313244";
         # rose pine colors
         # "col.active_border" = "rgb(eb6f92) rgb(9ccfd8) 45deg";
         no_border_on_floating = false;

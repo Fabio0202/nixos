@@ -7,6 +7,8 @@
     syncthing
     obsidian
     dysk # zeigt wieviel Speicher frei ist auf Festplatte
+    distrobox # distrobox enter ubuntu dann bist du in dem terminal in ubuntu virtuell drin
+    wine # for windows programs
     ncdu #Welcher Folder wieviel Speicher
     libreoffice
     unzip
@@ -16,6 +18,7 @@
     gimp3-with-plugins
 
     #timer app usw
+
     gnome-clocks
 
     # calculator, hat mehr funktionen
@@ -74,8 +77,7 @@
   #   "x-scheme-handler/https" = ["firefox.desktop"]; # For HTTPS links
   # };
   imports = [
-    ./modules/neovim/nvf.nix
-    ./modules/taskwarrior.nix
+    ./modules/neovim/neovim.nix
     ./modules/obs-studio.nix
     ./modules/hyprland/default.nix
     ./modules/scripts.nix

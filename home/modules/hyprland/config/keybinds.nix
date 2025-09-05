@@ -32,10 +32,8 @@ in {
     "${mainMod}, mouse_down, workspace, e+1"
     "${mainMod}, mouse_up, workspace, e-1"
     "${mainMod}, Q, exec, hyprctl dispatch killactive"
+    "${mainMod}, P, exec, wlogout --buttons-per-row 4"
     "${mainMod}, S, exec, hyprctl switchxkblayout current next"
-
-    "${mainMod}, o, togglesplit,"
-    "${mainMod}, V, exec, neovide"
     "${mainMod}, D, overview:toggle"
     "${mainMod}, delete, exit"
     "${mainMod}, G, togglefloating"
@@ -48,7 +46,8 @@ in {
     "${mainMod}, F, exec, nautilus"
     "${mainMod} SHIFT, F, exec, /home/fabio/nixos-dotfiles/scripts/wofi-dir-script.sh"
     "${mainMod}, B, exec, firefox"
-
+    "${mainMod}, C, exec, code"
+    "${mainMod}, V, exec, nvim"
     # Rofi toggles
     "${mainMod}, SPACE, exec, /home/fabio/scripts/toggle-wk.sh"
     "${mainMod}, a, exec, pkill -x rofi ; rofi -show window"
@@ -84,7 +83,7 @@ in {
     # Screenshot/Screencapture
     "${mainMod}, P, exec, pin"
     "${mainMod} SHIFT, S, exec, sh -c 'grim -g \"$(slurp)\" - | wl-copy'"
-    # "Print, exec, sh -c 'grim - | wl-copy'"
+    ", Print, exec, sh -c 'grim - | wl-copy && notify-send \"Screenshot\" \"Copied entire screen to clipboard\"'"
 
     # Move focus with mainMod + arrow keys
     "${mainMod}, H, movefocus, l"
@@ -96,6 +95,7 @@ in {
     "${mainMod}, down, movefocus, d"
     "${mainMod}, right, movefocus, r"
     "ALT, Tab, movefocus, d"
+    "${mainMod}, Tab, exec, ../../../scripts/wofi_keybinds.sh"
 
     # Switch workspaces
     "${mainMod}, 1, workspace, 1"
@@ -123,8 +123,8 @@ in {
 
     "${mainMod} CTRL, j, workspace, r+1"
     "${mainMod} CTRL, k, workspace, r-1"
-    "${mainMod} CTRL, up, workspace, r+1"
-    "${mainMod} CTRL, down, workspace, r-1"
+    "${mainMod} CTRL, up, workspace, r-1"
+    "${mainMod} CTRL, down, workspace, r+1"
 
     # Resize windows
     "${mainMod} CONTROL ALT, l, resizeactive, 20 0"
