@@ -1,4 +1,4 @@
-{
+{lib, ...}: {
   wayland.windowManager.hyprland = {
     settings = {
       animations = {
@@ -35,7 +35,7 @@
         gaps_out = 10;
         border_size = 2;
 
-        # "col.active_border" = "rgb(b4befe) rgb(89b4fa) 45deg"; # lavender → blue gradient
+        "col.active_border" = lib.mkForce "rgb(a6e3a1) rgb(74c7ec) 45deg"; # green → blue-green
         # "col.inactive_border" = "0xb3313244";
         # rose pine colors
         # "col.active_border" = "rgb(eb6f92) rgb(9ccfd8) 45deg";
