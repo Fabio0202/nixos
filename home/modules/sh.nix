@@ -48,6 +48,8 @@ in {
     themeFile = "Catppuccin-Mocha";
     settings = {
       enable_audio_bell = false;
+
+      sync_to_monitor = "yes";
       font_family = "JetBrainsMono Nerd Font";
       # background_opacity = "0.9";
       background_blur = "12";

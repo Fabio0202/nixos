@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   pkgs-unstable,
   ...
 }: let
@@ -21,6 +22,20 @@ in {
   home.packages = with pkgs; [
     rose-pine-cursor
   ];
+
+  # systemd.user.services.waybar = {
+  #   Unit = {
+  #     Description = "Waybar with wrapper script";
+  #     After = ["graphical-session.target"];
+  #     PartOf = ["graphical-session.target"];
+  #   };
+  #   Service = {
+  #     ExecStart = "${config.home.homeDirectory}/nixos/home/scripts/start_waybar.sh";
+  #     Restart = "always";
+  #     RestartSec = 2;
+  #   };
+  #   Install.WantedBy = ["graphical-session.target"];
+  # };
   home.sessionVariables = {
     HYPRCURSOR_THEME = "rose-pine-hyprcursor";
     HYPRCURSOR_SIZE = "24";
@@ -60,18 +75,21 @@ in {
       # };
     };
     extraConfig = ''
-      monitor=,preferred,auto,auto
-      exec-once = nwg-dock-hyprland -d -hd 0
-      exec-once = udiskie -a
-      exec-once = hyprpanel
-      exec-once = hypridle
-      exec-once = ags
-      # exec-once = nwg-panel
-        exec-once = ~/nixos/home/scripts/start_waybar.sh
-      exec-once = ~/nixos/home/scripts/battery-monitor.sh
-      xwayland {
-        force_zero_scaling = true;
-      }
+            monitor=,preferred,auto,auto
+            exec-once = nwg-dock-hyprland -nolauncher -d -hd 0
+            exec-once = udiskie -a
+            exec-once = hyprpanel
+            exec-once = hypridle
+            exec-once = ags
+            # exec-once = nwg-panel
+            exec-once = ~/nixos/home/scripts/battery-monitor.sh
+            xwayland {
+              force_zero_scaling = true;
+            }
+
+
+      exec-once = nm-applet --indicator
+            exec-once = ~/nixos/home/scripts/start_waybar.sh
     '';
   };
   systemd.user.services.ax-shell = {};

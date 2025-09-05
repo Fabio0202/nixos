@@ -48,12 +48,15 @@ in {
   '';
 
   # Make GTK handle OpenURI; Hyprland handles screencast
-  config.common.default = ["gtk" "hyprland"];
+  # Moved these options to the top level:
+  xdg.portal.config.common.default = ["gtk" "hyprland"];
+
   # Remove decorations for QT applications
   environment.sessionVariables = {
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
   };
 
+  programs.xwayland.enable = true;
   xdg.portal = {
     enable = true;
     # hyprland already has it's own portal, having both wlr and hyprland enabled can cause issues

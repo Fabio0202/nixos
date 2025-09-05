@@ -34,11 +34,11 @@
         gaps_in = 4;
         gaps_out = 10;
         border_size = 2;
-        "col.active_border" = "rgb(cba6f7) rgb(94e2d5) 45deg";
 
+        "col.active_border" = "rgb(b4befe) rgb(89b4fa) 45deg"; # lavender → blue gradient
+        "col.inactive_border" = "0xb3313244";
         # rose pine colors
         # "col.active_border" = "rgb(eb6f92) rgb(9ccfd8) 45deg";
-        "col.inactive_border" = "0x00000000";
         no_border_on_floating = false;
       };
 

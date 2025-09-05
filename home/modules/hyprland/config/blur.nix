@@ -6,8 +6,8 @@
     # };
     shadow = {
       enabled = true;
-      range = 12; # Larger shadow spread
-      color = "rgba(0, 0, 0, 0.5)"; # Semi-transparent black
+      range = 12;
+      color = "rgba(49, 50, 68, 0.6)"; # surface0 with transparency
     };
     # mac style
     blur = {

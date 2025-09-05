@@ -15,6 +15,8 @@
     ../modules/user.nix
     ../modules/locale.nix
     ../modules/audio.nix
+    ../modules/graphics.nix
+    ../modules/nvidia.nix
     ../modules/user.nix
     ../modules/bluetooth.nix
     ../modules/energy-management.nix
@@ -42,8 +44,8 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # Enable Tailscale VPN
-  services.tailscale.enable = true;
+  # TODO: Enable Tailscale VPN
+  # services.tailscale.enable = true;
 
   # Add distrobox to the system packages so that it is installed and available.
   environment.systemPackages = with pkgs; [

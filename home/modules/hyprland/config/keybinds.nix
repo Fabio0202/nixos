@@ -33,6 +33,8 @@ in {
     "${mainMod}, mouse_up, workspace, e-1"
     "${mainMod}, Q, exec, hyprctl dispatch killactive"
     "${mainMod}, S, exec, hyprctl switchxkblayout current next"
+
+    "${mainMod}, o, togglesplit,"
     "${mainMod}, V, exec, neovide"
     "${mainMod}, D, overview:toggle"
     "${mainMod}, delete, exit"
@@ -81,8 +83,8 @@ in {
 
     # Screenshot/Screencapture
     "${mainMod}, P, exec, pin"
-    "${mainMod} SHIFT, S, exec, grim -g \"$(slurp)\" - | wl-copy"
-    "Print, exec, grim - | wl-copy"
+    "${mainMod} SHIFT, S, exec, sh -c 'grim -g \"$(slurp)\" - | wl-copy'"
+    # "Print, exec, sh -c 'grim - | wl-copy'"
 
     # Move focus with mainMod + arrow keys
     "${mainMod}, H, movefocus, l"

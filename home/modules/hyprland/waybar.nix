@@ -4,6 +4,7 @@
     jetbrains-mono
     fantasque-sans-mono
     lm_sensors
+    networkmanagerapplet
 
     socat # Required for Hyprland workspace events
     jq # For JSON processing
