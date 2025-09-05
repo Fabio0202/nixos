@@ -15,6 +15,4 @@
     # `networkmanager` - A service to manage network connections, including Ethernet and WiFi.
     networkmanager
   ];
-
-  networking.hostName = "fabio"; # Define your hostname.
 }

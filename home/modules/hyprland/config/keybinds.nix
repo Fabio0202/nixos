@@ -47,7 +47,7 @@ in {
     "${mainMod} SHIFT, F, exec, /home/fabio/nixos-dotfiles/scripts/wofi-dir-script.sh"
     "${mainMod}, B, exec, firefox"
     "${mainMod}, C, exec, code"
-    "${mainMod}, V, exec, nvim"
+    "${mainMod}, V, exec, kitty nvim"
     # Rofi toggles
     "${mainMod}, SPACE, exec, /home/fabio/scripts/toggle-wk.sh"
     "${mainMod}, a, exec, pkill -x rofi ; rofi -show window"
