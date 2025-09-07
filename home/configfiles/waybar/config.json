@@ -59,14 +59,14 @@
       "format": "󰍛  {usage}%",
       "interval": 5,
       "tooltip": false,
-      "on-click": "btop"
+      "on-click": "kitty btop"
     },
 
     "memory": {
       "format": "󰘚  {percentage}%",
       "interval": 5,
       "tooltip": false,
-      "on-click": "btop"
+      "on-click": "kitty btop"
     },
 
     "custom/cpu_temp": {
@@ -91,11 +91,11 @@
         "default": ["", "", " "]
       },
       "format-muted": "",
-      "on-click": "pavucontrol"
+      "on-click": "pamixer -t; pkill -RTMIN+9 waybar"
     },
 
     "custom/mic": {
-      "exec": "pamixer --default-source --get-mute | grep -q true && echo '' || echo ''",
+      "exec": "pamixer --default-source --get-mute | grep -q true && echo '' || echo ''",
       "interval": 2,
       "signal": 9,
       "on-click": "pamixer --default-source -t; pkill -RTMIN+9 waybar",
@@ -109,13 +109,14 @@
   "on-click": "hyprctl switchxkblayout current next"
 },
 
-"custom/nightmode": {
-  "exec": "pgrep -x hyprsunset >/dev/null && echo '󰖔' || echo '󰖙'",
-  "interval": 10,
-  "format": "{}",
-  "signal": 10,
-  "on-click": "pkill -x hyprsunset || hyprsunset -t 4000; pkill -RTMIN+10 waybar"
-},
+
+    "custom/nightmode": {
+      "exec": "pgrep -x hyprsunset >/dev/null && echo '󰖔' || echo '󰖙'",
+      "format": "{}",
+      "interval": 1,
+      "signal": 1,
+      "on-click": "(pgrep -x hyprsunset >/dev/null && pkill -x hyprsunset) || hyprsunset -t 4000; pkill -RTMIN+1 waybar"
+    },
     "custom/lock": {
       "format": "",
       "on-click": "hyprlock",

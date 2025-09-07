@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   inputs,
   ...
 }: {
@@ -25,7 +26,6 @@
     # some hyprpanel dependencies
     # bluez-utils #appearently doesnt exist?
     bluez
-    gvfs # gnome virtual file system; falls man zB Server in Files sehen möchte
     libgtop # system monitoring library; CPU usw.
     python3Packages.dbus-python
   ];

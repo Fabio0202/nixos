@@ -78,7 +78,7 @@
   # };
   imports = [
     ./modules/neovim/neovim.nix
-    ./modules/obs-studio.nix
+    ./modules/obs-studio.nix # for screen recording
     ./modules/hyprland/default.nix
     ./modules/scripts.nix
     ./modules/sh.nix

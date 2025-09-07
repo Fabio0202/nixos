@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    swaylock
+    swaylock # to lock your session (manually or automatically)
   ];
 
   home.file.".config/swaylock/" = {

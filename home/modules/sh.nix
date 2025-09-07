@@ -73,20 +73,20 @@ in {
   programs.fish.enable = false;
 
   programs.zsh.initExtra = ''
-           source ~/.p10k.zsh
-         function fzf() {
-           local selected_file
-           selected_file=$(command fzf) || return
-           xdg-open "$selected_file"
-         }
-           function y() {
-           	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-           	yazi "$@" --cwd-file="$tmp"
-           	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-           		builtin cd -- "$cwd"
-           	fi
-           	rm -f -- "$tmp"
-           }
+               source ~/.p10k.zsh
+             function fzf() {
+               local selected_file
+               selected_file=$(command fzf) || return
+               xdg-open "$selected_file"
+             }
+               function y() {
+               	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+               	yazi "$@" --cwd-file="$tmp"
+               	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+               		builtin cd -- "$cwd"
+               	fi
+               	rm -f -- "$tmp"
+               }
 
        # Show a chemistry fun fact at shell startup
       # misfortune science | cowsay -f tux | lolcat
