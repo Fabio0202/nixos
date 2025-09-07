@@ -33,6 +33,7 @@
 
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme
+    steam-run
     papirus-icon-theme
   ];
 

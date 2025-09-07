@@ -22,6 +22,7 @@ in {
     };
   };
 
+  services.gvfs.enable = true; # gnome virtual file system; falls man zB Server in Files sehen möchte, ausserdem damit trash restore in nautilus file manager geht
   # this is a life saver.
   # literally no documentation about this anywhere.
   # might be good to write about this...
@@ -60,7 +61,7 @@ in {
   xdg.portal = {
     enable = true;
     # hyprland already has it's own portal, having both wlr and hyprland enabled can cause issues
-    wlr.enable = true;
+    # wlr.enable = true;
     xdgOpenUsePortal = true;
     extraPortals = [
       pkgs.xdg-desktop-portal-hyprland
