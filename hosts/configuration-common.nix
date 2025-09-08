@@ -27,7 +27,7 @@
 
   boot.plymouth = {
     enable = enable;
-    themePackages = [pkgs.catppuccin-plymouth];
+    # themePackages = [pkgs.catppuccin-plymouth];
     # theme = "catppuccin-macchiato";
   };
 
