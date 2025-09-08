@@ -14,4 +14,5 @@
     enable = true;
     forwardX11 = true;
   };
+  programs.ssh.startAgent = true;
 }
