@@ -26,9 +26,9 @@
   ];
 
   boot.plymouth = {
-    enable = true;
+    enable = enable;
     themePackages = [pkgs.catppuccin-plymouth];
-    theme = "catppuccin-macchiato";
+    # theme = "catppuccin-macchiato";
   };
 
   environment.systemPackages = with pkgs; [
