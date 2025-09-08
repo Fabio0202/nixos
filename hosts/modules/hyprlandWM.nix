@@ -10,7 +10,7 @@ in {
   services.xserver.enable = false;
   # services.xserver.displayManager.sddm.enable = true;
   programs.hyprland.enable = true; # Enable the Hyprland window manager
-
+  programs.hyprland.withUWSM = true; # Enable improved hyprland compatibility with uwsm
   # enable greetd to start a session without hyprland
   services.greetd = {
     enable = true;
@@ -48,24 +48,29 @@ in {
     DesktopNames=Hyprland          # Name associated with this desktop session
   '';
 
-  # Make GTK handle OpenURI; Hyprland handles screencast
-  # Moved these options to the top level:
-  xdg.portal.config.common.default = ["gtk" "hyprland"];
-
   # Remove decorations for QT applications
   environment.sessionVariables = {
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
   };
 
   programs.xwayland.enable = true;
+
+  # Make GTK handle OpenURI; Hyprland handles screencast
+  # Moved these options to the top level:
   xdg.portal = {
     enable = true;
-    # hyprland already has it's own portal, having both wlr and hyprland enabled can cause issues
-    # wlr.enable = true;
-    xdgOpenUsePortal = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-hyprland
-      pkgs.xdg-desktop-portal-gtk
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-hyprland # Add this first
+      xdg-desktop-portal-gtk
+      # xdg-desktop-portal-gnome  # You can remove this if not needed
     ];
+    config = {
+      common.default = ["hyprland" "gtk"];
+      hyprland = {
+        default = ["hyprland" "gtk"];
+        "org.freedesktop.impl.portal.FileChooser" = ["gtk"];
+        "org.freedesktop.impl.portal.OpenURI" = ["gtk"];
+      };
+    };
   };
 }
