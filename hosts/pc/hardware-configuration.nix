@@ -19,8 +19,10 @@
     extraModulePackages = [];
 
     # placeholders for hibernation
-    # resumeDevice = "/dev/disk/by-uuid/<ROOT_UUID>";
-    # resumeOffset = <OFFSET>;
+    resumeDevice = "/dev/disk/by-uuid/17026733-35a8-4027-8023-c2313f4012f4";
+    kernelParams = [
+      "resume_offset=195651584"
+    ];
   };
 
   fileSystems."/" = {
