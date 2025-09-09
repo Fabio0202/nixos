@@ -80,7 +80,6 @@ in {
       monitor=,preferred,auto,auto
       exec-once = nwg-dock-hyprland -nolauncher -d -hd 0
       exec-once = udiskie -a
-      exec-once = hyprpanel
       exec-once = hypridle
       exec-once = ags
       # exec-once = nwg-panel

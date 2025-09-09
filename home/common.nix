@@ -83,7 +83,6 @@
     ./modules/scripts.nix
     ./modules/sh.nix
     ./modules/icons-theme.nix
-    ./modules/hyprpanel.nix
     ./modules/wofi.nix
     ./modules/nwg-dock.nix
     ./modules/git.nix

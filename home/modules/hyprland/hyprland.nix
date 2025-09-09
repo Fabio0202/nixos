@@ -6,7 +6,6 @@
 }: {
   # Include user-specific packages via Home Manager
   home.packages = with pkgs; [
-    hyprpanel
     # Grimblast: Enhanced screenshot tool for Wayland (commented out here, might be used later)
     hyprpicker # Color picker tool compatible with Hyprland
     grim # Screenshot utility for Wayland, works well with slurp for selective screenshots
