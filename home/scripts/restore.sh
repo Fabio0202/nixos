@@ -1,25 +1,32 @@
 #!/usr/bin/env bash
 
-CONFIG="/home/simon/nixos-dotfiles/home/configfiles/wofi/config/config"
-STYLE="/home/simon/nixos-dotfiles/home/configfiles/wofi/src/macchiato/style.css"
+CONFIG="/home/fabio/nixos/home/configfiles/wofi/config/config"
+STYLE="/home/fabio/nixos/home/configfiles/wofi/src/macchiato/style.css"
 STATE="$XDG_RUNTIME_DIR/hyprland-minimized"
 CURRENT_WS=$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .activeWorkspace.name')
 
-if [[ $(pidof wofi) ]]; then
-    pkill wofi
-    exit 0
+# Toggle behavior: close Wofi if it's already open
+if pgrep -x wofi >/dev/null; then
+  pkill wofi
+  exit 0
 fi
 
-[ ! -f "$STATE" ] && exit 0
+[ ! -s "$STATE" ] && exit 0
 
-CHOICE=$(cut -f2 "$STATE" | wofi --conf "$CONFIG" --style "$STYLE" --dmenu --prompt "Restore window:")
+CURRENT_WS=$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .activeWorkspace.name')
 
-if [ -n "$CHOICE" ]; then
-    ADDR=$(grep -P "\t$CHOICE$" "$STATE" | cut -f1 | head -n1)
-    if [ -n "$ADDR" ]; then
-        # Move window back to current workspace
-        hyprctl dispatch movetoworkspacesilent name:$CURRENT_WS,address:$ADDR
-        # Remove from minimized list
-        grep -Pv "^$ADDR\t" "$STATE" > "$STATE.tmp" && mv "$STATE.tmp" "$STATE"
-    fi
-fi
+# Show titles to the user, but match by exact field value (no regex)
+CHOICE=$(awk -F'\t' '{print $2}' "$STATE" | \
+  wofi --conf "$CONFIG" --style "$STYLE" --dmenu --prompt "Restore window:")
+
+[ -z "$CHOICE" ] && exit 0
+
+# Find the address whose title equals CHOICE (field 2)
+ADDR=$(awk -F'\t' -v choice="$CHOICE" '$2 == choice {print $1; exit}' "$STATE")
+[ -z "$ADDR" ] && exit 0
+
+# Restore to current workspace
+hyprctl dispatch movetoworkspacesilent name:"$CURRENT_WS",address:$ADDR
+
+# Remove that entry from the state file (match by address in field 1)
+awk -F'\t' -v addr="$ADDR" '$1 != addr' "$STATE" > "$STATE.tmp" && mv "$STATE.tmp" "$STATE"
