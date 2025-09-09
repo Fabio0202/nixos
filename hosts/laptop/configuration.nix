@@ -8,7 +8,8 @@
     ../configuration-common.nix
     ../modules/userFabio.nix
     ../modules/nvidia.nix
-    ../modules/bootloader.nix
+    # ../modules/bootloader.nix
+    ../modules/grub.nix
   ];
 
   # boot.loader.systemd-boot.enable = true;

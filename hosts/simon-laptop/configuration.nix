@@ -7,7 +7,8 @@
     ./hardware-configuration.nix
     ../configuration-common.nix
     ../modules/userSimon.nix
-    ../modules/bootloader.nix
+    # ../modules/bootloader.nix
+    ../modules/grub.nix
   ];
 
   # boot.loader.systemd-boot.enable = true;
