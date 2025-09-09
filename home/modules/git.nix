@@ -5,8 +5,8 @@
 }: {
   programs.git = {
     enable = true;
-    userName = "Simon Muscas";
-    userEmail = "you@example.com"; # change this
+    userName = "Fabio";
+    userEmail = "fabiomuscas@gmail.com"; # change this
 
     extraConfig = {
       # how to handle `git pull` when branches diverge
