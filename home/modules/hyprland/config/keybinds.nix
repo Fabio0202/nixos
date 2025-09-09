@@ -44,6 +44,8 @@ in {
   ];
   wayland.windowManager.hyprland.settings.bind = [
     "${mainMod}, mouse_down, workspace, e+1"
+    "${mainMod}, TAB, exec, /home/fabio/nixos/home/scripts/restore.sh"
+    "${mainMod}, N, exec, /home/fabio/nixos/home/scripts/minimize.sh"
     "${mainMod}, mouse_up, workspace, e-1"
     "${mainMod}, Q, exec, hyprctl dispatch killactive"
     "${mainMod}, P, exec, wlogout --buttons-per-row 4"
