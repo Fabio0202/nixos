@@ -17,6 +17,13 @@
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
 
+  boot.kernelParams = [
+    "amdgpu.dpm=1" # dynamic power management (adjusts clocks/voltage)
+    "amdgpu.aspm=1" # PCIe link power management
+    "amdgpu.runpm=1" # runtime suspend when GPU idle
+    "amdgpu.dc=1" # display core (better power handling for screens)
+  ];
+
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/893451f1-87b3-42a3-a13b-a7d62c7b75e7";
     fsType = "ext4";
