@@ -9,7 +9,6 @@
     ./modules/stylix.nix
     ./modules/podman.nix
     ./modules/nix-ld.nix
-    ./modules/user.nix
     ./modules/locale.nix
     ./modules/audio.nix
     ./modules/graphics.nix

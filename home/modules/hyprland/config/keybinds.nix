@@ -44,8 +44,8 @@ in {
   ];
   wayland.windowManager.hyprland.settings.bind = [
     "${mainMod}, mouse_down, workspace, e+1"
-    "${mainMod}, TAB, exec, /home/fabio/nixos/home/scripts/restore.sh"
-    "${mainMod}, N, exec, /home/fabio/nixos/home/scripts/minimize.sh"
+    "${mainMod}, TAB, exec, restore"
+    "${mainMod}, N, exec, minimize"
     "${mainMod}, mouse_up, workspace, e-1"
     "${mainMod}, Q, exec, hyprctl dispatch killactive"
     "${mainMod}, P, exec, wlogout --buttons-per-row 4"
@@ -55,17 +55,16 @@ in {
     "${mainMod}, G, togglefloating"
     "${mainMod}, W, exec, waypaper"
     "${mainMod}, M, fullscreen"
-    "${mainMod}, return, exec, /home/fabio/nixos/home/scripts/wofi.sh"
+    "${mainMod}, return, exec, wofi-toggle"
     "ALT, return, fullscreen"
     # "${mainMod}, backspace, exec, $scrPath/logoutlaunch.sh 1" # logout menu
     "${mainMod}, T, exec, kitty"
     "${mainMod}, F, exec, nautilus"
-    "${mainMod} SHIFT, F, exec, /home/fabio/nixos-dotfiles/scripts/wofi-dir-script.sh"
     "${mainMod}, B, exec, firefox"
     "${mainMod}, C, exec, code"
     "${mainMod}, V, exec, kitty nvim"
     # Rofi toggles
-    "${mainMod}, SPACE, exec, /home/fabio/scripts/toggle-wk.sh"
+    "${mainMod}, SPACE, exec, toggle-wk"
     "${mainMod}, a, exec, pkill -x rofi ; rofi -show window"
     "${mainMod}, ESCAPE, exec, pkill -x rofi ; rofi -show window"
     "${mainMod}, e, exec, pkill -x rofi ; rofi -show drun"
@@ -78,7 +77,7 @@ in {
     ", XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
     # Microphone controls
 
-    ", XF86AudioMicMute, exec, swayosd-client --input-volume mute-toggle && ~/nixos-dotfiles/home/scripts/toggle-mic-mute-led.sh"
+    ", XF86AudioMicMute, exec, swayosd-client --input-volume mute-toggle && toggle-mic-mute-led"
 
     # Media controls
     ", XF86AudioPlay, exec, playerctl play-pause"

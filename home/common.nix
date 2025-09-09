@@ -87,8 +87,8 @@
     ./modules/icons-theme.nix
     ./modules/wofi.nix
     ./modules/nwg-dock.nix
+    ./modules/wrapScripts.nix
     ./modules/sunset-at-night.nix
-    ./modules/git.nix
     # hier kommen zB setup files aus /modules fuer die einzelnen pkgs bzw softwares
   ];
 }

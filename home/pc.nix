@@ -7,6 +7,7 @@ in {
   ];
   imports = [
     ./common.nix
+    ./modules/gitFabio.nix
   ];
   home = {
     inherit username;
@@ -14,4 +15,3 @@ in {
     stateVersion = "25.11";
   };
 }
-

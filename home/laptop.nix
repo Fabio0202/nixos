@@ -9,6 +9,7 @@ in {
     ./common.nix
     ./modules/battery-monitor.nix
     ./modules/hyprland/hypridle.nix
+    ./modules/gitFabio.nix
   ];
   home = {
     inherit username;

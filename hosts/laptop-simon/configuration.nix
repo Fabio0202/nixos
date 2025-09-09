@@ -17,7 +17,7 @@
   # boot.loader.grub.device = "/dev/nvme0n1";
   # boot.loader.grub.useOSProber = true;
 
-  networking.hostName = "laptop";
+  networking.hostName = "simon-laptop";
 
   system.stateVersion = "25.11";
 }
