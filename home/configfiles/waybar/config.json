@@ -22,9 +22,16 @@
       "custom/mic",
       "custom/nightmode",
       "custom/lock",
+      "custom/notifications",
       "custom/power"
     ],
 
+"custom/notifications": {
+  "format": "",
+  "on-click": "swaync-client -t",   
+  "on-click-right": "swaync-client -d",
+  "tooltip": false
+},
     "backlight": {
       "device": "intel_backlight",
       "format": "{icon} ",
