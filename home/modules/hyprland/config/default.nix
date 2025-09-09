@@ -78,7 +78,7 @@ in {
     };
     extraConfig = ''
       monitor=,preferred,auto,auto
-      exec-once = nwg-dock-hyprland -nolauncher -d -hd 0
+      exec-once = nwg-dock-hyprland -nolauncher -d -hd 0 -iw "special"
       exec-once = udiskie -a
       exec-once = hypridle
       exec-once = ags
