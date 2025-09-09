@@ -7,6 +7,7 @@ in {
   ];
   imports = [
     ./common.nix
+    ./modules/battery-monitor.nix
   ];
   home = {
     inherit username;
