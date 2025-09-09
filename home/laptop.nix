@@ -16,4 +16,10 @@ in {
     inherit homeDirectory;
     stateVersion = "25.11";
   };
+
+  wayland.windowManager.hyprland.settings.input = {
+    kb_layout = "de, us";
+    # mouse ssensitivity
+    sensitivity = 1.4;
+  };
 }
