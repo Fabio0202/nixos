@@ -4,6 +4,7 @@
 in {
   home.packages = with pkgs; [
     # alle Software die ich nur am Laptop haben will
+    telegram-desktop
   ];
   imports = [
     ./common.nix
