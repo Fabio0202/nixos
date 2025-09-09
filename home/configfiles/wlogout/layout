@@ -17,6 +17,12 @@
     "keybind" : "u"
 }
 {
+    "label" : "lock",
+    "action" : "hyprlock",
+    "text" : "[L]ogout",
+    "keybind" : "l"
+}
+{
     "label" : "hibernate",
     "action" : "systemctl hibernate",
     "text" : "[H]ibernate",
