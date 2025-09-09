@@ -15,6 +15,7 @@
     anki
     blueman
     imagej
+    zoom
     gimp3-with-plugins
 
     #timer app usw
