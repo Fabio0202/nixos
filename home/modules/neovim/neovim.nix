@@ -29,14 +29,14 @@
       vim.utility.yanky-nvim.setupOpts.ring.storage = "memory";
       vim.utility.undotree.enable = true;
       vim.notes.obsidian = {
-        enable = true;
+        enable = false;
         setupOpts = {
-          workspaces = [
-            {
-              name = "personal";
-              path = "~/Documents/06-Zettelkasten/";
-            }
-          ];
+          # workspaces = [
+          #   {
+          #     name = "personal";
+          #     path = "~/Documents/06-Zettelkasten/";
+          #   }
+          # ];
         };
       };
 
