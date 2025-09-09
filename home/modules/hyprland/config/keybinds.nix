@@ -48,7 +48,7 @@ in {
     "${mainMod}, N, exec, minimize"
     "${mainMod}, mouse_up, workspace, e-1"
     "${mainMod}, Q, exec, hyprctl dispatch killactive"
-    "${mainMod}, P, exec, wlogout --buttons-per-row 4"
+    "${mainMod}, P, exec, wlogout --buttons-per-row 5"
     "${mainMod}, S, exec, hyprctl switchxkblayout current next"
     "${mainMod}, D, overview:toggle"
     "${mainMod}, delete, exit"
