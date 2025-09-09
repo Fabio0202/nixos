@@ -11,7 +11,7 @@
     ./config/default.nix
     ./hyprlock.nix
     ./swww.nix
-    ./hypridle.nix
+    # ./hypridle.nix
     ./variables.nix
   ];
 
