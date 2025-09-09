@@ -1,43 +1,45 @@
 #!/usr/bin/env bash
 
-# Warning levels
-LOW_BATTERY=20
-CRITICAL_BATTERY=7
-NOTIFICATION_SENT=false
+LOW=15
+CRITICAL=7
+
+SOUND_DIR="$HOME/nixos/files"
+CRITICAL_SOUND="$SOUND_DIR/life-support.mp3"
+LOW_SOUND="$SOUND_DIR/pop.mp3"
+
+last_level=100
+last_state=""
+critical_notified=false
 
 while true; do
-    # Get the battery percentage
-    BATTERY_LEVEL=$(upower -i $(upower -e | grep battery) | grep percentage | awk '{print $2}' | sed 's/%//')
-    BATTERY_STATE=$(upower -i $(upower -e | grep battery) | grep state | awk '{print $2}')
+  battery_info=$(upower -i "$(upower -e | grep battery)")
+  level=$(echo "$battery_info" | awk '/percentage/ {print $2}' | tr -d '%')
+  state=$(echo "$battery_info" | awk '/state/ {print $2}')
 
-    if [[ "$BATTERY_STATE" == "discharging" ]]; then
-        if [[ "$BATTERY_LEVEL" -le "$CRITICAL_BATTERY" ]]; then
-            if [[ "$NOTIFICATION_SENT" == false ]]; then
-                notify-send -u critical "Battery Critical" "Battery is at ${BATTERY_LEVEL}%. Please plug in the charger."
-                NOTIFICATION_SENT=true
-            fi
-            while [[ "$BATTERY_LEVEL" -le "$CRITICAL_BATTERY" ]]; do
-                mpv --ao=alsa ../../files/life-support.mp3
-                sleep 3  # Repeat sound every 5 seconds
-                # Re-check battery level and state
-                BATTERY_LEVEL=$(upower -i $(upower -e | grep battery) | grep percentage | awk '{print $2}' | sed 's/%//')
-                BATTERY_STATE=$(upower -i $(upower -e | grep battery) | grep state | awk '{print $2}')
-                if [[ "$BATTERY_STATE" != "discharging" ]]; then
-                    NOTIFICATION_SENT=false  # Reset notification for next discharging session
-                    break
-                fi
-            done
-        elif [[ "$BATTERY_LEVEL" -le "$LOW_BATTERY" ]]; then
-            notify-send -u normal "Low Battery" "Battery is at ${BATTERY_LEVEL}%. Consider plugging in the charger."
-                mpv --ao=alsa ../../files/pop.mp3
-            NOTIFICATION_SENT=false  # Reset notification if level improves to low
-            sleep 60  # Check again in 1 minute
-        else
-            NOTIFICATION_SENT=false  # Reset notification for normal battery level
-        fi
+  if [[ "$state" == "discharging" ]]; then
+    if (( level <= CRITICAL )); then
+      if ! $critical_notified; then
+        notify-send -u critical "Battery Critical" "Battery at ${level}%. Plug in now!"
+        critical_notified=true
+      fi
+      mpv --really-quiet --no-video "$CRITICAL_SOUND" &
+      sleep 10   # spam sound every 10s while critical
+      continue   # skip the normal sleep below
+    elif (( level <= LOW )); then
+      if (( last_level > LOW )) || [[ "$last_state" != "discharging" ]]; then
+        notify-send -u normal "Low Battery" "Battery at ${level}%."
+        mpv --really-quiet --no-video "$LOW_SOUND" &
+      fi
+      critical_notified=false
     else
-        NOTIFICATION_SENT=false  # Reset notification if battery is not discharging
+      critical_notified=false
     fi
+  else
+    critical_notified=false
+  fi
 
-    sleep 30  # Check battery status every 30 seconds
+  last_level=$level
+  last_state=$state
+
+  sleep 60  # normal interval when not critical
 done
