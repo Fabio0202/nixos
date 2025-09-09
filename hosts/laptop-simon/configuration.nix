@@ -6,8 +6,7 @@
   imports = [
     ./hardware-configuration.nix
     ../configuration-common.nix
-    ../modules/userFabio.nix
-    ../modules/nvidia.nix
+    ../modules/userSimon.nix
     ../modules/bootloader.nix
   ];
 
