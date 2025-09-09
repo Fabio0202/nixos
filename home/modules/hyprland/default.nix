@@ -7,6 +7,8 @@
     ./hyprland.nix
     #./swaylock.nix
     ./waybar.nix
+    ./swaync.nix
+    ./swayosd.nix
     ./wlogout.nix
     ./config/default.nix
     ./hyprlock.nix

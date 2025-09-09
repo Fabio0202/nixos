@@ -28,6 +28,20 @@ in {
     "${mainMod}, mouse:273, resizewindow"
     #
   ];
+
+  wayland.windowManager.hyprland.settings.bindel = [
+    # Audio controls - ALL updated to use swayosd
+    ", F2, exec, swayosd-client --output-volume lower"
+    ", F3, exec, swayosd-client --output-volume raise"
+
+    # Volume controls
+    ", XF86AudioLowerVolume, exec, swayosd-client --output-volume lower"
+    ", XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise"
+
+    # Brightness controls
+    ", XF86MonBrightnessUp, exec, swayosd-client --brightness raise"
+    ", XF86MonBrightnessDown, exec, swayosd-client --brightness lower"
+  ];
   wayland.windowManager.hyprland.settings.bind = [
     "${mainMod}, mouse_down, workspace, e+1"
     "${mainMod}, mouse_up, workspace, e-1"
@@ -54,31 +68,21 @@ in {
     "${mainMod}, ESCAPE, exec, pkill -x rofi ; rofi -show window"
     "${mainMod}, e, exec, pkill -x rofi ; rofi -show drun"
 
-    "ALT SHIFT, J, exec, amixer set Master 10%-"
-    "ALT SHIFT, K, exec, amixer set Master 10%+"
+    # Audio controls - ALL updated to use swayosd
+    ", F1, exec, swayosd-client --output-volume mute-toggle"
 
-    # Audio controls
-    ", F1, exec, amixer set Master toggle"
-    ", F2, exec, amixer set Master 10%-"
-    ", F3, exec, amixer set Master 10%+"
+    ", F4, exec, swayosd-client --input-volume mute-toggle"
+    ", 190, exec, swayosd-client --input-volume mute-toggle"
+    ", XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
+    # Microphone controls
 
-    ", XF86AudioMute, exec, amixer set Master toggle"
-    ", XF86AudioMicMute, exec, amixer set Capture toggle"
-    ", F4, exec, amixer set Capture toggle"
-    ", 190, exec, amixer set Capture toggle"
+    ", XF86AudioMicMute, exec, swayosd-client --input-volume mute-toggle && ~/nixos-dotfiles/home/scripts/toggle-mic-mute-led.sh"
 
-    ", XF86MonBrightnessUp, exec, light -A 10"
-    ", XF86MonBrightnessDown, exec, light -U 10"
-    ", XF86AudioLowerVolume, exec, amixer set Master 10%-"
-    ", XF86AudioRaiseVolume,  exec, amixer set Master 10%+"
+    # Media controls
     ", XF86AudioPlay, exec, playerctl play-pause"
     ", XF86AudioPause, exec, playerctl play-pause"
     ", XF86AudioNext, exec, playerctl next"
     ", XF86AudioPrev, exec, playerctl previous"
-
-    # Brightness controls
-    ", XF86MonBrightnessUp, exec, light -A 10"
-    ", XF86MonBrightnessDown, exec, light -U 10"
 
     # Screenshot/Screencapture
     "${mainMod}, P, exec, pin"
