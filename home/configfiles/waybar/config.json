@@ -121,7 +121,7 @@
       "format": "{}",
       "interval": 1,
       "signal": 1,
-      "on-click": "(pgrep -x hyprsunset >/dev/null && pkill -x hyprsunset) || hyprsunset -t 4000; pkill -RTMIN+1 waybar"
+      "on-click": "(pgrep -x hyprsunset >/dev/null && pkill -x hyprsunset) || hyprsunset -t 3000; pkill -RTMIN+1 waybar"
     },
 
     "custom/power": {

@@ -11,23 +11,23 @@
     };
     Service = {
       Type = "oneshot";
-      ExecStart = "${pkgs.bash}/bin/bash -c ''
+      ExecStart = pkgs.writeShellScript "hyprsunset-initial" ''
         hour=$(date +%H)
         if (( hour >= 20 || hour < 7 )); then
-          hyprsunset -t 3700
+          hyprsunset -t 3000
         else
           hyprsunset -d
         fi
-      ''";
+      '';
     };
-    Install.WantedBy = ["default.target"];
+    Install.WantedBy = ["graphical-session.target"];
   };
 
   # Service + timer to turn ON at 20:00
   systemd.user.services.hyprsunset-on = {
     Service = {
       Type = "oneshot";
-      ExecStart = "${pkgs.bash}/bin/bash -c 'hyprsunset -t 3700'";
+      ExecStart = "${pkgs.hyprsunset}/bin/hyprsunset -t 3000";
     };
   };
   systemd.user.timers.hyprsunset-on = {
@@ -43,7 +43,7 @@
   systemd.user.services.hyprsunset-off = {
     Service = {
       Type = "oneshot";
-      ExecStart = "${pkgs.bash}/bin/bash -c 'hyprsunset -d'";
+      ExecStart = "${pkgs.hyprsunset}/bin/hyprsunset -d";
     };
   };
   systemd.user.timers.hyprsunset-off = {

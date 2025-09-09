@@ -1,4 +1,4 @@
-WARM_TEMP=4000  # Define the warm temperature in Kelvin
+WARM_TEMP=3000  # Define the warm temperature in Kelvin
 if pgrep -x hyprsunset > /dev/null; then
   echo "[Toggle] hyprsunset is running, killing it (reset to neutral)"
   pkill hyprsunset
