@@ -84,7 +84,7 @@
         setupModule = "better_escape";
         setupOpts = {
           timeout = lib.generators.mkLuaInline "vim.o.timeoutlen";
-          default_mappings = true;
+          default_mappings = false;
           mappings = {
             i.j.j = "<Esc>";
             c.j.j = "<Esc>";
