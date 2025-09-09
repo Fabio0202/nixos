@@ -28,6 +28,7 @@
       vim.languages.markdown.extensions.markview-nvim.enable = true;
       vim.utility.yanky-nvim.setupOpts.ring.storage = "memory";
       vim.utility.undotree.enable = true;
+      vim.utility.yazi-nvim.enable = true;
       vim.notes.obsidian = {
         enable = false;
         setupOpts = {
@@ -240,6 +241,12 @@
         # custom keymaps (non-plugin specific or always-on)
 
         keymaps = [
+          {
+            mode = "n";
+            key = "<leader>lf";
+            action = ":Yazi<cr>";
+            desc = "file explorer (yazi)";
+          }
           {
             mode = "n";
             key = "<leader>r";

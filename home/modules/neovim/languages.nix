@@ -70,6 +70,7 @@
         };
         enable = true;
         mappings = {
+          format = null;
           goToDefinition = "gd";
         };
       };
