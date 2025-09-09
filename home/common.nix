@@ -65,17 +65,18 @@
   programs.mpv.enable = true;
 
   # Enable XDG MIME application settings
-  xdg.mimeApps.enable = true;
-  # Define default applications for file types
-  # xdg.mimeApps.defaultApplications = {
-  #   "video/*" = ["mpv.desktop"]; # Default video player
-  #   "audio/*" = ["audacious.desktop"]; # Default audio player
-  #   "image/*" = ["viewnior.desktop"]; # Default image viewer
-  #   "application/pdf" = ["evince.desktop"]; # Default PDF viewer
-  #   "text/html" = ["firefox.desktop"]; # Default browser for HTML links
-  #   "x-scheme-handler/http" = ["firefox.desktop"]; # For HTTP links
-  #   "x-scheme-handler/https" = ["firefox.desktop"]; # For HTTPS links
-  # };
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "video/*" = ["mpv.desktop"];
+      "audio/*" = ["audacious.desktop"];
+      "image/*" = ["viewnior.desktop"];
+      "application/pdf" = ["evince.desktop"];
+      "text/html" = ["firefox.desktop"];
+      "x-scheme-handler/http" = ["firefox.desktop"];
+      "x-scheme-handler/https" = ["firefox.desktop"];
+    };
+  };
   imports = [
     ./modules/neovim/neovim.nix
     ./modules/obs-studio.nix # for screen recording
