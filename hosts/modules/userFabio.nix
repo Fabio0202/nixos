@@ -1,13 +1,12 @@
-
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   users.users.fabio = {
     isNormalUser = true;
     description = "fabio";
-    extraGroups = [ "networkmanager" "input" "wheel" "video" "audio"  ];
+    extraGroups = ["plugdev" "uinput" "networkmanager" "input" "wheel" "video" "audio" "podman"];
     shell = pkgs.zsh;
   };
 }
-
-

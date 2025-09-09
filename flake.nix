@@ -1,5 +1,5 @@
 {
-  description = "My NixOS config with Home Manager, multi-host, and multi-user support";
+  description = "My NixOS config with Home Manager, multi-host, and one-user-per-host support";
 
   inputs = {
     nvf.url = "github:notashelf/nvf";
@@ -31,22 +31,16 @@
     pkgs = nixpkgs.legacyPackages.${system};
 
     # --- User abstraction ---
-    mkUser = name: hostName: {
+    mkUser = hostName: {
       imports = [
         ./home/common.nix
         ./home/${hostName}.nix
         inputs.nvf.homeManagerModules.default
-        (
-          if builtins.pathExists ./home/users/${name}.nix
-          then import ./home/users/${name}.nix
-          else {}
-        )
       ];
-      home.stateVersion = "25.05";
     };
 
     # --- Host abstraction ---
-    mkHost = hostName:
+    mkHost = hostName: userName:
       nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {inherit inputs;};
@@ -61,19 +55,17 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit inputs;};
 
-            home-manager.users = {
-              fabio = mkUser "fabio" hostName;
-              simon = mkUser "simon" hostName;
-            };
+            # only configure HM for the user that belongs on this host
+            home-manager.users.${userName} = mkUser hostName;
           }
         ];
       };
   in {
     # --- Hosts ---
     nixosConfigurations = {
-      pc = mkHost "pc";
-      laptop = mkHost "laptop";
-      simon-laptop = mkHost "simon-laptop";
+      pc = mkHost "pc" "fabio";
+      laptop = mkHost "laptop" "fabio";
+      simon-laptop = mkHost "simon-laptop" "simon";
     };
 
     # --- Optional packages ---
