@@ -15,7 +15,15 @@
     powertop # Tool for measuring and tuning power usage
   ];
 
-  # Custom Powertop service: apply all power-saving tunables
+  boot.kernelParams = [
+    "8250.nr_uarts=0" # disable legacy serial ports → faster boot (most machines don't need them)
+
+    # Automatically suspend idle USB devices after a short timeout.
+    # → Lowers power use (esp. webcam, fingerprint, smartcard reader) when idle.
+    "usbcore.autosuspend=1"
+  ];
+
+  # Custom Powertop service (non-blocking, runs after boot)
   systemd.services.powertop-autotune = {
     description = "Powertop tunings";
     serviceConfig = {
@@ -23,19 +31,16 @@
       ExecStart = "${pkgs.powertop}/bin/powertop --auto-tune";
     };
   };
-
-  # Timer: run powertop-autotune 1 minute after boot
   systemd.timers.powertop-autotune = {
     description = "Delayed Powertop tunings";
     wantedBy = ["timers.target"];
     timerConfig = {
       OnBootSec = "1min"; # wait 1 minute after boot
-      Persistent = true; # catch up if missed (e.g., laptop asleep)
+      Persistent = true; # catch up if missed
     };
   };
 
-  # Disable power-profiles-daemon (comes with GNOME)
-  # because TLP provides more advanced power management
+  # Disable GNOME’s power-profiles-daemon (TLP is better)
   services.power-profiles-daemon.enable = false;
 
   # TLP manages advanced power-saving for CPU, GPU, WiFi, disks, USB
