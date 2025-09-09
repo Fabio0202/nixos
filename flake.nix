@@ -33,12 +33,16 @@
     # --- User abstraction ---
     mkUser = name: hostName: {
       imports = [
-        (import ./home/${hostName}.nix)
+        ./home/common.nix
+        ./home/${hostName}.nix
         inputs.nvf.homeManagerModules.default
-        # optional per-user overrides
-        (import ./home/users/${name}.nix or {})
+        (
+          if builtins.pathExists ./home/users/${name}.nix
+          then import ./home/users/${name}.nix
+          else {}
+        )
       ];
-      home.stateVersion = "25.05"; # adjust to your HM version
+      home.stateVersion = "25.05";
     };
 
     # --- Host abstraction ---
