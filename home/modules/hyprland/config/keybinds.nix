@@ -64,11 +64,13 @@ in {
     "${mainMod}, C, exec, code"
     "${mainMod}, V, exec, kitty nvim"
     # Rofi toggles
-    "${mainMod}, SPACE, exec, toggle-wk"
-    "${mainMod}, a, exec, pkill -x rofi ; rofi -show window"
-    "${mainMod}, ESCAPE, exec, pkill -x rofi ; rofi -show window"
-    "${mainMod}, e, exec, pkill -x rofi ; rofi -show drun"
+    # THESE CURRENTLY DONT WORK
+    # "${mainMod}, SPACE, exec, toggle-wk"
+    # "${mainMod}, a, exec, pkill -x rofi ; rofi -show window"
+    # "${mainMod}, ESCAPE, exec, pkill -x rofi ; rofi -show window"
+    # "${mainMod}, e, exec, pkill -x rofi ; rofi -show drun"
 
+    "${mainMod}, Y, togglespecialworkspace, minimized"
     # Audio controls - ALL updated to use swayosd
     ", F1, exec, swayosd-client --output-volume mute-toggle"
 
