@@ -78,7 +78,6 @@ in {
       exec-once = hypridle
       exec-once = ags
       # exec-once = nwg-panel
-      exec-once = ~/nixos/home/scripts/battery-monitor.sh
       xwayland {
         force_zero_scaling = true;
       }

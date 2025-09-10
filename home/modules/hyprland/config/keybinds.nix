@@ -49,7 +49,7 @@ in {
     "${mainMod}, mouse_up, workspace, e-1"
     "${mainMod}, Q, exec, hyprctl dispatch killactive"
     "${mainMod}, P, exec, wlogout --buttons-per-row 5"
-    "${mainMod}, S, exec, hyprctl switchxkblayout current next"
+    "${mainMod}, S, exec, hyprctl switchxkblayout current next; pkill -RTMIN+8 waybar"
     "${mainMod}, D, exec, hyprctl dispatch hyprexpo:expo toggle"
     "${mainMod}, delete, exit"
     "${mainMod}, G, togglefloating"
@@ -74,12 +74,12 @@ in {
     # Audio controls - ALL updated to use swayosd
     ", F1, exec, swayosd-client --output-volume mute-toggle"
 
-    ", F4, exec, swayosd-client --input-volume mute-toggle"
-    ", 190, exec, swayosd-client --input-volume mute-toggle"
+    ", F4, exec, swayosd-client --input-volume mute-toggle; pkill -RTMIN+9 waybar" # Mic mute toggle with waybar update
+    ", 190, exec, swayosd-client --input-volume mute-toggle; pkill -RTMIN+9 waybar" # Mic mute toggle with waybar update (some keyboards use keycode 190 for mic mute)
     ", XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
     # Microphone controls
 
-    ", XF86AudioMicMute, exec, swayosd-client --input-volume mute-toggle && toggle-mic-mute-led"
+    ", XF86AudioMicMute, exec, swayosd-client --input-volume mute-toggle && toggle-mic-mute-led; pkill -RTMIN+9 waybar"
 
     # Media controls
     ", XF86AudioPlay, exec, playerctl play-pause"

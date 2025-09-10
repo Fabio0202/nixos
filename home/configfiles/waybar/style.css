@@ -122,6 +122,7 @@
 #pulseaudio,
 #custom-mic,
 #custom-lock,
+#custom-battery,
 #custom-kblayout,
 #custom-nightmode,
 #custom-notifications,
@@ -210,7 +211,15 @@
   color: #f9e2af;
 }
 
+#custom-battery.warning {
+  color: #f9e2af;
+}
+
 #battery.critical {
+  color: #f38ba8;
+}
+
+#custom-battery.critical {
   color: #f38ba8;
 }
 

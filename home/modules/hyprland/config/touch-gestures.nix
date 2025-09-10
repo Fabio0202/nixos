@@ -34,8 +34,8 @@
       "3, right, mod:SHIFT, move"
 
       # vertical → move whole workspace
-      "3, up,    mod:SHIFT, dispatcher, movetoworkspace, r-1"
-      "3, down,  mod:SHIFT, dispatcher, movetoworkspace, r+1"
+      "3, up,    mod:SHIFT, dispatcher, movetoworkspace, r+1"
+      "3, down,  mod:SHIFT, dispatcher, movetoworkspace, r-1"
     ];
   };
 }

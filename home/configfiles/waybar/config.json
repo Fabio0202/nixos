@@ -10,6 +10,14 @@
     "modules-center": [
       "clock"
     ],
+
+"custom/battery": {
+  "exec": "~/nixos/home/scripts/custom-battery-waybar.sh",
+  "interval": 60,
+  "signal": 10,
+  "return-type": "json",
+  "tooltip": true
+},
     "modules-right": [
       "tray",
       "cpu",
@@ -17,7 +25,7 @@
       "custom/cpu_temp",
       "backlight",
       "custom/kblayout",
-      "battery",
+      "custom/battery",
       "pulseaudio",
       "custom/mic",
       "custom/nightmode",
@@ -40,6 +48,7 @@
     },
 
     "battery": {
+      "signal": 10,
       "format": "{icon} {capacity}%",
       "format-alt": "{icon} {capacity}%",
       "format-charging": "󰂄 {capacity}%",
@@ -102,27 +111,27 @@
 
     "custom/mic": {
       "exec": "pamixer --default-source --get-mute | grep -q true && echo '' || echo ''",
-      "interval": 2,
+      "interval": 60,
       "signal": 9,
       "on-click": "pamixer --default-source -t; pkill -RTMIN+9 waybar",
       "format": "{}"
     },
 
-"custom/kblayout": {
-  "exec": "hyprctl devices -j | jq -r '.keyboards[] | select(.main == true) | .active_keymap' | awk '{print toupper($0)}'",
-  "interval": 5,
-  "format": "{}",
-  "on-click": "hyprctl switchxkblayout current next"
-},
-
-
-    "custom/nightmode": {
-      "exec": "pgrep -x hyprsunset >/dev/null && echo '󰖔' || echo '󰖙'",
+    "custom/kblayout": {
+      "exec": "hyprctl devices -j | jq -r '.keyboards[] | select(.main == true) | .active_keymap' | awk '{print toupper($0)}'",
+      "interval": 60,
+      "signal": 8,
       "format": "{}",
-      "interval": 1,
-      "signal": 1,
-      "on-click": "(pgrep -x hyprsunset >/dev/null && pkill -x hyprsunset) || hyprsunset -t 3000; pkill -RTMIN+1 waybar"
+      "on-click": "hyprctl switchxkblayout current next"
     },
+
+
+  "custom/nightmode": {
+    "exec": "~/nixos/home/scripts/toggle_hyprsunset.sh --status",
+    "format": "{}",
+    "interval": 60,
+    "on-click": "~/nixos/home/scripts/toggle_hyprsunset.sh"
+  },
 
     "custom/power": {
       "format": "",

@@ -15,6 +15,8 @@
     powertop # Tool for measuring and tuning power usage
   ];
 
+  services.upower.enable = true;
+
   boot.kernelParams = [
     "8250.nr_uarts=0" # disable legacy serial ports → faster boot (most machines don't need them)
 
