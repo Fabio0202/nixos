@@ -25,11 +25,6 @@
     ./modules/system.nix
   ];
 
-  # use latest hyprland from unstable
-  programs.hyprland = {
-    enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-  };
   boot.plymouth = {
     enable = true;
     themePackages = [pkgs.catppuccin-plymouth];

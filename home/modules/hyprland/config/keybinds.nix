@@ -50,7 +50,7 @@ in {
     "${mainMod}, Q, exec, hyprctl dispatch killactive"
     "${mainMod}, P, exec, wlogout --buttons-per-row 5"
     "${mainMod}, S, exec, hyprctl switchxkblayout current next"
-    "${mainMod}, D, overview:toggle"
+    "${mainMod}, D, exec, hyprctl dispatch hyprexpo:expo toggle"
     "${mainMod}, delete, exit"
     "${mainMod}, G, togglefloating"
     "${mainMod}, W, exec, waypaper"

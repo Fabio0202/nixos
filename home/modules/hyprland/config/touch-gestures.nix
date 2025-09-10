@@ -4,18 +4,37 @@
   ...
 }: {
   wayland.windowManager.hyprland.settings = {
-    gestures = {
-      workspace_swipe = false; # disable built-in 3-finger default
+    plugin.hyprexpo = {
+      enable_gesture = false; # prevent Hyprexpo from hijacking swipes
     };
 
-    # Four-finger swipe for workspace switching
     gesture = [
-      "4, right, workspace, r+1"
-      "4, left, workspace, r-1"
-      " gesture = 3, right, focuswindow, r+1"
-      "gesture = 3, left, focuswindow, r-1"
-    ];
+      # 4-finger vertical swipe → workspace switching
+      "4, vertical, workspace"
 
-    # Three-finger swipe for focusing windows
+      # 4-finger horizontal swipes → Hyprexpo toggle
+      "4, right, dispatcher, hyprexpo:expo, toggle"
+
+      # 3-finger focus navigation (no mods)
+      "3, left,  dispatcher, movefocus, l"
+      "3, right, dispatcher, movefocus, r"
+      "3, up,    dispatcher, movefocus, u"
+      "3, down,  dispatcher, movefocus, d"
+
+      # Super + 3 fingers → resize
+      "3, left,  mod:SUPER, resize"
+      "3, right, mod:SUPER, resize"
+      "3, up,    mod:SUPER, resize"
+      "3, down,  mod:SUPER, resize"
+
+      # Shift + 3 fingers
+      # horizontal → move active window
+      "3, left,  mod:SHIFT, move"
+      "3, right, mod:SHIFT, move"
+
+      # vertical → move whole workspace
+      "3, up,    mod:SHIFT, dispatcher, movetoworkspace, r-1"
+      "3, down,  mod:SHIFT, dispatcher, movetoworkspace, r+1"
+    ];
   };
 }

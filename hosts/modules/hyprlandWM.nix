@@ -1,4 +1,5 @@
 {
+  inputs,
   lib,
   pkgs,
   ...
@@ -9,7 +10,11 @@ in {
   services.xserver.desktopManager.gnome.enable = false;
   services.xserver.enable = false;
   # services.xserver.displayManager.sddm.enable = true;
-  programs.hyprland.enable = true; # Enable the Hyprland window manager
+  # use latest hyprland from unstable
+  programs.hyprland = {
+    enable = true;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+  };
   programs.hyprland.withUWSM = true; # Enable improved hyprland compatibility with uwsm
   # enable greetd to start a session without hyprland
   services.greetd = {
@@ -21,7 +26,12 @@ in {
       };
     };
   };
+  # force wayland for electron apps
+  environment.variables = {
+    NIXOS_OZONE_WL = "1";
 
+    ELECTRON_LAUNCH_FLAGS = "--enable-wayland-ime --wayland-text-input-version=3 --enable-features=WaylandLinuxDrmSyncobj";
+  };
   services.gvfs.enable = true; # gnome virtual file system; falls man zB Server in Files sehen möchte, ausserdem damit trash restore in nautilus file manager geht
   # this is a life saver.
   # literally no documentation about this anywhere.
