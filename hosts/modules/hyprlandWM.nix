@@ -60,7 +60,7 @@ in {
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
-      xdg-desktop-portal-hyprland # Add this first
+      # xdg-desktop-portal-hyprland # Add this first
       xdg-desktop-portal-gtk
       # xdg-desktop-portal-gnome  # You can remove this if not needed
     ];
