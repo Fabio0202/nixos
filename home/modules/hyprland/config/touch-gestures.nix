@@ -10,10 +10,11 @@
 
     gesture = [
       # 4-finger vertical swipe → workspace switching
-      "4, vertical, workspace"
+      "4, vertical, scale:0.8, workspace"
 
       # 4-finger horizontal swipes → Hyprexpo toggle
       "4, right, dispatcher, hyprexpo:expo, toggle"
+      "4, left,  special, minimized"
 
       # 3-finger focus navigation (no mods)
       "3, left,  dispatcher, movefocus, l"
