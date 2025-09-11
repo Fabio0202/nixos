@@ -5,7 +5,10 @@
 
     "modules-left": [
       "hyprland/workspaces",
-      "custom/music"
+      "custom/music",
+      "cpu",
+      "memory",
+      "custom/cpu_temp",
     ],
     "modules-center": [
       "clock"
@@ -20,9 +23,6 @@
 },
     "modules-right": [
       "tray",
-      "cpu",
-      "memory",
-      "custom/cpu_temp",
       "backlight",
       "custom/kblayout",
       "custom/battery",
