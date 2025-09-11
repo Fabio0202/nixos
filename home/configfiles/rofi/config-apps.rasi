@@ -1,0 +1,10 @@
+
+configuration {
+    modi: "drun";
+    show-icons: true;                        /* enable icons */
+    drun-display-format: "{icon} {name}";    /* show icon + name */
+    display-drun: " Apps";                  /* label */
+    font: "JetBrainsMono Nerd Font 12";
+}
+
+@theme "catppuccin-mocha"
