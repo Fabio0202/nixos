@@ -17,18 +17,6 @@
     toggleRofiScript
   ];
 in {
-  wayland.windowManager.hyprland.settings.bindm = [
-    # Scroll through existing workspaces
-    # "${mainMod}, mouse_down, workspace, e+1"
-    # "${mainMod}, mouse_up, workspace, e-1"
-    # Move/Resize windows with mainMod + LMB/RMB and dragging
-    "${mainMod}, mouse:272, movewindow"
-
-    #TODO: fix this resize window option doesn't exist
-    "${mainMod}, mouse:273, resizewindow"
-    #
-  ];
-
   wayland.windowManager.hyprland.settings.bindel = [
     # Audio controls - ALL updated to use swayosd
     ", F2, exec, swayosd-client --output-volume lower"
