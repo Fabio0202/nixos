@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   config,
   pkgs-unstable,
   ...
@@ -45,17 +46,11 @@ in {
     XCURSOR_THEME = "rose-pine-cursor";
   };
   wayland.windowManager.hyprland = {
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     plugins = [
-      # this makes it like paperwm but I dont want it for now
-      # pkgs.hyprlandPlugins.hyprscroller
-
-      # this is for touch gestures, gotta try on laptop
-      pkgs.hyprlandPlugins.hyprgrass
-
-      # overview of workspaces
-      pkgs.hyprlandPlugins.hyprspace
-
-      pkgs.hyprlandPlugins.hypr-dynamic-cursors
+      inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo
+      inputs.hypr-dynamic-cursors.packages.${pkgs.system}.hypr-dynamic-cursors
+      # inputs.hyprland-plugins.packages.${pkgs.system}.hyprspace
     ];
 
     enable = true;
@@ -78,12 +73,11 @@ in {
     };
     extraConfig = ''
       monitor=,preferred,auto,auto
-      exec-once = nwg-dock-hyprland -nolauncher -d -hd 0
+      exec-once = nwg-dock-hyprland -nolauncher -d -hd 0 -iw "special"
       exec-once = udiskie -a
       exec-once = hypridle
       exec-once = ags
       # exec-once = nwg-panel
-      exec-once = ~/nixos/home/scripts/battery-monitor.sh
       xwayland {
         force_zero_scaling = true;
       }

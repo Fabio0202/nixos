@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-CONFIG="/home/fabio/nixos/home/configfiles/wofi/config/config"
-STYLE="/home/fabio/nixos/home/configfiles/wofi/src/macchiato/style.css"
+CONFIG="$HOME/.config/wofi/config/config"
+STYLE="$HOME/.config/wofi/src/macchiato/style.css"
 STATE="$XDG_RUNTIME_DIR/hyprland-minimized"
 CURRENT_WS=$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .activeWorkspace.name')
 
@@ -12,8 +12,6 @@ if pgrep -x wofi >/dev/null; then
 fi
 
 [ ! -s "$STATE" ] && exit 0
-
-CURRENT_WS=$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .activeWorkspace.name')
 
 # Show titles to the user, but match by exact field value (no regex)
 CHOICE=$(awk -F'\t' '{print $2}' "$STATE" | \

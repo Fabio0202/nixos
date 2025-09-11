@@ -7,6 +7,7 @@
     ./hardware-configuration.nix
     ../configuration-common.nix
     ../modules/nvidia.nix
+    ../modules/userFabio.nix
   ];
 
   boot.loader.grub.enable = true;

@@ -2,35 +2,40 @@
   config,
   pkgs,
   ...
-}: let
-  gesturesConfig = ''
-    # Four-finger swipe for workspace switching
-    swipe right 4 hyprctl dispatch workspace next
-    swipe left 4 hyprctl dispatch workspace prev
+}: {
+  wayland.windowManager.hyprland.settings = {
+    plugin.hyprexpo = {
+      enable_gesture = false; # prevent Hyprexpo from hijacking swipes
+    };
 
-    # Three-finger swipe for app focus
-    swipe right 3 hyprctl dispatch focuswindow next
-    swipe left 3 hyprctl dispatch focuswindow prev
-  '';
-in {
-  # Add libinput-gestures to the home packages
-  home.packages = [pkgs.libinput-gestures];
+    gesture = [
+      # 4-finger vertical swipe → workspace switching
+      "4, vertical, scale:0.8, workspace"
 
-  # Write the libinput-gestures configuration file
-  xdg.configFile."libinput-gestures.conf".text = gesturesConfig;
+      # 4-finger horizontal swipes → Hyprexpo toggle
+      "4, right, dispatcher, hyprexpo:expo, toggle"
+      "4, left,  special, minimized"
 
-  # # Enable libinput-gestures as a systemd service for the user
-  # systemd.user.services.libinput-gestures = {
-  #   description = "Libinput Gestures Service";
-  #   wantedBy = [ "default.target" ];
-  #
-  #   # Start libinput-gestures on login
-  #   serviceConfig = {
-  #     ExecStart = "${pkgs.libinput-gestures}/bin/libinput-gestures-setup start";
-  #     ExecStop = "${pkgs.libinput-gestures}/bin/libinput-gestures-setup stop";
-  #   };
-  # };
+      # 3-finger focus navigation (no mods)
+      "3, left,  dispatcher, movefocus, l"
+      "3, right, dispatcher, movefocus, r"
+      "3, up,    dispatcher, movefocus, u"
+      "3, down,  dispatcher, movefocus, d"
 
-  # Optional: Ensure user is in the input group to access input devices
-  # users.users.${config.home.username}.extraGroups = [ "input" ];
+      # Super + 3 fingers → resize
+      "3, left,  mod:SUPER, resize"
+      "3, right, mod:SUPER, resize"
+      "3, up,    mod:SUPER, resize"
+      "3, down,  mod:SUPER, resize"
+
+      # Shift + 3 fingers
+      # horizontal → move active window
+      "3, left,  mod:SHIFT, move"
+      "3, right, mod:SHIFT, move"
+
+      # vertical → move whole workspace
+      "3, up,    mod:SHIFT, dispatcher, movetoworkspace, r+1"
+      "3, down,  mod:SHIFT, dispatcher, movetoworkspace, r-1"
+    ];
+  };
 }

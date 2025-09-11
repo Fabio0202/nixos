@@ -17,18 +17,6 @@
     toggleRofiScript
   ];
 in {
-  wayland.windowManager.hyprland.settings.bindm = [
-    # Scroll through existing workspaces
-    # "${mainMod}, mouse_down, workspace, e+1"
-    # "${mainMod}, mouse_up, workspace, e-1"
-    # Move/Resize windows with mainMod + LMB/RMB and dragging
-    "${mainMod}, mouse:272, movewindow"
-
-    #TODO: fix this resize window option doesn't exist
-    "${mainMod}, mouse:273, resizewindow"
-    #
-  ];
-
   wayland.windowManager.hyprland.settings.bindel = [
     # Audio controls - ALL updated to use swayosd
     ", F2, exec, swayosd-client --output-volume lower"
@@ -44,41 +32,44 @@ in {
   ];
   wayland.windowManager.hyprland.settings.bind = [
     "${mainMod}, mouse_down, workspace, e+1"
-    "${mainMod}, TAB, exec, /home/fabio/nixos/home/scripts/restore.sh"
-    "${mainMod}, N, exec, /home/fabio/nixos/home/scripts/minimize.sh"
+    "${mainMod}, TAB, exec, restore"
+    "${mainMod}, N, exec, minimize"
     "${mainMod}, mouse_up, workspace, e-1"
+
+    "${mainMod}, O, exec, ~/nixos/home/scripts/smart-swap.sh"
     "${mainMod}, Q, exec, hyprctl dispatch killactive"
     "${mainMod}, P, exec, wlogout --buttons-per-row 5"
-    "${mainMod}, S, exec, hyprctl switchxkblayout current next"
-    "${mainMod}, D, overview:toggle"
+    "${mainMod}, S, exec, hyprctl switchxkblayout current next; pkill -RTMIN+8 waybar"
+    "${mainMod}, D, exec, hyprctl dispatch hyprexpo:expo toggle"
     "${mainMod}, delete, exit"
     "${mainMod}, G, togglefloating"
     "${mainMod}, W, exec, waypaper"
     "${mainMod}, M, fullscreen"
-    "${mainMod}, return, exec, /home/fabio/nixos/home/scripts/wofi.sh"
+    "${mainMod}, return, exec, wofi-toggle"
     "ALT, return, fullscreen"
     # "${mainMod}, backspace, exec, $scrPath/logoutlaunch.sh 1" # logout menu
     "${mainMod}, T, exec, kitty"
     "${mainMod}, F, exec, nautilus"
-    "${mainMod} SHIFT, F, exec, /home/fabio/nixos-dotfiles/scripts/wofi-dir-script.sh"
     "${mainMod}, B, exec, firefox"
     "${mainMod}, C, exec, code"
     "${mainMod}, V, exec, kitty nvim"
     # Rofi toggles
-    "${mainMod}, SPACE, exec, /home/fabio/scripts/toggle-wk.sh"
-    "${mainMod}, a, exec, pkill -x rofi ; rofi -show window"
-    "${mainMod}, ESCAPE, exec, pkill -x rofi ; rofi -show window"
-    "${mainMod}, e, exec, pkill -x rofi ; rofi -show drun"
+    # THESE CURRENTLY DONT WORK
+    # "${mainMod}, SPACE, exec, toggle-wk"
+    # "${mainMod}, a, exec, pkill -x rofi ; rofi -show window"
+    # "${mainMod}, ESCAPE, exec, pkill -x rofi ; rofi -show window"
+    # "${mainMod}, e, exec, pkill -x rofi ; rofi -show drun"
 
+    "${mainMod}, Y, togglespecialworkspace, minimized"
     # Audio controls - ALL updated to use swayosd
     ", F1, exec, swayosd-client --output-volume mute-toggle"
 
-    ", F4, exec, swayosd-client --input-volume mute-toggle"
-    ", 190, exec, swayosd-client --input-volume mute-toggle"
+    ", F4, exec, swayosd-client --input-volume mute-toggle; pkill -RTMIN+9 waybar" # Mic mute toggle with waybar update
+    ", 190, exec, swayosd-client --input-volume mute-toggle; pkill -RTMIN+9 waybar" # Mic mute toggle with waybar update (some keyboards use keycode 190 for mic mute)
     ", XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
     # Microphone controls
 
-    ", XF86AudioMicMute, exec, swayosd-client --input-volume mute-toggle && ~/nixos-dotfiles/home/scripts/toggle-mic-mute-led.sh"
+    ", XF86AudioMicMute, exec, swayosd-client --input-volume mute-toggle && toggle-mic-mute-led; pkill -RTMIN+9 waybar"
 
     # Media controls
     ", XF86AudioPlay, exec, playerctl play-pause"

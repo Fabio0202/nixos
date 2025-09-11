@@ -5,6 +5,7 @@
 }: {
   imports = [
     ./options.nix
+    ./latex.nix
     ./languages.nix
     ./bufferline.nix
     ./oil.nix

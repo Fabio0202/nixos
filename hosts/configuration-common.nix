@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   pkgs,
   ...
@@ -9,7 +10,6 @@
     ./modules/stylix.nix
     ./modules/podman.nix
     ./modules/nix-ld.nix
-    ./modules/user.nix
     ./modules/locale.nix
     ./modules/audio.nix
     ./modules/graphics.nix
@@ -27,8 +27,8 @@
 
   boot.plymouth = {
     enable = true;
-    # themePackages = [pkgs.catppuccin-plymouth];
-    # theme = "catppuccin-macchiato";
+    themePackages = [pkgs.catppuccin-plymouth];
+    theme = "catppuccin-macchiato";
   };
 
   environment.systemPackages = with pkgs; [

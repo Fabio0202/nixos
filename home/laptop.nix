@@ -9,10 +9,17 @@ in {
     ./common.nix
     ./modules/battery-monitor.nix
     ./modules/hyprland/hypridle.nix
+    ./modules/gitFabio.nix
   ];
   home = {
     inherit username;
     inherit homeDirectory;
     stateVersion = "25.11";
+  };
+
+  wayland.windowManager.hyprland.settings.input = {
+    kb_layout = "de, us";
+    # mouse ssensitivity
+    sensitivity = 1.4;
   };
 }

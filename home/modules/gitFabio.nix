@@ -6,7 +6,7 @@
   programs.git = {
     enable = true;
     userName = "Fabio";
-    userEmail = "fabiomuscas@gmail.com"; # change this
+    userEmail = "fabiomuscas@gmail.com";
 
     extraConfig = {
       # how to handle `git pull` when branches diverge
