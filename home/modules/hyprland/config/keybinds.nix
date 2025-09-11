@@ -47,6 +47,8 @@ in {
     "${mainMod}, TAB, exec, restore"
     "${mainMod}, N, exec, minimize"
     "${mainMod}, mouse_up, workspace, e-1"
+
+    "${mainMod}, O, exec, ~/nixos/home/scripts/smart-swap.sh"
     "${mainMod}, Q, exec, hyprctl dispatch killactive"
     "${mainMod}, P, exec, wlogout --buttons-per-row 5"
     "${mainMod}, S, exec, hyprctl switchxkblayout current next; pkill -RTMIN+8 waybar"
