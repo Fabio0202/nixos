@@ -1,21 +1,6 @@
 # keybindings.nix
 {pkgs, ...}: let
   mainMod = "Super"; # Define Super as the main mod key
-
-  # Define the toggle-rofi script with `writeScriptBin`
-  toggleRofiScript = pkgs.writeScriptBin "toggle-rofi" ''
-    #!/bin/bash
-
-    if pgrep -x "rofi" > /dev/null; then
-      pkill -x rofi
-    else
-      rofi -show combi -combi-modi "window,drun" -modi combi
-    fi
-  '';
-  # Make the script available as a system package
-  environment.systemPackages = [
-    toggleRofiScript
-  ];
 in {
   wayland.windowManager.hyprland.settings.bindel = [
     # Audio controls - ALL updated to use swayosd
