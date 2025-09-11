@@ -63,6 +63,7 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit inputs;};
 
+            home-manager.backupFileExtension = "backup";
             # only configure HM for the user that belongs on this host
             home-manager.users.${userName} = mkUser hostName;
           }
