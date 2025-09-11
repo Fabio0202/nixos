@@ -8,6 +8,7 @@
     mkdir = "mkdir -p";
     l = "eza --icons";
     ls = "eza --icons";
+    lst = "ls -T -L=2";
     fl = "y";
     lf = "y";
     nivm = "nvim";
