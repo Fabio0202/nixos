@@ -46,9 +46,10 @@ Buttons
 */
 
 #lock {
-  border-radius: 50px 0px 0px 50px;
+  border-radius: 0px 0px 0px 0px;
   background-image: image(url("icons/lock.png"));
 }
+
 #lock:hover {
   border-radius: 50px;
 }
@@ -70,9 +71,10 @@ Buttons
 }
 
 #hibernate {
-  border-radius: 0px 50px 50px 0px;
+  border-radius: 0px 0px 0px 0px;
   background-image: image(url("icons/hibernate.png"));
 }
+
 #hibernate:hover {
   border-radius: 50px;
   background-image: image(url("icons/hibernate.png"));
