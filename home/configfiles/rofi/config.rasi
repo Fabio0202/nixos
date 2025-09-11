@@ -1,0 +1,17 @@
+
+configuration {
+    modi: "drun,run,window";
+    show-icons: true;
+    drun-display-format: "{icon} {name}";
+    window-format: "{w} · {c} · {t}";
+    kb-cancel: "Escape,Control+g";
+    kb-accept-entry: "Return,KP_Enter";
+    kb-row-up: "Up,Control+k";
+    kb-row-down: "Down,Control+j";
+    kb-remove-to-eol: "Control+Shift+e";
+    font: "JetBrainsMono Nerd Font 12";
+    disable-history: false;
+    sidebar-mode: true;
+}
+
+@theme "catppuccin-mocha"

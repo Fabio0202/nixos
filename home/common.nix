@@ -13,6 +13,7 @@
     libreoffice
     unzip
     anki
+    deno # javascript runtime
     blueman
     imagej
     zoom
@@ -87,6 +88,8 @@
     ./modules/icons-theme.nix
     ./modules/wofi.nix
     ./modules/nwg-dock.nix
+    ./modules/rofi.nix
+    ./modules/show-binds/default.nix
     ./modules/wrapScripts.nix
     ./modules/sunset-at-night.nix
     # hier kommen zB setup files aus /modules fuer die einzelnen pkgs bzw softwares
