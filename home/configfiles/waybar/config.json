@@ -14,13 +14,6 @@
       "clock"
     ],
 
-"custom/battery": {
-  "exec": "~/nixos/home/scripts/custom-battery-waybar.sh",
-  "interval": 60,
-  "signal": 10,
-  "return-type": "json",
-  "tooltip": true
-},
     "modules-right": [
       "tray",
       "backlight",
@@ -33,6 +26,13 @@
       "custom/power"
     ],
 
+"custom/battery": {
+  "exec": "~/nixos/home/scripts/custom-battery-waybar.sh",
+  "interval": 60,
+  "signal": 10,
+  "return-type": "json",
+  "tooltip": true
+},
 "custom/notifications": {
   "format": "",
   "on-click": "swaync-client -t",   
@@ -92,10 +92,10 @@
 
     "custom/music": {
       "escape": true,
-      "exec": "playerctl metadata --format='{{ title }}'",
+      "exec": "playerctl metadata --format='{{ title }}' | cut -c1-20",
       "format": "󰝚 | {}",
       "interval": 5,
-      "max-length": 50,
+      "max-length": 20,
       "on-click": "playerctl play-pause",
       "tooltip": false
     },
