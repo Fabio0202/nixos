@@ -67,7 +67,7 @@
 
   # Enable XDG MIME application settings
   xdg.mimeApps = {
-    enable = true;
+    enable = false;
     defaultApplications = {
       "video/*" = ["mpv.desktop"];
       "audio/*" = ["audacious.desktop"];
