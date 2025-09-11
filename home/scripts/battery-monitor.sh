@@ -10,8 +10,8 @@ if ! flock -n 9; then
   exit 1
 fi
 
-LOW=15
-CRITICAL=7
+LOW=20
+CRITICAL=5
 
 SOUND_DIR="$HOME/nixos-dotfiles/files"
 CRITICAL_SOUND="$SOUND_DIR/life-support.mp3"
