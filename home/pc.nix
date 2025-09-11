@@ -8,6 +8,8 @@ in {
   imports = [
     ./common.nix
     ./modules/gitFabio.nix
+
+    ./modules/logitech-tastatur.nix
   ];
   home = {
     inherit username;
