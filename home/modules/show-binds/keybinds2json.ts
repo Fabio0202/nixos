@@ -34,9 +34,9 @@ const DISPATCHERS = [
 ];
 
 for (const line of lines) {
-  // Match: "BIND" ## Category | Description
-  const match = line.match(/"([^"]+)"\s*##\s*(.+?)\s*\|\s*(.+)/);
-  if (!match) continue;
+  // Only match lines with "## Category | Description"
+  const match = line.match(/"([^"]+)"\s*##\s*([^|]+)\s*\|\s*(.+)/);
+  if (!match) continue; // Skip lines without the comment
 
   let [_, bindStr, category, description] = match;
 
@@ -61,8 +61,8 @@ for (const line of lines) {
   binds.push({
     keys,
     command,
-    category,
-    description,
+    category: category.trim(),
+    description: description.trim(),
   });
 }
 

@@ -24,24 +24,19 @@ if [[ -z "$1" ]]; then
   )
 
   [[ -z "$CATEGORY" ]] && exit 0
-  CATEGORY=$(echo "$CATEGORY" | awk '{print $2}') # strip icon
+  CATEGORY=$(echo "$CATEGORY" | cut -d' ' -f2-) # strip icon
   exec "$0" "$CATEGORY"
 else
   if [[ "$1" == "All" ]]; then
-    CHOICE=$(jq -r '.[] | "\(.keys) → \(.description) [\(.category)]\u0001\(.command)"' "$JSON_FILE" \
-      | while IFS= read -r line; do
-          cat=$(echo "$line" | sed -E 's/.*\[(.+)\)]\x01.*/\1/')
+    jq -r '.[] | "\(.keys) → \(.description)\t\t\t" + (.[ "command" ]) + "    [" + .category + "]"' "$JSON_FILE" \
+      | while IFS=$'\t' read -r line; do
+          cat=$(echo "$line" | sed -E 's/.*\[(.+)\]$/\1/')
           icon=$(icon_for_category "$cat")
-          # Pretty display before delimiter
-          echo "$line" | sed -E "s/\[(.+)\)]/\[$icon \1\]/"
+          echo "$line" | sed -E "s/\[(.+)\]$/[ $icon \1]/"
         done \
-      | rofi -dmenu -i -p "All" -theme "$THEME")
+      | rofi -dmenu -i -p "All" -theme "$THEME"
   else
-    CHOICE=$(jq -r --arg cat "$1" '.[] | select(.category==$cat) | "\(.keys) → \(.description)\u0001\(.command)"' "$JSON_FILE" \
-      | rofi -dmenu -i -p "$1" -theme "$THEME")
+    jq -r --arg cat "$1" '.[] | select(.category==$cat) | "\(.keys) → \(.description)\t\t\t" + (.[ "command" ])' "$JSON_FILE" \
+      | rofi -dmenu -i -p "$1" -theme "$THEME"
   fi
-
-  # Extract the hidden command (after delimiter \u0001)
-  CMD=$(echo "$CHOICE" | awk -F'\x01' '{print $2}')
-  [[ -n "$CMD" ]] && sh -c "$CMD"
 fi
