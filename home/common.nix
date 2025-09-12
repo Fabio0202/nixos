@@ -4,57 +4,42 @@
     VISUAL = "nvim";
   };
   home.packages = with pkgs; [
-    syncthing
-    obsidian
-    dysk # zeigt wieviel Speicher frei ist auf Festplatte
-    distrobox # distrobox enter ubuntu dann bist du in dem terminal in ubuntu virtuell drin
-    wine # for windows programs
-    ncdu #Welcher Folder wieviel Speicher
-    libreoffice
-    unzip
-    anki
-    deno # javascript runtime
-    blueman
-    imagej
-    gimp3-with-plugins
-
-    #timer app usw
-
-    gnome-clocks
-
-    # calculator, hat mehr funktionen
-    qalculate-gtk
-    # wenn du lieber wieder gnome-calculator verwenden willst
-    # unkommentiere folgende zeile
-    #gnome-calculator
-
-    nautilus
-    blender
-    kdePackages.kdeconnect-kde
-    veusz
-    todoist
-    xdg-utils
-    discord
-    evince # ein pdf viewer
-    audacious # Audio player
-    mpv #ein video player
-
-    viewnior # Image viewer
-    neofetch
-    # ffmpeg # videodateien formatieren und bearbeiten
-    libreoffice
-    git
-    neovim
-    vscode
-    # libnotify # für Notifications
-    lazygit
-    spotify
-    sqlite
-
-    # nachtmodus programme
-    # TODO: eins nur behalten sollte reichen
-    # wlsunset
-    hyprsunset # seems like wlsunset is not doing its job on the pc?
+    syncthing # Sync files across devices automatically
+    obsidian # Markdown-based note-taking & knowledge management
+    dysk # Show disk usage (like df but nicer)
+    distrobox # Run other Linux distros inside containers
+    wine # Run Windows programs on Linux
+    ncdu # Visualize disk usage per folder
+    libreoffice # Office suite (Word, Excel, etc.)
+    unzip # Extract .zip archives
+    anki # Flashcard-based learning tool (spaced repetition)
+    deno # Modern JavaScript/TypeScript runtime
+    blueman # Bluetooth manager for Linux
+    imagej # Scientific image analysis (popular in research)
+    gimp3-with-plugins # Advanced image editing (Photoshop alternative)
+    drawio # Diagram and flowchart creation
+    gnome-clocks # World clocks, stopwatch, timers, alarms
+    qalculate-gtk # Powerful calculator with many features
+    nautilus # GNOME file manager
+    blender # 3D modeling, animation, rendering
+    kdePackages.kdeconnect-kde # Integrate phone with PC (notifications, file sharing, SMS)
+    veusz # Scientific plotting and graphing tool
+    todoist # Task management & to-do list app
+    xdg-utils # Open files/URLs with default desktop apps
+    discord # Voice, video, and text chat (gaming/community)
+    evince # Lightweight PDF and document viewer
+    audacious # Simple and lightweight music player
+    mpv # Media player (video/audio) with wide codec support
+    viewnior # Simple, fast image viewer
+    neofetch # Show system info in terminal (ASCII art + specs)
+    ffmpeg # Convert, edit, and process video/audio files
+    git # Version control system
+    neovim # Terminal-based text editor (Vim improved)
+    vscode # Code editor with GUI (Visual Studio Code)
+    lazygit # TUI interface for Git
+    spotify # Music streaming client
+    sqlite # Lightweight relational database engine
+    hyprsunset # Screen color temperature adjustment for eye comfort
   ];
 
   services.blueman-applet.enable = true;
