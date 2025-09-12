@@ -16,13 +16,13 @@
 
     "modules-right": [
       "tray",
-      "backlight",
       "custom/kblayout",
-      "custom/battery",
       "pulseaudio",
       "custom/mic",
+      "backlight",
       "custom/nightmode",
       "custom/notifications",
+      "custom/battery",
       "custom/power"
     ],
 

@@ -8,8 +8,17 @@
     libinput
   ];
 
-  services.swayosd = {
-    enable = true;
+  # ✅ Replace the broken services.swayosd with a working user service
+  systemd.user.services.swayosd = {
+    Unit = {
+      Description = "SwayOSD Daemon";
+      After = ["graphical-session.target"];
+    };
+    Service = {
+      ExecStart = "${pkgs.swayosd}/bin/swayosd-server";
+      Restart = "on-failure";
+    };
+    Install.WantedBy = ["graphical-session.target"];
   };
 
   # Optional: Custom CSS theming
@@ -31,16 +40,4 @@
       border-radius: 8px;
     }
   '';
-
-  # Sway keybindings example
-  # wayland.windowManager.sway.config = {
-  #   keybindings = {
-  #     "XF86AudioRaiseVolume" = "exec swayosd-client --output-volume raise";
-  #     "XF86AudioLowerVolume" = "exec swayosd-client --output-volume lower";
-  #     "XF86AudioMute" = "exec swayosd-client --output-volume mute-toggle";
-  #     "XF86MonBrightnessUp" = "exec swayosd-client --brightness raise";
-  #     "XF86MonBrightnessDown" = "exec swayosd-client --brightness lower";
-  #     "XF86AudioMicMute" = "exec swayosd-client --input-volume mute-toggle";
-  #   };
-  # };
 }
