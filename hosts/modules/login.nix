@@ -18,7 +18,7 @@
   # https://github.com/Keyitdev/sddm-astronaut-theme
   # Use the override function to configure the theme
   custom-sddm-astronaut = pkgs.sddm-astronaut.override {
-    embeddedTheme = "jake_the_dog"; # This should match the variant name without .conf
+    embeddedTheme = "purple_leaves"; # This should match the variant name without .conf
   };
 in {
   services.displayManager.sddm = {
