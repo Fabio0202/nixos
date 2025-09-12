@@ -56,7 +56,14 @@ for (const line of lines) {
   const keys = parts.slice(0, dispatcherIndex).join(" ").trim();
 
   // Command = everything from dispatcher onward
-  const command = parts.slice(dispatcherIndex).join(" ").trim();
+  let command = parts.slice(dispatcherIndex).join(" ").trim();
+
+  // Prepend "hyprctl dispatch" to Hyprland commands (except exec)
+  if (command.startsWith("exec ")) {
+    command = command.replace("exec ", ""); // Remove exec, just run the command directly
+  } else if (!command.startsWith("exec")) {
+    command = `hyprctl dispatch ${command}`;
+  }
 
   binds.push({
     keys,
