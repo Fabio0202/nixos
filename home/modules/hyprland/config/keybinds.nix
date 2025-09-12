@@ -13,6 +13,13 @@ in {
     ", XF86MonBrightnessDown, exec, swayosd-client --brightness lower"
   ];
 
+  wayland.windowManager.hyprland.settings.bindm = [
+    # Move window with Super + left mouse button
+    "${mainMod}, mouse:272, movewindow"
+
+    # Resize window with Super + right mouse button
+    "${mainMod}, mouse:273, resizewindow"
+  ];
   wayland.windowManager.hyprland.settings.bind = [
     # Workspace
     "${mainMod}, mouse_down, workspace, e+1" ## Workspace | Switch to next workspace
