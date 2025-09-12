@@ -4,13 +4,23 @@
   pkgs,
   ...
 }: let
-  astronautVariant = "jake_the_dog.conf";
+  # available themes:
+  # astronaut.conf
+  # black_hole.conf
+  # cyberpunk.conf
+  # hyprland_kath.conf
+  # jake_the_dog.conf
+  # japanese_aesthetic.conf
+  # pixel_sakura.conf
+  # pixel_sakura_static.conf
+  # post-apocalyptic_hacker.conf
+  # purple_leaves.conf
+  # https://github.com/Keyitdev/sddm-astronaut-theme
+  # Use the override function to configure the theme
+  custom-sddm-astronaut = pkgs.sddm-astronaut.override {
+    embeddedTheme = "jake_the_dog"; # This should match the variant name without .conf
+  };
 in {
-  # ❯ ls /run/current-system/sw/share/sddm/themes/sddm-astronaut-theme/Themes/
-  #  astronaut.conf       jake_the_dog.conf          post-apocalyptic_hacker.conf
-  #  black_hole.conf      japanese_aesthetic.conf    purple_leaves.conf
-  #  cyberpunk.conf       pixel_sakura.conf
-  #  hyprland_kath.conf   pixel_sakura_static.conf
   services.displayManager.sddm = {
     enable = true;
     package = pkgs.kdePackages.sddm;
@@ -20,7 +30,6 @@ in {
     settings = {
       Theme = {
         Current = "sddm-astronaut-theme";
-        ConfigFile = "Themes/${astronautVariant}";
       };
       Wayland = {
         EnableHiDPI = true;
@@ -42,7 +51,15 @@ in {
 
   services.displayManager.defaultSession = "hyprland-uwsm";
 
-  # Set environment variables for the display manager service only
+  # Add the customized theme to extraPackages
+  services.displayManager.sddm.extraPackages = with pkgs; [
+    custom-sddm-astronaut
+    kdePackages.qtmultimedia
+    kdePackages.qtsvg
+    kdePackages.qtvirtualkeyboard
+  ];
+
+  # Set environment variables for the display manager service
   systemd.services.display-manager = {
     serviceConfig = {
       Environment = [
@@ -60,17 +77,13 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
-    sddm-astronaut
-
-    # Required for Astronaut theme animations
+    custom-sddm-astronaut
     qt6.qtwayland
     qt6.qtmultimedia
     qt6.qtsvg
     qt6.qtdeclarative
     qt6.qtvirtualkeyboard
     qt6.qtquick3d
-
-    # Backends
     pipewire
     ffmpeg
   ];
