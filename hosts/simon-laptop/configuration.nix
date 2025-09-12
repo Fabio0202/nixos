@@ -9,6 +9,7 @@
     ../modules/userSimon.nix
     # ../modules/bootloader.nix
     ../modules/grub.nix
+    ../modules/sycnthingSimon.nix
   ];
 
   # boot.loader.systemd-boot.enable = true;
