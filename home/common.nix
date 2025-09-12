@@ -16,7 +16,6 @@
     deno # javascript runtime
     blueman
     imagej
-    zoom
     gimp3-with-plugins
 
     #timer app usw
