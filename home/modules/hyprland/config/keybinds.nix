@@ -5,12 +5,12 @@ in {
     # Audio
     ", F2, exec, swayosd-client --output-volume lower" ## Audio | Lower system volume
     ", F3, exec, swayosd-client --output-volume raise" ## Audio | Raise system volume
-    ", XF86AudioLowerVolume, exec, swayosd-client --output-volume lower" ## Audio | Lower system volume (special key)
-    ", XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise" ## Audio | Raise system volume (special key)
+    ", XF86AudioLowerVolume, exec, swayosd-client --output-volume lower"
+    ", XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise"
 
     # System (brightness fits best here)
-    ", XF86MonBrightnessUp, exec, swayosd-client --brightness raise" ## System | Increase screen brightness
-    ", XF86MonBrightnessDown, exec, swayosd-client --brightness lower" ## System | Decrease screen brightness
+    ", XF86MonBrightnessUp, exec, swayosd-client --brightness raise"
+    ", XF86MonBrightnessDown, exec, swayosd-client --brightness lower"
   ];
 
   wayland.windowManager.hyprland.settings.bind = [
@@ -20,24 +20,24 @@ in {
     "${mainMod}, D, exec, hyprctl dispatch hyprexpo:expo toggle" ## Workspace | Toggle expo view
     "${mainMod}, 1, workspace, 1" ## Workspace | Switch to workspace 1
     "${mainMod}, 2, workspace, 2" ## Workspace | Switch to workspace 2
-    "${mainMod}, 3, workspace, 3" ## Workspace | Switch to workspace 3
-    "${mainMod}, 4, workspace, 4" ## Workspace | Switch to workspace 4
-    "${mainMod}, 5, workspace, 5" ## Workspace | Switch to workspace 5
-    "${mainMod}, 6, workspace, 6" ## Workspace | Switch to workspace 6
-    "${mainMod}, 7, workspace, 7" ## Workspace | Switch to workspace 7
-    "${mainMod}, 8, workspace, 8" ## Workspace | Switch to workspace 8
+    "${mainMod}, 3, workspace, 3"
+    "${mainMod}, 4, workspace, 4"
+    "${mainMod}, 5, workspace, 5"
+    "${mainMod}, 6, workspace, 6"
+    "${mainMod}, 7, workspace, 7"
+    "${mainMod}, 8, workspace, 8"
     "${mainMod}, 9, workspace, 9" ## Workspace | Switch to workspace 9
-    "${mainMod}, 0, workspace, 10" ## Workspace | Switch to workspace 10
-    "${mainMod}Shift, 1, movetoworkspace, 1" ## Workspace | Move focused window to workspace 1
-    "${mainMod}Shift, 2, movetoworkspace, 2" ## Workspace | Move focused window to workspace 2
-    "${mainMod}Shift, 3, movetoworkspace, 3" ## Workspace | Move focused window to workspace 3
-    "${mainMod}Shift, 4, movetoworkspace, 4" ## Workspace | Move focused window to workspace 4
-    "${mainMod}Shift, 5, movetoworkspace, 5" ## Workspace | Move focused window to workspace 5
-    "${mainMod}Shift, 6, movetoworkspace, 6" ## Workspace | Move focused window to workspace 6
-    "${mainMod}Shift, 7, movetoworkspace, 7" ## Workspace | Move focused window to workspace 7
-    "${mainMod}Shift, 8, movetoworkspace, 8" ## Workspace | Move focused window to workspace 8
-    "${mainMod}Shift, 9, movetoworkspace, 9" ## Workspace | Move focused window to workspace 9
-    "${mainMod}Shift, 0, movetoworkspace, 10" ## Workspace | Move focused window to workspace 10
+    "${mainMod}, 0, workspace, 10"
+    "${mainMod} Shift, 1, movetoworkspace, 1" ## Workspace | Move focused window to workspace 1
+    "${mainMod} Shift, 2, movetoworkspace, 2" ## Workspace | Move focused window to workspace 2
+    "${mainMod} Shift, 3, movetoworkspace, 3"
+    "${mainMod} Shift, 4, movetoworkspace, 4"
+    "${mainMod} Shift, 5, movetoworkspace, 5"
+    "${mainMod} Shift, 6, movetoworkspace, 6"
+    "${mainMod} Shift, 7, movetoworkspace, 7"
+    "${mainMod} Shift, 8, movetoworkspace, 8"
+    "${mainMod} Shift, 9, movetoworkspace, 9"
+    "${mainMod} Shift, 0, movetoworkspace, 10" ## Workspace | Move focused window to workspace 10
     "${mainMod} CTRL, j, workspace, r+1" ## Workspace | Move to next relative workspace
     "${mainMod} CTRL, k, workspace, r-1" ## Workspace | Move to previous relative workspace
     "${mainMod} CTRL, up, workspace, r-1" ## Workspace | Move to previous relative workspace (arrow)
@@ -51,13 +51,13 @@ in {
     "${mainMod} SHIFT, up, movetoworkspace, -1" ## Workspace | Move window to previous workspace (arrow)
     "${mainMod} ALT, 1, movetoworkspacesilent, 1" ## Workspace | Move window silently to workspace 1
     "${mainMod} ALT, 2, movetoworkspacesilent, 2" ## Workspace | Move window silently to workspace 2
-    "${mainMod} ALT, 3, movetoworkspacesilent, 3" ## Workspace | Move window silently to workspace 3
-    "${mainMod} ALT, 4, movetoworkspacesilent, 4" ## Workspace | Move window silently to workspace 4
-    "${mainMod} ALT, 5, movetoworkspacesilent, 5" ## Workspace | Move window silently to workspace 5
-    "${mainMod} ALT, 6, movetoworkspacesilent, 6" ## Workspace | Move window silently to workspace 6
-    "${mainMod} ALT, 7, movetoworkspacesilent, 7" ## Workspace | Move window silently to workspace 7
-    "${mainMod} ALT, 8, movetoworkspacesilent, 8" ## Workspace | Move window silently to workspace 8
-    "${mainMod} ALT, 9, movetoworkspacesilent, 9" ## Workspace | Move window silently to workspace 9
+    "${mainMod} ALT, 3, movetoworkspacesilent, 3"
+    "${mainMod} ALT, 4, movetoworkspacesilent, 4"
+    "${mainMod} ALT, 5, movetoworkspacesilent, 5"
+    "${mainMod} ALT, 6, movetoworkspacesilent, 6"
+    "${mainMod} ALT, 7, movetoworkspacesilent, 7"
+    "${mainMod} ALT, 8, movetoworkspacesilent, 8"
+    "${mainMod} ALT, 9, movetoworkspacesilent, 9"
     "${mainMod} ALT, 0, movetoworkspacesilent, 10" ## Workspace | Move window silently to workspace 10
 
     "${mainMod}, SPACE, exec, show-binds" ## System | Show Keybinds cheat sheet
@@ -104,9 +104,9 @@ in {
     # Audio
     ", F1, exec, swayosd-client --output-volume mute-toggle" ## Audio | Toggle audio mute
     ", F4, exec, swayosd-client --input-volume mute-toggle; pkill -RTMIN+9 waybar" ## Audio | Toggle mic mute
-    ", 190, exec, swayosd-client --input-volume mute-toggle; pkill -RTMIN+9 waybar" ## Audio | Toggle mic mute (keycode 190)
-    ", XF86AudioMute, exec, swayosd-client --output-volume mute-toggle" ## Audio | Toggle audio mute
-    ", XF86AudioMicMute, exec, swayosd-client --input-volume mute-toggle && toggle-mic-mute-led; pkill -RTMIN+9 waybar" ## Audio | Toggle mic mute (special key)
+    ", 190, exec, swayosd-client --input-volume mute-toggle; pkill -RTMIN+9 waybar"
+    ", XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
+    ", XF86AudioMicMute, exec, swayosd-client --input-volume mute-toggle && toggle-mic-mute-led; pkill -RTMIN+9 waybar"
 
     # Apps
     "${mainMod}, T, exec, kitty" ## Apps | Launch Kitty terminal
