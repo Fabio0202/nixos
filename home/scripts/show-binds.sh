@@ -28,15 +28,23 @@ if [[ -z "$1" ]]; then
   exec "$0" "$CATEGORY"
 else
   if [[ "$1" == "All" ]]; then
-    jq -r '.[] | "\(.keys) → \(.description)\t\t\t" + (.[ "command" ]) + "    [" + .category + "]"' "$JSON_FILE" \
-      | while IFS=$'\t' read -r line; do
-          cat=$(echo "$line" | sed -E 's/.*\[(.+)\]$/\1/')
+    CHOICE=$(
+      jq -r '.[] | "\(.keys) → \(.description) [" + .category + "] || " + .command' "$JSON_FILE" \
+      | while IFS= read -r line; do
+          cat=$(echo "$line" | sed -E 's/.*\[(.+)\].*/\1/')
           icon=$(icon_for_category "$cat")
-          echo "$line" | sed -E "s/\[(.+)\]$/[ $icon \1]/"
+          echo "$line" | sed -E "s/\[(.+)\]/[ $icon \1]/"
         done \
       | rofi -dmenu -i -p "All" -theme "$THEME"
+    )
   else
-    jq -r --arg cat "$1" '.[] | select(.category==$cat) | "\(.keys) → \(.description)\t\t\t" + (.[ "command" ])' "$JSON_FILE" \
+    CHOICE=$(
+      jq -r --arg cat "$1" '.[] | select(.category==$cat) | "\(.keys) → \(.description) ||| " + .command' "$JSON_FILE" \
       | rofi -dmenu -i -p "$1" -theme "$THEME"
+    )
   fi
+
+  # Extract command after delimiter "|||"
+  CMD=$(echo "$CHOICE" | awk -F'\|\|' '{print $2}')
+  [[ -n "$CMD" ]] && sh -c "$CMD"
 fi
