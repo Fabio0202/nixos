@@ -8,6 +8,7 @@
     ../configuration-common.nix
     ../modules/nvidia.nix
     ../modules/userFabio.nix
+    ../modules/syncthing_fabio.nix
   ];
 
   boot.loader.grub.enable = true;

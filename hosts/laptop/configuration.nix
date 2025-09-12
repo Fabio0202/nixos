@@ -10,6 +10,7 @@
     ../modules/nvidia.nix
     # ../modules/bootloader.nix
     ../modules/grub.nix
+    ../modules/syncthing_fabio.nix
   ];
 
   # boot.loader.systemd-boot.enable = true;
