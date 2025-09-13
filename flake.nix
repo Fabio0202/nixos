@@ -72,8 +72,8 @@
   in {
     # --- Hosts ---
     nixosConfigurations = {
-      pc = mkHost "pc" "fabio";
-      laptop = mkHost "laptop" "fabio";
+      fabio-pc = mkHost "fabio-pc" "fabio";
+      fabio-laptop_hp = mkHost "fabio-laptop_hp" "fabio";
       simon-laptop = mkHost "simon-laptop" "simon";
     };
 
