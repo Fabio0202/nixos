@@ -6,6 +6,8 @@
 }: let
   myAliases = {
     mkdir = "mkdir -p";
+    ssh-allow = "sudo systemctl start sshd";
+    ssh-deny = "sudo systemctl stop sshd";
     l = "eza --icons";
     ls = "eza --icons";
     lst = "ls -T -L=2";

@@ -73,6 +73,7 @@
     ./modules/wofi.nix
     ./modules/nwg-dock.nix
     ./modules/rofi.nix
+    ./modules/ssh.nix
     ./modules/show-binds/default.nix
     ./modules/wrapScripts.nix
     ./modules/sunset-at-night.nix
