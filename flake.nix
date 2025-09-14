@@ -10,15 +10,17 @@
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland"; # 👈 ensures ABI match
+      inputs.hyprland.follows = "hyprland";
     };
 
     hypr-dynamic-cursors = {
       url = "github:VirtCode/hypr-dynamic-cursors";
-      inputs.hyprland.follows = "hyprland"; # ensures ABI matches Hyprland
+      inputs.hyprland.follows = "hyprland";
     };
+
     stylix = {
       url = "github:danth/stylix/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -31,12 +33,13 @@
   outputs = {
     self,
     nixpkgs,
-    home-manager,
     nixpkgs-unstable,
+    home-manager,
     ...
   } @ inputs: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
+    pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
 
     # --- User abstraction ---
     mkUser = hostName: {
@@ -51,7 +54,7 @@
     mkHost = hostName: userName:
       nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = {inherit inputs;};
+        specialArgs = {inherit inputs pkgs-unstable;};
 
         modules = [
           ./hosts/${hostName}/configuration.nix
@@ -61,10 +64,9 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs;};
+            home-manager.extraSpecialArgs = {inherit inputs pkgs-unstable;};
 
             home-manager.backupFileExtension = "backup";
-            # only configure HM for the user that belongs on this host
             home-manager.users.${userName} = mkUser hostName;
           }
         ];
