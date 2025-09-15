@@ -10,6 +10,7 @@
     ssh-deny = "sudo systemctl stop sshd";
     l = "eza --icons";
     ls = "eza --icons";
+    ping = "gping";
     lst = "ls -T -L=2";
     fl = "y";
     lf = "y";
@@ -134,31 +135,37 @@ in {
   };
 
   home.packages = with pkgs; [
-    #  für die science facts
-    haskellPackages.misfortune
-    taskwarrior3
-    timewarrior
-    taskwarrior-tui
-    cowsay
-    lolcat
-    fzf
-    jq
-    eza
-    btop
-    nix-output-monitor
-    nh
-    wget
-    gnumake
-    xclip
-    lf
-    cmake
-    gcc
-    neofetch
-    ripgrep
-    kitty
-    bat
-    trash-cli
-    yazi
-    zoxide
+    # Fun / misc
+    haskellPackages.misfortune # random fortune messages (misfortune quotes)
+    cowsay # display messages as ASCII cows
+    lolcat # rainbow-colorize terminal output
+    neofetch # system info in terminal (with ASCII logo)
+
+    # Task / time management
+    taskwarrior3 # CLI task manager
+    timewarrior # CLI time tracking
+    taskwarrior-tui # ncurses interface for taskwarrior
+
+    # Search / navigation
+    fzf # fuzzy finder (search lists interactively)
+    jq # process/manipulate JSON in terminal
+    eza # modern replacement for ls
+    ripgrep # fast grep-like search tool
+    zoxide # smarter cd with directory jumping
+    lf # terminal file manager
+
+    gping # ping with graph output
+    # System / utilities
+    btop # resource monitor (CPU, RAM, GPU, etc.)
+    wget # download files from web
+    xclip # clipboard CLI for X11/Wayland
+    kitty # GPU-accelerated terminal
+    bat # modern replacement for cat (with syntax highlighting)
+    trash-cli # move files to trash instead of rm
+    yazi # fast TUI file manager (like lf but modern)
+    # Build tools / dev utils
+    gnumake # build automation (needed by many projects)
+    cmake # cross-platform build system
+    gcc # C/C++ compiler
   ];
 }
