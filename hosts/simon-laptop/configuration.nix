@@ -10,8 +10,6 @@
     # ../modules/bootloader.nix
     ../modules/grub.nix
 
-    ../modules/python.nix
-    ../modules/javascript.nix
     ../modules/tailscale.nix
     ../modules/sycnthingSimon.nix
   ];

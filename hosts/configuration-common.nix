@@ -10,6 +10,8 @@
     ./modules/stylix.nix
     ./modules/podman.nix
     ./modules/nix-ld.nix
+    ./modules/python.nix
+    ./modules/javascript.nix
     ./modules/locale.nix
     ./modules/audio.nix
     ./modules/graphics.nix

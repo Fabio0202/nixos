@@ -10,8 +10,9 @@ in {
   home.packages = with pkgs; [
     # alle Software die ich nur am Laptop haben will
     telegram-desktop
-    (pkgs-unstable.vintagestory)
-    (pkgs-unstable.mongodb-compass)
+    # TODO: allow unstable imports
+    # (pkgs-unstable.vintagestory)
+    # (pkgs-unstable.mongodb-compass)
 
     redis
     direnv # Manage environment variables per project directory

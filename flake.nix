@@ -8,6 +8,11 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
+    hyprtasking = {
+      url = "github:raybbian/hyprtasking";
+      inputs.hyprland.follows = "hyprland";
+    };
+
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -38,8 +43,18 @@
     ...
   } @ inputs: let
     system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
-    pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
+
+    # Import nixpkgs with allowUnfree so we can import proprietary software
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+    };
+
+    # Import nixpkgs-unstable channel with allowUnfree so we can import proprietary software
+    pkgs-unstable = import nixpkgs-unstable {
+      inherit system;
+      config.allowUnfree = true;
+    };
 
     # --- User abstraction ---
     mkUser = hostName: {

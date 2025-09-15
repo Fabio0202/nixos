@@ -4,6 +4,7 @@
   ...
 }: {
   nixpkgs.config.allowUnfree = true;
+  # nixpkgs-unstable.config.allowUnfree = true;
 
   # make sure I can still ssh into emergency mode
   systemd.enableEmergencyMode = true;

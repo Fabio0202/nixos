@@ -49,6 +49,7 @@ in {
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     plugins = [
       inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo
+      # inputs.hyprtasking.packages.${pkgs.system}.hyprtasking
       inputs.hypr-dynamic-cursors.packages.${pkgs.system}.hypr-dynamic-cursors
       # inputs.hyprland-plugins.packages.${pkgs.system}.hyprspace
     ];
