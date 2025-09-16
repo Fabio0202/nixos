@@ -22,7 +22,7 @@
 
     # Automatically suspend idle USB devices after a short timeout.
     # → Lowers power use (esp. webcam, fingerprint, smartcard reader) when idle.
-    "usbcore.autosuspend=1"
+    "usbcore.autosuspend=-1"
   ];
 
   # Custom Powertop service (non-blocking, runs after boot)
@@ -73,7 +73,7 @@
       DISK_APM_LEVEL_ON_BAT = "128 128"; # more aggressive savings on battery
 
       # USB autosuspend for unused devices
-      USB_AUTOSUSPEND = true;
+      USB_AUTOSUSPEND = false;
     };
   };
 
