@@ -12,6 +12,7 @@
     ./modules/nix-ld.nix
     ./modules/python.nix
     ./modules/javascript.nix
+    ./modules/tailscale.nix
     ./modules/locale.nix
     ./modules/audio.nix
     ./modules/graphics.nix
