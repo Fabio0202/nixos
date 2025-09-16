@@ -91,6 +91,7 @@
     nixosConfigurations = {
       fabio-pc = mkHost "fabio-pc" "fabio";
       fabio-laptop_hp = mkHost "fabio-laptop_hp" "fabio";
+      fabio-laptop_lenovo = mkHost "fabio-laptop_lenovo" "fabio";
       simon-laptop = mkHost "simon-laptop" "simon";
     };
 
