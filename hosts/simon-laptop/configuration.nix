@@ -13,6 +13,11 @@
     ../modules/tailscale.nix
     ../modules/sycnthingSimon.nix
   ];
+  fileSystems."/home/simon/pc-shared" = {
+    device = "simon-pc:/home/simon/shared";
+    fsType = "nfs";
+    options = ["x-systemd.automount" "noauto" "nofail" "bg"];
+  };
 
   nixpkgs.config.permittedInsecurePackages = [
     "dotnet-runtime-7.0.20"
