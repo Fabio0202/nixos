@@ -12,6 +12,10 @@
           introducer = true;
         };
 
+        "server-salzburg" = {
+          id = "IL3DCZS-4ASMHNV-UJ654ZK-BEL5LFU-5AVY764-BHTRCVL-THGBZPH-ZIAKVAJ";
+          name = "server-salzburg";
+        };
         "server-schweiz" = {
           id = "UOEO2XJ-BUWG4DZ-EXVJ7MZ-RPIYOB7-KAOZQZN-55SIJYW-OD4CYTG-Q36FKQF";
           name = "server-schweiz";
