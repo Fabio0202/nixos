@@ -19,7 +19,7 @@
   # boot.loader.grub.device = "/dev/nvme0n1";
   # boot.loader.grub.useOSProber = true;
 
-  networking.hostName = "fabio-laptop_lenovo";
+  networking.hostName = "fabio-laptop-lenovo";
 
   system.stateVersion = "25.11";
 }

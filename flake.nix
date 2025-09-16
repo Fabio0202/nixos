@@ -90,8 +90,8 @@
     # --- Hosts ---
     nixosConfigurations = {
       fabio-pc = mkHost "fabio-pc" "fabio";
-      fabio-laptop_hp = mkHost "fabio-laptop_hp" "fabio";
-      fabio-laptop_lenovo = mkHost "fabio-laptop_lenovo" "fabio";
+      fabio-laptop-hp = mkHost "fabio-laptop-hp" "fabio";
+      fabio-laptop-lenovo = mkHost "fabio-laptop-lenovo" "fabio";
       simon-laptop = mkHost "simon-laptop" "simon";
     };
 
