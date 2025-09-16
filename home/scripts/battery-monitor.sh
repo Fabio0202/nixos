@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-
-
 # prevent multiple instances
 LOCKFILE="/tmp/battery-monitor.lock"
 exec 9>"$LOCKFILE"
@@ -22,6 +20,14 @@ last_state=""
 critical_notified=false
 NID=0
 
+get_battery_dev() {
+  upower -e | grep -m1 BAT
+}
+
+get_battery_info() {
+  upower -i "$(get_battery_dev)"
+}
+
 close_notification() {
   if [[ $NID -ne 0 ]]; then
     gdbus call \
@@ -37,8 +43,8 @@ close_notification() {
 # background watcher for charging events
 upower --monitor | while read -r line; do
   if echo "$line" | grep -qi "state"; then
-    state=$(upower -i "$(upower -e | grep battery)" | awk '/state/ {print $2}')
-    level=$(upower -i "$(upower -e | grep battery)" | awk '/percentage/ {print $2}' | tr -d '%')
+    state=$(get_battery_info | awk '/state/ {print $2}')
+    level=$(get_battery_info | awk '/percentage/ {print $2}' | tr -d '%')
 
     if [[ "$state" == "charging" ]]; then
       # clear existing notifications
@@ -53,7 +59,7 @@ done &
 
 # main loop for periodic checks
 while true; do
-  battery_info=$(upower -i "$(upower -e | grep battery)")
+  battery_info=$(get_battery_info)
   level=$(echo "$battery_info" | awk '/percentage/ {print $2}' | tr -d '%')
   state=$(echo "$battery_info" | awk '/state/ {print $2}')
 
