@@ -11,6 +11,11 @@
           name = "simon-laptop";
           introducer = true;
         };
+
+        "server-schweiz" = {
+          id = "UOEO2XJ-BUWG4DZ-EXVJ7MZ-RPIYOB7-KAOZQZN-55SIJYW-OD4CYTG-Q36FKQF";
+          name = "server-schweiz";
+        };
       };
 
       folders = {
