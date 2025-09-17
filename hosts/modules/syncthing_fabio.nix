@@ -15,7 +15,7 @@
     openDefaultPorts = true;
     dataDir = "/mnt/drive";
     configDir = "/mnt/drive/syncthing-config";
-    user = "simon";
+    user = "fabio";
 
     guiAddress = "127.0.0.1:8384"; # safer, tunnel if needed
 
