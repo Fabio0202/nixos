@@ -25,16 +25,16 @@
 
       devices = {
         fabio-pc = {
-          id = "MMRJWPX-7YX3TQW-OCVPOQL-2IP22QH-SJLAXIE-A3AGC7C-3546S6L-ZVQGUQP";
+          id = "YNYJV2K-UTS3MTJ-RTVBJ44-EZAC7QB-2GI3Y3P-VIKKUVO-N4OLOUF-5AEHJQO";
           name = "fabio-pc";
         };
         server-schweiz = {
-          id = "UOEO2XJ-BUWG4DZ-EXVJ7MZ-RPIYOB7-KAOZQZN-55SIJYW-OD4CYTG-Q36FKQF";
+          id = "IL3DCZS-4ASMHNV-UJ654ZK-BEL5LFU-5AVY764-BHTRCVL-THGBZPH-ZIAKVAJ";
           name = "server-schweiz";
         };
 
         fabio-laptop-lenovo = {
-          id = "4ZLQ5YQ-LHX6M7G-MQHQEOL-QWLZSFQ-KOIYB5F-NDPYLWB-PLCJEGF-CDT6PAI";
+          id = "G6JHDK7-K7AB5YJ-JXUGO7K-QH4OEVF-IGB7Q6R-2WCTX2D-IBYV4I2-MBZXNQA";
           name = "fabio-laptop-lenovo";
         };
         server-salzburg = {
