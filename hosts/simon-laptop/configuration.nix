@@ -15,7 +15,7 @@
   fileSystems."/home/simon/pc-shared" = {
     device = "simon-pc:/home/simon/shared";
     fsType = "nfs";
-    options = ["x-systemd.automount" "noauto" "nofail" "bg"];
+    options = ["x-systemd.automount" "noauto" "nofail" "x-systemd.idle-timeout=10s" "bg"];
   };
 
   nixpkgs.config.permittedInsecurePackages = [
