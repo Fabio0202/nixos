@@ -1,33 +1,52 @@
-{...}: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  systemd.services.syncthing = {
+    after = ["mnt-drive.mount"];
+    requires = ["mnt-drive.mount"];
+    bindsTo = ["mnt-drive.mount"];
+  };
+
   services.syncthing = {
     enable = true;
-    user = "fabio"; # run Syncthing as your user
-    dataDir = "/home/fabio/.config/syncthing";
+    openDefaultPorts = true;
+    dataDir = "/mnt/drive";
+    configDir = "/mnt/drive/syncthing-config";
+    user = "simon";
 
-    settings = {
+    guiAddress = "127.0.0.1:8384"; # safer, tunnel if needed
+
+    settings.options = {
+      natEnabled = false;
+      globalAnnounceEnabled = true;
+      localAnnounceEnabled = true;
+      relayEnabled = false;
+    };
+
+    declarative = {
+      overrideDevices = true;
+      overrideFolders = true;
+
       devices = {
-        "desktop" = {
-          id = "O7H5UW2-DIDLB5Y-2MBGZZI-LRFHQBT-XYSRP2L-QW4X2VD-BVEERQG-OI52HQZ";
-          name = "simon-laptop";
-          introducer = true;
+        fabio-pc = {
+          id = "MMRJWPX-7YX3TQW-OCVPOQL-2IP22QH-SJLAXIE-A3AGC7C-3546S6L-ZVQGUQP";
         };
-
-        "server-salzburg" = {
+        fabio-laptop-lenovo = {
+          id = "4ZLQ5YQ-LHX6M7G-MQHQEOL-QWLZSFQ-KOIYB5F-NDPYLWB-PLCJEGF-CDT6PAI";
+        };
+        server-salzburg = {
           id = "IL3DCZS-4ASMHNV-UJ654ZK-BEL5LFU-5AVY764-BHTRCVL-THGBZPH-ZIAKVAJ";
-          name = "server-salzburg";
-        };
-        "server-schweiz" = {
-          id = "UOEO2XJ-BUWG4DZ-EXVJ7MZ-RPIYOB7-KAOZQZN-55SIJYW-OD4CYTG-Q36FKQF";
-          name = "server-schweiz";
         };
       };
 
       folders = {
-        "documents" = {
-          id = "documents"; # must match the desktop's folder ID
-          path = "/home/fabio/Documents"; # local folder path on the laptop
-          devices = ["server-schweiz" "server-salzburg"]; # sync with servers
-          type = "sendreceive";
+        documents = {
+          path = "/mnt/drive/syncthing/fabio/documents";
+          devices = ["fabio-laptop-lenovo" "fabio-pc" "server-salzburg"];
+          versioning = {type = "trashcan";};
         };
       };
     };
