@@ -29,7 +29,7 @@
           name = "fabio-pc";
         };
         server-schweiz = {
-          id = "IL3DCZS-4ASMHNV-UJ654ZK-BEL5LFU-5AVY764-BHTRCVL-THGBZPH-ZIAKVAJ";
+          id = "UOEO2XJ-BUWG4DZ-EXVJ7MZ-RPIYOB7-KAOZQZN-55SIJYW-OD4CYTG-Q36FKQF";
           name = "server-schweiz";
         };
 
