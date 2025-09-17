@@ -4,20 +4,13 @@
   pkgs,
   ...
 }: {
-  systemd.services.syncthing = {
-    after = ["mnt-drive.mount"];
-    requires = ["mnt-drive.mount"];
-    bindsTo = ["mnt-drive.mount"];
-  };
-
   services.syncthing = {
     enable = true;
     openDefaultPorts = true;
-    dataDir = "/mnt/drive";
-    configDir = "/mnt/drive/syncthing-config";
+    configDir = "~/.config/syncthing-config";
     user = "fabio";
 
-    guiAddress = "127.0.0.1:8384"; # safer, tunnel if needed
+    guiAddress = "0.0.0.0:8384"; # safer, tunnel if needed
 
     settings.options = {
       natEnabled = false;
@@ -33,19 +26,27 @@
       devices = {
         fabio-pc = {
           id = "MMRJWPX-7YX3TQW-OCVPOQL-2IP22QH-SJLAXIE-A3AGC7C-3546S6L-ZVQGUQP";
+          name = "fabio-pc";
         };
+        server-schweiz = {
+          id = "UOEO2XJ-BUWG4DZ-EXVJ7MZ-RPIYOB7-KAOZQZN-55SIJYW-OD4CYTG-Q36FKQF";
+          name = "server-schweiz";
+        };
+
         fabio-laptop-lenovo = {
           id = "4ZLQ5YQ-LHX6M7G-MQHQEOL-QWLZSFQ-KOIYB5F-NDPYLWB-PLCJEGF-CDT6PAI";
+          name = "fabio-laptop-lenovo";
         };
         server-salzburg = {
           id = "IL3DCZS-4ASMHNV-UJ654ZK-BEL5LFU-5AVY764-BHTRCVL-THGBZPH-ZIAKVAJ";
+          name = "server-salzburg";
         };
       };
 
       folders = {
-        documents = {
-          path = "/mnt/drive/syncthing/fabio/documents";
-          devices = ["fabio-laptop-lenovo" "fabio-pc" "server-salzburg"];
+        Documents = {
+          path = "/mnt/drive/syncthing/fabio/Documents";
+          devices = ["fabio-laptop-lenovo" "fabio-pc" "server-salzburg" "server-schweiz"];
           versioning = {type = "trashcan";};
         };
       };
