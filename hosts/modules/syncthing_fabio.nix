@@ -45,7 +45,7 @@
 
       folders = {
         Documents = {
-          path = "/mnt/drive/syncthing/fabio/Documents";
+          path = "/home/fabio/Documents";
           devices = ["fabio-laptop-lenovo" "fabio-pc" "server-salzburg" "server-schweiz"];
           versioning = {type = "trashcan";};
         };
