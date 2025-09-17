@@ -7,7 +7,7 @@
   services.syncthing = {
     enable = true;
     openDefaultPorts = true;
-    configDir = "~/.config/syncthing-config";
+    configDir = "/home/fabio/.config/syncthing-config";
     user = "fabio";
 
     guiAddress = "0.0.0.0:8384"; # safer, tunnel if needed
