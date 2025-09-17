@@ -44,7 +44,7 @@
       };
 
       folders = {
-        Documents = {
+        "fabio-documents" = {
           path = "/home/fabio/Documents";
           devices = ["fabio-laptop-lenovo" "fabio-pc" "server-salzburg" "server-schweiz"];
           versioning = {type = "trashcan";};
