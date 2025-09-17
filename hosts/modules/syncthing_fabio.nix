@@ -23,10 +23,10 @@
       };
 
       folders = {
-        "shared-docs" = {
-          id = "shared-docs"; # must match the desktop's folder ID
-          path = "/home/fabio/Sync/"; # local folder path on the laptop
-          devices = ["desktop"]; # sync with your desktop
+        "documents" = {
+          id = "documents"; # must match the desktop's folder ID
+          path = "/home/fabio/Documents"; # local folder path on the laptop
+          devices = ["server-schweiz" "server-salzburg"]; # sync with servers
           type = "sendreceive";
         };
       };
