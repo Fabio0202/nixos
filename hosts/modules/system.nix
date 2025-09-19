@@ -13,7 +13,7 @@
   services.openssh = {
     # make sure I can still ssh into emergency mode
     startWhenNeeded = true;
-    enable = false;
+    enable = true;
     forwardX11 = true;
   };
   programs.ssh.startAgent = true;
