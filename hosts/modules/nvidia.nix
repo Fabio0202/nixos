@@ -3,10 +3,10 @@
   pkgs,
   ...
 }: {
+  services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
     # Modesetting is required.
     modesetting.enable = true;
-    services.xserver.videoDrivers = ["nvidia"];
 
     # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
