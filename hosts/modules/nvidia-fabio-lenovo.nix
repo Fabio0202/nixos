@@ -1,11 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
-  environment.systemPackages = with pkgs; [
-    nvidia-smi
-  ];
+{config, ...}: {
   hardware.nvidia = {
     # Modesetting is required.
     modesetting.enable = true;

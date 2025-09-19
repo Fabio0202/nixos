@@ -7,7 +7,7 @@
     ./hardware-configuration.nix
     ../configuration-common.nix
     ../modules/userFabio.nix
-    ../modules/nvidia.nix
+    ../modules/nvidia-fabio-lenovo.nix
     # ../modules/bootloader.nix
     ../modules/grub.nix
     ../modules/syncthing_fabio.nix
