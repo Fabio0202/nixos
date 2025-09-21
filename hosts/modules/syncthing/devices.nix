@@ -16,7 +16,7 @@
       name = "simon-laptop";
     };
     server-schweiz = {
-      id = "UOEO2XJ-BUWG4DZ-EXVJ7MZ-RPIYOB7-KAOZQZN-55SIJYW-OD4CYTG-Q36FKQF";
+      id = "QS6PJTL-EALJ37X-SZHKJFE-GRRIETG-MTOPBJG-OIABPEB-F25F7YH-ODTQUQZ";
       name = "server-schweiz";
     };
     server-salzburg = {
