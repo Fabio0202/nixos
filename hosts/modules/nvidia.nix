@@ -3,9 +3,7 @@
   pkgs,
   ...
 }: {
-  environment.systemPackages = with pkgs; [
-    nvidia-smi
-  ];
+  services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
     # Modesetting is required.
     modesetting.enable = true;
