@@ -13,6 +13,7 @@ in {
     ./../configuration-common.nix
     ./../modules/server/cloudflared.nix
     ./../modules/server/caddy.nix
+    ./../modules/bootloader.nix
     ./../modules/server/media-stack.nix
 
     (import ../modules/syncthing {
