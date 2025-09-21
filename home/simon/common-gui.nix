@@ -16,6 +16,10 @@
     filezilla
   ];
 
+  xdg.configFile."gtk-3.0/bookmarks".text = ''
+    file:///mnt/server Server
+    file:///mnt/cloud My Cloud
+  '';
   imports = [
     # hier kommen zB setup files aus /modules fuer die einzelnen pkgs bzw softwares
   ];
