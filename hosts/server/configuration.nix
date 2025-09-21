@@ -22,6 +22,28 @@ in {
     })
   ];
 
+  services.nfs.server = {
+    enable = true;
+
+    # Export rules
+    exports = ''
+      # Export the entire drive as root export (fsid=0 lets clients mount subpaths)
+      /mnt/drive  100.64.0.0/10(rw,sync,no_subtree_check,no_root_squash,fsid=0)
+
+      # Export specific user clouds directly
+      /mnt/cloud/simon  100.64.0.0/10(rw,sync,no_subtree_check,no_root_squash)
+      /mnt/cloud/edin   100.64.0.0/10(rw,sync,no_subtree_check,no_root_squash)
+      /mnt/cloud/fabio  100.64.0.0/10(rw,sync,no_subtree_check,no_root_squash)
+    '';
+  };
+
+  # Make NFS server depend on your drive being mounted
+  systemd.services.nfs-server = {
+    requires = ["mnt-drive.mount"];
+    after = ["mnt-drive.mount"];
+    bindsTo = ["mnt-drive.mount"];
+  };
+
   # TODO: move to media-stack.nix
   systemd.services.syncthing = {
     after = ["mnt-drive.mount"];
