@@ -10,7 +10,7 @@ in {
     ./hardware-configuration.nix
 
     ../modules/userSimon.nix
-    ./../configuration-common.nix
+    ./../configuration-common-server.nix
     ./../modules/server/cloudflared.nix
     ./../modules/server/caddy.nix
     ./../modules/bootloader.nix
