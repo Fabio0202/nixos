@@ -9,11 +9,16 @@ in {
   imports = [
     ./hardware-configuration.nix
     ./../configuration-common.nix
-    ./../modules/server/syncthing.nix
+    # ./../modules/server/syncthing.nix
     ./../modules/server/cloudflared.nix
     ./../modules/server/caddy.nix
     ./../modules/server/media-stack.nix
     # ./../modules/nginx.nix
+
+    (import ../modules/syncthing {
+      user = "simon";
+      hostName = "server-schweiz";
+    })
   ];
 
   environment.systemPackages = with pkgs; [
@@ -36,7 +41,7 @@ in {
 
   users.users.simon.extraGroups = ["video" "wheel"];
   programs.zsh.enable = true;
-  networking.hostName = "simon-server";
+  networking.hostName = "server";
 
   ##########################
   ## Drive Configuration

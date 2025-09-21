@@ -1,7 +1,10 @@
 # ../modules/syncthing/default.nix
-{user}: let
+{
+  user,
+  hostName,
+}: let
   # Dynamically construct the folder path based on the user
-  foldersFile = ./folders + "/${user}.nix";
+  foldersFile = ./folders + "/${hostName}.nix";
 in {
   imports = [
     (import ./settings.nix {inherit user;})

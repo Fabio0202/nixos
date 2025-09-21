@@ -91,6 +91,7 @@
       fabio-laptop-hp = mkHost "fabio-laptop-hp" "fabio";
       fabio-laptop-lenovo = mkHost "fabio-laptop-lenovo" "fabio";
       simon-laptop = mkHost "simon-laptop" "simon";
+      server = mkHost "server" "simon";
     };
 
     # --- Optional packages ---

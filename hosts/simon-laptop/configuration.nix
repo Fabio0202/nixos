@@ -10,7 +10,10 @@
     # ../modules/bootloader.nix
     ../modules/grub.nix
 
-    (import ../modules/syncthing {user = "simon";})
+    (import ../modules/syncthing {
+      user = "simon";
+      hostName = "simon-laptop";
+    })
   ];
 
   fileSystems."/home/simon/pc-shared" = {
