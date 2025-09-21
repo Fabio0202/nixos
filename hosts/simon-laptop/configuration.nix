@@ -16,8 +16,14 @@
     })
   ];
 
-  fileSystems."/home/simon/pc-shared" = {
-    device = "simon-pc:/home/simon/shared";
+  fileSystems."/mnt/server" = {
+    device = "simon-pc:/mnt/drive";
+    fsType = "nfs";
+    options = ["x-systemd.automount" "noauto" "nofail" "x-systemd.idle-timeout=10s" "bg"];
+  };
+
+  fileSystems."/mnt/cloud" = {
+    device = "simon-pc:/mnt/drive/cloud/simon";
     fsType = "nfs";
     options = ["x-systemd.automount" "noauto" "nofail" "x-systemd.idle-timeout=10s" "bg"];
   };
