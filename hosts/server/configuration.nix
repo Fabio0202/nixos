@@ -31,9 +31,9 @@ in {
       /mnt/drive  100.64.0.0/10(rw,sync,no_subtree_check,no_root_squash,fsid=0)
 
       # Export specific user clouds directly
-      /mnt/cloud/simon  100.64.0.0/10(rw,sync,no_subtree_check,no_root_squash)
-      /mnt/cloud/edin   100.64.0.0/10(rw,sync,no_subtree_check,no_root_squash)
-      /mnt/cloud/fabio  100.64.0.0/10(rw,sync,no_subtree_check,no_root_squash)
+      /mnt/drive/cloud/simon  100.64.0.0/10(rw,sync,no_subtree_check,no_root_squash)
+      /mnt/drive/cloud/edin   100.64.0.0/10(rw,sync,no_subtree_check,no_root_squash)
+      /mnt/drive/cloud/fabio  100.64.0.0/10(rw,sync,no_subtree_check,no_root_squash)
     '';
   };
 
