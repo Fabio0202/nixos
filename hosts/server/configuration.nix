@@ -8,6 +8,8 @@
 in {
   imports = [
     ./hardware-configuration.nix
+
+    ../modules/userSimon.nix
     ./../configuration-common.nix
     ./../modules/server/cloudflared.nix
     ./../modules/server/caddy.nix

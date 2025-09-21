@@ -38,7 +38,6 @@
   outputs = {
     self,
     nixpkgs,
-    lib,
     nixpkgs-unstable,
     home-manager,
     ...
@@ -60,8 +59,8 @@
     # --- User abstraction ---
     mkUser = userName: hostName: {
       home = {
-        username = lib.mkForce userName;
-        homeDirectory = lib.mkForce "/home/${userName}";
+        username = userName;
+        homeDirectory = "/home/${userName}";
         stateVersion = "25.11"; # pin Home Manager release compatibility
       };
       imports = [
