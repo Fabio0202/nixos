@@ -6,6 +6,7 @@ in {
     # alle Software die ich nur am Laptop haben will
   ];
   imports = [
+    ./common.nix
     ../common.nix
     ../modules/battery-monitor.nix
     ../modules/hyprland/hypridle.nix

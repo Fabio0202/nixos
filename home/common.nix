@@ -15,16 +15,10 @@
     anki # Flashcard-based learning tool (spaced repetition)
     deno # Modern JavaScript/TypeScript runtime
     blueman # Bluetooth manager for Linux
-    imagej # Scientific image analysis (popular in research)
-    gimp3-with-plugins # Advanced image editing (Photoshop alternative)
-    drawio # Diagram and flowchart creation
     gnome-clocks # World clocks, stopwatch, timers, alarms
     qalculate-gtk # Powerful calculator with many features
     nautilus # GNOME file manager
-    blender # 3D modeling, animation, rendering
     kdePackages.kdeconnect-kde # Integrate phone with PC (notifications, file sharing, SMS)
-    veusz # Scientific plotting and graphing tool
-    todoist # Task management & to-do list app
     xdg-utils # Open files/URLs with default desktop apps
     discord # Voice, video, and text chat (gaming/community)
     evince # Lightweight PDF and document viewer
