@@ -10,8 +10,9 @@
     # ../modules/bootloader.nix
     ../modules/grub.nix
 
-    ../modules/sycnthingSimon.nix
+    (import ../modules/syncthing {user = "simon";})
   ];
+
   fileSystems."/home/simon/pc-shared" = {
     device = "simon-pc:/home/simon/shared";
     fsType = "nfs";
