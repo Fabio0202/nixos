@@ -44,10 +44,10 @@ in {
   };
 
   imports = [
-    ./common.nix
-    ./modules/battery-monitor.nix
-    ./modules/hyprland/hypridle.nix
-    ./modules/gitSimon.nix
+    ../common.nix
+    ../modules/battery-monitor.nix
+    ../modules/hyprland/hypridle.nix
+    ../modules/gitSimon.nix
   ];
 
   home = {

@@ -6,10 +6,9 @@ in {
     # alle Software die ich nur am Stand-PC haben will
   ];
   imports = [
-    ./common.nix
-    ./modules/gitFabio.nix
-
-    ./modules/logitech-tastatur.nix
+    ../common.nix
+    ../modules/gitFabio.nix
+    ../modules/logitech-tastatur.nix
   ];
   home = {
     inherit username;

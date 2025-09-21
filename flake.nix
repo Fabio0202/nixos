@@ -57,10 +57,9 @@
     };
 
     # --- User abstraction ---
-    mkUser = hostName: {
+    mkUser = userName: hostName: {
       imports = [
-        ./home/common.nix
-        ./home/${hostName}.nix
+        ./home/${userName}/${hostName}.nix
         inputs.nvf.homeManagerModules.default
       ];
     };
@@ -80,9 +79,8 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit inputs pkgs-unstable;};
-
             home-manager.backupFileExtension = "backup";
-            home-manager.users.${userName} = mkUser hostName;
+            home-manager.users.${userName} = mkUser userName hostName;
           }
         ];
       };
