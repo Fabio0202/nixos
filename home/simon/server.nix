@@ -12,7 +12,7 @@ in {
 
   imports = [
     ./common.nix
-    ../common.nix
+    ../common-server.nix
     ../modules/gitSimon.nix
   ];
 
