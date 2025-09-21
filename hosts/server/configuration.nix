@@ -36,7 +36,7 @@ in {
 
   hardware.enableRedistributableFirmware = true;
   security.sudo.enable = true;
-  boot.extraModulePackages = with config.boot.linuxPackages; [
+  boot.extraModulePackages = with config.boot.kernelPackages; [
     rtl88xxau-aircrack
   ];
 
