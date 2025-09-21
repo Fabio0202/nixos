@@ -58,6 +58,11 @@
 
     # --- User abstraction ---
     mkUser = userName: hostName: {
+      home = {
+        username = userName;
+        homeDirectory = "/home/${userName}";
+        stateVersion = "25.11"; # pin Home Manager release compatibility
+      };
       imports = [
         ./home/${userName}/${hostName}.nix
         inputs.nvf.homeManagerModules.default

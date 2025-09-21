@@ -1,7 +1,4 @@
-{pkgs, ...}: let
-  username = "fabio";
-  homeDirectory = "/home/${username}";
-in {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     # alle Software die ich nur am Stand-PC haben will
   ];
@@ -11,11 +8,6 @@ in {
     ../modules/gitFabio.nix
     ../modules/logitech-tastatur.nix
   ];
-  home = {
-    inherit username;
-    inherit homeDirectory;
-    stateVersion = "25.11";
-  };
 
   wayland.windowManager.hyprland.settings.input = {
     kb_layout = "de, us";
