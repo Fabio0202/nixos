@@ -15,6 +15,17 @@
     })
   ];
 
+  fileSystems."/mnt/server" = {
+    device = "simon-server:/mnt/drive";
+    fsType = "nfs";
+    options = ["x-systemd.automount" "noauto" "nofail" "x-systemd.idle-timeout=10s" "bg"];
+  };
+
+  fileSystems."/mnt/cloud" = {
+    device = "simon-server:/mnt/drive/cloud/fabio";
+    fsType = "nfs";
+    options = ["x-systemd.automount" "noauto" "nofail" "x-systemd.idle-timeout=10s" "bg"];
+  };
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/nvme0n1";
   boot.loader.grub.useOSProber = true;
