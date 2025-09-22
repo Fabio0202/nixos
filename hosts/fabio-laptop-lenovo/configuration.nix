@@ -13,7 +13,7 @@
     ../modules/grub.nix
     (import ../modules/syncthing {
       user = "fabio";
-      hostName = "fabio-laptop";
+      hostName = "fabio";
     })
   ];
 

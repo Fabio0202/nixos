@@ -9,10 +9,10 @@
     ../modules/nvidia.nix
     ../modules/userFabio.nix
 
-    # (import ../modules/syncthing {
-    #   user = "fabio";
-    #   hostName = "simon-laptop";
-    # })
+    (import ../modules/syncthing {
+      user = "fabio";
+      hostName = "fabio";
+    })
   ];
 
   boot.loader.grub.enable = true;
