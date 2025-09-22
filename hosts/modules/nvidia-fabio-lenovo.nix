@@ -20,7 +20,7 @@
     # accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
-    nvidiaPersistenced = true; # keeps driver context loaded, avoids flicker
+    nvidiaPersistenced = false; # keeps driver context loaded, avoids flicker
     prime = {
       sync.enable = true;
       intelBusId = "PCI:0:2:0";
