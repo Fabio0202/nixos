@@ -10,7 +10,10 @@
     ../modules/nvidia-fabio-lenovo.nix
     # ../modules/bootloader.nix
     ../modules/grub.nix
-    ../modules/syncthing_fabio.nix
+    # (import ../modules/syncthing {
+    #   user = "fabio";
+    #   hostName = "simon-laptop";
+    # })
   ];
 
   # boot.loader.systemd-boot.enable = true;

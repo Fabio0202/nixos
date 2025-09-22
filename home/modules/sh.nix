@@ -140,12 +140,10 @@ in {
     cowsay # display messages as ASCII cows
     lolcat # rainbow-colorize terminal output
     neofetch # system info in terminal (with ASCII logo)
-
     # Task / time management
     taskwarrior3 # CLI task manager
     timewarrior # CLI time tracking
     taskwarrior-tui # ncurses interface for taskwarrior
-
     # Search / navigation
     fzf # fuzzy finder (search lists interactively)
     jq # process/manipulate JSON in terminal
@@ -153,7 +151,6 @@ in {
     ripgrep # fast grep-like search tool
     zoxide # smarter cd with directory jumping
     lf # terminal file manager
-
     gping # ping with graph output
     # System / utilities
     btop # resource monitor (CPU, RAM, GPU, etc.)
