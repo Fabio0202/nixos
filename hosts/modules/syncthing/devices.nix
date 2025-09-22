@@ -10,7 +10,10 @@
     #   id = "G6JHDK7-K7AB5YJ-JXUGO7K-QH4OEVF-IGB7Q6R-2WCTX2D-IBYV4I2-MBZXNQA";
     #   name = "fabio-laptop-lenovo";
     # };
-
+    simon-pc = {
+      id = "CAJA2N6-RTNNQOX-WTVHBV4-EG63HNX-D7T73H4-ZS5SALK-NNWDHJT-RJBQAAT";
+      name = "simon-pc";
+    };
     simon-laptop = {
       id = "G6KK456-XTQAACF-HVCEY6G-LFO3QFR-HPQCOSM-C3KAMFY-O22F3M4-35WCFQN";
       name = "simon-laptop";
