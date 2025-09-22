@@ -14,7 +14,7 @@
     ../modules/hyprland/hypridle.nix
     ../modules/gitFabio.nix
   ];
-  boot.kernelPackages = lib.mkForce pkgs.linuxPackages;
+  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_6_12;
 
   wayland.windowManager.hyprland.settings.input = {
     kb_layout = "de, us";
