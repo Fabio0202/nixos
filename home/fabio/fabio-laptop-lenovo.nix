@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   home.packages = with pkgs; [
     # alle Software die ich nur am Laptop haben will
   ];
@@ -10,6 +14,7 @@
     ../modules/hyprland/hypridle.nix
     ../modules/gitFabio.nix
   ];
+  boot.kernelPackages = lib.mkForce pkgs.linuxPackages;
 
   wayland.windowManager.hyprland.settings.input = {
     kb_layout = "de, us";
