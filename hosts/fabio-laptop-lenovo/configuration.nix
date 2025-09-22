@@ -1,4 +1,5 @@
 {
+  lib,
   config,
   pkgs,
   ...
@@ -22,6 +23,7 @@
   # boot.loader.grub.device = "/dev/nvme0n1";
   # boot.loader.grub.useOSProber = true;
 
+  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_6_12;
   networking.hostName = "fabio-laptop-lenovo";
 
   system.stateVersion = "25.11";
