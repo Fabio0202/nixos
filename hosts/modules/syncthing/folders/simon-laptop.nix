@@ -1,10 +1,15 @@
 {config, ...}: {
   services.syncthing.folders = {
-    "/home/simon/Documents" = {
+    "documents-simon" = {
+      # this is the folder ID (shared across devices)
+      path = "/home/simon/Documents"; # local path on this machine
       devices = ["simon-pc" "simon-laptop" "server-schweiz"];
       versioning = {type = "trashcan";};
     };
-    "/home/simon/.task" = {
+
+    "task-simon" = {
+      # another folder ID
+      path = "/home/simon/.task";
       devices = ["simon-pc" "simon-laptop" "server-schweiz"];
       versioning = {type = "trashcan";};
     };
