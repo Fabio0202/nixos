@@ -10,12 +10,17 @@
     ../modules/nvidia.nix
     # ../modules/bootloader.nix
     ../modules/grub.nix
-    # (import ../modules/syncthing {
-    #   user = "fabio";
-    #   hostName = "simon-laptop";
-    # })
+    (import ../modules/syncthing {
+      user = "fabio";
+      hostName = "fabio";
+    })
   ];
 
+  fileSystems."/mnt/cloud" = {
+    device = "simon-server:/mnt/drive/cloud/fabio";
+    fsType = "nfs";
+    options = ["x-systemd.automount" "noauto" "nofail" "x-systemd.idle-timeout=10s" "bg"];
+  };
   # boot.loader.systemd-boot.enable = true;
   # boot.loader.efi.canTouchEfiVariables = true;
   # # boot.loader.grub.enable = true;
