@@ -3,13 +3,13 @@
     "documents-fabio" = {
       # this is the folder ID (shared across devices)
       path = "/mnt/drive/syncthing/fabio/Documents"; # local path on this machine
-      devices = ["fabio-laptop-lenovo" "fabio-pc" "server-schweiz"];
+      devices = ["fabio-laptop-lenovo" "fabio-laptop-hp" "fabio-pc" "server-schweiz"];
       versioning = {type = "trashcan";};
     };
     "task-fabio" = {
       # another folder ID
       path = "/mnt/drive/syncthing/fabio/.task";
-      devices = ["fabio-laptop-lenovo" "fabio-pc" "server-schweiz"];
+      devices = ["fabio-laptop-lenovo" "fabio-pc" "fabio-laptop-hp" "server-schweiz"];
       versioning = {type = "trashcan";};
     };
     "documents-simon" = {
