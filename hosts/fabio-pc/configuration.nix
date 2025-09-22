@@ -8,7 +8,6 @@
     ../configuration-common.nix
     ../modules/nvidia.nix
     ../modules/userFabio.nix
-    ../modules/syncthing_fabio.nix
 
     # (import ../modules/syncthing {
     #   user = "fabio";
