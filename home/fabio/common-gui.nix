@@ -9,9 +9,9 @@
     todoist # Task management & to-do list app
   ];
 
-  xdg.configFile."gtk-3.0/bookmarks".text = ''
-    file:///mnt/cloud My Cloud
-  '';
+  # xdg.configFile."gtk-3.0/bookmarks".text = ''
+  #   file:///mnt/cloud My Cloud
+  # '';
   imports = [
     # hier kommen zB setup files aus /modules fuer die einzelnen pkgs bzw softwares
   ];
