@@ -8,6 +8,7 @@
     ../common.nix
     ../modules/battery-monitor.nix
     ../modules/hyprland/hypridle.nix
+    ../modules/nvidia.nix
     ../modules/gitFabio.nix
   ];
 
@@ -16,7 +17,13 @@
     # mouse ssensitivity
     sensitivity = 1.4;
   };
-
+  hardware.nvidia = {
+    prime = {
+      sync.enable = true;
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
+  };
   wayland.windowManager.hyprland.settings = {
     monitor = [
       # Laptop screen: 1920x1080 at position 0,0
