@@ -9,16 +9,12 @@ in {
   imports = [
     ./hardware-configuration.nix
 
-    ../modules/userSimon.nix
+    ../modules/userFabio.nix
     ./../configuration-common-server.nix
-    ./../modules/server/cloudflared.nix
-    ./../modules/server/caddy.nix
     ./../modules/bootloader.nix
-    ./../modules/server/media-stack.nix
-
     (import ../modules/syncthing {
-      user = "simon";
-      hostName = "server-schweiz";
+      user = "fabio";
+      hostName = "server-wien";
     })
   ];
 
@@ -54,8 +50,6 @@ in {
   };
   environment.systemPackages = with pkgs; [
     xorg.xauth
-    firefox
-    cloudflared
   ];
 
   # Allow installation of proprietary firmware blobs (Wi-Fi, GPU, NIC, etc.)
@@ -66,10 +60,10 @@ in {
     rtl88xxau-aircrack
   ];
 
-  # Enable Intel iGPU video acceleration
+  # enable intel igpu video acceleration
   hardware.opengl = {
     enable = true;
-    extraPackages = with pkgs; [intel-media-driver];
+    extrapackages = with pkgs; [intel-media-driver];
   };
 
   users.users.simon.extraGroups = ["video" "wheel"];

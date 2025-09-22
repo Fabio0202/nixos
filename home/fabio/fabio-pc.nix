@@ -4,6 +4,7 @@
   ];
   imports = [
     ./common.nix
+    ./common-gui.nix
     ../common.nix
     ../modules/gitFabio.nix
     ../modules/logitech-tastatur.nix

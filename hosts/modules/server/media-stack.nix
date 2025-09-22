@@ -28,7 +28,6 @@ in {
     sonarr = needsDrive;
     bazarr = needsDrive;
     deluge = needsDrive;
-    syncthing = needsDrive; # not defined here, but tied to drive
   };
 
   ##########################

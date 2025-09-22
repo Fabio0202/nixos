@@ -17,6 +17,7 @@
     neofetch # Show system info in terminal
     ffmpeg # Convert, edit, and process video/audio
     git # Version control
+    # TODO: do I still need this though?
     neovim # Terminal text editor
     lazygit # TUI for Git
     sqlite # Lightweight database engine

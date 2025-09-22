@@ -98,6 +98,7 @@
       simon-laptop = mkHost "simon-laptop" "simon";
       simon-pc = mkHost "simon-pc" "simon";
       server = mkHost "server" "simon";
+      server-wien = mkHost "server-wien" "fabio";
     };
 
     # --- Optional packages ---

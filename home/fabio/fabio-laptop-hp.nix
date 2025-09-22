@@ -4,6 +4,7 @@
   ];
   imports = [
     ./common.nix
+    ./common-gui.nix
     ../common.nix
     ../modules/battery-monitor.nix
     ../modules/hyprland/hypridle.nix
