@@ -8,7 +8,7 @@
     ./hardware-configuration.nix
     ../configuration-common.nix
     ../modules/userFabio.nix
-    ../modules/nvidia-fabio-lenovo.nix
+    ../modules/nvidia.nix
     # ../modules/bootloader.nix
     ../modules/grub.nix
     (import ../modules/syncthing {
@@ -17,12 +17,13 @@
     })
   ];
 
-  fileSystems."/mnt/server" = {
-    device = "simon-server:/mnt/drive";
-    fsType = "nfs";
-    options = ["x-systemd.automount" "noauto" "nofail" "x-systemd.idle-timeout=10s" "bg"];
+  hardware.nvidia = {
+    prime = {
+      sync.enable = true;
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
   };
-
   fileSystems."/mnt/cloud" = {
     device = "simon-server:/mnt/drive/cloud/fabio";
     fsType = "nfs";

@@ -8,7 +8,6 @@
     ../common.nix
     ../modules/battery-monitor.nix
     ../modules/hyprland/hypridle.nix
-    ../modules/nvidia.nix
     ../modules/gitFabio.nix
   ];
 
@@ -16,13 +15,6 @@
     kb_layout = "de, us";
     # mouse ssensitivity
     sensitivity = 1.4;
-  };
-  hardware.nvidia = {
-    prime = {
-      sync.enable = true;
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
-    };
   };
   wayland.windowManager.hyprland.settings = {
     monitor = [

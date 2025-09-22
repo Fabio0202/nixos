@@ -10,7 +10,6 @@
   ];
 
   xdg.configFile."gtk-3.0/bookmarks".text = ''
-    file:///mnt/server Server
     file:///mnt/cloud My Cloud
   '';
   imports = [
