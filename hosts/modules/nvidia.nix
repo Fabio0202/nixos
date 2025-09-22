@@ -23,7 +23,6 @@
     # Enable the Nvidia settings menu,
     # accessible via `nvidia-settings`.
     nvidiaSettings = true;
-
     nvidiaPersistenced = false; # keeps driver context loaded, avoids flicker
   };
   boot.kernelParams = ["nvidia-drm.modeset=1"];
