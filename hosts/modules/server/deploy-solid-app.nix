@@ -8,15 +8,29 @@
   appRoot = "/var/www/react-app/dist";
   backendDir = "/var/www/hono-api";
 in {
-  options.denoApp.enable = lib.mkEnableOption "Deploy my React + Hono app";
-  virtualisation.podman.enable = true;
-  virtualisation.podman.dockerCompat = true;
+  options.myApp.enable = lib.mkEnableOption "Deploy my React + Hono app";
 
-  config = lib.mkIf config.denoApp.enable {
-    # Make sure Podman is available
-    services.podman.enable = true;
+  config = lib.mkIf config.myApp.enable {
+    #### Enable Podman
+    virtualisation.podman = {
+      enable = true;
+      dockerCompat = true;
+    };
 
-    # Ensure dirs exist
+    #### MongoDB container (via Podman backend)
+    virtualisation.oci-containers = {
+      backend = "podman";
+      containers.mongodb = {
+        image = "docker.io/library/mongo:7";
+        autoStart = true;
+        ports = ["27017:27017"];
+        volumes = [
+          "/var/lib/mongodb:/data/db"
+        ];
+      };
+    };
+
+    #### Ensure dirs exist
     systemd.tmpfiles.rules = [
       "d ${appRoot} 0755 root root -"
       "d ${backendDir} 0755 root root -"
@@ -26,9 +40,8 @@ in {
     #### Backend (Hono/Deno) service
     systemd.services.hono-backend = {
       description = "Hono (Deno) Backend";
-      after = ["network.target" "podman-mongodb.service"];
+      after = ["network.target" "oci-containers-mongodb.service"];
       wantedBy = ["multi-user.target"];
-
       serviceConfig = {
         WorkingDirectory = backendDir;
         ExecStart = ''
@@ -43,16 +56,6 @@ in {
         RestartSec = 5;
         User = "www-data";
       };
-    };
-
-    #### MongoDB Podman container
-    services.podman.containers.mongodb = {
-      image = "docker.io/library/mongo:7";
-      autoStart = true;
-      ports = ["27017:27017"];
-      volumes = [
-        "/var/lib/mongodb:/data/db"
-      ];
     };
 
     #### Caddy vhost

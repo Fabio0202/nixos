@@ -22,7 +22,7 @@ in {
       hostName = "server-schweiz";
     })
   ];
-  denoApp.enable = true;
+  myApp.enable = true;
 
   services.nfs.server = {
     enable = true;
