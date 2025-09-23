@@ -9,6 +9,8 @@
   backendDir = "/var/www/hono-api";
 in {
   options.denoApp.enable = lib.mkEnableOption "Deploy my React + Hono app";
+  virtualisation.podman.enable = true;
+  virtualisation.podman.dockerCompat = true;
 
   config = lib.mkIf config.denoApp.enable {
     # Make sure Podman is available
