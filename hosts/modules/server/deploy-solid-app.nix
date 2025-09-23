@@ -54,7 +54,7 @@ in {
         '';
         Restart = "always";
         RestartSec = 5;
-        User = "www-data";
+        User = "simon";
       };
     };
 
