@@ -15,12 +15,14 @@ in {
     ./../modules/server/caddy.nix
     ./../modules/bootloader.nix
     ./../modules/server/media-stack.nix
+    ../modules/server/deploy-solid-app.nix
 
     (import ../modules/syncthing {
       user = "simon";
       hostName = "server-schweiz";
     })
   ];
+  denoApp.enable = true;
 
   services.nfs.server = {
     enable = true;
