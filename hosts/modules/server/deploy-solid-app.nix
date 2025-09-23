@@ -5,8 +5,8 @@
   ...
 }: let
   appDomain = "app.simone-muscas.com";
-  appRoot = "/var/www/react-app/dist";
-  backendDir = "/var/www/hono-api";
+  appRoot = "/mnt/drive/deploys/react-app";
+  backendDir = "/mnt/drive/deploys/hono-api";
 in {
   options.myApp.enable = lib.mkEnableOption "Deploy my React + Hono app";
 
