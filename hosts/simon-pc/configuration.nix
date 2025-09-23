@@ -16,6 +16,11 @@
     })
   ];
 
+  services.sunshine = {
+    enable = true;
+    # openFirewall = true;
+  };
+
   fileSystems."/mnt/server" = {
     device = "simon-server:/mnt/drive";
     fsType = "nfs";

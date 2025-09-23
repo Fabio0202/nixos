@@ -5,6 +5,7 @@
 }: {
   # I need to permit insecure packages because of logseq for now
   home.packages = with pkgs; [
+    moonlight-qt
     # alle Software die ich nur am Laptop haben will
     # TODO: allow unstable imports
     # (pkgs-unstable.vintagestory)
