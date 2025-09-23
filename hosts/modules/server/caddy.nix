@@ -26,6 +26,11 @@ in {
       "prowlarr.simone-muscas.com".extraConfig = mkProxy 9696;
       "deluge.simone-muscas.com".extraConfig = mkProxy 8112;
       "overseerr.simone-muscas.com".extraConfig = mkProxy 12345;
+      "app.simone-muscas.com".extraConfig = ''
+        root * /var/www/react-app/dist
+        file_server
+        reverse_proxy /api/* localhost:8000
+      '';
       "plex.simone-muscas.com".extraConfig = jellyfinProxy;
     };
   };
