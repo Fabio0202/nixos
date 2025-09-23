@@ -8,7 +8,7 @@
   appRoot = "/var/www/react-app/dist";
   backendDir = "/var/www/hono-api";
 in {
-  options.myApp.enable = lib.mkEnableOption "Deploy my React + Hono app";
+  options.denoApp.enable = lib.mkEnableOption "Deploy my React + Hono app";
 
   config = lib.mkIf config.denoApp.enable {
     #### Frontend build (just served by Caddy)
