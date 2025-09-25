@@ -12,10 +12,10 @@ in {
 
   config = lib.mkIf config.myApp.enable {
     #### Enable Podman
-    virtualisation.podman = {
-      enable = true;
-      dockerCompat = true;
-    };
+    # virtualisation.podman = {
+    #   enable = true;
+    #   dockerCompat = true;
+    # };
 
     #### MongoDB container (via Podman backend)
     virtualisation.oci-containers = {
