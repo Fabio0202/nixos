@@ -1,96 +1,77 @@
 {pkgs, ...}: {
   home.packages = [pkgs.hyprlock pkgs.manrope];
   xdg.configFile."hypr/hyprlock.conf".text = ''
-    $red = rgb(f38ba8)
-    $yellow = rgb(f9e2af)
-    $lavender = rgb(b4befe)
+            $red = rgb(f38ba8)
+            $yellow = rgb(f9e2af)
+            $lavender = rgb(b4befe)
 
-    $mauve = rgb(cba6f7)
-    $mauveAlpha = cba6f7
+            $mauve = rgb(cba6f7)
+            $mauveAlpha = cba6f7
 
-    $base = rgb(1e1e2e)
-    $surface0 = rgb(313244)
-    $text = rgb(cdd6f4)
-    $textAlpha = cdd6f4
+            $base = rgb(1e1e2e)
+            $surface0 = rgb(313244)
+            $text = rgb(cdd6f4)
+            $textAlpha = cdd6f4
 
-    $accent = $lavender
-    $accentAlpha = $mauveAlpha
-    $font = "Manrope"
+            $accent = $lavender
+            $accentAlpha = $mauveAlpha
+            $font = "Manrope Thin"
 
 
-    # GENERAL
-    general {
-      disable_loading_bar = true
-      hide_cursor = true
-    }
+            # GENERAL
+            general {
+              disable_loading_bar = true
+              hide_cursor = true
+            }
 
-    # BACKGROUND
-    background {
-      monitor =
-      path = /home/simon/nixos-dotfiles/files/wallpapers/evening-sky.png
-      color = $base
-      blur_passes = 4
-    }
+            # BACKGROUND
+            background {
+              monitor =
+              path = ~/nixos/files/wallpapers/plants.jpg
+              color = $base
+              blur_passes = 2
+            }
 
-    # TIME
-    label {
-      monitor =
-      text = cmd[update:30000] echo "<b><big> $(date +"%R") </big></b>"
-      color = $text
-      font_size = 80
-      font_family = $font
-      shadow_passes = 1
-      shadow_size = 1
+          # TIME
+          label {
+            text = cmd[update:30000] echo "$(date +"%H:%M")"
+            font_size = 100
+            font_family = $font
+            color = $text
+            position = 0, 0   # top element
+            halign = center
+            valign = center
+          }
 
-      position = 0, -100
-      halign = center
-      valign = top
-    }
+          # DATE
+          label {
+            text = cmd[update:43200000] echo "$(date +"%A, %B %d")"
+            font_size = 28
+            font_family = $font
+            color = $text
+            position = 0, -100   # just below the time
+            halign = center
+            valign = center
+          }
 
-    # DATE
-    label {
-      monitor =
-      text = cmd[update:43200000] echo "$(date +"%A, %d %B %Y")"
-      color = $text
-      font_size = 24
-      font_family = $font
-      position = 0, -300
-      halign = center
-      valign = top
-    }
 
-    # USER AVATAR
 
-    image {
-      monitor =
-      path = /home/simon/nixos-dotfiles/files/wallpapers/wanderer.jpg
-      size = 125
-      border_color = $accent
-
-      position = 0, -450
-      halign = center
-      valign = center
-    }
-
-    # INPUT FIELD
+        # INPUT FIELD
     input-field {
       monitor =
       size = 300, 60
-      outline_thickness = 4
-      dots_size = 0.2
-      dots_spacing = 0.4
-      dots_center = true
-      outer_color = $accent
-      inner_color = $surface0
+      outline_thickness = 2
+      rounding = 30
+      inner_color = rgba(49, 50, 68, 0.5)   # semi-transparent
+      outer_color = rgba(180, 190, 254, 0.6)
       font_color = $text
-      fade_on_empty = false
       placeholder_text = <span foreground="##$textAlpha"><i>󰌾  Logged in as </i><span foreground="##$accentAlpha">$USER</span></span>
       hide_input = false
       check_color = $accent
       fail_color = $red
       fail_text = <i>$FAIL <b>($ATTEMPTS)</b></i>
       capslock_color = $yellow
-      position = 0, -100
+      position = 0, -220
       halign = center
       valign = center
     }
