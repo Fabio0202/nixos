@@ -8,6 +8,7 @@
     gh
     (pkgs-unstable.devenv) # Dev environment manager (like direnv but more powerful)
     redis
+    lazydocker # TUI for docker
     direnv # Manage environment variables per project directory
     mdcat # render Markdown in terminal
     lsof # list open files and processes

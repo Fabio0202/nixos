@@ -1,6 +1,6 @@
 {...}: {
-  virtualisation.podman.enable = true;
-  virtualisation.podman.dockerCompat = true;
+  virtualisation.docker.enable = true;
+  # virtualisation.podman.dockerCompat = true;
 
   users.groups.podman = {};
 }
