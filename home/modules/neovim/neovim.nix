@@ -30,17 +30,6 @@
       vim.utility.yanky-nvim.setupOpts.ring.storage = "memory";
       vim.utility.undotree.enable = true;
       vim.utility.yazi-nvim.enable = true;
-      vim.notes.obsidian = {
-        enable = false;
-        setupOpts = {
-          # workspaces = [
-          #   {
-          #     name = "personal";
-          #     path = "~/Documents/06-Zettelkasten/";
-          #   }
-          # ];
-        };
-      };
 
       vim.filetree.neo-tree = {
         enable = true;
