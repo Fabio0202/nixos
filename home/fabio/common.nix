@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    # sachen die du auf ALLEN geraten haben willst (server inklusive)
+    # sachen die du auf ALLEN geräten haben willst (server inklusive)
   ];
 
   imports = [

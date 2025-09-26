@@ -7,6 +7,7 @@
     blender # 3D modeling, animation, rendering
     veusz # Scientific plotting and graphing tool
     todoist # Task management & to-do list app
+    gitkraken # Shows Git Branches nicely
   ];
 
   xdg.configFile."gtk-3.0/bookmarks".text = ''

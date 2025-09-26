@@ -36,7 +36,7 @@ in {
     '';
   };
 
-  # Make NFS server depend on your drive being mounted
+  # Make NFS (network file system) server depend on your drive being mounted
   systemd.services.nfs-server = {
     after = ["mnt-drive.mount"];
     requires = ["mnt-drive.mount"];
