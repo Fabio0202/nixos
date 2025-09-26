@@ -25,5 +25,12 @@
       devices = ["server-wien" "simon-pc" "simon-laptop" "server-schweiz"];
       versioning = {type = "trashcan";};
     };
+
+    "cloud" = {
+      # another folder ID
+      path = "/mnt/drive/cloud";
+      devices = ["server-wien" "server-schweiz"];
+      versioning = {type = "trashcan";};
+    };
   };
 }
