@@ -1,6 +1,6 @@
 
 configuration {
-    modi: "drun,run,window, ssh";
+    modi: "drun,run,window,ssh";
     show-icons: true;
     drun-display-format: "{icon} {name}";
     window-format: "{w} · {c} · {t}";

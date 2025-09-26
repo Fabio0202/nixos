@@ -2,7 +2,9 @@
   pkgs,
   pkgs-unstable,
   ...
-}: {
+}: let
+  mainMod = "Super";
+in {
   home.packages = with pkgs; [
     (pkgs-unstable.vintagestory)
     # blocky
@@ -23,5 +25,9 @@
   imports = [
     # hier kommen zB setup files aus /modules fuer die einzelnen pkgs bzw softwares
     ../modules/neovim/obsidian.nix
+  ];
+
+  wayland.windowManager.hyprland.settings.bind = [
+    "${mainMod}, return, exec, rofi -config ~/.config/rofi/rofi-glass.rasi -show drun" ## System | Toggle Wofi
   ];
 }

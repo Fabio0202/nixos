@@ -102,7 +102,6 @@ in {
     "${mainMod}, S, exec, hyprctl switchxkblayout current next; pkill -RTMIN+8 waybar" ## System | Switch keyboard layout
     "${mainMod}, delete, exit" ## System | Exit Hyprland
     "${mainMod}, W, exec, waypaper" ## System | Open wallpaper switcher
-    "${mainMod}, return, exec, wofi-toggle" ## System | Toggle Wofi
     "${mainMod}, P, exec, pin" ## System | Pin screenshot
     "${mainMod} SHIFT, S, exec, sh -c 'grim -g \"$(slurp)\" - | wl-copy'" ## System | Area screenshot to clipboard
     ", Print, exec, sh -c 'grim - | wl-copy && notify-send \"Screenshot\" \"Copied entire screen to clipboard\"'" ## System | Full screenshot to clipboard

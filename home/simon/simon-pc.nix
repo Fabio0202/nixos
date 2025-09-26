@@ -13,11 +13,11 @@
   ];
 
   imports = [
+    ../modules/hyprland/hypridle.nix
+    ../modules/gitSimon.nix
     ./common.nix
     ./common-gui.nix
     ../common.nix
-    ../modules/hyprland/hypridle.nix
-    ../modules/gitSimon.nix
   ];
 
   wayland.windowManager.hyprland.settings.input = {

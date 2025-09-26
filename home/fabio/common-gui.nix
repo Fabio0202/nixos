@@ -1,4 +1,6 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  mainMod = "Super";
+in {
   # Sachen die du auf PC un laptops haben willst (also ohne server)
   home.packages = with pkgs; [
     imagej # Scientific image analysis (popular in research)
@@ -14,5 +16,10 @@
   '';
   imports = [
     # hier kommen zB setup files aus /modules fuer die einzelnen pkgs bzw softwares
+  ];
+
+  # Keybinds
+  wayland.windowManager.hyprland.settings.bind = [
+    "${mainMod}, return, exec, wofi-toggle" ## System | Toggle Wofi
   ];
 }
