@@ -58,12 +58,12 @@ in {
   security.sudo.enable = true;
 
   # enable intel igpu video acceleration
-  hardware.opengl = {
-    enable = true;
-    extrapackages = with pkgs; [intel-media-driver];
-  };
+  # hardware.opengl = {
+  #   enable = true;
+  #   extrapackages = with pkgs; [intel-media-driver];
+  # };
 
-  users.users.simon.extraGroups = ["video" "wheel"];
+  users.users.fabio.extraGroups = ["video" "wheel"];
   programs.zsh.enable = true;
   networking.hostName = "server";
 
