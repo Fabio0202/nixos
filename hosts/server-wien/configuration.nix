@@ -1,10 +1,9 @@
 {
-  config,
   pkgs,
   inputs,
   ...
 }: let
-  UUID = "04c67b4a-ead1-4613-9abc-2985e9202e5c";
+  UUID = "09f44854-89fb-4598-9a1e-73815cd530de";
 in {
   imports = [
     ./hardware-configuration.nix
@@ -12,10 +11,10 @@ in {
     ../modules/userFabio.nix
     ./../configuration-common-server.nix
     ./../modules/bootloader.nix
-    # (import ../modules/syncthing {
-    #   user = "fabio";
-    #   hostName = "server-wien";
-    # })
+    (import ../modules/syncthing {
+      user = "fabio";
+      hostName = "server-wien";
+    })
   ];
 
   services.nfs.server = {
@@ -41,13 +40,13 @@ in {
   #   serviceConfig.Restart = "on-failure";
   # };
   #
-  # systemd.services.syncthing = {
-  #   after = ["mnt-drive.mount"];
-  #   requires = ["mnt-drive.mount"];
-  #   partOf = ["mnt-drive.mount"];
-  #   bindsTo = ["mnt-drive.mount"];
-  #   serviceConfig.Restart = "on-failure";
-  # };
+  systemd.services.syncthing = {
+    after = ["mnt-drive.mount"];
+    requires = ["mnt-drive.mount"];
+    partOf = ["mnt-drive.mount"];
+    bindsTo = ["mnt-drive.mount"];
+    serviceConfig.Restart = "on-failure";
+  };
   environment.systemPackages = with pkgs; [
     xorg.xauth
   ];
@@ -58,14 +57,14 @@ in {
   security.sudo.enable = true;
 
   # enable intel igpu video acceleration
-  hardware.opengl = {
-    enable = true;
-    extrapackages = with pkgs; [intel-media-driver];
-  };
+  # hardware.opengl = {
+  #   enable = true;
+  #   extrapackages = with pkgs; [intel-media-driver];
+  # };
 
-  users.users.simon.extraGroups = ["video" "wheel"];
+  users.users.fabio.extraGroups = ["video" "wheel"];
   programs.zsh.enable = true;
-  networking.hostName = "server";
+  networking.hostName = "server-wien";
 
   ##########################
   ## Drive Configuration
@@ -73,15 +72,15 @@ in {
 
   services.fstrim.enable = true;
 
-  # fileSystems."/mnt/drive" = {
-  #   device = "/dev/disk/by-uuid/${UUID}";
-  #   fsType = "ext4";
-  #   options = [
-  #     "nofail"
-  #     "x-systemd.device-timeout=1s"
-  #     "x-systemd.automount"
-  #   ];
-  # };
+  fileSystems."/mnt/drive" = {
+    device = "/dev/disk/by-uuid/${UUID}";
+    fsType = "ext4";
+    options = [
+      "nofail"
+      "x-systemd.device-timeout=1s"
+      "x-systemd.automount"
+    ];
+  };
 
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 }

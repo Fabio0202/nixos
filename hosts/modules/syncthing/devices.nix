@@ -30,5 +30,9 @@
       id = "IL3DCZS-4ASMHNV-UJ654ZK-BEL5LFU-5AVY764-BHTRCVL-THGBZPH-ZIAKVAJ";
       name = "server-salzburg";
     };
+    server-wien = {
+      id = "CJ4MPWR-46WDNGE-PZPTCPV-UQXN4WP-Q6ADP6D-JN5WTFC-PFZNQZP-C6N24QD";
+      name = "server-wien";
+    };
   };
 }
