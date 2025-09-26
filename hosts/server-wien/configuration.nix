@@ -12,10 +12,10 @@ in {
     ../modules/userFabio.nix
     ./../configuration-common-server.nix
     ./../modules/bootloader.nix
-    # (import ../modules/syncthing {
-    #   user = "fabio";
-    #   hostName = "server-wien";
-    # })
+    (import ../modules/syncthing {
+      user = "fabio";
+      hostName = "server-wien";
+    })
   ];
 
   services.nfs.server = {
@@ -65,7 +65,7 @@ in {
 
   users.users.fabio.extraGroups = ["video" "wheel"];
   programs.zsh.enable = true;
-  networking.hostName = "server";
+  networking.hostName = "server-wien";
 
   ##########################
   ## Drive Configuration
