@@ -5,7 +5,8 @@
   imports = [
     ./common.nix
     ./common-gui.nix
-    ../common.nix
+    ../common-gui.nix # GUI-only apps and modules
+    ../common-server.nix # universal CLI + shared stuff
     ../modules/battery-monitor.nix
     ../modules/hyprland/hypridle.nix
     ../modules/gitFabio.nix

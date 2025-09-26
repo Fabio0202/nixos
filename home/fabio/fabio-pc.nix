@@ -5,7 +5,8 @@
   imports = [
     ./common.nix
     ./common-gui.nix
-    ../common.nix
+    ../common-server.nix # universal CLI + shared stuff
+    ../common-gui.nix # GUI-only apps and modules
     ../modules/gitFabio.nix
     ../modules/logitech-tastatur.nix
   ];
