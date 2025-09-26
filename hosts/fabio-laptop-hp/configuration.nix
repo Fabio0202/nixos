@@ -17,7 +17,7 @@
   ];
 
   fileSystems."/mnt/cloud" = {
-    device = "server-wien:/mnt/drive/cloud/simon";
+    device = "server-wien:/mnt/drive/cloud/fabio";
     fsType = "nfs";
     options = ["x-systemd.automount" "noauto" "nofail" "x-systemd.idle-timeout=10s" "bg" "x-systemd.requires=network-online.target" "x-systemd.after=network-online.target"];
   };
