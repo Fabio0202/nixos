@@ -1,9 +1,9 @@
 {...}: {
-  programs.nvf.settings.vim.gitsigns-nvim = {
+  programs.nvf.settings.vim.lazy.plugins.gitsigns-nvim = {
     package = "gitsigns-nvim";
     event = ["BufReadPre"];
     setupModule = "gitsigns";
-    setupOptsModule = {
+    setupOpts = {
       signs = {
         add = {text = "│";};
         change = {text = "│";};
@@ -17,72 +17,79 @@
     };
   };
 
-  keymaps = [
+  programs.nvf.settings.vim.keymaps = [
     {
       key = "<leader>gsh";
       action = ":Gitsigns stage_hunk<CR>";
-      modes = ["n"];
-      description = "Stage hunk";
+      mode = ["n"];
+      desc = "Stage hunk";
     }
     {
       key = "<leader>grh";
       action = ":Gitsigns reset_hunk<CR>";
-      modes = ["n"];
-      description = "Reset hunk";
+      mode = ["n"];
+      desc = "Reset hunk";
+    }
+
+    {
+      key = "<leader>gv";
+      action = ":Gitsigns preview_hunk_inline<CR>";
+      mode = ["n"];
+      desc = "Reset hunk";
     }
     {
       key = "<leader>gsb";
       action = ":Gitsigns stage_buffer<CR>";
-      modes = ["n"];
-      description = "Stage buffer";
+      mode = ["n"];
+      desc = "Stage buffer";
     }
     {
       key = "<leader>grb";
       action = ":Gitsigns reset_buffer<CR>";
-      modes = ["n"];
-      description = "Reset buffer";
+      mode = ["n"];
+      desc = "Reset buffer";
     }
     {
       key = "<leader>gb";
       action = ":Gitsigns blame_line<CR>";
-      modes = ["n"];
-      description = "Blame line";
+      mode = ["n"];
+      desc = "Blame line";
     }
     {
       key = "<leader>gd";
       action = ":Gitsigns diffthis<CR>";
-      modes = ["n"];
-      description = "Diff this";
+      mode = ["n"];
+      desc = "Diff this";
     }
     {
       key = "<leader>gtd";
       action = ":Gitsigns toggle_deleted<CR>";
-      modes = ["n"];
-      description = "Toggle deleted";
+      mode = ["n"];
+      desc = "Toggle deleted";
     }
     {
       key = "<leader>gtb";
       action = ":Gitsigns toggle_current_line_blame<CR>";
-      modes = ["n"];
-      description = "Toggle line blame";
+      mode = ["n"];
+      desc = "Toggle line blame";
     }
     {
       key = "<leader>gtl";
       action = ":Gitsigns toggle_linehl<CR>";
-      modes = ["n"];
-      description = "Toggle line highlight";
+      mode = ["n"];
+      desc = "Toggle line highlight";
     }
     {
       key = "]g";
       action = ":Gitsigns next_hunk<CR>";
-      modes = ["n"];
-      description = "Next hunk";
+      mode = ["n"];
+      desc = "Next hunk";
     }
     {
       key = "[g";
       action = ":Gitsigns prev_hunk<CR>";
-      modes = ["n"];
-      description = "Previous hunk";
+      mode = ["n"];
+      desc = "Previous hunk";
     }
   ];
 }

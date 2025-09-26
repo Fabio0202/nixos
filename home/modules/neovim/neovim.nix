@@ -7,6 +7,7 @@
     ./options.nix
     ./latex.nix
     ./languages.nix
+    ./gitsigns.nix
     ./bufferline.nix
     ./oil.nix
   ];
@@ -194,24 +195,6 @@
           nvim-treesitter = {
             package = "nvim-treesitter";
             event = ["BufReadPost" "BufNewFile"];
-          };
-
-          gitsigns-nvim = {
-            package = "gitsigns-nvim";
-            event = ["BufReadPre"];
-            setupModule = "gitsigns";
-            setupOpts = {
-              signs = {
-                add = {text = "│";};
-                change = {text = "│";};
-                delete = {text = "󰍵";};
-                topdelete = {text = "‾";};
-                changedelete = {text = "󱗜";};
-                untracked = {text = "│";};
-              };
-              signcolumn = true;
-              linehl = false;
-            };
           };
 
           toggleterm-nvim = {
