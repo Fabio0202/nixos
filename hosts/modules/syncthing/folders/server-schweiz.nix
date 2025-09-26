@@ -1,4 +1,4 @@
-{config, ...}: {
+{...}: {
   services.syncthing.folders = {
     "documents-fabio" = {
       # this is the folder ID (shared across devices)
