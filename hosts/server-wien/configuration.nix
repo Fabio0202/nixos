@@ -4,7 +4,7 @@
   inputs,
   ...
 }: let
-  UUID = "04c67b4a-ead1-4613-9abc-2985e9202e5c";
+  UUID = "09f44854-89fb-4598-9a1e-73815cd530de";
 in {
   imports = [
     ./hardware-configuration.nix
@@ -41,13 +41,13 @@ in {
   #   serviceConfig.Restart = "on-failure";
   # };
   #
-  # systemd.services.syncthing = {
-  #   after = ["mnt-drive.mount"];
-  #   requires = ["mnt-drive.mount"];
-  #   partOf = ["mnt-drive.mount"];
-  #   bindsTo = ["mnt-drive.mount"];
-  #   serviceConfig.Restart = "on-failure";
-  # };
+  systemd.services.syncthing = {
+    after = ["mnt-drive.mount"];
+    requires = ["mnt-drive.mount"];
+    partOf = ["mnt-drive.mount"];
+    bindsTo = ["mnt-drive.mount"];
+    serviceConfig.Restart = "on-failure";
+  };
   environment.systemPackages = with pkgs; [
     xorg.xauth
   ];
@@ -73,15 +73,15 @@ in {
 
   services.fstrim.enable = true;
 
-  # fileSystems."/mnt/drive" = {
-  #   device = "/dev/disk/by-uuid/${UUID}";
-  #   fsType = "ext4";
-  #   options = [
-  #     "nofail"
-  #     "x-systemd.device-timeout=1s"
-  #     "x-systemd.automount"
-  #   ];
-  # };
+  fileSystems."/mnt/drive" = {
+    device = "/dev/disk/by-uuid/${UUID}";
+    fsType = "ext4";
+    options = [
+      "nofail"
+      "x-systemd.device-timeout=1s"
+      "x-systemd.automount"
+    ];
+  };
 
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 }
