@@ -1,75 +1,68 @@
 {pkgs, ...}: {
-  home.packages = [pkgs.hyprlock pkgs.manrope];
+  home.packages = [pkgs.hyprlock]; # make sure SF Pro is available
   xdg.configFile."hypr/hyprlock.conf".text = ''
-            $red = rgb(f38ba8)
-            $yellow = rgb(f9e2af)
-            $lavender = rgb(b4befe)
+    $red      = rgb(f38ba8)
+    $yellow   = rgb(f9e2af)
+    $lavender = rgb(b4befe)
 
-            $mauve = rgb(cba6f7)
-            $mauveAlpha = cba6f7
+    $base     = rgb(1e1e2e)
+    $surface0 = rgb(313244)
+    $text     = rgb(ffffff)   # pure white
+    $subtext  = rgb(bac2de)   # subtle gray for secondary
 
-            $base = rgb(1e1e2e)
-            $surface0 = rgb(313244)
-            $text = rgb(cdd6f4)
-            $textAlpha = cdd6f4
+    $accent   = $lavender
+    $font     = "SF Pro Display"
 
-            $accent = $lavender
-            $accentAlpha = $mauveAlpha
-            $font = "Manrope Thin"
+    # GENERAL
+    general {
+      disable_loading_bar = true
+      hide_cursor = true
+    }
 
+    # BACKGROUND
+    background {
+      monitor =
+      path = ~/nixos/files/wallpapers/plants.jpg
+      color = $base
+      blur_passes = 2
+    }
 
-            # GENERAL
-            general {
-              disable_loading_bar = true
-              hide_cursor = true
-            }
+    # TIME (big, centered)
+    label {
+      text = cmd[update:30000] echo "$(date +"%H:%M")"
+      font_size = 120
+      font_family = $font
+      color = $text
+      position = 0, 0
+      halign = center
+      valign = center
+    }
 
-            # BACKGROUND
-            background {
-              monitor =
-              path = ~/nixos/files/wallpapers/plants.jpg
-              color = $base
-              blur_passes = 2
-            }
+    # DATE (smaller, below)
+    label {
+      text = cmd[update:43200000] echo "$(date +"%A, %B %d")"
+      font_size = 26
+      font_family = $font
+      color = $subtext
+      position = 0, -140
+      halign = center
+      valign = center
+    }
 
-          # TIME
-          label {
-            text = cmd[update:30000] echo "$(date +"%H:%M")"
-            font_size = 100
-            font_family = $font
-            color = $text
-            position = 0, 0   # top element
-            halign = center
-            valign = center
-          }
-
-          # DATE
-          label {
-            text = cmd[update:43200000] echo "$(date +"%A, %B %d")"
-            font_size = 28
-            font_family = $font
-            color = $text
-            position = 0, -100   # just below the time
-            halign = center
-            valign = center
-          }
-
-
-
-        # INPUT FIELD
+    # INPUT FIELD (sleek pill style)
     input-field {
       monitor =
-      size = 300, 60
-      outline_thickness = 2
-      rounding = 30
-      inner_color = rgba(49, 50, 68, 0.5)   # semi-transparent
-      outer_color = rgba(180, 190, 254, 0.6)
+      size = 360, 52
+      outline_thickness = 1
+      rounding = 26
+      inner_color = rgba(255, 255, 255, 0.1)
+      outer_color = rgba(255, 255, 255, 0.25)
       font_color = $text
-      placeholder_text = <span foreground="##$textAlpha"><i>󰌾  Logged in as </i><span foreground="##$accentAlpha">$USER</span></span>
+      placeholder_text = <span foreground="#bac2de"><i>󰌾  $USER</i></span>
       hide_input = false
       check_color = $accent
       fail_color = $red
-      fail_text = <i>$FAIL <b>($ATTEMPTS)</b></i>
+      fail_text = <i>Wrong password</i>
       capslock_color = $yellow
       position = 0, -220
       halign = center
