@@ -73,19 +73,20 @@ in {
       # };
     };
     extraConfig = ''
-      monitor=,preferred,auto,auto
-      exec-once = nwg-dock-hyprland -nolauncher -d -hd 0 -iw "special"
-      exec-once = udiskie -a
-      exec-once = hypridle
-      exec-once = ags
-      # exec-once = nwg-panel
-      xwayland {
-        force_zero_scaling = true;
-      }
+            monitor=,preferred,auto,auto
+            exec-once = nwg-dock-hyprland -nolauncher -d -hd 0 -iw "special"
+            exec-once = udiskie -a
+            exec-once = hypridle
+            exec-once = ags
+      exec-once = waypaper --restore
+            # exec-once = nwg-panel
+            xwayland {
+              force_zero_scaling = true;
+            }
 
 
-      exec-once = nm-applet --indicator
-      # exec-once = ~/nixos/home/scripts/start_waybar.sh
+            exec-once = nm-applet --indicator
+            # exec-once = ~/nixos/home/scripts/start_waybar.sh
     '';
   };
   systemd.user.services.ax-shell = {};
