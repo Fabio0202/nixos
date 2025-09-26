@@ -16,11 +16,11 @@
     })
   ];
 
-  # fileSystems."/mnt/cloud" = {
-  #   device = "simon-server:/mnt/drive/cloud/fabio";
-  #   fsType = "nfs";
-  #   options = ["x-systemd.automount" "noauto" "nofail" "x-systemd.idle-timeout=10s" "bg"];
-  # };
+  fileSystems."/mnt/cloud" = {
+    device = "server-wien:/mnt/drive/cloud/simon";
+    fsType = "nfs";
+    options = ["x-systemd.automount" "noauto" "nofail" "x-systemd.idle-timeout=10s" "bg" "x-systemd.requires=network-online.target" "x-systemd.after=network-online.target"];
+  };
   # boot.loader.systemd-boot.enable = true;
   # boot.loader.efi.canTouchEfiVariables = true;
   # # boot.loader.grub.enable = true;
