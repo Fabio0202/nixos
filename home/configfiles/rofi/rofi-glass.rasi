@@ -1,7 +1,7 @@
 * {
     font: "SF Pro Display 14";
 
-    background-color: #1e1e2e30;   /* ~19% opacity - more visible tint */
+    background-color: #1e1e2eb3; /* ~70% opacity */
     foreground-colour: #cdd6f4;   /* bright white-blue */
     border-colour:     #89b4fa;
     alternate-background: #18182580;
@@ -22,15 +22,29 @@ configuration {
 window {
     fullscreen: true;
     transparency: "real";
-    background-color: #1e1e2e15;   /* ~8% opacity, very subtle tint */
+
+     background-color: transparent;  
+    // background-color: #1e1e2e66;  ~40% */
+    // background-color: #1e1e2e99;  ~60% */
+    // background-color: #1e1e2ecc;  ~80% */
+    // background-color: #1e1e2e;    100% solid */
+
+    // background-color: #1e1e2e66; /* currently 40% */
 }
 
 mainbox {
-  border-radius: 8px;
+    border-radius: 8px;
     spacing: 24px;
     children: [ "inputbar", "listview" ];
-    margin: 30% 35% 30% 35%;   /* ← Increase these values to make it smaller */
+    margin: 30% 33% 30% 33%;   /* ← Increase these values to make it smaller */
     background-color: transparent;
+
+    // background-color: #1e1e2e33;
+    // background-color: #1e1e2e99;  ~60% */
+    // background-color: #1e1e2ecc;  ~80% */
+    // background-color: #1e1e2e;    100% solid */
+
+    // background-color: #1e1e2ecc; 
 }
 
 entry {
@@ -52,7 +66,10 @@ listview {
     lines: 8;                 /* show only 5 results */
     fixed-height: true;
     spacing: 10px;
-    background-color: transparent;
+    // background-color: transparent;
+  background-color: rgba(30, 30, 46, 1.0);
+   // background-color: #1e1e2e99;  
+
     scrollbar: false;         /* cleaner look */
 }
 

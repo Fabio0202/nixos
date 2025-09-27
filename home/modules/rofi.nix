@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   programs.rofi = {
     enable = true;
+    package = pkgs.rofi-wayland; # 👈 use the Wayland fork
   };
 
   home.file.".config/rofi" = {

@@ -28,7 +28,7 @@
     ./modules/obs-studio.nix # Screen recording & streaming setup (OBS Studio)
     ./modules/hyprland/default.nix # Hyprland WM settings (Wayland tiling compositor)
     ./modules/scripts.nix # Custom user scripts (helpers, automation, etc.)
-    # ./modules/stylix.nix # Stylix (theme management for GTK, GRUB, etc.)
+    ./modules/stylix.nix # Stylix (theme management for GTK, GRUB, etc.)
     ./modules/icons-theme.nix # Icon theme configuration for GTK/desktop apps
     ./modules/wofi.nix # Wofi (Wayland app launcher) setup
     ./modules/nwg-dock.nix # Dock/panel (like a taskbar for Wayland)
