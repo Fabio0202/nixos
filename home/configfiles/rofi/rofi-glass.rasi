@@ -1,0 +1,116 @@
+* {
+    font: "SF Pro Display 14";
+
+    background-color: #1e1e2e30;   /* ~19% opacity - more visible tint */
+    foreground-colour: #cdd6f4;   /* bright white-blue */
+    border-colour:     #89b4fa;
+    alternate-background: #18182580;
+
+    selected: #89b4fa;
+    active:   #a6e3a1;
+    urgent:   #f38ba8;
+}
+
+configuration {
+    modi: "drun";
+    show-icons: true;
+    drun-display-format: "{icon} {name}";
+    disable-history: false;   
+    sort: true;
+    display-drun: "Apps ";   /* replaces 'drun:' with 'Launch' */
+}
+window {
+    fullscreen: true;
+    transparency: "real";
+    background-color: #1e1e2e15;   /* ~8% opacity, very subtle tint */
+}
+
+mainbox {
+  border-radius: 8px;
+    spacing: 24px;
+    children: [ "inputbar", "listview" ];
+    margin: 30% 35% 30% 35%;   /* ← Increase these values to make it smaller */
+    background-color: transparent;
+}
+
+entry {
+    background-color: transparent;
+    foreground: #ffffff;     /* force white text */
+    text-color: #ffffff;
+    cursor: text;
+    placeholder-color: #a6adc8;  /* Catppuccin subtle gray for placeholder */
+    highlight: none;         /* stop highlight color from overriding */
+}
+inputbar {
+    padding: 24px 32px;
+    border-radius: 6px;
+    background-color: @alternate-background;
+    text-color: #ffffff;  /* softer warm white for the prompt */
+}
+
+listview {
+    lines: 8;                 /* show only 5 results */
+    fixed-height: true;
+    spacing: 10px;
+    background-color: transparent;
+    scrollbar: false;         /* cleaner look */
+}
+
+
+
+prompt {
+    enabled: true;
+    text-color: #ffffff;   /* force prompt color */
+    background-color: transparent;
+}
+
+element {
+    padding: 20px;
+    border-radius: 6px;
+    background-color: transparent;
+    text-color: #cdd6f4;  /* bright & legible */
+}
+
+element-text {
+    background-color: transparent;
+    text-color: #ffffff;
+    highlight: @selected;        /* match highlight color */
+    highlight-background: transparent;
+    highlight-foreground: #f5e0dc;  /* Catppuccin rosewater (soft pink-white) */
+}
+
+element-icon {
+    size: 24px;
+    background-color: transparent;
+    text-color: inherit;
+    margin: 0px 4px 0px 0px;   /* spacing between icon and text */
+}
+/* subtle highlight */
+element selected.normal {
+    background-color: #89b4fa08;   /* ~8% opacity - more transparent */
+     // background-color: transparent;   /* 0x25 ≈ 15% opacity */
+    // background-color: #89b4fa25;   /* 0x25 ≈ 15% opacity */
+    border: 1px solid;             /* width/style only */
+    border-color: @selected;        /* color goes here */
+    border-radius: 6px;
+    text-color: #ffffff;
+}
+
+/* normal/alternate entries transparent */
+element normal.normal,
+element normal.active,
+element normal.urgent,
+element alternate.normal,
+element alternate.active,
+element alternate.urgent {
+    background-color: transparent;
+}
+
+element selected.active {
+    background-color: @active;
+    text-color: @background-colour;
+}
+element selected.urgent {
+    background-color: @urgent;
+    text-color: @background-colour;
+}
