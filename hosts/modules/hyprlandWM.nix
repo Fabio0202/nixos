@@ -6,6 +6,7 @@
 }: {
   # Disable X11 completely
   services.xserver.enable = false;
+  programs.xwayland.enable = true;
 
   # use latest hyprland from unstable
   programs.hyprland = {
@@ -26,8 +27,6 @@
   environment.sessionVariables = {
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
   };
-
-  programs.xwayland.enable = true;
 
   # Make GTK handle OpenURI; Hyprland handles screencast
   xdg.portal = {
