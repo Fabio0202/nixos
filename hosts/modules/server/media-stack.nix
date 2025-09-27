@@ -12,6 +12,9 @@
     bindsTo = ["mnt-drive.mount"];
   };
 in {
+  environment.systemPackages = with pkgs; [
+    recyclarr
+  ];
   ##########################
   ## Filesystem Integration
   ##########################
