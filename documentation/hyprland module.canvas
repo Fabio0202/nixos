@@ -1,0 +1,41 @@
+{
+	"nodes":[
+		{"id":"a2da5e4646eaf68f","type":"text","text":"Hyprland","x":-1775,"y":-1040,"width":250,"height":60},
+		{"id":"4d858f373cc19e44","type":"file","file":"Pasted image 20250927211111.png","x":-2425,"y":-740,"width":250,"height":80},
+		{"id":"69cbfd4bd0832824","type":"text","text":"wlogout","x":-2424,"y":-800,"width":250,"height":60},
+		{"id":"57904bf885033dce","type":"text","text":"hyprlock","x":-2080,"y":-830,"width":250,"height":60},
+		{"id":"3c8d48e5d62772d0","type":"file","file":"Pasted image 20250927211210.png","x":-2080,"y":-770,"width":250,"height":138},
+		{"id":"9989bab08274dccd","type":"file","file":"Pasted image 20250927211436.png","x":-1460,"y":-800,"width":249,"height":54},
+		{"id":"fdae5a6b9b5bc599","type":"text","text":"nwg-dock","x":-1460,"y":-860,"width":250,"height":60},
+		{"id":"ba2e25e55e25a8b2","type":"text","text":"wofi / rofi","x":-1775,"y":-860,"width":250,"height":60},
+		{"id":"caf663c274861855","type":"file","file":"Pasted image 20250927211222.png","x":-1775,"y":-773,"width":250,"height":159},
+		{"id":"ee03811117647302","type":"text","text":"swaync","x":-1968,"y":-550,"width":250,"height":60},
+		{"id":"35cbdbc6f62fcc88","type":"file","file":"Pasted image 20250927211533.png","x":-2747,"y":-460,"width":534,"height":50},
+		{"id":"20023c53c643e4b9","type":"file","file":"Pasted image 20250927211606.png","x":-2073,"y":-490,"width":237,"height":151},
+		{"id":"8e7bce020b8b167a","type":"file","file":"Pasted image 20250927211727.png","x":-1836,"y":-490,"width":203,"height":400},
+		{"id":"1391ca181ee691d4","type":"text","text":"swayosd","x":-1525,"y":-550,"width":250,"height":60},
+		{"id":"a00df08d962292a3","type":"file","file":"Pasted image 20250927211819.png","x":-1525,"y":-490,"width":255,"height":255},
+		{"id":"27c144a5845b0616","type":"text","text":"hyprexpo","x":-1173,"y":-517,"width":250,"height":60},
+		{"id":"b336972aba3d9634","type":"file","file":"Pasted image 20250927211919.png","x":-1173,"y":-451,"width":250,"height":141},
+		{"id":"6f719c8243882d37","type":"file","file":"Pasted image 20250927211930.png","x":-2460,"y":-121,"width":211,"height":126},
+		{"id":"9eea907e2631b8d1","type":"text","text":"waypaper","x":-2460,"y":-185,"width":250,"height":60},
+		{"id":"785f4c9cfbaba8ba","type":"text","text":"swww","x":-2109,"y":-118,"width":250,"height":60},
+		{"id":"d8282cf2edffe2c5","type":"text","text":"stellt den bildschirmhintergrund ein","x":-2139,"y":-40,"width":310,"height":70},
+		{"id":"26aa60475860823d","type":"text","text":"hypridle","x":-1617,"y":-87,"width":250,"height":60},
+		{"id":"8e9aa56991a62776","type":"text","text":"sorgt dafuer, dass der bildschirm irgendwann in standby geht","x":-1617,"y":-19,"width":395,"height":79},
+		{"id":"bdf0099ea6a1dd27","type":"file","file":"waybar.md","x":-2542,"y":-520,"width":234,"height":60}
+	],
+	"edges":[
+		{"id":"a248a45feee4c038","fromNode":"a2da5e4646eaf68f","fromSide":"bottom","toNode":"bdf0099ea6a1dd27","toSide":"top"},
+		{"id":"8e6599f05f0d8339","fromNode":"a2da5e4646eaf68f","fromSide":"bottom","toNode":"fdae5a6b9b5bc599","toSide":"top"},
+		{"id":"54d81e4bf35faa42","fromNode":"a2da5e4646eaf68f","fromSide":"bottom","toNode":"ba2e25e55e25a8b2","toSide":"top"},
+		{"id":"26fcf30092276036","fromNode":"a2da5e4646eaf68f","fromSide":"bottom","toNode":"57904bf885033dce","toSide":"top"},
+		{"id":"f78fe9b6818f9839","fromNode":"a2da5e4646eaf68f","fromSide":"bottom","toNode":"69cbfd4bd0832824","toSide":"top"},
+		{"id":"b860012ff5b44c58","fromNode":"a2da5e4646eaf68f","fromSide":"bottom","toNode":"ee03811117647302","toSide":"top"},
+		{"id":"75845e1c5c9a11cc","fromNode":"a2da5e4646eaf68f","fromSide":"bottom","toNode":"1391ca181ee691d4","toSide":"top"},
+		{"id":"5523e323340e0ddc","fromNode":"a2da5e4646eaf68f","fromSide":"bottom","toNode":"27c144a5845b0616","toSide":"top"},
+		{"id":"81ac6d8d27a24b8d","fromNode":"a2da5e4646eaf68f","fromSide":"bottom","toNode":"9eea907e2631b8d1","toSide":"top"},
+		{"id":"2874cec74993adc2","fromNode":"a2da5e4646eaf68f","fromSide":"bottom","toNode":"785f4c9cfbaba8ba","toSide":"top"},
+		{"id":"178383bd3f3a7acd","fromNode":"a2da5e4646eaf68f","fromSide":"bottom","toNode":"26aa60475860823d","toSide":"top"}
+	]
+}

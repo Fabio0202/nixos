@@ -1,0 +1,2 @@
+Wayland ist der **moderne Nachfolger** von [[xserver]]. Es macht im Prinzip das Gleiche wie der Xserver, aber einfacher, sicherer und mit weniger Ballast. Programme reden direkt mit dem „Compositor“ (anstatt über den Xserver).
+ 
