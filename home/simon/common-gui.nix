@@ -18,6 +18,10 @@ in {
     filezilla
   ];
 
+  xdg.desktopEntries.lf = {
+    name = "lf";
+    noDisplay = true; # hides it from rofi drun / menus
+  };
   xdg.configFile."gtk-3.0/bookmarks".text = ''
     file:///mnt/server Server
     file:///mnt/cloud My Cloud
