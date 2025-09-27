@@ -1,19 +1,30 @@
 #!/usr/bin/env bash
 
-battery=$(upower -i "$(upower -e | grep battery)")
+battery_device=$(upower -e | grep BAT0 || upower -e | grep battery | head -n1)
+
+if [[ -z "$battery_device" ]]; then
+  echo '{"text": " ?", "class": "unknown", "tooltip": "No battery detected"}'
+  exit 0
+fi
+
+battery=$(upower -i "$battery_device")
 level=$(echo "$battery" | awk '/percentage/ {print $2}' | tr -d '%')
-capacity="${level}%"
 state=$(echo "$battery" | awk '/state/ {print $2}')
+capacity="${level}%"
 
 # Pick icon
 if [[ "$state" == "charging" || "$state" == "fully-charged" ]]; then
   icon="󰂄"
 else
-  if   (( level < 15 )); then icon="󰂎"
-  elif (( level < 30 )); then icon="󰁻"
-  elif (( level < 50 )); then icon="󰁼"
-  elif (( level < 70 )); then icon="󰁽"
-  elif (( level < 90 )); then icon="󰁾"
+  if   (( level < 10 )); then icon="󰁺"
+  elif (( level < 20 )); then icon="󰁻"
+  elif (( level < 30 )); then icon="󰁼"
+  elif (( level < 40 )); then icon="󰁽"
+  elif (( level < 50 )); then icon="󰁿"
+  elif (( level < 60 )); then icon="󰂀"
+  elif (( level < 70 )); then icon="󰂁"
+  elif (( level < 80 )); then icon="󰂂"
+  elif (( level < 90 )); then icon="󱟢"
   else                       icon="󰁿"
   fi
 fi
