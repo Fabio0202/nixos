@@ -4,7 +4,7 @@
     # Window rules
     extraConfig = ''
             windowrulev2 = opacity 0.98 0.85,class:^(firefox)$
-
+            layerrule = blur, logout_dialog
             # Rofi launcher
             layerrule = blur, rofi
             layerrule = noanim, rofi
