@@ -12,7 +12,6 @@
   stylix.polarity = "dark";
   stylix.targets.gtk.enable = true;
 
-  stylix.targets.lazygit.enable = true;
   stylix.targets.grub.enable = true;
   stylix.targets.plymouth.enable = false;
   stylix.targets.gnome.enable = false;
