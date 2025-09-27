@@ -66,6 +66,7 @@
       imports = [
         ./home/${userName}/${hostName}.nix
         inputs.nvf.homeManagerModules.default
+        inputs.stylix.homeManagerModules.stylix
       ];
     };
 
@@ -78,6 +79,7 @@
         modules = [
           ./hosts/${hostName}/configuration.nix
           home-manager.nixosModules.home-manager
+          inputs.stylix.nixosModules.stylix
 
           {
             home-manager.useGlobalPkgs = true;
@@ -86,7 +88,6 @@
             home-manager.backupFileExtension = "backup";
             home-manager.users.${userName} = mkUser userName hostName;
           }
-          inputs.stylix.nixosModules.stylix
         ];
       };
   in {
