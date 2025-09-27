@@ -86,7 +86,6 @@ in {
 
 
             exec-once = nm-applet --indicator
-            # exec-once = ~/nixos/home/scripts/start_waybar.sh
     '';
   };
   systemd.user.services.ax-shell = {};
