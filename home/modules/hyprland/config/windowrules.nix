@@ -5,7 +5,10 @@
     extraConfig = ''
             windowrulev2 = opacity 0.98 0.85,class:^(firefox)$
 
-            layerrule = blur, class:^(Rofi)$
+            # Rofi launcher
+            layerrule = blur, rofi
+            layerrule = noanim, rofi
+            # Hotspot overlay
             windowrulev2 = opacity, 1.00 1.00 ,class:^(Rofi)$
             windowrulev2 = float, class:^(waydroid)$
             windowrulev2 = opacity 1.00 0.90,class:^(Brave-browser)$
