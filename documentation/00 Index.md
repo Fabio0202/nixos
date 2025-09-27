@@ -1,4 +1,5 @@
 
+nixos folder
 Hier findest du 3 folder und 2 files.
 
 - [[flake.nix]]
