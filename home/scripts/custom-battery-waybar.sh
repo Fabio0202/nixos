@@ -3,7 +3,8 @@
 battery_device=$(upower -e | grep BAT0 || upower -e | grep battery | head -n1)
 
 if [[ -z "$battery_device" ]]; then
-  echo '{"text": " ?", "class": "unknown", "tooltip": "No battery detected"}'
+  # Output empty JSON instead of unknown state
+  echo '{}'
   exit 0
 fi
 
