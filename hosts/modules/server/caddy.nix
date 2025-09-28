@@ -1,5 +1,7 @@
 {lib, ...}: let
   # Generic proxy
+  # NOTE: currently unused because I am using cloudlflared tunnel instead
+  # which does reverse proxying itself and is safer (no need to open ports)
   mkProxy = port: ''
     reverse_proxy localhost:${toString port}
   '';

@@ -12,7 +12,7 @@ in {
     ../modules/userSimon.nix
     ./../configuration-common-server.nix
     ./../modules/server/cloudflared.nix
-    ./../modules/server/caddy.nix
+    # ./../modules/server/caddy.nix
     ./../modules/bootloader.nix
     ./../modules/server/media-stack.nix
     ../modules/server/deploy-solid-app.nix
