@@ -15,6 +15,7 @@ in {
     gitkraken
     slack
     monolith # save complete web pages as a single HTML file
+    presenterm
     filezilla
   ];
 
