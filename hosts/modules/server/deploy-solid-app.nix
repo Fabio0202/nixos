@@ -29,7 +29,5 @@ in {
         reverse_proxy /* localhost:3000
       '';
     };
-
-    networking.firewall.allowedTCPPorts = [80 443];
   };
 }
