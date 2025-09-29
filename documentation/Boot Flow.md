@@ -1,5 +1,5 @@
 
-- Weil boot sachen ziemlich tief in system-settings zugreifen müssen, findest du module die beim boot gebraucht werden alle inin /hosts/modules
+- Weil boot sachen ziemlich tief in system-settings zugreifen müssen, findest du module die beim boot gebraucht werden alle in /hosts/modules
 
 Der import von den modulen sieht meistens so aus
 
