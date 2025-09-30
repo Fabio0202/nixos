@@ -28,6 +28,13 @@
   # Fonts (needed by GUI + CLI tools rendering text/icons)
   fonts.fontconfig.enable = true;
 
+  programs = {
+    direnv = {
+      enable = true;
+      enableBashIntegration = true; # see note on other shells below
+      nix-direnv.enable = true;
+    };
+  };
   imports = [
     ./modules/neovim/neovim.nix
     ./modules/sh.nix
