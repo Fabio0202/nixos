@@ -15,7 +15,7 @@ F --> H["graphics.nix"]
 - jeder folder hat configuration.nix (hyprland, syncthing usw) und hardware-configuration.nix (CPU usw)
 
 ### 2. Module
-die wir dann entweder in einzelnen host/configuration.nix importieren oder in mehreren modulen gleichzeitig über die gemeinamen common imports.
+die wir dann entweder in einzelnen host/configuration.nix importieren oder in mehreren modulen gleichzeitig über die gemeinsamen common imports.
 
 ### 3. Common files
 darunter configuration.common  und configuration-common.nix

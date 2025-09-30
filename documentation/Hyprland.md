@@ -3,7 +3,7 @@ Hyprland ist ein [[Window Manager]].
 
 Hyprland an sich macht eigentlich nicht viel anders als dafür zu sorgen, wie fenster aussehen und hübsche animationen. für viele sachen, die in [[gnome]] oder [[Pop_os]] selbstverständlich sind, müssen wir bei hyprland zusätzliche software verwenden. mehr dazu in [[hyprland modules]].
 
-In unserem Setup findest du findest **2 Eingangspunkte** für hyprland.
+In unserem Setup findest du **2 Eingangspunkte** für hyprland.
 #### 1. /hosts/modules/hyprlandWM.nix
 - hier installieren wir hyprland mal grundsätzlich und die Hardware die wir dafür brauchen, dieses modul ist eigentlich eher uninteressant und wirst du auch selten anfassen müssen.
 -  wir aktivieren hyprland und deaktivieren [[xserver]] weil hyprland auf [[wayland]] lauft.
