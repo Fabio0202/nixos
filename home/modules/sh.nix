@@ -32,6 +32,7 @@
     td = "task done"; #task wird als done markiert
     ta = "task add";
     tm = "task modify";
+    mkpy = "echo 'layout python python3' > .envrc && direnv allow";
     tc = "task context";
     rm = "trash-put";
   };

@@ -17,6 +17,13 @@
     })
   ];
 
+  virtualisation.windows-vm = {
+    enable = true;
+    user = "simon"; # optional (defaults to simon)
+    memoryAllocation = 16; # override defaults if you want
+    cpuCores = 8;
+  };
+
   fileSystems."/mnt/server" = {
     device = "simon-server:/mnt/drive";
     fsType = "nfs";

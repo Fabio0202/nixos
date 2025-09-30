@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    # Python
-    python3
+    # Python (full version with all features)
+    python3Full
     python3Packages.pip
     python3Packages.virtualenv
 
