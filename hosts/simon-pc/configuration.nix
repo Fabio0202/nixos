@@ -10,6 +10,8 @@
     # ../modules/bootloader.nix
     ../modules/grub.nix
 
+    ../modules/windows.nix
+
     (import ../modules/syncthing {
       user = "simon";
       hostName = "simon-laptop";
@@ -19,6 +21,13 @@
   services.sunshine = {
     enable = true;
     # openFirewall = true;
+  };
+
+  virtualisation.windows-vm = {
+    enable = true;
+    user = "simon"; # optional (defaults to simon)
+    memoryAllocation = 16; # override defaults if you want
+    cpuCores = 8;
   };
 
   fileSystems."/mnt/server" = {
