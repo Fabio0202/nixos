@@ -14,7 +14,6 @@
 
   programs.nvf = {
     enable = true;
-
     settings = {
       vim.navigation.harpoon = {
         enable = true;
@@ -162,6 +161,13 @@
           blink-cmp = {
             enable = true;
             friendly-snippets.enable = true;
+
+            setupOpts.sources.default = [
+              "lsp"
+              "path"
+              "snippets"
+            ];
+            sourcePlugins.buffer.enable = false;
           };
         };
 
