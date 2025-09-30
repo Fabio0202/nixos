@@ -74,15 +74,15 @@ in {
       onBoot = "ignore";
       onShutdown = "shutdown";
 
-      # 👇 put the default NAT network here
-      networks = {
-        "default" = {
-          uuid = "00000000-0000-0000-0000-000000000000";
-          forward.mode = "nat";
-          bridge = "virbr0";
-          domain = "default";
-        };
-      };
+      # # 👇 put the default NAT network here
+      # networks = {
+      #   "default" = {
+      #     uuid = "00000000-0000-0000-0000-000000000000";
+      #     forward.mode = "nat";
+      #     bridge = "virbr0";
+      #     domain = "default";
+      #   };
+      # };
     };
 
     users.users.${config.virtualisation.windows-vm.user}.extraGroups = ["libvirtd" "kvm" "input"];

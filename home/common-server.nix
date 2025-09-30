@@ -11,6 +11,8 @@
     wine # Run Windows programs on Linux
     ncdu # Visualize disk usage per folder
     btop
+
+    direnv # Manage environment variables per project directory
     unzip # Extract .zip archives
     deno # Modern JavaScript/TypeScript runtime
     xdg-utils # Open files/URLs with default desktop apps
