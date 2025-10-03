@@ -17,6 +17,7 @@ in {
     monolith # save complete web pages as a single HTML file
     presenterm
     filezilla
+    posting # to test http requests like postman
   ];
 
   xdg.desktopEntries.lf = {
