@@ -100,7 +100,6 @@ in {
     # System
     "${mainMod}, P, exec, wlogout --buttons-per-row 5" ## System | Open logout menu
     "${mainMod}, S, exec, hyprctl switchxkblayout current next; pkill -RTMIN+8 waybar" ## System | Switch keyboard layout
-    "${mainMod}, delete, exit" ## System | Exit Hyprland
     "${mainMod}, W, exec, waypaper" ## System | Open wallpaper switcher
     "${mainMod}, P, exec, pin" ## System | Pin screenshot
     "${mainMod} SHIFT, S, exec, sh -c 'grim -g \"$(slurp)\" - | wl-copy'" ## System | Area screenshot to clipboard
