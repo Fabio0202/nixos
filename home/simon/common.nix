@@ -4,10 +4,11 @@
   ...
 }: {
   home.packages = with pkgs; [
+    gh # GitHub CLI tool for repo management
     deluge # Lightweight, full-featured BitTorrent client
-    gh
     (pkgs-unstable.devenv) # Dev environment manager (like direnv but more powerful)
-    redis
+    redis # In-memory data structure store (DB, cache, message broker)
+    deno # Modern JavaScript/TypeScript runtime
     lazydocker # TUI for docker
     mdcat # render Markdown in terminal
     lsof # list open files and processes

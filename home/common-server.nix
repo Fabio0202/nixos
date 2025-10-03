@@ -13,7 +13,6 @@
     btop # Resource monitor (CPU, memory, disk, network)
     direnv # Manage environment variables per project directory
     unzip # Extract .zip archives
-    deno # Modern JavaScript/TypeScript runtime
     xdg-utils # Open files/URLs with default desktop apps
     neofetch # Show system info in terminal
     ffmpeg # Convert, edit, and process video/audio
