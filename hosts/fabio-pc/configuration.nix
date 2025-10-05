@@ -8,6 +8,7 @@
     ../configuration-common.nix
     ../modules/nvidia.nix
     ../modules/userFabio.nix
+    ../modules/windows.nix
 
     (import ../modules/syncthing {
       user = "fabio";
@@ -15,6 +16,8 @@
     })
   ];
 
+  # fuer windows gebraucht
+  boot.kernelModules = ["iptables" "iptable_nat"];
   fileSystems."/mnt/cloud" = {
     device = "simon-server:/mnt/drive/cloud/fabio";
     fsType = "nfs";
