@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  pkgs-unstable,
   ...
 }: {
   home.packages = with pkgs; [
