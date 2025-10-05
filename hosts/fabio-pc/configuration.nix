@@ -17,7 +17,7 @@
   ];
 
   # fuer windows gebraucht
-  boot.kernelModules = ["iptables" "iptable_nat"];
+  boot.kernelModules = ["iptables" "iptable_nat" "kvm-intel"];
   fileSystems."/mnt/cloud" = {
     device = "simon-server:/mnt/drive/cloud/fabio";
     fsType = "nfs";
