@@ -30,6 +30,7 @@
     cpuCores = 8;
   };
 
+  boot.kernelModules = ["iptables" "iptable_nat"];
   fileSystems."/mnt/server" = {
     device = "simon-server:/mnt/drive";
     fsType = "nfs";

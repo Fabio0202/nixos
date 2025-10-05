@@ -815,7 +815,8 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nvf": "nvf",
         "rose-pine-hyprcursor": "rose-pine-hyprcursor",
-        "stylix": "stylix"
+        "stylix": "stylix",
+        "winboat": "winboat"
       }
     },
     "rose-pine-hyprcursor": {
@@ -1058,6 +1059,26 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "winboat": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1759440725,
+        "narHash": "sha256-ofnS55kjetqLBAZSsmaBkm8IME5pkuDbyh/jwtZSoDA=",
+        "owner": "TibixDev",
+        "repo": "winboat",
+        "rev": "bff66fe2caa42ffa3a69cb552849f57f2a5183f1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "TibixDev",
+        "repo": "winboat",
         "type": "github"
       }
     },
