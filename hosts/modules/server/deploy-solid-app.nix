@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  appDomain = "app.simone-muscas.com";
+  appDomain = "http://app.simone-muscas.com";
 in {
   options.myApp.enable = lib.mkEnableOption "Deploy my React + Hono app";
 
@@ -25,8 +25,12 @@ in {
     services.caddy = {
       enable = true;
       virtualHosts."${appDomain}".extraConfig = ''
-        reverse_proxy /api/* localhost:8000
-        reverse_proxy /* localhost:3000
+        handle /api/* {
+          reverse_proxy /api/* localhost:8000
+          }
+          handle {
+          reverse_proxy /* localhost:3000
+          }
       '';
     };
   };
