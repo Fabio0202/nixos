@@ -35,6 +35,7 @@
     ./modules/rofi.nix # Rofi (launcher/menus, alternative to Wofi)
     ./modules/show-binds/default.nix # Show keybindings overlay/help popup
     ./modules/sunset-at-night.nix # Color temperature adjustment at night (like redshift)
+    ./modules/neovim/latex.nix
   ];
 
   # Set GUI default applications (MIME associations)

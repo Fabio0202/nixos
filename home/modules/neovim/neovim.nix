@@ -5,7 +5,8 @@
 }: {
   imports = [
     ./options.nix
-    ./latex.nix
+    # we don't need latex on the servers
+    # ./latex.nix
     ./languages.nix
     ./gitsigns.nix
     ./bufferline.nix
