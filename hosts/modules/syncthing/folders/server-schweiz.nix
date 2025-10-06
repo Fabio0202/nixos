@@ -1,36 +1,60 @@
-{...}: {
+{...}: let
+  defaultVersioning = {
+    type = "simple";
+    params.keep = "5";
+  };
+in {
   services.syncthing.folders = {
     "documents-fabio" = {
-      # this is the folder ID (shared across devices)
-      path = "/mnt/drive/syncthing/fabio/Documents"; # local path on this machine
-      devices = ["server-wien" "fabio-laptop-lenovo" "fabio-laptop-hp" "fabio-pc" "server-schweiz"];
-      versioning = {type = "trashcan";};
+      path = "/mnt/drive/syncthing/fabio/Documents";
+      devices = [
+        "server-wien"
+        "fabio-laptop-lenovo"
+        "fabio-laptop-hp"
+        "fabio-pc"
+        "server-schweiz"
+      ];
+      versioning = defaultVersioning;
     };
+
     "task-fabio" = {
-      # another folder ID
       path = "/mnt/drive/syncthing/fabio/.task";
-      devices = ["server-wien" "fabio-laptop-lenovo" "fabio-pc" "fabio-laptop-hp" "server-schweiz"];
-      versioning = {type = "trashcan";};
+      devices = [
+        "server-wien"
+        "fabio-laptop-lenovo"
+        "fabio-pc"
+        "fabio-laptop-hp"
+        "server-schweiz"
+      ];
+      versioning = defaultVersioning;
     };
+
     "documents-simon" = {
-      # this is the folder ID (shared across devices)
-      path = "/mnt/drive/syncthing/simon/Documents"; # local path on this machine
-      devices = ["server-wien" "simon-pc" "simon-laptop" "server-schweiz"];
-      versioning = {type = "trashcan";};
+      path = "/mnt/drive/syncthing/simon/Documents";
+      devices = [
+        "server-wien"
+        "simon-pc"
+        "simon-laptop"
+        "server-schweiz"
+      ];
+      versioning = defaultVersioning;
     };
 
     "task-simon" = {
-      # another folder ID
       path = "/mnt/drive/syncthing/simon/.task";
-      devices = ["server-wien" "simon-pc" "simon-laptop" "server-schweiz"];
-      versioning = {type = "trashcan";};
+      devices = [
+        "server-wien"
+        "simon-pc"
+        "simon-laptop"
+        "server-schweiz"
+      ];
+      versioning = defaultVersioning;
     };
 
     "cloud" = {
-      # another folder ID
       path = "/mnt/drive/cloud";
       devices = ["server-wien" "server-schweiz"];
-      versioning = {type = "trashcan";};
+      versioning = defaultVersioning;
     };
   };
 }
