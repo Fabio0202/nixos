@@ -6,6 +6,11 @@
       id = "24TFOXR-GOL55FV-UTWLHPO-NMI4643-RWZTXWV-EBQP5RE-C5PZ57V-BJLQDAZ";
       name = "fabio-pc";
     };
+
+    fabio-laptop-windows = {
+      id = "ZRNF2C2-BNXXDOM-YFVRVQQ-THDVH2P-GPN5IG6-KIGSEHZ";
+      name = "fabio-laptop-windows";
+    };
     fabio-laptop-lenovo = {
       id = "I3GAVMW-A2IQCZB-TPG2QKC-XGBX5BE-OPF6OTK-KJ7HQS5-44UQYKN-UWI7CAL";
       name = "fabio-laptop-lenovo";

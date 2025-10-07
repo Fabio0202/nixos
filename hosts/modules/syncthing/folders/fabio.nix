@@ -3,7 +3,7 @@
     "documents-fabio" = {
       # this is the folder ID (shared across devices)
       path = "/home/fabio/Documents"; # local path on this machine
-      devices = ["server-wien" "fabio-laptop-lenovo" "fabio-laptop-hp" "fabio-pc" "server-schweiz"];
+      devices = ["server-wien" "fabio-laptop-windows" "fabio-laptop-lenovo" "fabio-laptop-hp" "fabio-pc" "server-schweiz"];
       versioning = {type = "trashcan";};
     };
 

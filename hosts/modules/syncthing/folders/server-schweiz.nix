@@ -8,6 +8,7 @@ in {
     "documents-fabio" = {
       path = "/mnt/drive/syncthing/fabio/Documents";
       devices = [
+        "fabio-laptop-windows"
         "server-wien"
         "fabio-laptop-lenovo"
         "fabio-laptop-hp"

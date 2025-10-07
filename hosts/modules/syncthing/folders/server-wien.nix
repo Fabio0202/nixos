@@ -7,7 +7,7 @@ in {
   services.syncthing.folders = {
     "documents-fabio" = {
       path = "/mnt/drive/syncthing/fabio/Documents";
-      devices = ["server-wien" "fabio-laptop-lenovo" "fabio-laptop-hp" "fabio-pc" "server-schweiz"];
+      devices = ["server-wien" "fabio-laptop-windows" "fabio-laptop-lenovo" "fabio-laptop-hp" "fabio-pc" "server-schweiz"];
       versioning = defaultVersioning;
     };
 
