@@ -19,9 +19,9 @@ in {
 
       # Route app through Caddy
       "app.${domain}" = "http://localhost:80";
-
-      "default" = "http_status:404";
     };
+
+    default = "http_status:404";
   };
 
   # No need to expose ports 80/443 to the internet anymore
