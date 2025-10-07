@@ -6,6 +6,7 @@
 
   home.packages = with pkgs; [
     syncthing # Sync files across devices automatically
+    gh # GitHub CLI tool for repo management
     dysk # Show disk usage (like df but nicer)
     distrobox # Run other Linux distros inside containers
     wine # Run Windows programs on Linux
