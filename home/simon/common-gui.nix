@@ -11,6 +11,7 @@ in {
     telegram-desktop
     jetbrains.webstorm
     (pkgs-unstable.mongodb-compass)
+    input-leap # share input devices between computers
     logseq # notetaking like obsidian but better
     gitkraken # git gui client
     slack # work chat
