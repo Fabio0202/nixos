@@ -4,7 +4,6 @@
   ...
 }: {
   home.packages = with pkgs; [
-    gh # GitHub CLI tool for repo management
     deluge # Lightweight, full-featured BitTorrent client
     speedtest-cli # Test internet bandwidth using speedtest.net
     (pkgs-unstable.devenv) # Dev environment manager (like direnv but more powerful)
@@ -23,6 +22,12 @@
     # maven # Build tool
   ];
 
+  programs.lazygit = {
+    enable = true;
+    settings = {
+      git.fetchAllInterval = 0; # disables background fetch
+    };
+  };
   programs = {
     direnv = {
       enable = true;

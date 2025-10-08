@@ -1,14 +1,13 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    # Python (full version with all features)
-    python3Full
-    python3Packages.pip
-    python3Packages.virtualenv
+    python3
+    poetry
 
     # Build tools
     gcc
     gnumake
     pkg-config
+    poetry # python project management and dependency resolution tool
 
     # Common C libraries used by Python wheels
     openssl # for cryptography, requests with SSL

@@ -32,10 +32,15 @@
     td = "task done"; #task wird als done markiert
     ta = "task add";
     tm = "task modify";
-    mkpy = "echo 'layout python python3' > .envrc && direnv allow";
-    tc = "task context";
-    rm = "trash-put";
+    mkpy = ''
+      poetry init -n --python "^3.9"
+      echo 'source "$(poetry env info --path)/bin/activate"' > .envrc
+      direnv allow
+      echo "✓ Project ready! Use 'poetry add <package>'"
+    '';
   };
+  tc = "task context";
+  rm = "trash-put";
 in {
   programs.zoxide = {
     enable = true;
