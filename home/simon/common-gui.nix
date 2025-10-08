@@ -9,9 +9,9 @@ in {
     (pkgs-unstable.vintagestory)
     # blocky
     telegram-desktop
+    vi-mongo # mongo db gui client
     jetbrains.webstorm
     (pkgs-unstable.mongodb-compass)
-    input-leap # share input devices between computers
     logseq # notetaking like obsidian but better
     gitkraken # git gui client
     slack # work chat
