@@ -21,6 +21,12 @@
     # maven # Build tool
   ];
 
+  programs.lazygit = {
+    enable = true;
+    settings = {
+      git.fetchAllInterval = 0; # disables background fetch
+    };
+  };
   programs = {
     direnv = {
       enable = true;
