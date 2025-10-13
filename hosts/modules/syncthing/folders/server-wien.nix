@@ -13,7 +13,7 @@ in {
 
     "task-fabio" = {
       path = "/mnt/drive/syncthing/fabio/.task";
-      devices = ["server-wien" "fabio-laptop-lenovo" "fabio-pc" "fabio-laptop-hp" "server-schweiz"];
+      devices = ["server-wien" "fabio-pc" "fabio-laptop-hp" "server-schweiz"];
       versioning = defaultVersioning;
     };
 
