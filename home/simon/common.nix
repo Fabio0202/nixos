@@ -11,6 +11,7 @@
     lazydocker # TUI for docker
     mdcat # render Markdown in terminal
     lsof # list open files and processes
+    vi-mongo # MongoDB shell with vim keybindings
     # rainfrog # a tui for db connections
 
     # Java development here
