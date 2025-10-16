@@ -8,7 +8,7 @@
     };
 
     fabio-laptop-windows = {
-      id = "ZRNF2C2-BNXXDOM-YFVRVQQ-THDVH2P-GPN5IG6-KIGSEHZ";
+      id = "ZRNF2C2-BNXXDOM-YFVRVQQ-THDVH2P-GPN5IG6-KIGSEHZ-N3KRIEY-APGU6QL";
       name = "fabio-laptop-windows";
     };
     fabio-laptop-hp = {
