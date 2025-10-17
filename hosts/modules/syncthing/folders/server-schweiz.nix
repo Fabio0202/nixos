@@ -10,7 +10,6 @@ in {
       devices = [
         "fabio-laptop-windows"
         "server-wien"
-        "fabio-laptop-lenovo"
         "fabio-laptop-hp"
         "fabio-pc"
         "server-schweiz"
@@ -22,7 +21,6 @@ in {
       path = "/mnt/drive/syncthing/fabio/.task";
       devices = [
         "server-wien"
-        "fabio-laptop-lenovo"
         "fabio-pc"
         "fabio-laptop-hp"
         "server-schweiz"

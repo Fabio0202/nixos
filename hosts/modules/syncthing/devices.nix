@@ -8,12 +8,8 @@
     };
 
     fabio-laptop-windows = {
-      id = "ZRNF2C2-BNXXDOM-YFVRVQQ-THDVH2P-GPN5IG6-KIGSEHZ";
+      id = "ZRNF2C2-BNXXDOM-YFVRVQQ-THDVH2P-GPN5IG6-KIGSEHZ-N3KRIEY-APGU6QL";
       name = "fabio-laptop-windows";
-    };
-    fabio-laptop-lenovo = {
-      id = "I3GAVMW-A2IQCZB-TPG2QKC-XGBX5BE-OPF6OTK-KJ7HQS5-44UQYKN-UWI7CAL";
-      name = "fabio-laptop-lenovo";
     };
     fabio-laptop-hp = {
       id = "FNOLJ2V-P2IJ7KQ-KAYKSJQ-STUO4CM-ZTHCMRJ-JG7EKT3-4TOMABG-FSLZMAM";
