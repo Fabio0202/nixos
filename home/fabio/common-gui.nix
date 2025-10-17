@@ -22,6 +22,6 @@ in {
 
   # Keybinds
   wayland.windowManager.hyprland.settings.bind = [
-    "${mainMod}, return, exec, wofi-toggle" ## System | Toggle Wofi
+    "${mainMod}, return, exec, rofi -config ~/.config/rofi/rofi-glass.rasi -show drun" ## System | Toggle Wofi
   ];
 }
