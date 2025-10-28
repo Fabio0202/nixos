@@ -221,6 +221,22 @@
         # custom keymaps (non-plugin specific or always-on)
 
         keymaps = [
+          # ... your existing keymaps ...
+          {
+            mode = "n";
+            key = "<leader>cc";
+            action = ''
+              :lua require("toggleterm.terminal").Terminal
+                :new({
+                  cmd = "codex",
+                  direction = "float",
+                  float_opts = { border = "curved", width = 0.9, height = 0.8 },
+                  hidden = true,
+                })
+                :toggle()<CR>
+            '';
+            desc = "Open Codex CLI (floating)";
+          }
           {
             mode = "n";
             key = "<leader>lf";

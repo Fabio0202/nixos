@@ -109,6 +109,9 @@ in {
 
   programs.fish.enable = false;
 
+  programs.zsh.initExtraBeforeCompInit = ''
+    export PATH="$HOME/.npm-global/bin:$PATH"
+  '';
   programs.zsh.initExtra = ''
                source ~/.p10k.zsh
              function fzf() {
@@ -167,9 +170,6 @@ in {
     shellAliases = myAliases;
   };
 
-  programs.zsh.loginExtra = ''
-    export PATH="$HOME/.npm-global/bin:$PATH"
-  '';
   home.packages = with pkgs; [
     # Fun / misc
     haskellPackages.misfortune # random fortune messages (misfortune quotes)
