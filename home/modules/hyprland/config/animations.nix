@@ -32,7 +32,7 @@
         "$mainMod" = "SUPER";
         layout = "dwindle";
         gaps_in = 4;
-        gaps_out = 10;
+        gaps_out = 8;
         border_size = 2;
 
         "col.active_border" = lib.mkForce "rgb(a6e3a1) rgb(74c7ec) 45deg"; # green → blue-green

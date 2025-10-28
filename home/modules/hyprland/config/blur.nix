@@ -1,6 +1,6 @@
 {
   wayland.windowManager.hyprland.settings.decoration = {
-    rounding = 8; # Slightly increased for smoother, rounded corners
+    rounding = 4; # Slightly increased for smoother, rounded corners
     # shadow = {
     #   enabled = true;
     # };
