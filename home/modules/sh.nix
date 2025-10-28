@@ -65,6 +65,10 @@
   tc = "task context";
   rm = "trash-put";
 in {
+  # to make sure global npm packages are accessible
+  home.sessionPath = [
+    "$HOME/.npm-global/bin"
+  ];
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
