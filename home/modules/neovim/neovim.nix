@@ -225,16 +225,7 @@
           {
             mode = "n";
             key = "<leader>cc";
-            action = ''
-              :lua require("toggleterm.terminal").Terminal
-                :new({
-                  cmd = "codex",
-                  direction = "float",
-                  float_opts = { border = "curved", width = 0.9, height = 0.8 },
-                  hidden = true,
-                })
-                :toggle()<CR>
-            '';
+            action = "<cmd>lua _toggle_codex_cli()<CR>";
             desc = "Open Codex CLI (floating)";
           }
           {
