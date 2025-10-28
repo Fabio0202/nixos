@@ -5,6 +5,36 @@
     ];
 
     vim.luaConfigPost = ''
+
+          local ok, toggleterm = pcall(require, "toggleterm.terminal")
+          if not ok then
+            function _toggle_codex_cli()
+              vim.notify("toggleterm.nvim is not available", vim.log.levels.WARN)
+            end
+            return
+          end
+
+          local codex_term
+
+          local function get_codex_term()
+            if not codex_term then
+              codex_term = toggleterm.Terminal:new({
+                cmd = "codex",
+                direction = "float",
+                float_opts = {
+                  border = "curved",
+                  width = math.floor(vim.o.columns * 0.9),
+                  height = math.floor(vim.o.lines * 0.8),
+                },
+                hidden = true,
+              })
+            end
+            return codex_term
+          end
+
+          function _toggle_codex_cli()
+            get_codex_term():toggle()
+          end
               -- Viewer / compiler
               vim.g.vimtex_view_method = "zathura"
               vim.g.vimtex_compiler_method = "latexmk"

@@ -221,6 +221,13 @@
         # custom keymaps (non-plugin specific or always-on)
 
         keymaps = [
+          # ... your existing keymaps ...
+          {
+            mode = "n";
+            key = "<leader>cc";
+            action = "<cmd>lua _toggle_codex_cli()<CR>";
+            desc = "Open Codex CLI (floating)";
+          }
           {
             mode = "n";
             key = "<leader>lf";
