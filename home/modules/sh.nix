@@ -167,6 +167,9 @@ in {
     shellAliases = myAliases;
   };
 
+  programs.zsh.loginExtra = ''
+    export PATH="$HOME/.npm-global/bin:$PATH"
+  '';
   home.packages = with pkgs; [
     # Fun / misc
     haskellPackages.misfortune # random fortune messages (misfortune quotes)
