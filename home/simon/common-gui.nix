@@ -13,6 +13,7 @@ in {
     jetbrains.webstorm
     (pkgs-unstable.mongodb-compass)
     logseq # notetaking like obsidian but better
+    bitwig-studio
     gitkraken # git gui client
     slack # work chat
     monolith # save complete web pages as a single HTML file
