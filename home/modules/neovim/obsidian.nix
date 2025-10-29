@@ -6,7 +6,7 @@
         workspaces = [
           {
             name = "personal";
-            path = "~/projects/pages/";
+            path = "~/notes/logseq/projects/pages/";
           }
         ];
       };

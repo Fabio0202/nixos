@@ -103,7 +103,6 @@ in {
     "${mainMod}, W, exec, waypaper" ## System | Open wallpaper switcher
     "${mainMod}, P, exec, pin" ## System | Pin screenshot
     "${mainMod} SHIFT, S, exec, sh -c 'grim -g \"$(slurp)\" - | wl-copy'" ## System | Area screenshot to clipboard
-    "${mainMod}, Z, exec, dictation-toggle" ## System | Toggle speech-to-text dictation
     ", Print, exec, sh -c 'grim - | wl-copy && notify-send \"Screenshot\" \"Copied entire screen to clipboard\"'" ## System | Full screenshot to clipboard
     ", switch:on:Lid Switch, exec, swaylock && systemctl suspend" ## System | Lock & suspend on lid close
 
