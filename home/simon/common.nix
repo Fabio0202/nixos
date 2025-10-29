@@ -7,6 +7,7 @@
     deluge # Lightweight, full-featured BitTorrent client
     speedtest-cli # Test internet bandwidth using speedtest.net
     (pkgs-unstable.devenv) # Dev environment manager (like direnv but more powerful)
+    (pkgs-unstable.opencode) # open source code agents
     redis # In-memory data structure store (DB, cache, message broker)
     deno # Modern JavaScript/TypeScript runtime
     lazydocker # TUI for docker
@@ -15,6 +16,8 @@
     vi-mongo # MongoDB shell with vim keybindings
     # rainfrog # a tui for db connections
 
+    jujutsu # like git but apparently better
+    lazyjj
     # Java development here
     # google-java-format
     # jdk17 # Java 17 for Spring Boot
