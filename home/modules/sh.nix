@@ -9,6 +9,7 @@
     ssh-allow = "sudo systemctl start sshd";
     ssh-deny = "sudo systemctl stop sshd";
     l = "eza --icons";
+    oc = "opencode";
     ls = "eza --icons";
     ping = "gping";
     lst = "ls -T -L=2";
