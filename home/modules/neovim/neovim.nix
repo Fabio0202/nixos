@@ -11,6 +11,7 @@
     ./gitsigns.nix
     ./bufferline.nix
     ./oil.nix
+    ./hunk-diffview.nix
   ];
 
   programs.nvf = {
