@@ -25,6 +25,7 @@
     ./modules/light.nix
     ./modules/networking.nix
     ./modules/swap.nix
+    ./modules/memory-management.nix
     ./modules/system.nix
   ];
 

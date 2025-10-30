@@ -4,7 +4,7 @@
   swapDevices = [
     {
       device = "/swapfile";
-      size = 8192;
+      size = 16384; # Increase to 16GB
     }
   ];
 }
