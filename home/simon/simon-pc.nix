@@ -7,6 +7,7 @@
   # I need to permit insecure packages because of logseq for now
   home.packages = with pkgs; [
     sunshine
+    moonlight-qt
     pkgs-unstable.freerdp3
     inputs.winboat.packages.${pkgs.system}.winboat
     # alle Software die ich nur am Laptop haben will

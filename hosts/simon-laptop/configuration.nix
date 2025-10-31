@@ -17,6 +17,11 @@
     })
   ];
 
+  services.sunshine = {
+    enable = true;
+    openFirewall = true;
+  };
+
   virtualisation.windows-vm = {
     enable = true;
     user = "simon"; # optional (defaults to simon)
