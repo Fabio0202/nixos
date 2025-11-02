@@ -10,9 +10,8 @@
     freeSwapThreshold = 10; # Kill when <10% swap free
     extraArgs = [
       "-g" # Kill entire process groups
-      "--avoid"
-      "(^|/)(systemd|ssh|Xorg|gnome-shell|hyprland|soffice|nvim)$" # Protect critical processes
-      "--prefer '(^|/)(firefox|chromium|chrome|electron|node|npm|cargo)$'" # Kill these first
+      "--avoid" "(^|/)(systemd|ssh|Xorg|gnome-shell|hyprland|soffice|nvim)$" # Protect critical processes
+      "--prefer" "(^|/)(firefox|chromium|chrome|electron|node|npm|cargo)$" # Kill these first
     ];
   };
 
