@@ -18,6 +18,7 @@
 
     jujutsu # like git but apparently better
     lazyjj
+    awscli2 # AWS Command Line Interface v2
     # Java development here
     # google-java-format
     # jdk17 # Java 17 for Spring Boot
