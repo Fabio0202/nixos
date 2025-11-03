@@ -10,6 +10,7 @@ in {
     # blocky
     telegram-desktop
     vi-mongo # mongo db gui client
+    teams-for-linux
     jetbrains.webstorm
     (pkgs-unstable.mongodb-compass)
     logseq # notetaking like obsidian but better
