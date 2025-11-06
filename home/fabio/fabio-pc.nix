@@ -7,8 +7,8 @@
   home.packages = with pkgs; [
     # alle Software die ich nur am Stand-PC haben will
 
-    pkgs-unstable.freerdp3
-    inputs.winboat.packages.${pkgs.system}.winboat
+    pkgs-unstable.freerdp
+    pkgs-unstable.winboat
   ];
   imports = [
     ./common.nix

@@ -8,8 +8,8 @@
   home.packages = with pkgs; [
     sunshine
     moonlight-qt
-    pkgs-unstable.freerdp3
-    inputs.winboat.packages.${pkgs.system}.winboat
+    pkgs-unstable.freerdp
+    pkgs-unstable.winboat
     # alle Software die ich nur am Laptop haben will
     # TODO: allow unstable imports
     # (pkgs-unstable.vintagestory)
