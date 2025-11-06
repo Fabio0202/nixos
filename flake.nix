@@ -2,7 +2,7 @@
   description = "My NixOS config with Home Manager, multi-host, and one-user-per-host support";
 
   inputs = {
-    nvf.url = "github:notashelf/nvf";
+    nvf.url = "github:notashelf/nvf/v0.8";
 
     # TODO: Update to 25.11 when stable
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
@@ -26,10 +26,7 @@
       inputs.hyprland.follows = "hyprland";
     };
 
-    winboat = {
-      url = "github:TibixDev/winboat";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+
     stylix = {
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
