@@ -173,6 +173,92 @@
           };
         };
 
+        snippets.luasnip = {
+          enable = true;
+          customSnippets.snipmate = {
+            javascript = [
+              {
+                trigger = "rfc";
+                body = ''
+                  import React from 'react';
+
+                  const $1 = () => {
+                    return (
+                      <div>
+                        $2
+                      </div>
+                    );
+                  };
+
+                  export default $1;
+                '';
+                description = "React functional component";
+              }
+              {
+                trigger = "useState";
+                body = "const [$1, set$1] = useState<$2>($3);";
+                description = "React useState hook";
+              }
+              {
+                trigger = "useEffect";
+                body = ''
+                  useEffect(() => {
+                    $1
+                  }, [$2]);
+                '';
+                description = "React useEffect hook";
+              }
+              {
+                trigger = "div";
+                body = '<div className="$1">$2</div>';
+                description = "div with className";
+              }
+            ];
+            typescript = [
+              {
+                trigger = "rfc";
+                body = ''
+                  import React from 'react';
+
+                  interface $1Props {
+                    $2
+                  }
+
+                  const $1: React.FC<$1Props> = () => {
+                    return (
+                      <div>
+                        $3
+                      </div>
+                    );
+                  };
+
+                  export default $1;
+                '';
+                description = "React functional component with TypeScript";
+              }
+              {
+                trigger = "useState";
+                body = "const [$1, set$1] = useState<$2>($3);";
+                description = "React useState hook";
+              }
+              {
+                trigger = "useEffect";
+                body = ''
+                  useEffect(() => {
+                    $1
+                  }, [$2]);
+                '';
+                description = "React useEffect hook";
+              }
+              {
+                trigger = "div";
+                body = '<div className="$1">$2</div>';
+                description = "div with className";
+              }
+            ];
+          };
+        };
+
         # now add the lazy plugins
         lazy.plugins = {
           telescope = {
