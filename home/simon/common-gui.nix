@@ -10,6 +10,7 @@ in {
     # blocky
     telegram-desktop
     vi-mongo # mongo db gui client
+    redisinsight # redis gui client
     teams-for-linux
     jetbrains.webstorm
     (pkgs-unstable.mongodb-compass)
