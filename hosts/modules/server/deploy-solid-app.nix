@@ -9,18 +9,19 @@ in {
   options.myApp.enable = lib.mkEnableOption "Deploy my React + Hono app";
 
   config = lib.mkIf config.myApp.enable {
-    systemd.services.app-stack = {
-      description = "App stack (frontend, backend, mongo)";
-      after = ["docker.service" "network.target"];
-      wantedBy = ["multi-user.target"];
-      serviceConfig = {
-        WorkingDirectory = "/home/simon/code/solid-deno";
-        ExecStart = "${pkgs.docker-compose}/bin/docker-compose -f docker-compose.prod.yml up";
-        ExecStop = "${pkgs.docker-compose}/bin/docker-compose -f docker-compose.prod.yml down";
-        Restart = "always";
-        User = "simon";
-      };
-    };
+    # we handle this with docker-compose now
+    # systemd.services.app-stack = {
+    #   description = "App stack (frontend, backend, mongo)";
+    #   after = ["docker.service" "network.target"];
+    #   wantedBy = ["multi-user.target"];
+    #   serviceConfig = {
+    #     WorkingDirectory = "/home/simon/code/solid-deno";
+    #     ExecStart = "${pkgs.docker-compose}/bin/docker-compose -f docker-compose.prod.yml up";
+    #     ExecStop = "${pkgs.docker-compose}/bin/docker-compose -f docker-compose.prod.yml down";
+    #     Restart = "always";
+    #     User = "simon";
+    #   };
+    # };
 
     services.caddy = {
       enable = true;
