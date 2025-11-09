@@ -180,8 +180,6 @@
               {
                 trigger = "rfc";
                 body = ''
-                  import React from 'react';
-
                   const $1 = () => {
                     return (
                       <div>
@@ -210,7 +208,7 @@
               }
               {
                 trigger = "div";
-                body = '<div className="$1">$2</div>';
+                body = ''<div className="$1">$2</div>'';
                 description = "div with className";
               }
             ];
@@ -218,8 +216,6 @@
               {
                 trigger = "rfc";
                 body = ''
-                  import React from 'react';
-
                   interface $1Props {
                     $2
                   }
@@ -252,7 +248,7 @@
               }
               {
                 trigger = "div";
-                body = '<div className="$1">$2</div>';
+                body = ''<div className="$1">$2</div>'';
                 description = "div with className";
               }
             ];
