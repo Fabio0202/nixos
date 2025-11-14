@@ -27,8 +27,6 @@
     # maven # Build tool
   ];
 
-  virtualisation.docker.enable = true;
-
   programs.lazygit = {
     enable = true;
     settings = {

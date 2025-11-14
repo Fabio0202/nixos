@@ -22,6 +22,8 @@
   # Servers typically don’t need Plymouth splash
   boot.plymouth.enable = false;
 
+  #docker because you need docker on your servers of course
+  virtualisation.docker.enable = true;
   # Stick with stable kernel unless you need bleeding-edge hardware support
   # (safer for servers)
   # boot.kernelPackages = pkgs.linuxPackages_latest;
