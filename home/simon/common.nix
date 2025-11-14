@@ -26,6 +26,11 @@
     # maven # Build tool
   ];
 
+  # Docker and Docker Compose for containerization
+  virtualisation.docker.enable = true;
+  environment.systemPackages = with pkgs; [
+    docker-compose
+  ];
   programs.lazygit = {
     enable = true;
     settings = {
