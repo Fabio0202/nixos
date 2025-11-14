@@ -15,6 +15,7 @@
     lsof # list open files and processes
     vi-mongo # MongoDB shell with vim keybindings
     # rainfrog # a tui for db connections
+    docker-compose
 
     jujutsu # like git but apparently better
     lazyjj
@@ -26,11 +27,8 @@
     # maven # Build tool
   ];
 
-  # Docker and Docker Compose for containerization
   virtualisation.docker.enable = true;
-  environment.systemPackages = with pkgs; [
-    docker-compose
-  ];
+
   programs.lazygit = {
     enable = true;
     settings = {
