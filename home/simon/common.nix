@@ -18,7 +18,6 @@
     # rainfrog # a tui for db connections
     docker-compose
 
-    jujutsu # like git but apparently better
     jjui # tui for jujutsu
     awscli2 # AWS Command Line Interface v2
     # Java development here
