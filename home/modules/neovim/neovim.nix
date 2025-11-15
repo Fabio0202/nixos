@@ -124,14 +124,17 @@
 
       vim = {
         assistant = {
-          copilot.enable = true;
+          supermaven-nvim.enable = true;
 
-          copilot.setupOpts.suggestion.auto_trigger = true;
-          copilot.mappings = {
-            suggestion.accept = "<C-s>";
-            suggestion.acceptWord = "<C-d>";
-          };
-          copilot.setupOpts.suggestion.enabled = true;
+          supermaven-nvim.setupOpts.keymaps.accept_suggestion = "<C-s>";
+          supermaven-nvim.setupOpts.keymaps.accept_word = "<C-d>";
+          # copilot.enable = true;
+          # copilot.setupOpts.suggestion.auto_trigger = true;
+          # copilot.mappings = {
+          #   suggestion.accept = "<C-s>";
+          #   suggestion.acceptWord = "<C-d>";
+          # };
+          # copilot.setupOpts.suggestion.enabled = true;
         };
 
         visuals = {
