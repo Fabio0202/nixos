@@ -1,8 +1,13 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  pkgs-unstable,
+  ...
+}: let
   mainMod = "Super";
 in {
   # Sachen die du auf PC un laptops haben willst (also ohne server)
   home.packages = with pkgs; [
+    (pkgs-unstable.vintagestory)
     imagej # Scientific image analysis (popular in research)
     gimp3-with-plugins # Advanced image editing (Photoshop alternative)
     drawio # Diagram and flowchart creation
