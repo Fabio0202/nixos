@@ -61,6 +61,7 @@
         fileencoding = "utf-8";
         copyindent = true;
         writebackup = false;
+        iskeyword = "@,48-57,192-255,_,-";
 
         # fillchars = { eob = " " };   # ⚠️ if nvf complains, move this to vim.extraConfig
       };

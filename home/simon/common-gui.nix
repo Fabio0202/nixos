@@ -9,7 +9,11 @@ in {
     (pkgs-unstable.vintagestory)
     # blocky
     telegram-desktop
+    python3
+    python3Packages.pip
     vi-mongo # mongo db gui client
+    redisinsight # redis gui client
+    teams-for-linux
     jetbrains.webstorm
     (pkgs-unstable.mongodb-compass)
     logseq # notetaking like obsidian but better
@@ -21,6 +25,30 @@ in {
     filezilla # for sending files to my webserver
     posting # to test http requests like postman
   ];
+
+  # Create global Python environment for pip installs
+  home.file.".local/bin/pip-global".text = ''
+    #!/bin/bash
+    if [ ! -d "$HOME/.local/share/global-python" ]; then
+      python3 -m venv "$HOME/.local/share/global-python"
+    fi
+    source "$HOME/.local/share/global-python/bin/activate"
+    pip "$@"
+  '';
+
+  home.file.".local/bin/python-global".text = ''
+    #!/bin/bash
+    if [ ! -d "$HOME/.local/share/global-python" ]; then
+      python3 -m venv "$HOME/.local/share/global-python"
+    fi
+    source "$HOME/.local/share/global-python/bin/activate"
+    python "$@"
+  '';
+
+  home.shellAliases = {
+    pip = "pip-global";
+    python = "python-global";
+  };
 
   xdg.desktopEntries.lf = {
     name = "lf";
