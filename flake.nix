@@ -110,7 +110,9 @@
 
     # --- Dev shell ---
     devShells.${system}.default = pkgs.mkShell {
-      buildInputs = [pkgs.nixpkgs-fmt];
+      buildInputs = [
+        pkgs.nixpkgs-fmt
+      ];
     };
   };
 }

@@ -1,6 +1,5 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    python312Full # Full Python 3.12 with commonly used packages
     poetry
 
     # Build tools

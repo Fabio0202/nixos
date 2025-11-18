@@ -18,7 +18,8 @@
     docker-compose
 
     jujutsu # like git but apparently better
-    lazyjj
+    jjui # tui for jujutsu
+    awscli2 # AWS Command Line Interface v2
     # Java development here
     # google-java-format
     # jdk17 # Java 17 for Spring Boot
@@ -40,6 +41,7 @@
       nix-direnv.enable = true;
     };
   };
+
   imports = [
     # hier kommen zB setup files aus /modules fuer die einzelnen pkgs bzw softwares
   ];

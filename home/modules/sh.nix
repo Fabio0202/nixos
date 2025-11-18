@@ -33,14 +33,18 @@
     td = "task done"; #task wird als done markiert
     ta = "task add";
     tm = "task modify";
+    pip = "pip-global";
+    pip3 = "pip-global";
+    python = "python-global";
+    python3 = "python-global";
     mkpy = ''
         poetry init -n --python "^3.12"
-        poetry env use /run/current-system/sw/bin/python3
+        poetry env use $(which python3)
         poetry install --no-root
 
         cat > .envrc <<'EOF'
       # use Poetry's virtualenv automatically
-      PYTHON_FULL=/run/current-system/sw/bin/python3
+      PYTHON_FULL=$(which python3)
 
       # ensure venv is built with the correct Python
       if ! poetry env info -p 2>/dev/null | grep -q "$PYTHON_FULL"; then
@@ -66,8 +70,9 @@
   tc = "task context";
   rm = "trash-put";
 in {
-  # to make sure global npm packages are accessible
+  # to make sure global npm packages and local binaries are accessible
   home.sessionPath = [
+    "$HOME/.local/bin"
     "$HOME/.npm-global/bin"
   ];
   programs.zoxide = {

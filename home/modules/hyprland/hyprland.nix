@@ -26,6 +26,6 @@
     # bluez-utils #appearently doesnt exist?
     bluez
     libgtop # system monitoring library; CPU usw.
-    python3Packages.dbus-python
+    # python3Packages.dbus-python # Removed - causes Python package collision
   ];
 }
