@@ -17,6 +17,12 @@ in {
       versioning = defaultVersioning;
     };
 
+    "shared" = {
+      # this is the folder ID (shared across devices)
+      path = "/mnt/drive/shared/"; # local path on this machine
+      devices = ["simon-pc" "simon-laptop" "server-schweiz" "server-wien" "fabio-laptop-hp" "fabio-pc"];
+      versioning = {type = "trashcan";};
+    };
     "task-fabio" = {
       path = "/mnt/drive/syncthing/fabio/.task";
       devices = [
