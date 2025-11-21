@@ -16,6 +16,7 @@ in {
     todoist # Task management & to-do list app
     gitkraken # Shows Git Branches nicely
     arduino # für uni
+    shotcut # Videoschneiden
   ];
 
   xdg.configFile."gtk-3.0/bookmarks".text = ''
