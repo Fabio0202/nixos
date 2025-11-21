@@ -93,7 +93,13 @@
         };
       };
       vim.languages = {
-        html.enable = true;
+        html = {
+          enable = true;
+          lsp = {
+            enable = true;
+            servers = ["emmet-ls"];
+          };
+        };
         tailwind = {
           enable = true;
           lsp.enable = true;
@@ -105,6 +111,7 @@
         css = {
           enable = true;
           treesitter.enable = true;
+          lsp.enable = true;
         };
 
         yaml = {
