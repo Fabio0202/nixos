@@ -16,6 +16,7 @@ in {
     ./../modules/bootloader.nix
     ./../modules/server/media-stack.nix
     ../modules/server/deploy-solid-app.nix
+    ./../modules/server/vintage-story.nix
 
     (import ../modules/syncthing {
       user = "simon";
@@ -99,6 +100,22 @@ in {
   services.udev.extraRules = ''
     ACTION=="add", SUBSYSTEM=="block", ENV{ID_FS_UUID}=="${UUID}", ENV{SYSTEMD_WANTS}+="mnt-drive.mount"
   '';
+
+  # Vintage Story Server Configuration
+  services.vintage-story = {
+    enable = true;
+    serverName = "Simon's Vintage Story Server";
+    port = 42420;
+    maxClients = 10;
+    password = null; # Set a password if desired
+    advertise = false; # Keep private for friends
+    whitelistMode = "default"; # Whitelist enabled by default
+    defaultRole = "suplayer";
+    memory = "3G"; # Allocate 3GB RAM
+    version = "1.21.5"; # Latest stable version
+    user = "simon";
+    group = "users";
+  };
 
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 }
