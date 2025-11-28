@@ -16,6 +16,8 @@
     vscode # GUI code editor (Visual Studio Code)
     spotify # Music streaming client
     hyprsunset # Screen color temperature adjustment for eye comfort
+    wineWowPackages.wayland
+    winetricks
   ];
 
   services.blueman-applet.enable = true; # Enable system tray applet for Bluetooth
