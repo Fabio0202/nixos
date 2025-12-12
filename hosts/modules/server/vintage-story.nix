@@ -1,16 +1,16 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
   cfg = config.services.vintage-story;
   needsDrive = {
-    after = ["mnt-drive.mount"];
-    requires = ["mnt-drive.mount"];
-    partOf = ["mnt-drive.mount"];
+    after = [ "mnt-drive.mount" ];
+    requires = [ "mnt-drive.mount" ];
+    partOf = [ "mnt-drive.mount" ];
     serviceConfig.Restart = "on-failure";
-    bindsTo = ["mnt-drive.mount"];
+    bindsTo = [ "mnt-drive.mount" ];
   };
 
   # Server configuration
@@ -23,12 +23,13 @@
     WhitelistMode = cfg.whitelistMode;
     DefaultRoleCode = cfg.defaultRole;
     SaveFileLocation = "./data/Saves/default.vcdbs";
-    ModPaths = ["Mods" "./data/Mods"];
+    ModPaths = [ "Mods" "./data/Mods" ];
   };
 
   # Generate serverconfig.json
   serverConfigJson = builtins.toJSON serverConfig;
-in {
+in
+{
   options.services.vintage-story = {
     enable = lib.mkEnableOption "Vintage Story dedicated server";
 
@@ -111,7 +112,7 @@ in {
     # Vintage Story server service
     systemd.services.vintage-story = needsDrive // {
       description = "Vintage Story Dedicated Server";
-      wantedBy = ["multi-user.target"];
+      wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         Type = "simple";
         User = cfg.user;
@@ -126,8 +127,8 @@ in {
     };
 
     # Open firewall ports
-    networking.firewall.allowedTCPPorts = [cfg.port];
-    networking.firewall.allowedUDPPorts = [cfg.port];
+    networking.firewall.allowedTCPPorts = [ cfg.port ];
+    networking.firewall.allowedUDPPorts = [ cfg.port ];
 
     # Add .NET runtime
     environment.systemPackages = with pkgs; [

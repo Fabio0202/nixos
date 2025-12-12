@@ -1,12 +1,13 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
   nvidiaPackage = config.boot.kernelPackages.nvidiaPackages.production;
-in {
-  services.xserver.videoDrivers = ["nvidia"];
+in
+{
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
     modesetting.enable = true;
@@ -26,7 +27,7 @@ in {
     };
   };
 
-  boot.kernelParams = ["nvidia-drm.modeset=1"];
+  boot.kernelParams = [ "nvidia-drm.modeset=1" ];
 
   # CRITICAL: Ensure NVIDIA tools are in the system path
   environment.systemPackages = with pkgs; [

@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   services.syncthing.settings.devices = {
     # TODO: add my devices
     # TODO: check if ID is still the same or not???

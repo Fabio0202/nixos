@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   home.packages = with pkgs; [
     obsidian # Markdown-based note-taking & knowledge management
     libreoffice # Office suite (Word, Excel, PowerPoint, etc.)
@@ -42,13 +42,13 @@
   xdg.mimeApps = {
     enable = false; # Disable Home Manager control over mimeapps.list (can switch to true later)
     defaultApplications = {
-      "video/*" = ["mpv.desktop"]; # Use mpv for all video files
-      "audio/*" = ["audacious.desktop"]; # Use Audacious for audio
-      "image/*" = ["viewnior.desktop"]; # Use Viewnior for images
-      "application/pdf" = ["evince.desktop"]; # Evince as PDF viewer
-      "text/html" = ["firefox.desktop"]; # Firefox for HTML
-      "x-scheme-handler/http" = ["firefox.desktop"]; # HTTP links → Firefox
-      "x-scheme-handler/https" = ["firefox.desktop"]; # HTTPS links → Firefox
+      "video/*" = [ "mpv.desktop" ]; # Use mpv for all video files
+      "audio/*" = [ "audacious.desktop" ]; # Use Audacious for audio
+      "image/*" = [ "viewnior.desktop" ]; # Use Viewnior for images
+      "application/pdf" = [ "evince.desktop" ]; # Evince as PDF viewer
+      "text/html" = [ "firefox.desktop" ]; # Firefox for HTML
+      "x-scheme-handler/http" = [ "firefox.desktop" ]; # HTTP links → Firefox
+      "x-scheme-handler/https" = [ "firefox.desktop" ]; # HTTPS links → Firefox
     };
   };
 }

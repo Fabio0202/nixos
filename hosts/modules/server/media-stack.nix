@@ -1,17 +1,18 @@
-{
-  pkgs,
-  lib,
-  ...
-}: let
+{ pkgs
+, lib
+, ...
+}:
+let
   # Helper: make services depend on external drive
   needsDrive = {
-    after = ["mnt-drive.mount"];
-    requires = ["mnt-drive.mount"];
-    partOf = ["mnt-drive.mount"];
+    after = [ "mnt-drive.mount" ];
+    requires = [ "mnt-drive.mount" ];
+    partOf = [ "mnt-drive.mount" ];
     serviceConfig.Restart = "on-failure";
-    bindsTo = ["mnt-drive.mount"];
+    bindsTo = [ "mnt-drive.mount" ];
   };
-in {
+in
+{
   environment.systemPackages = with pkgs; [
     recyclarr
   ];

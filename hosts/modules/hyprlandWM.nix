@@ -1,8 +1,7 @@
-{
-  inputs,
-  lib,
-  pkgs,
-  ...
+{ inputs
+, lib
+, pkgs
+, ...
 }: {
   # Disable X11 completely
   services.xserver.enable = false;
@@ -33,18 +32,20 @@
     enable = true;
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
+      # xdg-desktop-portal-hyprland now auto-included with Hyprland in 25.11
     ];
     config = {
-      common.default = ["hyprland" "gtk"];
+      common.default = [ "hyprland" "gtk" ];
       hyprland = {
-        default = ["hyprland" "gtk"];
-        "org.freedesktop.impl.portal.FileChooser" = ["gtk"];
-        "org.freedesktop.impl.portal.OpenURI" = ["gtk"];
-        "org.freedesktop.impl.portal.Settings" = ["gtk"];
+        default = [ "hyprland" "gtk" ];
+        "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+        "org.freedesktop.impl.portal.OpenURI" = [ "gtk" ];
+        "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
+        "org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
       };
     };
   };
 
   # Import the SDDM Wayland module
-  imports = [./login.nix];
+  imports = [ ./login.nix ];
 }

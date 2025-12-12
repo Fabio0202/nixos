@@ -1,9 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
   # available themes:
   # astronaut.conf
   # black_hole.conf
@@ -20,7 +20,8 @@
   custom-sddm-astronaut = pkgs.sddm-astronaut.override {
     embeddedTheme = "purple_leaves"; # This should match the variant name without .conf
   };
-in {
+in
+{
   services.displayManager.sddm = {
     enable = true;
     package = pkgs.kdePackages.sddm;

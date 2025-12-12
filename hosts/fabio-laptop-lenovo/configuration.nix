@@ -1,8 +1,7 @@
-{
-  lib,
-  config,
-  pkgs,
-  ...
+{ lib
+, config
+, pkgs
+, ...
 }: {
   imports = [
     ./hardware-configuration.nix
@@ -27,7 +26,7 @@
   fileSystems."/mnt/cloud" = {
     device = "simon-server:/mnt/drive/cloud/fabio";
     fsType = "nfs";
-    options = ["x-systemd.automount" "noauto" "nofail" "x-systemd.idle-timeout=10s" "bg"];
+    options = [ "x-systemd.automount" "noauto" "nofail" "x-systemd.idle-timeout=10s" "bg" ];
   };
   # boot.loader.systemd-boot.enable = true;
   # boot.loader.efi.canTouchEfiVariables = true;

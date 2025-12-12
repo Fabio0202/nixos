@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     # Node + package managers
     nodejs_22 # or nodejs_latest if you want bleeding edge

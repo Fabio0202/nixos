@@ -1,11 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
   username = "simon";
-in {
+in
+{
   options.virtualisation.windows-vm = {
     enable = lib.mkEnableOption "Windows VM configuration for Ableton and light gaming";
 
@@ -33,12 +34,11 @@ in {
       swtpm
       virt-manager
       virt-viewer
-      win-virtio
+      virtio-win
       win-spice
       qemu_kvm
       OVMF
       adwaita-icon-theme
-      virtio-win
       spice
       spice-gtk
       spice-protocol
@@ -49,7 +49,7 @@ in {
     ];
 
     boot = {
-      kernelModules = ["kvm-amd" "vfio" "vfio_iommu_type1" "vfio_pci"];
+      kernelModules = [ "kvm-amd" "vfio" "vfio_iommu_type1" "vfio_pci" ];
       kernelParams = [
         "amd_iommu=on"
         "iommu=pt"
@@ -66,10 +66,7 @@ in {
         package = pkgs.qemu_kvm;
         runAsRoot = true;
         swtpm.enable = true;
-        ovmf = {
-          enable = true;
-          packages = [pkgs.OVMFFull.fd];
-        };
+        # ovmf submodule removed in NixOS 25.11 - OVMF now available by default
       };
       onBoot = "ignore";
       onShutdown = "shutdown";
@@ -85,7 +82,7 @@ in {
       # };
     };
 
-    users.users.${config.virtualisation.windows-vm.user}.extraGroups = ["libvirtd" "kvm" "input"];
+    users.users.${config.virtualisation.windows-vm.user}.extraGroups = [ "libvirtd" "kvm" "input" ];
 
     services.spice-vdagentd.enable = true;
     services.qemuGuest.enable = true;

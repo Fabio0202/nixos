@@ -1,7 +1,6 @@
-{
-  config,
-  pkgs,
-  ...
+{ config
+, pkgs
+, ...
 }: {
   home.file."scripts/start-waybar.sh" = {
     source = ../scripts/toggle-waybar.sh;

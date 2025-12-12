@@ -1,9 +1,8 @@
-{
-  config,
-  pkgs,
-  ...
+{ config
+, pkgs
+, ...
 }: {
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     # Modesetting is required.
     modesetting.enable = true;
@@ -25,5 +24,5 @@
     nvidiaSettings = true;
     nvidiaPersistenced = false; # keeps driver context loaded, avoids flicker
   };
-  boot.kernelParams = ["nvidia-drm.modeset=1"];
+  boot.kernelParams = [ "nvidia-drm.modeset=1" ];
 }

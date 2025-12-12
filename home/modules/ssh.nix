@@ -1,9 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
   myHosts = {
     salzburg-server = {
       ip = "100.91.43.74";
@@ -15,18 +15,19 @@
       user = "simon";
     };
   };
-in {
+in
+{
   programs.ssh = {
     enable = true;
 
     matchBlocks =
       lib.mapAttrs
-      (name: h: {
-        hostname = h.ip;
-        user = h.user;
-        forwardX11 = true;
-        forwardX11Trusted = true;
-      })
-      myHosts;
+        (name: h: {
+          hostname = h.ip;
+          user = h.user;
+          forwardX11 = true;
+          forwardX11Trusted = true;
+        })
+        myHosts;
   };
 }

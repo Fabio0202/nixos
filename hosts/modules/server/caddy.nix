@@ -1,4 +1,5 @@
-{lib, ...}: let
+{ lib, ... }:
+let
   # Generic proxy
   # NOTE: currently unused because I am using cloudlflared tunnel instead
   # which does reverse proxying itself and is safer (no need to open ports)
@@ -14,7 +15,8 @@
       header_up X-Forwarded-Proto {scheme}
     }
   '';
-in {
+in
+{
   services.nginx.enable = false;
 
   services.caddy = {
@@ -37,5 +39,5 @@ in {
     };
   };
 
-  networking.firewall.allowedTCPPorts = [80 443];
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
 }

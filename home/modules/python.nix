@@ -1,7 +1,8 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   # Python packages for users
   home.packages = with pkgs; [
-    python312Full
+    python312
+    python312Packages.tkinter
   ];
 
   # Create global Python environment for pip installs
@@ -12,7 +13,7 @@
       
       if [ ! -d "$VENV_DIR" ]; then
         echo "Creating global Python environment..."
-        ${pkgs.python312Full}/bin/python3 -m venv --system-site-packages "$VENV_DIR"
+        ${pkgs.python312}/bin/python3 -m venv --system-site-packages "$VENV_DIR"
       fi
       
       # Unset PIP_USER to prevent conflicts with venv
@@ -29,7 +30,7 @@
       
       if [ ! -d "$VENV_DIR" ]; then
         echo "Creating global Python environment..."
-        ${pkgs.python312Full}/bin/python3 -m venv --system-site-packages "$VENV_DIR"
+        ${pkgs.python312}/bin/python3 -m venv --system-site-packages "$VENV_DIR"
       fi
       
       # Ensure NIX_LD paths are set for C extensions

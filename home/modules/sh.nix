@@ -1,9 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
   myAliases = {
     mkdir = "mkdir -p";
     ssh-allow = "sudo systemctl start sshd";
@@ -69,7 +69,8 @@
   };
   tc = "task context";
   rm = "trash-put";
-in {
+in
+{
   # to make sure global npm packages and local binaries are accessible
   home.sessionPath = [
     "$HOME/.local/bin"

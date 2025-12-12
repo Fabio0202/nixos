@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   hardware.graphics = {
     # Enable the OpenGL/Vulkan stack system-wide
     enable = true;
@@ -9,7 +9,7 @@
     # Extra GPU-related packages to install into the driver stack
     # These are mostly "glue" libraries so apps can talk to the GPU:
     extraPackages = with pkgs; [
-      vaapiVdpau # bridge VAAPI (video acceleration API) → VDPAU
+      libva-vdpau-driver # bridge VAAPI (video acceleration API) → VDPAU
       libvdpau # VDPAU video acceleration library
       vulkan-loader # Vulkan ICD loader (finds the correct Vulkan driver)
       vulkan-validation-layers # useful debug/validation layers for Vulkan apps

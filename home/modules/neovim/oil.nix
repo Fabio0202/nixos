@@ -1,9 +1,6 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   programs.nvf = {
-            settings = {
+    settings = {
       # Use the non-lazy plugin API
       vim.extraPlugins = {
         oil = {

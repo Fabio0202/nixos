@@ -1,25 +1,49 @@
-{ ... }: {
+{...}: {
   programs.nvf = {
     settings = {
-
       # 🔑 Extra keymaps for unsupported bufferline actions
       vim.keymaps = [
-        { mode = "n"; key = "<leader>bl"; action = "<cmd>BufferLineCloseRight<cr>"; desc = "Close buffers to right"; }
-        { mode = "n"; key = "<leader>bh"; action = "<cmd>BufferLineCloseLeft<cr>"; desc = "Close buffers to left"; }
-        { mode = "n"; key = "<leader>ba"; action = "<cmd>BufferLineCloseOthers<cr>"; desc = "Close other buffers"; }
-        { mode = "n"; key = "<leader>bc"; action = "<cmd>BufferLinePickClose<cr>"; desc = "Pick buffer to close"; }
-        { mode = "n"; key = "<leader>bt"; action = "<cmd>BufferLineTogglePin<cr>"; desc = "Toggle pin buffer"; }
+        {
+          mode = "n";
+          key = "<leader>bl";
+          action = "<cmd>BufferLineCloseRight<cr>";
+          desc = "Close buffers to right";
+        }
+        {
+          mode = "n";
+          key = "<leader>bh";
+          action = "<cmd>BufferLineCloseLeft<cr>";
+          desc = "Close buffers to left";
+        }
+        {
+          mode = "n";
+          key = "<leader>ba";
+          action = "<cmd>BufferLineCloseOthers<cr>";
+          desc = "Close other buffers";
+        }
+        {
+          mode = "n";
+          key = "<leader>bc";
+          action = "<cmd>BufferLinePickClose<cr>";
+          desc = "Pick buffer to close";
+        }
+        {
+          mode = "n";
+          key = "<leader>bt";
+          action = "<cmd>BufferLineTogglePin<cr>";
+          desc = "Toggle pin buffer";
+        }
       ];
       vim.tabline.nvimBufferline = {
         enable = true;
 
         mappings = {
-          closeCurrent   = "<leader>x";  # Close current buffer
-          cycleNext      = "<S-l>";       # Next buffer
-          cyclePrevious  = "<S-h>";       # Previous buffer
-          moveNext       = "<leader>bmh"; # Move buffer right
-          movePrevious   = "<leader>bml"; # Move buffer left
-          pick           = "<leader>bp";  # Pick buffer interactively
+          closeCurrent = "<leader>x"; # Close current buffer
+          cycleNext = "<S-l>"; # Next buffer
+          cyclePrevious = "<S-h>"; # Previous buffer
+          moveNext = "<leader>bmh"; # Move buffer right
+          movePrevious = "<leader>bml"; # Move buffer left
+          pick = "<leader>bp"; # Pick buffer interactively
           # TODO: implement pick close
           # pickClose      = "<leader>bd";  # Pick buffer to delete
           # TODO: custom mappings for close left and right?
@@ -28,7 +52,7 @@
 
           # TODO: custom mappings for sort by modified
           # sortByModified = "<leader>bsm";  # Sort by last modified (leftmost)
-          sortByDirectory = "<leader>bsd";  # Sort by last modified (leftmost)
+          sortByDirectory = "<leader>bsd"; # Sort by last modified (leftmost)
         };
 
         setupOpts = {
@@ -56,7 +80,7 @@
                   local icon = (level == "error" and " ")
                     or (level == "warning" and " ")
                     or " "
-                  return icon 
+                  return icon
                   end
               '';
             };

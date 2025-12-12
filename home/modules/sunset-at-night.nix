@@ -1,13 +1,12 @@
-{
-  config,
-  pkgs,
-  ...
+{ config
+, pkgs
+, ...
 }: {
   # Initial check at login
   systemd.user.services.hyprsunset-initial = {
     Unit = {
       Description = "Set hyprsunset state based on current time";
-      After = ["graphical-session.target"];
+      After = [ "graphical-session.target" ];
     };
     Service = {
       Type = "oneshot";
@@ -20,7 +19,7 @@
         fi
       '';
     };
-    Install.WantedBy = ["graphical-session.target"];
+    Install.WantedBy = [ "graphical-session.target" ];
   };
 
   # Service + timer to turn ON at 20:00
@@ -36,7 +35,7 @@
       OnCalendar = "20:00";
       Persistent = true;
     };
-    Install.WantedBy = ["timers.target"];
+    Install.WantedBy = [ "timers.target" ];
   };
 
   # Service + timer to turn OFF at 07:00
@@ -52,6 +51,6 @@
       OnCalendar = "07:00";
       Persistent = true;
     };
-    Install.WantedBy = ["timers.target"];
+    Install.WantedBy = [ "timers.target" ];
   };
 }

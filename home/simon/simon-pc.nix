@@ -1,8 +1,7 @@
-{
-  pkgs,
-  inputs,
-  pkgs-unstable,
-  ...
+{ pkgs
+, inputs
+, pkgs-unstable
+, ...
 }: {
   # I need to permit insecure packages because of logseq for now
   home.packages = with pkgs; [

@@ -1,7 +1,6 @@
-{
-  config,
-  pkgs,
-  ...
+{ config
+, pkgs
+, ...
 }: {
   # Enable weekly TRIM for SSDs/NVMe
   # TRIM tells the SSD which blocks are unused
@@ -35,7 +34,7 @@
   };
   systemd.timers.powertop-autotune = {
     description = "Delayed Powertop tunings";
-    wantedBy = ["timers.target"];
+    wantedBy = [ "timers.target" ];
     timerConfig = {
       OnBootSec = "1min"; # wait 1 minute after boot
       Persistent = true; # catch up if missed

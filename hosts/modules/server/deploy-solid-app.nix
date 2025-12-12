@@ -1,11 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
   appDomain = "http://app.simone-muscas.com";
-in {
+in
+{
   options.myApp.enable = lib.mkEnableOption "Deploy my React + Hono app";
 
   config = lib.mkIf config.myApp.enable {

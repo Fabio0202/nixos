@@ -1,12 +1,11 @@
-{
-  config,
-  pkgs,
-  ...
+{ config
+, pkgs
+, ...
 }: {
   environment.systemPackages = with pkgs; [
     steam
     mangohud
-    protonup
+    protonup-ng
     gamemode
   ];
 

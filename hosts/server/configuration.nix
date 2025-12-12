@@ -1,11 +1,12 @@
-{
-  config,
-  pkgs,
-  inputs,
-  ...
-}: let
+{ config
+, pkgs
+, inputs
+, ...
+}:
+let
   UUID = "04c67b4a-ead1-4613-9abc-2985e9202e5c";
-in {
+in
+{
   imports = [
     ./hardware-configuration.nix
 
@@ -41,18 +42,18 @@ in {
 
   # Make NFS (network file system) server depend on your drive being mounted
   systemd.services.nfs-server = {
-    after = ["mnt-drive.mount"];
-    requires = ["mnt-drive.mount"];
-    partOf = ["mnt-drive.mount"];
-    bindsTo = ["mnt-drive.mount"];
+    after = [ "mnt-drive.mount" ];
+    requires = [ "mnt-drive.mount" ];
+    partOf = [ "mnt-drive.mount" ];
+    bindsTo = [ "mnt-drive.mount" ];
     serviceConfig.Restart = "on-failure";
   };
 
   systemd.services.syncthing = {
-    after = ["mnt-drive.mount"];
-    requires = ["mnt-drive.mount"];
-    partOf = ["mnt-drive.mount"];
-    bindsTo = ["mnt-drive.mount"];
+    after = [ "mnt-drive.mount" ];
+    requires = [ "mnt-drive.mount" ];
+    partOf = [ "mnt-drive.mount" ];
+    bindsTo = [ "mnt-drive.mount" ];
     serviceConfig.Restart = "on-failure";
   };
   environment.systemPackages = with pkgs; [
@@ -72,10 +73,10 @@ in {
   # Enable Intel iGPU video acceleration
   hardware.opengl = {
     enable = true;
-    extraPackages = with pkgs; [intel-media-driver];
+    extraPackages = with pkgs; [ intel-media-driver ];
   };
 
-  users.users.simon.extraGroups = ["video" "wheel"];
+  users.users.simon.extraGroups = [ "video" "wheel" ];
   programs.zsh.enable = true;
   networking.hostName = "server";
 
@@ -117,5 +118,5 @@ in {
     group = "users";
   };
 
-  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 }

@@ -1,5 +1,5 @@
 # syncthing.nix
-{user}: {
+{ user }: {
   services.syncthing = {
     enable = true;
     inherit user;

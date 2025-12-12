@@ -1,11 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
   domain = "simone-muscas.com";
-in {
+in
+{
   # Cloudflared tunnel
   services.cloudflared.enable = true;
 
@@ -25,5 +26,5 @@ in {
   };
 
   # No need to expose ports 80/443 to the internet anymore
-  networking.firewall.allowedTCPPorts = [];
+  networking.firewall.allowedTCPPorts = [ ];
 }

@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   # Fonts
   fonts = {
     packages = with pkgs; [
@@ -9,9 +9,9 @@
     # Font configuration
     fontconfig = {
       defaultFonts = {
-        serif = ["Liberation Serif" "Vazirmatn"];
-        sansSerif = ["Ubuntu" "Vazirmatn"];
-        monospace = ["JetBrainsMono Nerd Font"]; # 👈 Make sure the name matches the actual installed font
+        serif = [ "Liberation Serif" "Vazirmatn" ];
+        sansSerif = [ "Ubuntu" "Vazirmatn" ];
+        monospace = [ "JetBrainsMono Nerd Font" ]; # 👈 Make sure the name matches the actual installed font
       };
     };
   };
