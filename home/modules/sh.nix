@@ -1,9 +1,9 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   myAliases = {
     mkdir = "mkdir -p";
     ssh-allow = "sudo systemctl start sshd";
@@ -69,8 +69,7 @@ let
   };
   tc = "task context";
   rm = "trash-put";
-in
-{
+in {
   # to make sure global npm packages and local binaries are accessible
   home.sessionPath = [
     "$HOME/.local/bin"
@@ -135,9 +134,9 @@ in
                	rm -f -- "$tmp"
                }
 
-       # Show a chemistry fun fact at shell startup
+       # Show a chemistry fun fact at shell startupaugustine's confessions
       # misfortune science | cowsay -f tux | lolcat
-    alias update="sudo nixos-rebuild switch --flake ~/nixos#$(hostname)"
+     alias update="sudo nixos-rebuild switch --flake ~/nixos#$(hostname) --impure"
   '';
   programs.zsh = {
     enable = true;

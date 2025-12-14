@@ -3,14 +3,16 @@
   pkgs,
   ...
 }: {
+  # DISABLED: Using traditional dotfiles with GNU Stow instead
+  # Configuration is now in ~/dotfiles/stow-common/hyprland/.config/hypr/
   imports = [
-    ./hyprland.nix
+    ./hyprland.nix # Keep for package installation only
     #./swaylock.nix
     ./waybar.nix
     ./swaync.nix
     ./swayosd.nix
     ./wlogout.nix
-    ./config/default.nix
+    # ./config/default.nix # DISABLED - using traditional config
     ./hyprlock.nix
     ./swww.nix
     # ./hypridle.nix

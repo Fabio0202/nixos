@@ -39,7 +39,9 @@ in {
     ../modules/neovim/obsidian.nix
   ];
 
-  wayland.windowManager.hyprland.settings.bind = [
-    "${mainMod}, return, exec, rofi -config ~/.config/rofi/rofi-glass.rasi -show drun" ## System | Toggle Wofi
-  ];
+  # DISABLED: Using traditional dotfiles instead
+  # User-specific keybinds now in ~/dotfiles/stow-simon/hyprland/.config/hypr/user-simon.conf
+  # wayland.windowManager.hyprland.settings.bind = [
+  #   "${mainMod}, return, exec, rofi -config ~/.config/rofi/rofi-glass.rasi -show drun" ## System | Toggle Wofi
+  # ];
 }

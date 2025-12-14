@@ -16,6 +16,7 @@
     vscode # GUI code editor (Visual Studio Code)
     spotify # Music streaming client
     hyprsunset # Screen color temperature adjustment for eye comfort
+    stow # GNU Stow for dotfiles management
   ];
 
   services.blueman-applet.enable = true; # Enable system tray applet for Bluetooth
@@ -36,6 +37,7 @@
     ./modules/show-binds/default.nix # Show keybindings overlay/help popup
     ./modules/sunset-at-night.nix # Color temperature adjustment at night (like redshift)
     ./modules/neovim/latex.nix
+    ./modules/hyprsettings.nix # HyprSettings GUI configurator for Hyprland
   ];
 
   # Set GUI default applications (MIME associations)

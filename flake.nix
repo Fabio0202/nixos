@@ -33,6 +33,7 @@
 
     rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
     hyprland.url = "github:hyprwm/Hyprland";
+    hyprsettings.url = "github:acropolis914/hyprsettings";
   };
 
   outputs =

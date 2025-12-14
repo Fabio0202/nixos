@@ -23,8 +23,10 @@
     ../common.nix
   ];
 
-  wayland.windowManager.hyprland.settings.input = {
-    kb_layout = "us, de";
-    sensitivity = 1.4;
-  };
+  # DISABLED: Using traditional dotfiles instead
+  # User-specific config now in ~/dotfiles/stow-simon/hyprland/.config/hypr/user-simon.conf
+  # wayland.windowManager.hyprland.settings.input = {
+  #   kb_layout = "us, de";
+  #   sensitivity = 1.4;
+  # };
 }

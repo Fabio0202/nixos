@@ -5,20 +5,16 @@
   pkgs-unstable,
   ...
 }: let
-  term = "kitty";
-  editor = "nvim";
-  file = "nautilus";
-  browser = "firefox";
 in {
-  imports = [
-    ./keybinds.nix
-    ./animations.nix
-    ./touch-gestures.nix
-    ./windowrules.nix
-    ./blur.nix
-    ./monitors.nix
-    # {inherit term editor file browser;}
-  ];
+  # DISABLED: Using traditional dotfiles instead
+  # imports = [
+  #   ./keybinds.nix
+  #   ./animations.nix
+  #   ./touch-gestures.nix
+  #   ./windowrules.nix
+  #   ./blur.nix
+  #   ./monitors.nix
+  # ];
 
   home.packages = with pkgs; [
     rose-pine-cursor
@@ -39,12 +35,14 @@ in {
     };
     Install.WantedBy = ["graphical-session.target"];
   };
+
   home.sessionVariables = {
     HYPRCURSOR_THEME = "rose-pine-hyprcursor";
     HYPRCURSOR_SIZE = "24";
     XCURSOR_SIZE = "24";
     XCURSOR_THEME = "rose-pine-cursor";
   };
+
   wayland.windowManager.hyprland = {
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     plugins = [
@@ -55,38 +53,34 @@ in {
     ];
 
     enable = true;
-    settings = {
-      misc = {
-        disable_hyprland_logo = true;
-        disable_splash_rendering = true;
-      };
-      plugin = {
-        dynamic-cursors = {
-          enable = true;
-          mode = "stretch";
-        };
-      };
 
-      input = import ./input.nix;
-      # applications = {
-      #   inherit term editor file browser;
-      # };
-    };
-    extraConfig = ''
-            monitor=,preferred,auto,auto
-            exec-once = nwg-dock-hyprland -nolauncher -d -hd 0 -iw "special"
-            exec-once = udiskie -a
-            exec-once = hypridle
-            exec-once = ags
-      exec-once = waypaper --restore
-            # exec-once = nwg-panel
-            xwayland {
-              force_zero_scaling = true;
-            }
-
-
-            exec-once = nm-applet --indicator
-    '';
+    # DISABLED: Using traditional dotfiles managed with GNU Stow
+    # Configuration is now in ~/dotfiles/stow-common/hyprland/.config/hypr/hyprland.conf
+    # settings = {
+    #   misc = {
+    #     disable_hyprland_logo = true;
+    #     disable_splash_rendering = true;
+    #   };
+    #   plugin = {
+    #     dynamic-cursors = {
+    #       enable = true;
+    #       mode = "stretch";
+    #     };
+    #   };
+    #   input = import ./input.nix;
+    # };
+    # extraConfig = ''
+    #         monitor=,preferred,auto,auto
+    #         exec-once = nwg-dock-hyprland -nolauncher -d -hd 0 -iw "special"
+    #         exec-once = udiskie -a
+    #         exec-once = hypridle
+    #         exec-once = ags
+    #   exec-once = waypaper --restore
+    #         xwayland {
+    #           force_zero_scaling = true;
+    #         }
+    #         exec-once = nm-applet --indicator
+    # '';
   };
   systemd.user.services.ax-shell = {};
 }
