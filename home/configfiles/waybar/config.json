@@ -16,11 +16,10 @@
 
     "modules-right": [
       "tray",
-      "custom/kblayout",
+      "group/quick-settings",
       "pulseaudio",
       "custom/mic",
       "backlight",
-      "custom/nightmode",
       "custom/notifications",
       "custom/battery",
       "custom/power"
@@ -137,6 +136,23 @@
       "format": "",
       "on-click": "wlogout --buttons-per-row 5",
       "tooltip": false
+    },
+
+    "group/quick-settings": {
+      "orientation": "horizontal",
+      "drawer": {
+        "transition-duration": 300,
+        "children-class": "drawer-child",
+        "transition-left-to-right": true,
+        "click-to-reveal": true
+      },
+      "modules": ["custom/settings-icon", "custom/kblayout", "custom/nightmode"]
+    },
+
+    "custom/settings-icon": {
+      "format": "",
+      "tooltip": "Quick Settings",
+      "interval": "once"
     },
 
     "hyprland/workspaces": {
