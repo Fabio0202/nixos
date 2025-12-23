@@ -1,0 +1,245 @@
+/* =========================
+   Global
+   ========================= */
+* {
+  font-family: FantasqueSansMono Nerd Font;
+  font-size: 17px;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* =========================
+   Compact modules
+   ========================= */
+#custom-kblayout,
+#custom-nightmode {
+  padding: 0 6px;
+  /* narrower than 12px */
+  min-width: 0;
+  /* don't force extra width */
+  /* keep content centered */
+}
+
+/* Optional: make them rounded pills so they look neat */
+#custom-kblayout {
+  color: @base0B@;
+  /* green accent */
+}
+
+#custom-nightmode {
+  color: @base0A@;
+  /* yellow accent (day/night vibe) */
+}
+
+#waybar {
+  background: transparent;
+  color: @base05@;
+  border: none;
+}
+
+/* =========================
+   Workspaces
+   ========================= */
+#workspaces {
+  border-radius: 6px;
+  background-color: @base01@;
+  margin: 8px 10px 0 12px;
+  padding: 4px;
+}
+
+#workspaces button {
+  color: @base0D@;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  transition: all 0.2s ease-in-out;
+}
+
+#workspaces button.active {
+  color: @base0C@;
+  background-color: @base03@;
+  border-bottom: 2px solid @base0C@;
+}
+
+#workspaces button.urgent {
+  color: @base08@;
+  background-color: @base04@;
+  animation: urgent-flash 1s infinite;
+}
+
+@keyframes urgent-flash {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* =========================
+   Tray
+   ========================= */
+#tray {
+  padding: 2px 6px;
+  border-radius: 8px;
+  background: rgba(@base00@, 0.8);
+  border: 1px solid @base01@;
+}
+
+#tray>* {
+  padding: 0 4px;
+  margin: 0 2px;
+  border-radius: 6px;
+  color: @base05@;
+  transition: background 0.2s;
+}
+
+#tray>*:hover {
+  background: @base03@;
+  color: @base06@;
+}
+
+/* =========================
+   Shared module style
+   ========================= */
+#custom-music,
+#custom-cpu_temp,
+#custom-idle-toggle,
+#tray,
+#backlight,
+#clock,
+#battery,
+#network,
+#memory,
+#cpu,
+#bluetooth,
+#pulseaudio,
+#custom-mic,
+#custom-lock,
+#custom-battery,
+#custom-kblayout,
+#custom-nightmode,
+#custom-notifications,
+#custom-power {
+  border-radius: 6px;
+  background-color: @base01@;
+  padding: 0 12px;
+  margin-top: 8px;
+  margin-right: 8px;
+  min-width: 20px;
+  transition: background 0.2s;
+}
+
+#custom-music:hover,
+#custom-cpu_temp:hover,
+#custom-idle-toggle:hover,
+#backlight:hover,
+#clock:hover,
+#battery:hover,
+#network:hover,
+#memory:hover,
+#cpu:hover,
+#bluetooth:hover,
+#pulseaudio:hover,
+#custom-kblayout:hover,
+#custom-nightmode:hover,
+#custom-mic:hover,
+#custom-lock:hover,
+#custom-power:hover {
+  background-color: @base03@;
+}
+
+/* =========================
+   Module-specific colors
+   ========================= */
+#clock {
+  color: @base0D@;
+}
+
+#cpu {
+  color: @base0D@;
+}
+
+#memory {
+  color: @base0D@;
+}
+
+#battery {
+  color: @base0B@;
+}
+
+#backlight {
+  color: @base0A@;
+}
+
+#pulseaudio {
+  color: @base0E@;
+}
+
+#custom-music {
+  color: @base0E@;
+}
+
+#custom-lock {
+  color: @base0C@;
+}
+
+#custom-power {
+  color: @base09@;
+}
+
+#custom-mic {
+  color: @base0E@;
+}
+
+#bluetooth {
+  color: @base0D@;
+}
+
+/* States */
+#battery.charging {
+  color: @base0D@;
+}
+
+#battery.warning {
+  color: @base0A@;
+}
+
+#custom-battery.warning {
+  color: @base0A@;
+}
+
+#battery.critical {
+  color: @base08@;
+}
+
+#custom-battery.critical {
+  color: @base08@;
+}
+
+#cpu.critical {
+  color: @base08@;
+}
+
+#memory.warning {
+  color: @base0A@;
+}
+
+#memory.critical {
+  color: @base08@;
+}
+
+#pulseaudio.muted {
+  color: @base04@;
+}
+
+#custom-mic.muted {
+  color: @base08@;
+  opacity: 0.4;
+}

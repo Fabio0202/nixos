@@ -1,12 +1,13 @@
-{ pkgs
-, pkgs-unstable
-, ...
+{
+  pkgs,
+  pkgs-unstable,
+  ...
 }: {
   home.packages = with pkgs; [
     deluge # Lightweight, full-featured BitTorrent client
     speedtest-cli # Test internet bandwidth using speedtest.net
     (pkgs-unstable.devenv) # Dev environment manager (like direnv but more powerful)
-    # (pkgs-unstable.opencode) # AI agents, waiting for fix
+    (pkgs-unstable.opencode) # AI agents, waiting for fix
     (pkgs-unstable.jujutsu) # like git but apparently better
     redis # In-memory data structure store (DB, cache, message broker)
     deno # Modern JavaScript/TypeScript runtime

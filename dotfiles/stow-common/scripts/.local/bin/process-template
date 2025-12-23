@@ -1,0 +1,158 @@
+#!/run/current-system/sw/bin/bash
+# Template processor for theme variables
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+TEMPLATE_FILE="$1"
+OUTPUT_FILE="$2"
+
+# Get current theme
+CURRENT_THEME_FILE="$HOME/.config/themes/current"
+if [[ -f "$CURRENT_THEME_FILE" ]]; then
+    CURRENT_THEME=$(cat "$CURRENT_THEME_FILE")
+else
+    CURRENT_THEME="catppuccin-mocha"
+fi
+
+# Get colors from Stylix based on current theme
+get_stylix_colors() {
+    case "$CURRENT_THEME" in
+        "catppuccin-mocha")
+            cat << EOF
+base00=#1e1e2e
+base01=#181825
+base02=#313244
+base03=#45475a
+base04=#585b70
+base05=#cdd6f4
+base06=#f5e0dc
+base07=#b4befe
+base08=#f38ba8
+base09=#fab387
+base0A=#f9e2af
+base0B=#a6e3a1
+base0C=#94e2d5
+base0D=#89b4fa
+base0E=#cba6f7
+base0F=#f2cdcd
+EOF
+            ;;
+        "catppuccin-frappe")
+            cat << EOF
+base00=#303446
+base01=#292c3c
+base02=#414559
+base03=#51576d
+base04=#626880
+base05=#c6d0f5
+base06=#f2d5cf
+base07=#babbf1
+base08=#e78284
+base09=#ef9f76
+base0A=#e5c890
+base0B=#a6d189
+base0C=#81c8be
+base0D=#8caaee
+base0E=#ca9ee6
+base0F=#eebebe
+EOF
+            ;;
+        "catppuccin-latte")
+            cat << EOF
+base00=#eff1f5
+base01=#e6e9ef
+base02=#ccd0da
+base03=#bcc0cc
+base04=#acb0be
+base05=#4c4f69
+base06=#dc8a78
+base07=#7287fd
+base08=#d20f39
+base09=#fe640b
+base0A=#df8e1d
+base0B=#40a02b
+base0C=#179299
+base0D=#1e66f5
+base0E=#8839ef
+base0F=#dd7878
+EOF
+            ;;
+        "gruvbox-dark")
+            cat << EOF
+base00=#1d2021
+base01=#282828
+base02=#3c3836
+base03=#504945
+base04=#665c54
+base05=#d4be98
+base06=#d8a657
+base07=#d4be98
+base08=#ea6962
+base09=#e78a4e
+base0A=#d8a657
+base0B=#a9b665
+base0C=#89b482
+base0D=#7daea3
+base0E=#d3869b
+base0F=#bd6f3e
+EOF
+            ;;
+        "nord")
+            cat << EOF
+base00=#2e3440
+base01=#3b4252
+base02=#434c5e
+base03=#4c566a
+base04=#d8dee9
+base05=#e5e9f0
+base06=#eceff4
+base07=#8fbcbb
+base08=#88c0d0
+base09=#81a1c1
+base0A=#ebcb8b
+base0B=#a3be8c
+base0C=#b48ead
+base0D=#5e81ac
+base0E=#d08770
+base0F=#bf616a
+EOF
+            ;;
+        *)
+            echo "Error: Unknown theme '$CURRENT_THEME'" >&2
+            exit 1
+            ;;
+    esac
+}
+
+# Process template by replacing @variables@ with actual values
+process_template() {
+    local template="$1"
+    local colors
+    
+    # Read colors
+    colors=$(get_stylix_colors)
+    
+    # Process template by replacing @variables@ with actual values
+    while IFS='=' read -r var value; do
+        # Skip empty lines and comments
+        [[ -z "$var" || "$var" =~ ^[[:space:]]*# ]] && continue
+        template="${template//@$var@/$value}"
+    done <<< "$colors"
+    
+    echo "$template"
+}
+
+# Main
+if [[ ! -f "$TEMPLATE_FILE" ]]; then
+    echo "Error: Template file '$TEMPLATE_FILE' not found" >&2
+    exit 1
+fi
+
+# Create output directory if it doesn't exist
+mkdir -p "$(dirname "$OUTPUT_FILE")"
+
+result=$(process_template "$(<"$TEMPLATE_FILE")")
+echo "$result" > "$OUTPUT_FILE"
+
+echo "Processed template: $TEMPLATE_FILE -> $OUTPUT_FILE (theme: $CURRENT_THEME)"

@@ -1,0 +1,150 @@
+#!/run/current-system/sw/bin/bash
+# Test script for Waybar theme system
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_DIR="$(cd "$(dirname "$(dirname "$(dirname "$(dirname "$SCRIPT_DIR")")")")" && pwd)"
+
+THEMES=("catppuccin-mocha" "catppuccin-frappe" "catppuccin-latte" "gruvbox-dark" "nord")
+
+log() {
+    echo "[test-waybar] $1"
+}
+
+error() {
+    echo "[test-waybar] ERROR: $1" >&2
+    exit 1
+}
+
+test_template_processing() {
+    log "Testing template processing..."
+    
+    local template_file="$DOTFILES_DIR/themes/common/waybar.css.template"
+    local test_output="/tmp/waybar-test.css"
+    
+    if [[ ! -f "$template_file" ]]; then
+        error "Template file not found: $template_file"
+    fi
+    
+    # Test each theme
+    for theme in "${THEMES[@]}"; do
+        log "Testing theme: $theme"
+        
+        # Set current theme
+        echo "$theme" > "$HOME/.config/themes/current"
+        
+        # Process template
+        "$SCRIPT_DIR/process-template" "$template_file" "$test_output"
+        
+        # Check if output was created and contains expected variables
+        if [[ ! -f "$test_output" ]]; then
+            error "Failed to generate output for theme: $theme"
+        fi
+        
+        # Check if variables were replaced (should not contain @base00@ etc)
+        if grep -q "@base[0-9A-F]@" "$test_output"; then
+            error "Template variables not replaced for theme: $theme"
+        fi
+        
+        log "✓ Theme $theme processed successfully"
+    done
+    
+    rm -f "$test_output"
+}
+
+test_theme_overrides() {
+    log "Testing theme overrides..."
+    
+    for theme in "${THEMES[@]}"; do
+        local override_file="$DOTFILES_DIR/themes/$theme/waybar-overrides.css"
+        
+        if [[ ! -f "$override_file" ]]; then
+            error "Override file not found: $override_file"
+        fi
+        
+        log "✓ Override file exists for theme: $theme"
+    done
+}
+
+test_waybar_theme_script() {
+    log "Testing waybar-theme script..."
+    
+    local waybar_script="$SCRIPT_DIR/waybar-theme"
+    
+    if [[ ! -f "$waybar_script" ]]; then
+        error "waybar-theme script not found"
+    fi
+    
+    # Test with a temporary output directory
+    local temp_config="/tmp/test-waybar-config"
+    mkdir -p "$temp_config/waybar"
+    
+    # Test by calling the script with environment variable
+    WAYBAR_OUTPUT_FILE="$temp_config/waybar/style.css" "$waybar_script"
+    
+    # Check if Waybar config was updated
+    local output_file="$temp_config/waybar/style.css"
+    if [[ ! -f "$output_file" ]]; then
+        error "Waybar style.css not generated"
+    fi
+    
+    # Clean up
+    rm -rf "$temp_config"
+    
+    log "✓ waybar-theme script works correctly"
+}
+
+test_config_files() {
+    log "Testing config files..."
+    
+    local config_file="$DOTFILES_DIR/stow-common/waybar/.config/waybar/config.jsonc"
+    
+    if [[ ! -f "$config_file" ]]; then
+        error "Waybar config file not found"
+    fi
+    
+    # Basic JSON syntax check
+    if ! jq empty "$config_file" 2>/dev/null; then
+        error "Waybar config file has invalid JSON syntax"
+    fi
+    
+    log "✓ Config files are valid"
+}
+
+run_all_tests() {
+    log "Starting Waybar theme system tests..."
+    
+    # Create themes directory if it doesn't exist
+    mkdir -p "$HOME/.config/themes"
+    
+    test_template_processing
+    test_theme_overrides
+    test_waybar_theme_script
+    test_config_files
+    
+    log "✅ All tests passed!"
+}
+
+# Main
+case "${1:-all}" in
+    "template")
+        test_template_processing
+        ;;
+    "overrides")
+        test_theme_overrides
+        ;;
+    "script")
+        test_waybar_theme_script
+        ;;
+    "config")
+        test_config_files
+        ;;
+    "all")
+        run_all_tests
+        ;;
+    *)
+        echo "Usage: $0 [template|overrides|script|config|all]"
+        exit 1
+        ;;
+esac
