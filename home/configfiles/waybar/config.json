@@ -19,8 +19,6 @@
       "group/quick-settings",
       "pulseaudio",
       "custom/mic",
-      "backlight",
-      "custom/notifications",
       "custom/battery",
       "custom/power"
     ],
@@ -144,9 +142,9 @@
         "transition-duration": 300,
         "children-class": "drawer-child",
         "transition-left-to-right": true,
-        "click-to-reveal": true
+        "hover-to-reveal": true
       },
-      "modules": ["custom/settings-icon", "custom/kblayout", "custom/nightmode"]
+      "modules": ["custom/settings-icon", "custom/kblayout", "custom/nightmode", "backlight", "custom/notifications"]
     },
 
     "custom/settings-icon": {
