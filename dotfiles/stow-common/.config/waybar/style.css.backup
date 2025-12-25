@@ -1,0 +1,342 @@
+/* =========================
+   Minimal Aesthetic Waybar
+   ========================= */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes subtle-pulse {
+  0% { opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { opacity: 0.8; }
+}
+
+* {
+  font-family: "Iosevka Nerd Font", "JetBrainsMono Nerd Font", monospace;
+  font-size: 14px;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+/* =========================
+   Compact modules
+   ========================= */
+#custom-kblayout,
+#custom-nightmode {
+  padding: 0 6px;
+  /* narrower than 12px */
+  min-width: 0;
+  /* don’t force extra width */
+  /* keep content centered */
+}
+
+/* Optional: make them rounded pills so they look neat */
+#custom-kblayout {
+  color: #a6e3a1;
+  /* green accent */
+}
+
+#custom-nightmode {
+  color: #f9e2af;
+  /* yellow accent (day/night vibe) */
+}
+
+#waybar {
+  background: rgba(24, 25, 38, 0.85);
+  color: #cdd6f4;
+  border: none;
+  border-radius: 12px;
+  margin: 8px 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+#waybar:hover {
+  background: rgba(24, 25, 38, 0.95);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+}
+
+
+
+/* =========================
+   Workspaces
+   ========================= */
+#workspaces {
+  margin: 6px 12px;
+  padding: 0;
+  background: transparent;
+}
+
+#workspaces button {
+  color: #6c7086;
+  font-size: 16px;
+  padding: 6px 10px;
+  margin: 0 2px;
+  background: transparent;
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 32px;
+}
+
+#workspaces button:hover {
+  color: #bac2de;
+  background: rgba(137, 180, 250, 0.15);
+}
+
+#workspaces button.active {
+  color: #89b4fa;
+  background: rgba(137, 180, 250, 0.2);
+  box-shadow: 0 2px 8px rgba(137, 180, 250, 0.3);
+}
+
+#workspaces button.urgent {
+  color: #f38ba8;
+  background: rgba(243, 139, 168, 0.2);
+  animation: subtle-pulse 2s infinite;
+}
+
+/* =========================
+   Clock
+   ========================= */
+#clock {
+  font-size: 18px;
+  font-weight: 600;
+  color: #a6e3a1;
+  padding: 6px 12px;
+  margin: 6px 0;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+#clock:hover {
+  background: rgba(166, 227, 161, 0.15);
+  box-shadow: 0 0 15px rgba(166, 227, 161, 0.3);
+}
+
+/* =========================
+   Group Modules (Hover-to-Reveal)
+   ========================= */
+.group {
+  margin: 6px 4px;
+  padding: 6px 8px;
+  background: rgba(49, 50, 68, 0.3);
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.group:hover {
+  background: rgba(49, 50, 68, 0.6);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Drawer child modules (hidden by default) */
+.drawer-child {
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-left: 0;
+}
+
+/* Show drawer children on group hover */
+.group:hover .drawer-child {
+  opacity: 1;
+  margin-left: 8px;
+}
+
+/* =========================
+   Module-Specific Styling
+   ========================= */
+
+/* System Stats Group */
+#custom-stats-icon { color: #89dceb; }
+#cpu { color: #89b4fa; }
+#memory { color: #b4befe; }
+#custom-cpu_temp { color: #f38ba8; }
+#custom-disk { color: #f9e2af; }
+
+/* Music Player Group */
+#custom-music-icon { color: #cba6f7; }
+#custom-music { color: #cdd6f4; font-weight: 500; }
+
+/* Audio Controls Group */
+#pulseaudio { color: #f5c2e7; }
+#custom-mic { color: #94e2d5; }
+
+/* Quick Settings Group */
+#custom-settings-icon { color: #fab387; }
+#custom-kblayout { color: #a6e3a1; }
+#custom-nightmode { color: #f9e2af; }
+
+/* Standalone Modules */
+#network { color: #74c7ec; }
+#custom-battery { color: #a6e3a1; }
+#custom-notifications { color: #f5c2e7; }
+#custom-power { color: #fab387; }
+
+/* Subtle glow on hover for important modules */
+#custom-power:hover,
+#custom-notifications:hover {
+  box-shadow: 0 0 15px rgba(243, 139, 168, 0.3);
+}
+
+@keyframes urgent-flash {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* =========================
+   Tray
+   ========================= */
+#tray {
+  margin: 6px 12px 6px 4px;
+  padding: 4px;
+  background: rgba(49, 50, 68, 0.3);
+  border-radius: 8px;
+}
+
+#tray > .system-tray-menu {
+  background: rgba(24, 25, 38, 0.95);
+  border-radius: 8px;
+}
+
+#tray > * {
+  padding: 4px 6px;
+  margin: 2px;
+  border-radius: 6px;
+  color: #cdd6f4;
+  transition: all 0.2s ease;
+}
+
+#tray > *:hover {
+  background: rgba(69, 71, 90, 0.8);
+}
+
+/* =========================
+   Individual Modules
+   ========================= */
+.modules-right > *,
+#network,
+#custom-battery,
+#custom-notifications,
+#custom-power {
+  padding: 6px 10px;
+  margin: 6px 4px;
+  background: rgba(49, 50, 68, 0.3);
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 40px;
+}
+
+.modules-right > *:hover,
+#network:hover,
+#custom-battery:hover,
+#custom-notifications:hover,
+#custom-power:hover {
+  background: rgba(49, 50, 68, 0.6);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* =========================
+   Compact modules (Legacy)
+   ========================= */
+#custom-kblayout,
+#custom-nightmode {
+  padding: 0 6px;
+  min-width: 0;
+}
+
+/* States */
+#battery.charging {
+  color: #89b4fa;
+}
+
+#battery.warning {
+  color: #f9e2af;
+}
+
+#custom-battery.warning {
+  color: #f9e2af;
+}
+
+#battery.critical {
+  color: #f38ba8;
+}
+
+#custom-battery.critical {
+  color: #f38ba8;
+}
+
+#cpu.critical {
+  color: #f38ba8;
+}
+
+#memory.warning {
+  color: #f9e2af;
+}
+
+#memory.critical {
+  color: #f38ba8;
+}
+
+#pulseaudio.muted {
+  color: #6e738d;
+}
+
+#custom-mic.muted {
+  color: #f38ba8;
+  opacity: 0.4;
+}
+
+/* =========================
+   Enhanced State-based Styling
+   ========================= */
+#battery.charging, #custom-battery.charging {
+  color: #89dceb;
+  animation: subtle-pulse 2s infinite;
+}
+
+#battery.warning, #custom-battery.warning {
+  color: #f9e2af;
+  background: rgba(249, 226, 175, 0.2);
+}
+
+#battery.critical, #custom-battery.critical {
+  color: #f38ba8;
+  background: rgba(243, 139, 168, 0.2);
+  animation: subtle-pulse 1s infinite;
+}
+
+#cpu.critical {
+  color: #f38ba8;
+  background: rgba(243, 139, 168, 0.2);
+}
+
+#memory.warning, #memory.critical {
+  color: #f9e2af;
+  background: rgba(249, 226, 175, 0.2);
+}
+
+#pulseaudio.muted, #custom-mic.muted {
+  color: #6c7086;
+  opacity: 0.6;
+}
+
+
+
+/* Dark mode enhancement for Catppuccin */
+#waybar {
+  border: 1px solid rgba(137, 180, 250, 0.1);
+}

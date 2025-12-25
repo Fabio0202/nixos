@@ -1,0 +1,186 @@
+  {
+    "height": 28,
+    "position": "top",
+    "layer": "top",
+
+    "modules-left": [
+      "hyprland/workspaces",
+      "custom/music",
+      "cpu",
+      "memory",
+      "custom/cpu_temp",
+    ],
+    "modules-center": [
+      "clock"
+    ],
+
+    "modules-right": [
+      "tray",
+      "group/quick-settings",
+      "pulseaudio",
+      "custom/mic",
+      "custom/battery",
+      "custom/notifications",
+      "custom/power"
+    ],
+
+"custom/battery": {
+  "exec": "~/nixos/home/scripts/custom-battery-waybar.sh",
+  "interval": 60,
+  "signal": 10,
+  "return-type": "json",
+  "tooltip": true
+},
+"custom/notifications": {
+  "format": "",
+  "on-click": "swaync-client -t",   
+  "on-click-right": "swaync-client -d",
+  "tooltip": false
+},
+    "backlight": {
+      "device": "intel_backlight",
+      "format": "{icon} ",
+      "format-icons": [
+        "", "", "", "", "", "", "", "", ""
+      ]
+    },
+
+    "battery": {
+      "signal": 10,
+      "format": "{icon} {capacity}%",
+      "format-alt": "{icon} {capacity}%",
+      "format-charging": "󰂄 {capacity}%",
+      "format-plugged": "󰂄 {capacity}%",
+      "format-icons": [
+        "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󱟢"
+      ],
+      "states": {
+        "critical": 15,
+        "warning": 30
+      }
+    },
+
+    "clock": {
+      "format": "  {:%d. | %H:%M:%S}",
+      "format-alt": "  {:%d/%m/%Y %H:%M}",
+      "interval": 1,
+      "timezone": "Europe/Vienna",
+      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+
+    "cpu": {
+      "format": "󰍛  {usage}%",
+      "interval": 5,
+      "tooltip": false,
+      "on-click": "kitty btop"
+    },
+
+    "memory": {
+      "format": "󰘚  {percentage}%",
+      "interval": 5,
+      "tooltip": false,
+      "on-click": "kitty btop"
+    },
+
+    "custom/cpu_temp": {
+      "format": "{}°C ",
+      "interval": 5,
+      "exec": "sensors | awk '/Tctl:/ {print int($2); found=1} /Package id 0:/ {gsub(/\\+/,\"\",$4); print int($4); found=1} END {if(!found) print \"?\"}'"
+    },
+
+    "custom/music": {
+      "escape": true,
+      "exec": "playerctl metadata --format='{{ title }}' | cut -c1-20",
+      "format": "󰝚 | {}",
+      "interval": 5,
+      "max-length": 20,
+      "on-click": "playerctl play-pause",
+      "tooltip": false
+    },
+
+    "pulseaudio": {
+      "format": "{icon} {volume}%",
+      "format-icons": {
+        "default": ["", "", " "]
+      },
+      "format-muted": "",
+      "on-click": "pamixer -t; pkill -RTMIN+9 waybar"
+    },
+
+    "custom/mic": {
+      "exec": "pamixer --default-source --get-mute | grep -q true && echo '' || echo ''",
+      "interval": 60,
+      "signal": 9,
+      "on-click": "pamixer --default-source -t; pkill -RTMIN+9 waybar",
+      "format": "{}"
+    },
+
+    "custom/kblayout": {
+      "exec": "hyprctl devices -j | jq -r '.keyboards[] | select(.main == true) | .active_keymap' | awk '{print toupper($0)}'",
+      "interval": 60,
+      "signal": 8,
+      "format": "{}",
+      "on-click": "hyprctl switchxkblayout current next"
+    },
+
+
+  "custom/nightmode": {
+    "exec": "~/nixos/home/scripts/toggle_hyprsunset.sh --status",
+    "format": "{}",
+    "interval": 60,
+    "on-click": "~/nixos/home/scripts/toggle_hyprsunset.sh"
+  },
+
+    "custom/power": {
+      "format": "",
+      "on-click": "wlogout --buttons-per-row 5",
+      "tooltip": false
+    },
+
+    "custom/hyprsettings": {
+      "format": "",
+      "on-click": "kitty hyprsettings",
+      "tooltip": "Hyprland Settings"
+    },
+
+    "group/quick-settings": {
+      "orientation": "horizontal",
+      "drawer": {
+        "transition-duration": 300,
+        "children-class": "drawer-child",
+        "transition-left-to-right": true,
+        "hover-to-reveal": true
+      },
+      "modules": ["custom/settings-icon", "custom/kblayout", "custom/nightmode", "backlight"]
+    },
+
+    "custom/settings-icon": {
+      "format": "",
+      "tooltip": "Quick Settings",
+      "interval": "once"
+    },
+
+    "hyprland/workspaces": {
+      "all-outputs": true,
+      "disable-scroll": false,
+      "format": "{name}",
+      "persistent-workspaces": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": [],
+        "5": []
+      },
+      "on-click": "activate",
+      "on-scroll-down": "hyprctl dispatch workspace e-1",
+      "on-scroll-up": "hyprctl dispatch workspace e+1"
+    },
+
+    "tray": {
+      "icon-size": 21,
+      "spacing": 10
+    }
+  }
+}
+  }
+]

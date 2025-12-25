@@ -84,59 +84,31 @@ in {
     ServerAliveInterval 30
     ServerAliveCountMax 3
   '';
-  # programs.stylix.targets.kitty.enable = true;
-  programs.kitty = {
-    enable = true;
-    # themeFile = "Rosé Pine";
-    themeFile = "Catppuccin-Mocha";
-    settings = {
-      enable_audio_bell = false;
-
-      sync_to_monitor = "yes";
-      font_family = lib.mkForce "JetBrainsMono Nerd Font"; # force our font
-      # background_opacity = "0.9";
-      background_blur = "12";
-      cursor_trail = "3";
-      cursor_trail_start_threshold = "2";
-      confirm_os_window_close = "-1";
-      cursor_trail_decay = "0.1 0.4";
-      window_padding_width = "8";
-      # window_padding_width = 8;
-    };
-    font = {
-      name = lib.mkForce "JetBrainsMono Nerd Font";
-      size = 12;
-    };
-    extraConfig = "padding 8";
-    shellIntegration.enableZshIntegration = true;
-  };
-
   programs.fzf.enable = true;
-
   programs.fish.enable = false;
 
   programs.zsh.initExtraBeforeCompInit = ''
     export PATH="$HOME/.npm-global/bin:$PATH"
   '';
   programs.zsh.initExtra = ''
-               source ~/.p10k.zsh
-             function fzf() {
-               local selected_file
-               selected_file=$(command fzf) || return
-               xdg-open "$selected_file"
-             }
-               function y() {
-               	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-               	yazi "$@" --cwd-file="$tmp"
-               	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-               		builtin cd -- "$cwd"
-               	fi
-               	rm -f -- "$tmp"
-               }
+              source ~/.p10k.zsh
+            function fzf() {
+              local selected_file
+              selected_file=$(command fzf) || return
+              xdg-open "$selected_file"
+            }
+              function y() {
+              	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+              	yazi "$@" --cwd-file="$tmp"
+              	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+              		builtin cd -- "$cwd"
+              	fi
+              	rm -f -- "$tmp"
+              }
 
-       # Show a chemistry fun fact at shell startupaugustine's confessions
-      # misfortune science | cowsay -f tux | lolcat
-     alias update="sudo nixos-rebuild switch --flake ~/nixos#$(hostname) --impure"
+      # Show a chemistry fun fact at shell startupaugustine's confessions
+     # misfortune science | cowsay -f tux | lolcat
+    alias update="sudo nixos-rebuild switch --flake ~/nixos#$(hostname) --impure"
   '';
   programs.zsh = {
     enable = true;
@@ -198,7 +170,7 @@ in {
     btop # resource monitor (CPU, RAM, GPU, etc.)
     wget # download files from web
     xclip # clipboard CLI for X11/Wayland
-    kitty # GPU-accelerated terminal
+    kitty # GPU-accelerated terminal - moved to stow
     bat # modern replacement for cat (with syntax highlighting)
     trash-cli # move files to trash instead of rm
     yazi # fast TUI file manager (like lf but modern)

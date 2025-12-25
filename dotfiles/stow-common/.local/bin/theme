@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+set -e
+
+# Usage: theme [theme-name]
+THEME_NAME="${1:-catppuccin-mocha}"
+
+KITTY_THEME_DIR="$HOME/nixos/dotfiles/stow-common/.config/kitty/themes"
+WAYBAR_THEME_DIR="$HOME/.config/waybar/themes"
+ROFI_THEME_DIR="$HOME/.config/rofi"
+ROFI_CURRENT="$HOME/.config/rofi/config.rasi"
+
+# -------------------------
+# Kitty
+# -------------------------
+if [ ! -f "$KITTY_THEME_DIR/$THEME_NAME.conf" ]; then
+    echo "❌ Kitty theme '$THEME_NAME' not found!"
+    ls "$KITTY_THEME_DIR"/*.conf | xargs -n 1 basename | sed 's/.conf$//'
+    exit 1
+fi
+
+ln -sf "$KITTY_THEME_DIR/$THEME_NAME.conf" "$KITTY_THEME_DIR/current.conf"
+echo "✔ Kitty theme set to: $THEME_NAME"
+
+if kitty @ ls >/dev/null 2>&1; then
+    kitty @ load-config
+    echo "✔ Kitty reloaded"
+else
+    echo "ℹ Kitty not running – will apply on next start"
+fi
+
+# -------------------------
+# Waybar
+# -------------------------
+if [ ! -f "$WAYBAR_THEME_DIR/$THEME_NAME.css" ]; then
+    echo "❌ Waybar theme '$THEME_NAME' not found!"
+    ls "$WAYBAR_THEME_DIR"/*.css | xargs -n 1 basename | sed 's/.css$//'
+    exit 1
+fi
+
+ln -sf "$WAYBAR_THEME_DIR/$THEME_NAME.css" "$WAYBAR_THEME_DIR/current.css"
+echo "✔ Waybar theme set to: $THEME_NAME"
+
+pkill waybar || true
+waybar >/dev/null 2>&1 & disown
+echo "✔ Waybar restarted"
+
+# -------------------------
+# Rofi
+# -------------------------
+if [ ! -f "$ROFI_THEME_DIR/$THEME_NAME.rasi" ]; then
+    echo "❌ Rofi theme '$THEME_NAME' not found!"
+    ls "$ROFI_THEME_DIR"/*.rasi | xargs -n 1 basename | sed 's/.rasi$//'
+    exit 1
+fi
+
+ln -sf "$ROFI_THEME_DIR/$THEME_NAME.rasi" "$ROFI_CURRENT"
+echo "✔ Rofi theme set to: $THEME_NAME"
+
+echo "✅ Theme switch complete: $THEME_NAME"

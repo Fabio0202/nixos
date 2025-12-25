@@ -1,0 +1,276 @@
+/* =========================
+   THEME TOKENS (Latte)
+   ========================= */
+
+
+
+/* =========================
+   Global
+   ========================= */
+* {
+  font-family: FantasqueSansMono Nerd Font;
+  font-size: 17px;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  color: @fg;
+}
+
+
+/* =========================
+   Compact modules
+   ========================= */
+#quick-settings {
+  padding: 0 4px;
+  min-width: 0;
+}
+
+
+/* Children inside the group */
+#quick-settings>* {
+  background: transparent;
+  padding: 0 10px;
+  margin-right: 4px;
+  /* 👈 spacing between children */
+  min-width: 0;
+  border-radius: 0;
+}
+
+/* Accent pills */
+#custom-kblayout {
+  color: @accent-success;
+}
+
+#custom-nightmode {
+  color: @accent-warning;
+}
+
+#waybar {
+  background: transparent;
+  border: none;
+}
+
+
+/* =========================
+   Workspaces
+   ========================= */
+#workspaces {
+  border-radius: 6px;
+  background-color: @surface-0;
+  margin: 4px 10px 0 12px;
+  padding: 4px;
+}
+
+#workspaces button {
+  color: @accent-secondary;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  transition: all 0.2s ease-in-out;
+}
+
+#workspaces button.active {
+  color: @accent-info;
+  background-color: @surface-1;
+  border-bottom: 2px solid @accent-info;
+}
+
+#workspaces button.urgent {
+  color: @accent-danger;
+  background-color: @surface-2;
+  animation: urgent-flash 1s infinite;
+}
+
+@keyframes urgent-flash {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+
+/* =========================
+   Tray
+   ========================= */
+#tray {
+  padding: 2px 6px;
+  border-radius: 8px;
+  background: alpha(@bg, 0.8);
+  border: 1px solid @surface-0;
+}
+
+#tray>* {
+  padding: 0 4px;
+  margin: 0 2px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+#tray>*:hover {
+  background: @surface-1;
+}
+
+
+/* =========================
+   Shared module style
+   ========================= */
+#custom-music,
+#custom-cpu_temp,
+#custom-idle-toggle,
+#tray,
+#clock,
+#battery,
+#network,
+#memory,
+#cpu,
+#bluetooth,
+#pulseaudio,
+#custom-mic,
+#custom-lock,
+#custom-battery,
+#quick-settings,
+#custom-notifications,
+#custom-power {
+  border-radius: 6px;
+  background-color: @surface-0;
+  padding: 0 12px;
+  margin-top: 8px;
+  margin-right: 8px;
+  min-width: 20px;
+  transition: background 0.2s;
+}
+
+#custom-music:hover,
+#custom-cpu_temp:hover,
+#custom-idle-toggle:hover,
+#backlight:hover,
+#clock:hover,
+#battery:hover,
+#network:hover,
+#memory:hover,
+#cpu:hover,
+#bluetooth:hover,
+#pulseaudio:hover,
+#group-quick-settings #custom-kblayout:hover,
+#group-quick-settings #custom-nightmode:hover,
+#custom-mic:hover,
+#custom-lock:hover,
+#custom-power:hover {
+  background-color: @surface-1;
+}
+
+
+/* =========================
+   Module-specific colors
+   ========================= */
+#clock,
+#cpu {
+  color: @accent-primary;
+}
+
+#memory {
+  color: @accent-secondary;
+}
+
+#battery {
+  color: @accent-success;
+}
+
+#backlight {
+  color: @accent-warning;
+}
+
+#pulseaudio,
+#custom-mic {
+  color: @accent-special;
+}
+
+#custom-music {
+  color: @accent-special;
+}
+
+#custom-lock,
+#bluetooth {
+  color: @accent-info;
+}
+
+#custom-power {
+  color: @accent-warning;
+}
+
+
+/* =========================
+   States
+   ========================= */
+#battery.charging {
+  color: @accent-primary;
+}
+
+#battery.warning,
+#custom-battery.warning,
+#memory.warning {
+  color: @accent-warning;
+}
+
+#battery.critical,
+#custom-battery.critical,
+#cpu.critical,
+#memory.critical {
+  color: @accent-danger;
+}
+
+#pulseaudio.muted {
+  color: @fg-muted;
+}
+
+#custom-mic.muted {
+  color: @accent-danger;
+  opacity: 0.4;
+}
+
+
+/* =========================
+   Quick Settings Group
+   ========================= */
+#group-quick-settings {
+  margin: 8px 8px 0 0;
+  border-radius: 6px;
+  background-color: @surface-0;
+  transition: background 0.2s;
+}
+
+#group-quick-settings:hover {
+  background-color: @surface-1;
+}
+
+#custom-settings-icon {
+  color: @accent-info;
+  padding: 0 12px;
+  border-radius: 6px 0 0 6px;
+}
+
+#custom-hyprsettings {
+  color: @accent-warning;
+}
+
+.drawer-child {
+  border-radius: 0;
+  background: transparent;
+  padding: 24px;
+  transition: background 0.2s;
+}
+
+.drawer-child:hover {
+  background: @surface-2;
+}
+
+.drawer-child:last-child {
+  border-radius: 0 6px 6px 0;
+}

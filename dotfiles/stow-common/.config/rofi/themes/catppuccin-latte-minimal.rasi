@@ -1,0 +1,18 @@
+
+/* =========================
+   ROFI THEME — CATPPUCCIN LATTE
+   ========================= */
+
+@define-color bg              #eff1f5;
+@define-color fg              #4c4f69;
+@define-color fg-muted        #9ca0b0;
+
+@define-color surface         #eff1f5CC;
+@define-color surface-soft    #eff1f530;
+@define-color surface-alt     #e6e9ef80;
+
+@define-color accent-primary  #1e66f5;
+@define-color accent-active   #40a02b;
+@define-color accent-urgent   #d20f39;
+
+@import "../style-base.rasi";

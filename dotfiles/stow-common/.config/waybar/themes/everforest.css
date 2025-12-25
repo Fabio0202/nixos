@@ -1,0 +1,22 @@
+/* =========================
+   THEME TOKENS (Everforest Dark)
+   ========================= */
+
+@define-color bg #2f383e;
+@define-color fg #d3c6aa;
+@define-color fg-muted #859289;
+
+@define-color surface-0 #3a454a;
+@define-color surface-1 #4f585e;
+@define-color surface-2 #5c6a72;
+
+@define-color accent-primary #7fbbb3;
+/* blue-green */
+@define-color accent-secondary #a7c080;
+/* soft green */
+@define-color accent-success #83c092;
+/* success green */
+@define-color accent-warning #dbbc7f;
+@define-color accent-danger #e67e80;
+@define-color accent-info #7fbbb3;
+@define-color accent-special #d699b6;

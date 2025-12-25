@@ -1,0 +1,82 @@
+/* =========================
+   ROFI BASE LAYOUT
+   ========================= */
+
+* {
+    font: "SF Pro Display 14";
+    background-color: transparent;
+    text-color: @fg;
+}
+
+configuration {
+    modi: "drun";
+    show-icons: true;
+    drun-display-format: "{icon} {name}";
+    sort: true;
+    display-drun: "Apps ";
+}
+
+window {
+    fullscreen: false;
+    location: center;
+    anchor: center;
+    width: 800px;
+    height: 520px;
+    transparency: "real";
+    border-radius: 12px;
+    background-color: transparent;
+    border: 0px;
+    padding: 0px;
+}
+
+mainbox {
+    margin: 0px;
+    padding: 0px;
+    border-radius: 12px;
+    background-color: @surface;
+    children: [ "inputbar", "listview" ];
+}
+
+inputbar {
+    padding: 24px 32px;
+    border-radius: 6px;
+    background-color: @surface-alt;
+    text-color: @fg;
+}
+
+entry {
+    background-color: transparent;
+    text-color: @fg;
+    placeholder-color: @fg-muted;
+}
+
+listview {
+    lines: 8;
+    fixed-height: true;
+    spacing: 10px;
+    background-color: transparent;
+    scrollbar: false;
+}
+
+element {
+    padding: 20px;
+    border-radius: 6px;
+    background-color: transparent;
+    text-color: @fg;
+}
+
+element-icon {
+    size: 24px;
+    margin: 0px 4px 0px 0px;
+}
+
+element-text {
+    highlight: @accent-primary;
+    highlight-foreground: @fg;
+}
+
+element selected.normal {
+    background-color: #89b4fa08;
+    border: 1px solid @accent-primary;
+    border-radius: 6px;
+}

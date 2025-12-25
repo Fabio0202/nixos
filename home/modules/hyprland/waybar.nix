@@ -12,8 +12,9 @@
     waybar
     wlogout
   ];
-  home.file.".config/waybar/" = {
-    source = builtins.path {path = ../../configfiles/waybar;};
-    recursive = true;
-  };
+  # DISABLED: Using stow-managed dotfiles instead
+  # home.file.".config/waybar/" = {
+  #   source = builtins.path {path = ../../configfiles/waybar;};
+  #   recursive = true;
+  # };
 }

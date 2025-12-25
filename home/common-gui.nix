@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     obsidian # Markdown-based note-taking & knowledge management
     libreoffice # Office suite (Word, Excel, PowerPoint, etc.)
@@ -17,6 +17,7 @@
     spotify # Music streaming client
     hyprsunset # Screen color temperature adjustment for eye comfort
     stow # GNU Stow for dotfiles management
+    rofi
   ];
 
   services.blueman-applet.enable = true; # Enable system tray applet for Bluetooth
@@ -33,7 +34,7 @@
     ./modules/icons-theme.nix # Icon theme configuration for GTK/desktop apps
     ./modules/wofi.nix # Wofi (Wayland app launcher) setup
     ./modules/nwg-dock.nix # Dock/panel (like a taskbar for Wayland)
-    ./modules/rofi.nix # Rofi (launcher/menus, alternative to Wofi)
+    # ./modules/rofi.nix # Rofi (launcher/menus, alternative to Wofi)
     ./modules/show-binds/default.nix # Show keybindings overlay/help popup
     ./modules/sunset-at-night.nix # Color temperature adjustment at night (like redshift)
     ./modules/neovim/latex.nix
@@ -44,13 +45,13 @@
   xdg.mimeApps = {
     enable = false; # Disable Home Manager control over mimeapps.list (can switch to true later)
     defaultApplications = {
-      "video/*" = [ "mpv.desktop" ]; # Use mpv for all video files
-      "audio/*" = [ "audacious.desktop" ]; # Use Audacious for audio
-      "image/*" = [ "viewnior.desktop" ]; # Use Viewnior for images
-      "application/pdf" = [ "evince.desktop" ]; # Evince as PDF viewer
-      "text/html" = [ "firefox.desktop" ]; # Firefox for HTML
-      "x-scheme-handler/http" = [ "firefox.desktop" ]; # HTTP links → Firefox
-      "x-scheme-handler/https" = [ "firefox.desktop" ]; # HTTPS links → Firefox
+      "video/*" = ["mpv.desktop"]; # Use mpv for all video files
+      "audio/*" = ["audacious.desktop"]; # Use Audacious for audio
+      "image/*" = ["viewnior.desktop"]; # Use Viewnior for images
+      "application/pdf" = ["evince.desktop"]; # Evince as PDF viewer
+      "text/html" = ["firefox.desktop"]; # Firefox for HTML
+      "x-scheme-handler/http" = ["firefox.desktop"]; # HTTP links → Firefox
+      "x-scheme-handler/https" = ["firefox.desktop"]; # HTTPS links → Firefox
     };
   };
 }

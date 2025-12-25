@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   # programs.firefox = {
   #   enable = true;
   #   my-profile = {
@@ -17,7 +17,7 @@
   stylix.targets.lazygit.enable = true;
   stylix.targets.mpv.enable = true;
   stylix.targets.qt.enable = true;
-  stylix.targets.rofi.enable = true;
+  stylix.targets.rofi.enable = false;
   stylix.targets.swaync.enable = true;
   stylix.targets.waybar.enable = true;
   stylix.targets.wofi.enable = true;
