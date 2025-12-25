@@ -18,7 +18,7 @@
   stylix.targets.mpv.enable = true;
   stylix.targets.qt.enable = true;
   stylix.targets.rofi.enable = false;
-  stylix.targets.swaync.enable = true;
+  stylix.targets.swaync.enable = false;
   stylix.targets.waybar.enable = true;
   stylix.targets.wofi.enable = true;
   stylix.targets.yazi.enable = true;
