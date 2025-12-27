@@ -19,12 +19,6 @@
 {
     "label" : "lock",
     "action" : "hyprlock",
-    "text" : "[L]ogout",
+    "text" : "[L]ock",
     "keybind" : "l"
-}
-{
-    "label" : "hibernate",
-    "action" : "systemctl hibernate",
-    "text" : "[H]ibernate",
-    "keybind" : "h"
 }

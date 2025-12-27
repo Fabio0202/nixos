@@ -12,7 +12,7 @@
 
     ./swaync.nix
     ./swayosd.nix
-    ./wlogout.nix
+
     # ./config/default.nix # DISABLED - using traditional config
     ./hyprlock.nix
     ./swww.nix
