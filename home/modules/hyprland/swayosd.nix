@@ -8,6 +8,7 @@
     libinput
   ];
 
+  services.mako.enable = true;
   # ✅ Replace the broken services.swayosd with a working user service
   systemd.user.services.swayosd = {
     Unit = {

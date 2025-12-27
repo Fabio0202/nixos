@@ -1,0 +1,24 @@
+/* Everforest Dark palette */
+@define-color base   #2f383e;
+@define-color mantle #323d43;
+@define-color crust  #2b3339;
+@define-color text   #d3c6aa;
+@define-color subtext0 #859289;
+@define-color subtext1 #9da9a0;
+@define-color overlay0 #3a454a;
+@define-color overlay1 #4f585e;
+@define-color overlay2 #5c6a72;
+@define-color blue   #7fbbb3;
+@define-color lavender #d699b6;
+@define-color sapphire #83c092;
+@define-color sky    #7fbbb3;
+@define-color teal   #83c092;
+@define-color green  #a7c080;
+@define-color yellow #dbbc7f;
+@define-color peach  #e67e80;
+@define-color maroon #e67e80;
+@define-color red    #e67e80;
+@define-color mauve #d699b6;
+@define-color pink   #d699b6;
+@define-color flamingo #e69875;
+@define-color rosewater #d3c6aa;

@@ -75,6 +75,11 @@
   border-bottom: 2px solid @accent-info;
 }
 
+#workspaces button.empty {
+  opacity: 0.5;
+  color: @fg-muted;
+}
+
 #workspaces button.urgent {
   color: @accent-danger;
   background-color: @surface-2;

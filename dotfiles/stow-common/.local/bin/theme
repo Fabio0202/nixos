@@ -47,13 +47,38 @@ echo "✔ Waybar restarted"
 # -------------------------
 # Rofi
 # -------------------------
-if [ ! -f "$ROFI_THEME_DIR/$THEME_NAME.rasi" ]; then
-    echo "❌ Rofi theme '$THEME_NAME' not found!"
-    ls "$ROFI_THEME_DIR"/*.rasi | xargs -n 1 basename | sed 's/.rasi$//'
+if [ -f "$ROFI_THEME_DIR/$THEME_NAME.rasi" ]; then
+    ln -sf "$ROFI_THEME_DIR/$THEME_NAME.rasi" "$ROFI_CURRENT"
+    echo "✔ Rofi theme set to: $THEME_NAME"
+else
+    echo "ℹ Rofi theme '$THEME_NAME' not found, skipping Rofi"
+fi
+
+# -------------------------
+# swaync
+# -------------------------
+SWAYNC_THEME_DIR="$HOME/.config/swaync/themes"
+SWAYNC_CURRENT="$SWAYNC_THEME_DIR/current.css"
+
+if [ ! -f "$SWAYNC_THEME_DIR/$THEME_NAME.css" ]; then
+    echo "❌ swaync theme '$THEME_NAME' not found!"
+    ls "$SWAYNC_THEME_DIR"/*.css | xargs -n 1 basename | sed 's/.css$//'
     exit 1
 fi
 
-ln -sf "$ROFI_THEME_DIR/$THEME_NAME.rasi" "$ROFI_CURRENT"
-echo "✔ Rofi theme set to: $THEME_NAME"
+# Create new current.css with correct imports
+cat > "$SWAYNC_CURRENT" << EOF
+/* Import color definitions first */
+@import url("$THEME_NAME.css");
+
+/* Import base styles that use the color definitions */
+@import url("base-styles.css");
+EOF
+
+echo "✔ swaync theme set to: $THEME_NAME"
+
+# Restart swaync to apply new theme
+systemctl --user restart swaync
+echo "✔ swaync restarted"
 
 echo "✅ Theme switch complete: $THEME_NAME"

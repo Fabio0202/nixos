@@ -9,7 +9,8 @@
     ./hyprland.nix # Keep for package installation only
     #./swaylock.nix
     ./waybar.nix
-    
+
+    ./swaync.nix
     ./swayosd.nix
     ./wlogout.nix
     # ./config/default.nix # DISABLED - using traditional config
