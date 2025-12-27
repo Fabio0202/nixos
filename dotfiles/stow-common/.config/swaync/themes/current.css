@@ -1,5 +1,5 @@
 /* Import color definitions first */
-@import url("catppuccin-mocha.css");
+@import url("everforest.css");
 
 /* Import base styles that use the color definitions */
 @import url("base-styles.css");
