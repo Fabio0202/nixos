@@ -57,7 +57,7 @@
 #workspaces {
   border-radius: 6px;
   background-color: @surface-0;
-  margin: 4px 10px 0 12px;
+  margin: 4px 6px 0 12px;
   padding: 4px;
 }
 
@@ -145,7 +145,7 @@
   border-radius: 6px;
   background-color: @surface-0;
   margin-top: 4px;
-  margin-right: 8px;
+  margin-right: 6px;
   min-width: 20px;
   transition: background 0.2s;
 }
