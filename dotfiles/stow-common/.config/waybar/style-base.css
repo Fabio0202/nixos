@@ -137,49 +137,54 @@
 #custom-battery,
 #quick-settings,
 #custom-notifications,
-#custom-power {
+#custom-power,
+#custom-mic,
+#custom-nightmode,
+#backlight,
+#group-quick-settings {
   border-radius: 6px;
   background-color: @surface-0;
-  padding: 0 12px;
-  margin-top: 8px;
+  margin-top: 4px;
   margin-right: 8px;
   min-width: 20px;
   transition: background 0.2s;
+}
+
+#custom-music,
+#custom-cpu_temp,
+#custom-idle-toggle,
+#tray,
+#clock,
+#battery,
+#network,
+#memory,
+#cpu,
+#bluetooth,
+#pulseaudio,
+#custom-lock,
+#custom-kblayout,
+#custom-battery,
+#quick-settings,
+#custom-notifications,
+#custom-power {
+  padding: 0 12px;
 }
 
 #custom-mic {
-  border-radius: 6px;
-  background-color: @surface-0;
   padding-left: 4px;
   padding-right: 12px;
-  margin-top: 8px;
-  margin-right: 8px;
-  min-width: 20px;
-  transition: background 0.2s;
 }
 
 #custom-nightmode {
-  border-radius: 6px;
-  background-color: @surface-0;
   padding: 0 12px;
   padding-left: 10px;
   padding-right: 6px;
-  margin-top: 8px;
-  margin-right: 8px;
-  min-width: 20px;
-  transition: background 0.2s;
 }
 
 #backlight {
-  border-radius: 6px;
-  background-color: @surface-0;
   padding: 0 12px;
   padding-left: 12px;
   padding-right: 4px;
-  margin-top: 8px;
-  margin-right: 8px;
-  min-width: 20px;
-  transition: background 0.2s;
 }
 
 #custom-music:hover,
@@ -275,7 +280,6 @@
    Quick Settings Group
    ========================= */
 #group-quick-settings {
-  margin: 8px 8px 0 0;
   border-radius: 6px;
   background-color: @surface-0;
   transition: background 0.2s;
