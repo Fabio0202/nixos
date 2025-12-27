@@ -1,0 +1,16 @@
+.osd {
+  background-color: rgba(47, 56, 62, 0.9);
+  border-radius: 12px;
+  padding: 8px 8px;
+}
+
+progressbar > trough {
+  background-color: #585b70;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+progressbar > trough > progress {
+  background: linear-gradient(to right, #a7c080, #83c092);
+  border-radius: 8px;
+}

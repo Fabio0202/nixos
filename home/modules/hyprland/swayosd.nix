@@ -22,23 +22,5 @@
     Install.WantedBy = ["graphical-session.target"];
   };
 
-  # Optional: Custom CSS theming
-  xdg.configFile."swayosd/style.css".text = ''
-    .osd {
-      background-color: rgba(30, 30, 46, 0.9);
-      border-radius: 12px;
-      padding: 8px 8px;
-    }
 
-    progressbar > trough {
-      background-color: #414458;
-      border-radius: 8px;
-      padding: 8px;
-    }
-
-    progressbar > trough > progress {
-      background: linear-gradient(to right, #f38ba8, #f5c2e7);
-      border-radius: 8px;
-    }
-  '';
 }

@@ -134,36 +134,7 @@
     # '';
   };
 
-  # Script that listens for screen share events
-  home.file.".local/bin/swaync-screencast.sh" = {
-    text = ''
-      #!/usr/bin/env bash
-      dbus-monitor --session "interface='org.freedesktop.portal.ScreenCast'" |
-        while read -r line; do
-          if [[ "$line" == *"method call"* && "$line" == *"Start"* ]]; then
-            echo "[ScreenCast] Started → enabling DND"
-            swaync-client --dnd-on
-          elif [[ "$line" == *"method call"* && "$line" == *"Stop"* ]]; then
-            echo "[ScreenCast] Stopped → disabling DND"
-            swaync-client --dnd-off
-          fi
-        done
-    '';
-    executable = true;
-  };
 
-  # Systemd user service to keep it running
-  systemd.user.services.swaync-screencast = {
-    Unit = {
-      Description = "Toggle swaync Do Not Disturb when screen sharing";
-      After = ["swaync.service"];
-    };
-    Service = {
-      ExecStart = "%h/.local/bin/swaync-screencast.sh";
-      Restart = "always";
-    };
-    Install = {
-      WantedBy = ["default.target"];
-    };
-  };
+
+
 }

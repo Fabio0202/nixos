@@ -81,4 +81,31 @@ echo "✔ swaync theme set to: $THEME_NAME"
 systemctl --user restart swaync
 echo "✔ swaync restarted"
 
+# -------------------------
+# swayosd
+# -------------------------
+SWAYOSD_THEME_DIR="$HOME/.config/swayosd/themes"
+SWAYOSD_CURRENT="$SWAYOSD_THEME_DIR/current.css"
+
+if [ ! -f "$SWAYOSD_THEME_DIR/$THEME_NAME.css" ]; then
+    echo "❌ swayosd theme '$THEME_NAME' not found!"
+    ls "$SWAYOSD_THEME_DIR"/*.css | xargs -n 1 basename | sed 's/.css$//'
+    exit 1
+fi
+
+# Create new current.css with correct imports
+cat > "$SWAYOSD_CURRENT" << EOF
+/* Import color definitions first */
+@import url("$THEME_NAME.css");
+
+/* Import base styles that use the color definitions */
+@import url("base-styles.css");
+EOF
+
+echo "✔ swayosd theme set to: $THEME_NAME"
+
+# Restart swayosd to apply new theme
+systemctl --user restart swayosd
+echo "✔ swayosd restarted"
+
 echo "✅ Theme switch complete: $THEME_NAME"

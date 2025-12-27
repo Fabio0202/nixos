@@ -1,0 +1,14 @@
+/* Base styles for swayosd - layout and structure */
+.osd {
+  border-radius: 12px;
+  padding: 8px 8px;
+}
+
+progressbar > trough {
+  border-radius: 8px;
+  padding: 8px;
+}
+
+progressbar > trough > progress {
+  border-radius: 8px;
+}
