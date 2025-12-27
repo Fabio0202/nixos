@@ -118,10 +118,10 @@
     },
 
     "custom/kblayout": {
-      "exec": "hyprctl devices -j | jq -r '.keyboards[] | select(.main == true) | .active_keymap' | grep -o '[A-Z][A-Z]' | head -1",
+      "exec": "hyprctl devices -j | jq -r '.keyboards[] | select(.main == true) | .active_keymap' | head -c 2",
       "interval": 60,
       "signal": 8,
-      "format": "{}",
+      "format": "⌨ {}",
       "on-click": "hyprctl switchxkblayout current next"
     },
 

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Toggle Waybar visibility using state file
+STATE_FILE="$HOME/.config/waybar/hidden"
+
+if [ -f "$STATE_FILE" ]; then
+    # Show Waybar
+    rm -f "$STATE_FILE"
+    /etc/profiles/per-user/simon/bin/waybar >/dev/null 2>&1 &
+else
+    # Hide Waybar
+    touch "$STATE_FILE"
+    pkill -9 -f waybar
+fi
