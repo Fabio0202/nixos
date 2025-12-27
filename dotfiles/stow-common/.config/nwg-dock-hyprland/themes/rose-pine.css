@@ -1,0 +1,22 @@
+/* Rose Pine theme for nwg-dock */
+window {
+  background: #191724;
+  border-color: #6e6a86;
+}
+
+#active {
+  border-color: #eb6f92;
+}
+
+button,
+image {
+  color: #999;
+}
+
+button {
+  color: #eee;
+}
+
+button:hover {
+  background-color: #26233a;
+}

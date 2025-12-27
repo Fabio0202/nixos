@@ -78,8 +78,11 @@ EOF
 echo "✔ swaync theme set to: $THEME_NAME"
 
 # Restart swaync to apply new theme
-systemctl --user restart swaync
-echo "✔ swaync restarted"
+if systemctl --user restart swaync 2>/dev/null; then
+    echo "✔ swaync restarted"
+else
+    echo "⚠ swaync restart failed, continuing..."
+fi
 
 # -------------------------
 # swayosd
@@ -105,7 +108,42 @@ EOF
 echo "✔ swayosd theme set to: $THEME_NAME"
 
 # Restart swayosd to apply new theme
-systemctl --user restart swayosd
-echo "✔ swayosd restarted"
+if systemctl --user restart swayosd 2>/dev/null; then
+    echo "✔ swayosd restarted"
+else
+    echo "⚠ swayosd restart failed, continuing..."
+fi
+
+# -------------------------
+# nwg-dock
+# -------------------------
+NWG_DOCK_THEME_DIR="$HOME/.config/nwg-dock-hyprland/themes"
+NWG_DOCK_CURRENT="$HOME/.config/nwg-dock-hyprland/style.css"
+
+if [ ! -f "$NWG_DOCK_THEME_DIR/$THEME_NAME.css" ]; then
+    echo "❌ nwg-dock theme '$THEME_NAME' not found!"
+    ls "$NWG_DOCK_THEME_DIR"/*.css | xargs -n 1 basename | sed 's/.css$//'
+    exit 1
+fi
+
+# Create new style.css with correct imports
+cat > "$NWG_DOCK_CURRENT" << EOF
+/* Import color definitions first */
+@import url("themes/$THEME_NAME.css");
+
+/* Import base styles that use the color definitions */
+@import url("base-styles.css");
+EOF
+
+echo "✔ nwg-dock theme set to: $THEME_NAME"
+
+# Restart nwg-dock to apply new theme
+pkill -f nwg-dock-hyprland || true
+sleep 0.2
+if nwg-dock-hyprland -nolauncher -d -hd 0 -iw "special" >/dev/null 2>&1 & then
+    echo "✔ nwg-dock restarted"
+else
+    echo "⚠ nwg-dock restart failed, continuing..."
+fi
 
 echo "✅ Theme switch complete: $THEME_NAME"

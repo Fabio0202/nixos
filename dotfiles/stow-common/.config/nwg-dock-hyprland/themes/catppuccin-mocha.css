@@ -1,0 +1,22 @@
+/* Catppuccin Mocha theme for nwg-dock */
+window {
+  background: #1e1e2e;
+  border-color: #45475a;
+}
+
+#active {
+  border-color: #f38ba8;
+}
+
+button,
+image {
+  color: #bac2de;
+}
+
+button {
+  color: #cdd6f4;
+}
+
+button:hover {
+  background-color: #313244;
+}

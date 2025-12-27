@@ -1,0 +1,22 @@
+/* Catppuccin Latte Minimal theme for nwg-dock */
+window {
+  background: #eff1f5;
+  border-color: #e6e9ef;
+}
+
+#active {
+  border-color: #1e66f5;
+}
+
+button,
+image {
+  color: #4c4f69;
+}
+
+button {
+  color: #4c4f69;
+}
+
+button:hover {
+  background-color: #e6e9ef;
+}

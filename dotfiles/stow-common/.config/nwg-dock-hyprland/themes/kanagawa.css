@@ -1,0 +1,22 @@
+/* Kanagawa theme for nwg-dock */
+window {
+  background: #1f1f28;
+  border-color: #43436c;
+}
+
+#active {
+  border-color: #c34043;
+}
+
+button,
+image {
+  color: #dcd7ba;
+}
+
+button {
+  color: #dcd7ba;
+}
+
+button:hover {
+  background-color: #16161d;
+}
