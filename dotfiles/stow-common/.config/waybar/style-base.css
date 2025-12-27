@@ -132,8 +132,8 @@
 #cpu,
 #bluetooth,
 #pulseaudio,
-#custom-mic,
 #custom-lock,
+#custom-kblayout,
 #custom-battery,
 #quick-settings,
 #custom-notifications,
@@ -141,6 +141,41 @@
   border-radius: 6px;
   background-color: @surface-0;
   padding: 0 12px;
+  margin-top: 8px;
+  margin-right: 8px;
+  min-width: 20px;
+  transition: background 0.2s;
+}
+
+#custom-mic {
+  border-radius: 6px;
+  background-color: @surface-0;
+  padding-left: 4px;
+  padding-right: 12px;
+  margin-top: 8px;
+  margin-right: 8px;
+  min-width: 20px;
+  transition: background 0.2s;
+}
+
+#custom-nightmode {
+  border-radius: 6px;
+  background-color: @surface-0;
+  padding: 0 12px;
+  padding-left: 10px;
+  padding-right: 6px;
+  margin-top: 8px;
+  margin-right: 8px;
+  min-width: 20px;
+  transition: background 0.2s;
+}
+
+#backlight {
+  border-radius: 6px;
+  background-color: @surface-0;
+  padding: 0 12px;
+  padding-left: 12px;
+  padding-right: 4px;
   margin-top: 8px;
   margin-right: 8px;
   min-width: 20px;

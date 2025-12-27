@@ -16,9 +16,11 @@
 
     "modules-right": [
       "tray",
-      "group/quick-settings",
+      "custom/kblayout",
       "pulseaudio",
       "custom/mic",
+      "backlight",
+      "custom/nightmode",
       "custom/battery",
       "custom/notifications",
       "custom/power"
@@ -116,7 +118,7 @@
     },
 
     "custom/kblayout": {
-      "exec": "hyprctl devices -j | jq -r '.keyboards[] | select(.main == true) | .active_keymap' | awk '{print toupper($0)}'",
+      "exec": "hyprctl devices -j | jq -r '.keyboards[] | select(.main == true) | .active_keymap' | grep -o '[A-Z][A-Z]' | head -1",
       "interval": 60,
       "signal": 8,
       "format": "{}",
