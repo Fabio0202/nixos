@@ -26,9 +26,4 @@ in {
     # hier kommen zB setup files aus /modules fuer die einzelnen pkgs bzw softwares
     ../modules/python.nix
   ];
-
-  # Keybinds
-  wayland.windowManager.hyprland.settings.bind = [
-    "${mainMod}, return, exec, rofi -config ~/.config/rofi/rofi-glass.rasi -show drun" ## System | Toggle Wofi
-  ];
 }
