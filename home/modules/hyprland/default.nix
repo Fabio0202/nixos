@@ -16,7 +16,7 @@
     # ./config/default.nix # DISABLED - using traditional config
     ./hyprlock.nix
     ./swww.nix
-    # ./hypridle.nix
+    ./hypridle.nix
     ./variables.nix
   ];
 
