@@ -30,15 +30,12 @@ in {
     '';
   };
 
-  # Make NFS server depend on your drive being mounted
-  systemd.services.nfs-server = {
+  # Make NFS server wait for drive to be mounted
+  systemd.services.nfs-mountd = {
     after = ["mnt-drive.mount"];
-    requires = ["mnt-drive.mount"];
-    partOf = ["mnt-drive.mount"];
-    bindsTo = ["mnt-drive.mount"];
-    serviceConfig.Restart = "on-failure";
+    wants = ["mnt-drive.mount"];
   };
-  #
+
   systemd.services.syncthing = {
     after = ["mnt-drive.mount"];
     requires = ["mnt-drive.mount"];
@@ -76,8 +73,7 @@ in {
     fsType = "ext4";
     options = [
       "nofail"
-      "x-systemd.device-timeout=1s"
-      "x-systemd.automount"
+      "x-systemd.device-timeout=5s"
     ];
   };
 
