@@ -17,17 +17,6 @@ in {
     gitkraken # Shows Git Branches nicely
     arduino # für uni
     shotcut # Videoschneiden
-
-    # Wine und Gaming
-    wine
-    winetricks
-    winePackages.fonts
-
-    # Notwendige Utilities für Gaming
-    unzip
-    p7zip
-    cabextract
-    fuseiso
   ];
 
   xdg.configFile."gtk-3.0/bookmarks".text = ''
