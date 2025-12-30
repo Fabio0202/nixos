@@ -11,6 +11,7 @@ in {
     ../modules/userFabio.nix
     ./../configuration-common-server.nix
     ./../modules/bootloader.nix
+    ../modules/server/samba-server.nix
     (import ../modules/syncthing {
       user = "fabio";
       hostName = "server-wien";
