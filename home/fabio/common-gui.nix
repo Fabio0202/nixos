@@ -13,7 +13,7 @@ in {
     drawio # Diagram and flowchart creation
     blender # 3D modeling, animation, rendering
     veusz # Scientific plotting and graphing tool
-    todoist # Task management & to-do list app
+    todoist-electron # Task management & to-do list app
     gitkraken # Shows Git Branches nicely
     arduino # für uni
     shotcut # Videoschneiden
