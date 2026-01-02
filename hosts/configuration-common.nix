@@ -46,5 +46,6 @@
   programs.firefox.enable = true;
   programs.zsh.enable = true;
 
+  programs.kdeconnect.enable = true;
   services.printing.enable = true;
 }
