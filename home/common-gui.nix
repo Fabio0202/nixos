@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  pkgs-unstable,
+  ...
+}: {
   home.packages = with pkgs; [
     obsidian # Markdown-based note-taking & knowledge management
     libreoffice # Office suite (Word, Excel, PowerPoint, etc.)
@@ -7,7 +11,7 @@
     gnome-clocks # World clocks, stopwatch, timers, alarms
     qalculate-gtk # Advanced calculator with many features
     nautilus # GNOME file manager
-    kdePackages.kdeconnect-kde # Integrate phone with PC (notifications, file sharing, SMS)
+    (pkgs-unstable.kdePackages.kdeconnect-kde)
     discord # Voice, video, and text chat (gaming/community)
     evince # Lightweight PDF and document viewer
     audacious # Simple and lightweight music player

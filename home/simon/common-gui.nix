@@ -10,6 +10,7 @@ in {
     # blocky
     telegram-desktop
     vi-mongo # mongo db gui client
+    godot
     chromium
     redisinsight # redis gui client
     teams-for-linux
@@ -39,4 +40,3 @@ in {
     ../modules/neovim/obsidian.nix
   ];
 }
-

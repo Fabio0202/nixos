@@ -1,7 +1,8 @@
-{ inputs
-, config
-, pkgs
-, ...
+{
+  inputs,
+  config,
+  pkgs,
+  ...
 }: {
   imports = [
     ./modules/hardware.nix
@@ -30,7 +31,7 @@
 
   boot.plymouth = {
     enable = true;
-    themePackages = [ pkgs.catppuccin-plymouth ];
+    themePackages = [pkgs.catppuccin-plymouth];
     theme = "catppuccin-macchiato";
   };
 
@@ -42,6 +43,7 @@
 
   boot.kernelPackages = pkgs.linuxPackages;
 
+  programs.kdeconnect.enable = true;
   programs.firefox.enable = true;
   programs.zsh.enable = true;
 
