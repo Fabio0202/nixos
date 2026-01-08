@@ -7,7 +7,7 @@
     general {
         lock_cmd = pidof hyprlock || hyprlock
         before_sleep_cmd = loginctl lock-session
-        after_sleep_cmd = hyprctl dispatch dpms on
+        after_sleep_cmd = sleep 1 && hyprctl dispatch dpms on
     }
 
     # lock after 15 minutes

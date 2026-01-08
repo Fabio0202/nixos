@@ -11,8 +11,17 @@
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
+
+  boot.kernelParams = [
+    # Fix for amdgpu suspend issues: ensures safer VRAM memory handling during suspend
+    "amdgpu.vm_update_mode=3"
+    # Allows the kernel to auto-recover the GPU if it hangs (prevents full system freeze)
+    "amdgpu.gpu_recovery=1"
+    # Use the more stable deep sleep (S3) instead of s2idle — reduces suspend/resume bugs
+    "mem_sleep_default=deep"
+  ];
 
   fileSystems."/" =
     {

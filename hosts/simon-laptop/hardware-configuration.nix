@@ -21,6 +21,13 @@
     "amdgpu.aspm=1" # PCIe link power management
     "amdgpu.runpm=1" # runtime suspend when GPU idle
     "amdgpu.dc=1" # display core (better power handling for screens)
+
+    # Fix for amdgpu suspend issues: ensures safer VRAM memory handling during suspend
+    "amdgpu.vm_update_mode=3"
+    # Allows the kernel to auto-recover the GPU if it hangs (prevents full system freeze)
+    "amdgpu.gpu_recovery=1"
+    # Use the more stable deep sleep (S3) instead of s2idle — reduces suspend/resume bugs
+    "mem_sleep_default=deep"
   ];
 
   fileSystems."/" = {

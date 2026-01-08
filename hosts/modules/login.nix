@@ -45,7 +45,7 @@ in
     [Desktop Entry]
     Name=Hyprland
     Comment=Hyprland Wayland compositor
-    Exec=${config.programs.hyprland.package}/bin/Hyprland
+    Exec=uwsm start -- ${config.programs.hyprland.package}/bin/start-hyprland
     Type=Application
     DesktopNames=Hyprland
   '';
