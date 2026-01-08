@@ -1,0 +1,22 @@
+/* Everforest Dark Color Variables */
+@define-color foreground #d3c6aa; /* text - primary text */
+@define-color background rgba(47, 56, 62, 0.85); /* base with transparency */
+@define-color cursor #d3c6aa; /* text - cursor matches text */
+
+/* 16-color palette */
+@define-color color0 #2b3339; /* crust - darkest background */
+@define-color color1 #e67e80; /* red */
+@define-color color2 #a7c080; /* green */
+@define-color color3 #dbbc7f; /* yellow */
+@define-color color4 #7fbbb3; /* blue */
+@define-color color5 #d699b6; /* pink */
+@define-color color6 #83c092; /* teal */
+@define-color color7 #9da9a0; /* subtext1 - light gray */
+@define-color color8 #4f585e; /* overlay1 - darker gray */
+@define-color color9 #e67e80; /* red (bright) */
+@define-color color10 #a7c080; /* green (bright) */
+@define-color color11 #dbbc7f; /* yellow (bright) */
+@define-color color12 #7fbbb3; /* blue (bright) */
+@define-color color13 #d699b6; /* pink (bright) */
+@define-color color14 #83c092; /* teal (bright) */
+@define-color color15 #d3c6aa; /* text - brightest text */

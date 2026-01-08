@@ -146,4 +146,27 @@ else
     echo "⚠ nwg-dock restart failed, continuing..."
 fi
 
+# -------------------------
+# wlogout
+# -------------------------
+WLOGOUT_THEME_DIR="$HOME/.config/wlogout/themes"
+WLOGOUT_STYLE="$HOME/.config/wlogout/style.css"
+
+if [ ! -f "$WLOGOUT_THEME_DIR/$THEME_NAME.css" ]; then
+    echo "❌ wlogout theme '$THEME_NAME' not found!"
+    ls "$WLOGOUT_THEME_DIR"/*.css | xargs -n 1 basename | sed 's/.css$//'
+    exit 1
+fi
+
+# Create new style.css with correct imports
+cat > "$WLOGOUT_STYLE" << EOF
+/* Import color definitions first */
+@import url("themes/$THEME_NAME.css");
+
+/* Import base styles that use the color definitions */
+@import url("base-styles.css");
+EOF
+
+echo "✔ wlogout theme set to: $THEME_NAME"
+
 echo "✅ Theme switch complete: $THEME_NAME"

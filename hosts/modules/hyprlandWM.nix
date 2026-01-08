@@ -11,8 +11,10 @@
   programs.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    # UWSM is required for Hyprland 0.53+ (provides start-hyprland)
+    # It properly activates systemd user session and graphical-session.target
+    withUWSM = true;
   };
-  programs.hyprland.withUWSM = true; # Enable improved hyprland compatibility with uwsm
 
   # force wayland for electron apps
   environment.variables = {
@@ -46,6 +48,6 @@
     };
   };
 
-  # Import the SDDM Wayland module
+  # Import greetd login configuration
   imports = [ ./login.nix ];
 }

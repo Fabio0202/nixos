@@ -1,94 +1,31 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
-let
-  # available themes:
-  # astronaut.conf
-  # black_hole.conf
-  # cyberpunk.conf
-  # hyprland_kath.conf
-  # jake_the_dog.conf
-  # japanese_aesthetic.conf
-  # pixel_sakura.conf
-  # pixel_sakura_static.conf
-  # post-apocalyptic_hacker.conf
-  # purple_leaves.conf
-  # https://github.com/Keyitdev/sddm-astronaut-theme
-  # Use the override function to configure the theme
-  custom-sddm-astronaut = pkgs.sddm-astronaut.override {
-    embeddedTheme = "purple_leaves"; # This should match the variant name without .conf
-  };
-in
+{ config, lib, pkgs, ... }:
 {
-  services.displayManager.sddm = {
+  # Enable greetd display manager with auto-login
+  # UWSM handles proper systemd user session activation and graphical-session.target
+  # This ensures user services like swayosd start correctly
+  services.greetd = {
     enable = true;
-    package = pkgs.kdePackages.sddm;
-    wayland.enable = true;
-    theme = "sddm-astronaut-theme";
-
     settings = {
-      Theme = {
-        Current = "sddm-astronaut-theme";
+      default_session = {
+        # uwsm start is required since Hyprland 0.53+ for proper session management
+        # It activates graphical-session.target and starts user services
+        command = "start-hyprland";
+        user = "simon";
       };
-      Wayland = {
-        EnableHiDPI = true;
-      };
-      General = {
-        InputMethod = "qtvirtualkeyboard";
+      initial_session = {
+        command = "start-hyprland";
+        user = "simon";
       };
     };
   };
 
-  environment.etc."sddm/wayland-sessions/hyprland-uwsm.desktop".text = ''
-    [Desktop Entry]
-    Name=Hyprland
-    Comment=Hyprland Wayland compositor
-    Exec=uwsm start -- ${config.programs.hyprland.package}/bin/start-hyprland
-    Type=Application
-    DesktopNames=Hyprland
-  '';
-
-  services.displayManager.defaultSession = "hyprland-uwsm";
-
-  # Add the customized theme to extraPackages
-  services.displayManager.sddm.extraPackages = with pkgs; [
-    custom-sddm-astronaut
-    kdePackages.qtmultimedia
-    kdePackages.qtsvg
-    kdePackages.qtvirtualkeyboard
-  ];
-
-  # Set environment variables for the display manager service
-  systemd.services.display-manager = {
-    serviceConfig = {
-      Environment = [
-        "QML2_IMPORT_PATH=${lib.concatStringsSep ":" [
-          "${pkgs.qt6.qtdeclarative}/lib/qt-6/qml"
-          "${pkgs.qt6.qtmultimedia}/lib/qt-6/qml"
-          "${pkgs.qt6.qtvirtualkeyboard}/lib/qt-6/qml"
-          "${pkgs.qt6.qtsvg}/lib/qt-6/qml"
-          "${pkgs.qt6.qtquick3d}/lib/qt-6/qml"
-        ]}"
-        "QT_PLUGIN_PATH=${pkgs.qt6.qtbase}/${pkgs.qt6.qtbase.qtPluginPrefix}"
-        "QT_QPA_PLATFORM=wayland"
-      ];
-    };
-  };
-
+  # Enable greetd-gtkgreet as a greeter (though with auto-login, this won't be visible)
   environment.systemPackages = with pkgs; [
-    custom-sddm-astronaut
-    qt6.qtwayland
-    qt6.qtmultimedia
-    qt6.qtsvg
-    qt6.qtdeclarative
-    qt6.qtvirtualkeyboard
-    qt6.qtquick3d
-    pipewire
-    ffmpeg
+    greetd.tuigreet
+    uwsm  # Required for uwsm start command
   ];
 
+  # Keep essential services that were previously in SDDM config
   services.dbus.enable = true;
   security.polkit.enable = true;
 }

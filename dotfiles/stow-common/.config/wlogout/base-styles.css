@@ -1,0 +1,60 @@
+* {
+  font-family: "JetBrainsMono Nerd Font";
+  box-shadow: none;
+}
+
+window {
+  background: none;
+}
+
+button {
+  color: @foreground;
+  font-size: 20px;
+
+  margin: 60px 0px;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 25%;
+
+  background-color: @color0;
+  opacity: 0.9;
+  border: none;
+  border-radius: 12px;
+  transition: 0.2s ease all;
+}
+
+button:focus {
+  background-size: 28%;
+  background-color: @color8;
+}
+
+button:hover {
+  background-size: 32%;
+  background-color: @color8;
+  margin: 40px 0px;
+  border-radius: 16px;
+  opacity: 1;
+}
+
+/*
+-----------------------------------------------------
+Buttons
+-----------------------------------------------------
+*/
+
+#lock {
+  background-image: image(url("icons/lock.png"));
+}
+
+#shutdown {
+  background-image: image(url("icons/shutdown.png"));
+}
+
+#reboot {
+  background-image: image(url("icons/reboot.png"));
+}
+
+#suspend {
+  background-image: image(url("icons/suspend.png"));
+}
