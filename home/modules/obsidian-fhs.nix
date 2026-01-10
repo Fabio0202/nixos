@@ -42,7 +42,7 @@ let
       curl
       wget
       unzip
-      tar
+      gnutar  # Use gnutar instead of tar
       which
       
       # Additional runtime libraries
