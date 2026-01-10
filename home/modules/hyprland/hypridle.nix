@@ -6,7 +6,7 @@
   home.file.".config/hypr/hypridle.conf".text = ''
     general {
         lock_cmd = pidof hyprlock || hyprlock
-        before_sleep_cmd = loginctl lock-session
+        before_sleep_cmd = loginctl lock-session && sleep 0.5 && hyprctl dispatch dpms off
         after_sleep_cmd = sleep 1 && hyprctl dispatch dpms on
     }
 
