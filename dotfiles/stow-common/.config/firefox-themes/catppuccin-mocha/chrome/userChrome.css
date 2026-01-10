@@ -1,0 +1,135 @@
+/* Catppuccin Mocha Firefox Theme */
+:root {
+  --bg: #1e1e2e;
+  --fg: #cdd6f4;
+  --fg-muted: #6e738d;
+  --surface-0: #313244;
+  --surface-1: #45475a;
+  --surface-2: #585b70;
+  --accent-primary: #89b4fa;
+  --accent-secondary: #b4befe;
+  --accent-success: #a6e3a1;
+  --accent-warning: #f9e2af;
+  --accent-danger: #f38ba8;
+  --accent-info: #89dceb;
+  --accent-special: #cba6f7;
+}
+
+/* Main toolbar and navbar */
+#navigator-toolbox {
+  background-color: var(--bg) !important;
+  border-bottom: 1px solid var(--surface-1) !important;
+}
+
+/* URL bar */
+#urlbar-background {
+  background-color: var(--surface-0) !important;
+  border: 1px solid var(--surface-1) !important;
+}
+
+#urlbar:not([focused]) #urlbar-background {
+  background-color: var(--surface-0) !important;
+}
+
+#urlbar[focused] #urlbar-background {
+  background-color: var(--surface-1) !important;
+  border-color: var(--accent-primary) !important;
+}
+
+#urlbar-input {
+  color: var(--fg) !important;
+}
+
+/* Tabs */
+.tabbrowser-tab {
+  background-color: var(--bg) !important;
+  color: var(--fg-muted) !important;
+}
+
+.tabbrowser-tab[selected] {
+  background-color: var(--surface-0) !important;
+  color: var(--fg) !important;
+}
+
+.tabbrowser-tab[selected] .tab-background {
+  background-color: var(--surface-0) !important;
+  border-bottom: 2px solid var(--accent-primary) !important;
+}
+
+.tab-background:not([selected]) {
+  background-color: var(--bg) !important;
+}
+
+.tabbrowser-tab:hover:not([selected]) .tab-background {
+  background-color: var(--surface-1) !important;
+}
+
+/* Tab text */
+.tab-text {
+  color: var(--fg) !important;
+}
+
+/* New tab button */
+#tabs-newtab-button {
+  fill: var(--fg-muted) !important;
+}
+
+#tabs-newtab-button:hover {
+  background-color: var(--surface-1) !important;
+}
+
+/* Toolbar buttons */
+#nav-bar {
+  background-color: var(--bg) !important;
+}
+
+.toolbarbutton-1 {
+  fill: var(--fg) !important;
+}
+
+.toolbarbutton-1:hover {
+  background-color: var(--surface-1) !important;
+}
+
+/* Sidebar */
+#sidebar-box {
+  background-color: var(--bg) !important;
+}
+
+#sidebar-header {
+  background-color: var(--surface-0) !important;
+  color: var(--fg) !important;
+}
+
+/* Findbar */
+findbar {
+  background-color: var(--surface-0) !important;
+  color: var(--fg) !important;
+}
+
+/* Context menus */
+menupopup {
+  --panel-background: var(--surface-0) !important;
+  --panel-color: var(--fg) !important;
+}
+
+menu, menuitem {
+  color: var(--fg) !important;
+}
+
+menu:hover, menuitem:hover {
+  background-color: var(--surface-1) !important;
+}
+
+/* Bookmarks toolbar */
+#PersonalToolbar {
+  background-color: var(--bg) !important;
+}
+
+toolbarbutton.bookmark-item {
+  color: var(--fg) !important;
+}
+
+toolbarbutton.bookmark-item:hover {
+  background-color: var(--surface-1) !important;
+}

@@ -4,7 +4,7 @@
   ...
 }: {
   home.packages = with pkgs; [
-    obsidian # Markdown-based note-taking & knowledge management
+    # obsidian # Replaced with FHS wrapper for plugin support
     libreoffice # Office suite (Word, Excel, PowerPoint, etc.)
     anki # Flashcard-based learning tool (spaced repetition)
     blueman # GTK-based Bluetooth manager
@@ -42,6 +42,7 @@
     ./modules/sunset-at-night.nix # Color temperature adjustment at night (like redshift)
     ./modules/neovim/latex.nix
     ./modules/hyprsettings.nix # HyprSettings GUI configurator for Hyprland
+    ../modules/obsidian-fhs.nix # Obsidian with FHS wrapper for plugin support
   ];
 
   # Set GUI default applications (MIME associations)

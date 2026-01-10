@@ -44,6 +44,11 @@ NWG_DOCK_THEME_DIR="$HOME/.config/nwg-dock-hyprland/themes"
 NWG_DOCK_CURRENT="$HOME/.config/nwg-dock-hyprland/style.css"
 WLOGOUT_THEME_DIR="$HOME/.config/wlogout/themes"
 WLOGOUT_STYLE="$HOME/.config/wlogout/style.css"
+FIREFOX_THEME_DIR="$HOME/.config/firefox-themes"
+FIREFOX_PROFILE_DIR="$HOME/.mozilla/firefox/z34ufndn.default"
+FIREFOX_CHROME_DIR="$FIREFOX_PROFILE_DIR/chrome"
+TELEGRAM_THEME_DIR="$HOME/.config/telegram-themes"
+TELEGRAM_CURRENT="$HOME/.config/telegram-themes/current.tdesktop-theme"
 WALLPAPER_BASE="$HOME/nixos/files/wallpapers"
 WALLPAPER_STATE="$WALLPAPER_BASE/.theme-state.json"
 WALLPAPER_THEME_DIR="$WALLPAPER_BASE/$THEME_NAME"
@@ -100,6 +105,18 @@ cat > "$WLOGOUT_STYLE" << EOF
 @import url("themes/$THEME_NAME.css");
 @import url("base-styles.css");
 EOF
+
+# Firefox
+if [ -f "$FIREFOX_THEME_DIR/$THEME_NAME/chrome/userChrome.css" ]; then
+    mkdir -p "$FIREFOX_CHROME_DIR"
+    ln -sf "$FIREFOX_THEME_DIR/$THEME_NAME/chrome/userChrome.css" "$FIREFOX_CHROME_DIR/userChrome.css"
+    ln -sf "$FIREFOX_THEME_DIR/$THEME_NAME/chrome/userContent.css" "$FIREFOX_CHROME_DIR/userContent.css"
+fi
+
+# Telegram
+if [ -f "$TELEGRAM_THEME_DIR/$THEME_NAME.tdesktop-theme" ]; then
+    ln -sf "$TELEGRAM_THEME_DIR/$THEME_NAME.tdesktop-theme" "$TELEGRAM_CURRENT"
+fi
 
 # -------------------------
 # Wallpaper config (before restarts)
@@ -174,6 +191,19 @@ pkill -f nwg-dock-hyprland || true
 sleep 0.2
 nwg-dock-hyprland -nolauncher -d -hd 0 -iw "special" >/dev/null 2>&1 &
 echo "✔ nwg-dock restarted"
+
+# Firefox (notify only - don't force restart to avoid losing work)
+if [ -f "$FIREFOX_CHROME_DIR/userChrome.css" ]; then
+    echo "✔ Firefox theme updated (restart Firefox to apply)"
+fi
+
+# Telegram
+if [ -f "$TELEGRAM_CURRENT" ]; then
+    pkill -f telegram-desktop || true
+    sleep 0.3
+    telegram-desktop &>/dev/null & disown
+    echo "✔ Telegram restarted"
+fi
 
 # Save current theme
 echo "$THEME_NAME" > "$CURRENT_THEME_FILE"

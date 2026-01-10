@@ -1,0 +1,42 @@
+/* Catppuccin Mocha - Firefox Content Styles */
+:root {
+  --bg: #1e1e2e;
+  --fg: #cdd6f4;
+  --surface-0: #313244;
+  --surface-1: #45475a;
+  --accent-primary: #89b4fa;
+}
+
+/* New Tab Page */
+@-moz-document url("about:newtab"), url("about:home") {
+  body {
+    background-color: var(--bg) !important;
+  }
+
+  .search-wrapper .search-handoff-button {
+    background-color: var(--surface-0) !important;
+    border: 1px solid var(--surface-1) !important;
+  }
+
+  .search-wrapper .search-handoff-button .fake-caret {
+    color: var(--fg) !important;
+  }
+
+  .top-site-outer .title {
+    color: var(--fg) !important;
+  }
+}
+
+/* Blank page */
+@-moz-document url("about:blank") {
+  body {
+    background-color: var(--bg) !important;
+  }
+}
+
+/* Private browsing page */
+@-moz-document url("about:privatebrowsing") {
+  body {
+    background-color: var(--bg) !important;
+  }
+}

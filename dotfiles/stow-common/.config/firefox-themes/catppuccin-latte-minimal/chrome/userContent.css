@@ -1,0 +1,42 @@
+/* Catppuccin Latte - Firefox Content Styles */
+:root {
+  --bg: #eff1f5;
+  --fg: #4c4f69;
+  --surface-0: #ccd0da;
+  --surface-1: #bcc0cc;
+  --accent-primary: #1e66f5;
+}
+
+/* New Tab Page */
+@-moz-document url("about:newtab"), url("about:home") {
+  body {
+    background-color: var(--bg) !important;
+  }
+
+  .search-wrapper .search-handoff-button {
+    background-color: var(--surface-0) !important;
+    border: 1px solid var(--surface-1) !important;
+  }
+
+  .search-wrapper .search-handoff-button .fake-caret {
+    color: var(--fg) !important;
+  }
+
+  .top-site-outer .title {
+    color: var(--fg) !important;
+  }
+}
+
+/* Blank page */
+@-moz-document url("about:blank") {
+  body {
+    background-color: var(--bg) !important;
+  }
+}
+
+/* Private browsing page */
+@-moz-document url("about:privatebrowsing") {
+  body {
+    background-color: var(--bg) !important;
+  }
+}

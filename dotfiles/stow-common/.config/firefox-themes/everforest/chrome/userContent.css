@@ -1,0 +1,42 @@
+/* Everforest Dark - Firefox Content Styles */
+:root {
+  --bg: #2f383e;
+  --fg: #d3c6aa;
+  --surface-0: #3a454a;
+  --surface-1: #4f585e;
+  --accent-primary: #7fbbb3;
+}
+
+/* New Tab Page */
+@-moz-document url("about:newtab"), url("about:home") {
+  body {
+    background-color: var(--bg) !important;
+  }
+
+  .search-wrapper .search-handoff-button {
+    background-color: var(--surface-0) !important;
+    border: 1px solid var(--surface-1) !important;
+  }
+
+  .search-wrapper .search-handoff-button .fake-caret {
+    color: var(--fg) !important;
+  }
+
+  .top-site-outer .title {
+    color: var(--fg) !important;
+  }
+}
+
+/* Blank page */
+@-moz-document url("about:blank") {
+  body {
+    background-color: var(--bg) !important;
+  }
+}
+
+/* Private browsing page */
+@-moz-document url("about:privatebrowsing") {
+  body {
+    background-color: var(--bg) !important;
+  }
+}

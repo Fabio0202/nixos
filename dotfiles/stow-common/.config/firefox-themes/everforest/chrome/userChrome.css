@@ -1,0 +1,135 @@
+/* Everforest Dark Firefox Theme */
+:root {
+  --bg: #2f383e;
+  --fg: #d3c6aa;
+  --fg-muted: #859289;
+  --surface-0: #3a454a;
+  --surface-1: #4f585e;
+  --surface-2: #5c6a72;
+  --accent-primary: #7fbbb3;
+  --accent-secondary: #a7c080;
+  --accent-success: #83c092;
+  --accent-warning: #dbbc7f;
+  --accent-danger: #e67e80;
+  --accent-info: #7fbbb3;
+  --accent-special: #d699b6;
+}
+
+/* Main toolbar and navbar */
+#navigator-toolbox {
+  background-color: var(--bg) !important;
+  border-bottom: 1px solid var(--surface-1) !important;
+}
+
+/* URL bar */
+#urlbar-background {
+  background-color: var(--surface-0) !important;
+  border: 1px solid var(--surface-1) !important;
+}
+
+#urlbar:not([focused]) #urlbar-background {
+  background-color: var(--surface-0) !important;
+}
+
+#urlbar[focused] #urlbar-background {
+  background-color: var(--surface-1) !important;
+  border-color: var(--accent-primary) !important;
+}
+
+#urlbar-input {
+  color: var(--fg) !important;
+}
+
+/* Tabs */
+.tabbrowser-tab {
+  background-color: var(--bg) !important;
+  color: var(--fg-muted) !important;
+}
+
+.tabbrowser-tab[selected] {
+  background-color: var(--surface-0) !important;
+  color: var(--fg) !important;
+}
+
+.tabbrowser-tab[selected] .tab-background {
+  background-color: var(--surface-0) !important;
+  border-bottom: 2px solid var(--accent-primary) !important;
+}
+
+.tab-background:not([selected]) {
+  background-color: var(--bg) !important;
+}
+
+.tabbrowser-tab:hover:not([selected]) .tab-background {
+  background-color: var(--surface-1) !important;
+}
+
+/* Tab text */
+.tab-text {
+  color: var(--fg) !important;
+}
+
+/* New tab button */
+#tabs-newtab-button {
+  fill: var(--fg-muted) !important;
+}
+
+#tabs-newtab-button:hover {
+  background-color: var(--surface-1) !important;
+}
+
+/* Toolbar buttons */
+#nav-bar {
+  background-color: var(--bg) !important;
+}
+
+.toolbarbutton-1 {
+  fill: var(--fg) !important;
+}
+
+.toolbarbutton-1:hover {
+  background-color: var(--surface-1) !important;
+}
+
+/* Sidebar */
+#sidebar-box {
+  background-color: var(--bg) !important;
+}
+
+#sidebar-header {
+  background-color: var(--surface-0) !important;
+  color: var(--fg) !important;
+}
+
+/* Findbar */
+findbar {
+  background-color: var(--surface-0) !important;
+  color: var(--fg) !important;
+}
+
+/* Context menus */
+menupopup {
+  --panel-background: var(--surface-0) !important;
+  --panel-color: var(--fg) !important;
+}
+
+menu, menuitem {
+  color: var(--fg) !important;
+}
+
+menu:hover, menuitem:hover {
+  background-color: var(--surface-1) !important;
+}
+
+/* Bookmarks toolbar */
+#PersonalToolbar {
+  background-color: var(--bg) !important;
+}
+
+toolbarbutton.bookmark-item {
+  color: var(--fg) !important;
+}
+
+toolbarbutton.bookmark-item:hover {
+  background-color: var(--surface-1) !important;
+}
