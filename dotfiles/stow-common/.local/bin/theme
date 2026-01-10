@@ -1,172 +1,181 @@
 #!/usr/bin/env bash
 set -e
 
-# Usage: theme [theme-name]
-THEME_NAME="${1:-catppuccin-mocha}"
-
+# Directory definitions
 KITTY_THEME_DIR="$HOME/nixos/dotfiles/stow-common/.config/kitty/themes"
+CURRENT_THEME_FILE="$HOME/.config/.current-theme"
+
+# Available themes (based on kitty themes)
+THEMES=($(ls "$KITTY_THEME_DIR"/*.conf 2>/dev/null | xargs -n 1 basename | sed 's/.conf$//' | grep -v current))
+
+# Get current theme
+CURRENT_THEME=""
+[ -f "$CURRENT_THEME_FILE" ] && CURRENT_THEME=$(cat "$CURRENT_THEME_FILE")
+
+# If no argument, cycle to next theme
+if [ -z "$1" ]; then
+    if [ -z "$CURRENT_THEME" ]; then
+        THEME_NAME="${THEMES[0]}"
+    else
+        # Find current index and get next
+        for i in "${!THEMES[@]}"; do
+            if [ "${THEMES[$i]}" = "$CURRENT_THEME" ]; then
+                NEXT_INDEX=$(( (i + 1) % ${#THEMES[@]} ))
+                THEME_NAME="${THEMES[$NEXT_INDEX]}"
+                break
+            fi
+        done
+        # Fallback if current theme not found in list
+        [ -z "$THEME_NAME" ] && THEME_NAME="${THEMES[0]}"
+    fi
+else
+    THEME_NAME="$1"
+fi
+
+# More directory definitions
 WAYBAR_THEME_DIR="$HOME/.config/waybar/themes"
 ROFI_THEME_DIR="$HOME/.config/rofi"
 ROFI_CURRENT="$HOME/.config/rofi/config.rasi"
+SWAYNC_THEME_DIR="$HOME/.config/swaync/themes"
+SWAYNC_CURRENT="$SWAYNC_THEME_DIR/current.css"
+SWAYOSD_THEME_DIR="$HOME/.config/swayosd/themes"
+SWAYOSD_CURRENT="$SWAYOSD_THEME_DIR/current.css"
+NWG_DOCK_THEME_DIR="$HOME/.config/nwg-dock-hyprland/themes"
+NWG_DOCK_CURRENT="$HOME/.config/nwg-dock-hyprland/style.css"
+WLOGOUT_THEME_DIR="$HOME/.config/wlogout/themes"
+WLOGOUT_STYLE="$HOME/.config/wlogout/style.css"
+WALLPAPER_BASE="$HOME/nixos/files/wallpapers"
+WALLPAPER_STATE="$WALLPAPER_BASE/.theme-state.json"
+WALLPAPER_THEME_DIR="$WALLPAPER_BASE/$THEME_NAME"
+WAYPAPER_CONFIG="$HOME/.config/waypaper/config.ini"
 
 # -------------------------
-# Kitty
+# Validate theme exists
 # -------------------------
 if [ ! -f "$KITTY_THEME_DIR/$THEME_NAME.conf" ]; then
-    echo "❌ Kitty theme '$THEME_NAME' not found!"
-    ls "$KITTY_THEME_DIR"/*.conf | xargs -n 1 basename | sed 's/.conf$//'
+    echo "❌ Theme '$THEME_NAME' not found! Available themes:"
+    ls "$KITTY_THEME_DIR"/*.conf 2>/dev/null | xargs -n 1 basename | sed 's/.conf$//'
     exit 1
 fi
 
-ln -sf "$KITTY_THEME_DIR/$THEME_NAME.conf" "$KITTY_THEME_DIR/current.conf"
-echo "✔ Kitty theme set to: $THEME_NAME"
+# -------------------------
+# Update all config files (fast, synchronous)
+# -------------------------
 
+# Kitty
+ln -sf "$KITTY_THEME_DIR/$THEME_NAME.conf" "$KITTY_THEME_DIR/current.conf"
+
+# Waybar
+[ -f "$WAYBAR_THEME_DIR/$THEME_NAME.css" ] && \
+    ln -sf "$WAYBAR_THEME_DIR/$THEME_NAME.css" "$WAYBAR_THEME_DIR/current.css"
+
+# Rofi
+[ -f "$ROFI_THEME_DIR/$THEME_NAME.rasi" ] && \
+    ln -sf "$ROFI_THEME_DIR/$THEME_NAME.rasi" "$ROFI_CURRENT"
+
+# swaync
+[ -f "$SWAYNC_THEME_DIR/$THEME_NAME.css" ] && \
+cat > "$SWAYNC_CURRENT" << EOF
+@import url("$THEME_NAME.css");
+@import url("base-styles.css");
+EOF
+
+# swayosd
+[ -f "$SWAYOSD_THEME_DIR/$THEME_NAME.css" ] && \
+cat > "$SWAYOSD_CURRENT" << EOF
+@import url("$THEME_NAME.css");
+@import url("base-styles.css");
+EOF
+
+# nwg-dock
+[ -f "$NWG_DOCK_THEME_DIR/$THEME_NAME.css" ] && \
+cat > "$NWG_DOCK_CURRENT" << EOF
+@import url("themes/$THEME_NAME.css");
+@import url("base-styles.css");
+EOF
+
+# wlogout
+[ -f "$WLOGOUT_THEME_DIR/$THEME_NAME.css" ] && \
+cat > "$WLOGOUT_STYLE" << EOF
+@import url("themes/$THEME_NAME.css");
+@import url("base-styles.css");
+EOF
+
+# -------------------------
+# Wallpaper config (before restarts)
+# -------------------------
+NEW_WALLPAPER=""
+if [ -d "$WALLPAPER_THEME_DIR" ]; then
+    # Save current wallpaper to old theme
+    if [ -f "$WAYPAPER_CONFIG" ]; then
+        CURRENT_WALLPAPER=$(grep "^wallpaper" "$WAYPAPER_CONFIG" | cut -d'=' -f2 | xargs)
+        CURRENT_FOLDER=$(grep "^folder" "$WAYPAPER_CONFIG" | cut -d'=' -f2 | xargs)
+        CURRENT_FOLDER="${CURRENT_FOLDER/#\~/$HOME}"
+        OLD_THEME=$(basename "$CURRENT_FOLDER")
+
+        if [ -n "$CURRENT_WALLPAPER" ] && [ "$OLD_THEME" != "wallpapers" ] && [ -f "$WALLPAPER_STATE" ]; then
+            WALLPAPER_FILENAME=$(basename "$CURRENT_WALLPAPER")
+            jq --arg theme "$OLD_THEME" --arg wp "$WALLPAPER_FILENAME" \
+                '.[$theme] = $wp' "$WALLPAPER_STATE" > "$WALLPAPER_STATE.tmp" 2>/dev/null \
+                && mv "$WALLPAPER_STATE.tmp" "$WALLPAPER_STATE"
+        fi
+    fi
+
+    # Get saved wallpaper for new theme
+    [ -f "$WALLPAPER_STATE" ] && \
+        NEW_WALLPAPER=$(jq -r --arg theme "$THEME_NAME" '.[$theme] // empty' "$WALLPAPER_STATE" 2>/dev/null)
+
+    # Fallback to first image
+    if [ -z "$NEW_WALLPAPER" ] || [ ! -f "$WALLPAPER_THEME_DIR/$NEW_WALLPAPER" ]; then
+        NEW_WALLPAPER=$(find "$WALLPAPER_THEME_DIR" -maxdepth 1 -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.jpeg" \) | head -1 | xargs basename 2>/dev/null || true)
+    fi
+
+    # Update waypaper config
+    [ -f "$WAYPAPER_CONFIG" ] && {
+        sed -i "s|^folder = .*|folder = $WALLPAPER_THEME_DIR|" "$WAYPAPER_CONFIG"
+        [ -n "$NEW_WALLPAPER" ] && sed -i "s|^wallpaper = .*|wallpaper = $WALLPAPER_THEME_DIR/$NEW_WALLPAPER|" "$WAYPAPER_CONFIG"
+    }
+fi
+
+echo "✔ Config updated for: $THEME_NAME"
+
+# -------------------------
+# Wallpaper (first for immediate visual feedback)
+# -------------------------
+if [ -n "$NEW_WALLPAPER" ] && [ -f "$WALLPAPER_THEME_DIR/$NEW_WALLPAPER" ]; then
+    swww img "$WALLPAPER_THEME_DIR/$NEW_WALLPAPER" --transition-type any --transition-duration 1 &
+    echo "✔ Wallpaper set to: $NEW_WALLPAPER"
+fi
+
+# -------------------------
+# Restart apps sequentially
+# -------------------------
+
+# Kitty
 if kitty @ ls >/dev/null 2>&1; then
     kitty @ load-config
     echo "✔ Kitty reloaded"
-else
-    echo "ℹ Kitty not running – will apply on next start"
 fi
 
-# -------------------------
 # Waybar
-# -------------------------
-if [ ! -f "$WAYBAR_THEME_DIR/$THEME_NAME.css" ]; then
-    echo "❌ Waybar theme '$THEME_NAME' not found!"
-    ls "$WAYBAR_THEME_DIR"/*.css | xargs -n 1 basename | sed 's/.css$//'
-    exit 1
-fi
-
-ln -sf "$WAYBAR_THEME_DIR/$THEME_NAME.css" "$WAYBAR_THEME_DIR/current.css"
-echo "✔ Waybar theme set to: $THEME_NAME"
-
 pkill waybar || true
+sleep 0.3
 waybar >/dev/null 2>&1 & disown
 echo "✔ Waybar restarted"
 
-# -------------------------
-# Rofi
-# -------------------------
-if [ -f "$ROFI_THEME_DIR/$THEME_NAME.rasi" ]; then
-    ln -sf "$ROFI_THEME_DIR/$THEME_NAME.rasi" "$ROFI_CURRENT"
-    echo "✔ Rofi theme set to: $THEME_NAME"
-else
-    echo "ℹ Rofi theme '$THEME_NAME' not found, skipping Rofi"
-fi
-
-# -------------------------
 # swaync
-# -------------------------
-SWAYNC_THEME_DIR="$HOME/.config/swaync/themes"
-SWAYNC_CURRENT="$SWAYNC_THEME_DIR/current.css"
+systemctl --user restart swaync 2>/dev/null && echo "✔ swaync restarted"
 
-if [ ! -f "$SWAYNC_THEME_DIR/$THEME_NAME.css" ]; then
-    echo "❌ swaync theme '$THEME_NAME' not found!"
-    ls "$SWAYNC_THEME_DIR"/*.css | xargs -n 1 basename | sed 's/.css$//'
-    exit 1
-fi
-
-# Create new current.css with correct imports
-cat > "$SWAYNC_CURRENT" << EOF
-/* Import color definitions first */
-@import url("$THEME_NAME.css");
-
-/* Import base styles that use the color definitions */
-@import url("base-styles.css");
-EOF
-
-echo "✔ swaync theme set to: $THEME_NAME"
-
-# Restart swaync to apply new theme
-if systemctl --user restart swaync 2>/dev/null; then
-    echo "✔ swaync restarted"
-else
-    echo "⚠ swaync restart failed, continuing..."
-fi
-
-# -------------------------
 # swayosd
-# -------------------------
-SWAYOSD_THEME_DIR="$HOME/.config/swayosd/themes"
-SWAYOSD_CURRENT="$SWAYOSD_THEME_DIR/current.css"
+systemctl --user restart swayosd 2>/dev/null && echo "✔ swayosd restarted"
 
-if [ ! -f "$SWAYOSD_THEME_DIR/$THEME_NAME.css" ]; then
-    echo "❌ swayosd theme '$THEME_NAME' not found!"
-    ls "$SWAYOSD_THEME_DIR"/*.css | xargs -n 1 basename | sed 's/.css$//'
-    exit 1
-fi
-
-# Create new current.css with correct imports
-cat > "$SWAYOSD_CURRENT" << EOF
-/* Import color definitions first */
-@import url("$THEME_NAME.css");
-
-/* Import base styles that use the color definitions */
-@import url("base-styles.css");
-EOF
-
-echo "✔ swayosd theme set to: $THEME_NAME"
-
-# Restart swayosd to apply new theme
-if systemctl --user restart swayosd 2>/dev/null; then
-    echo "✔ swayosd restarted"
-else
-    echo "⚠ swayosd restart failed, continuing..."
-fi
-
-# -------------------------
 # nwg-dock
-# -------------------------
-NWG_DOCK_THEME_DIR="$HOME/.config/nwg-dock-hyprland/themes"
-NWG_DOCK_CURRENT="$HOME/.config/nwg-dock-hyprland/style.css"
-
-if [ ! -f "$NWG_DOCK_THEME_DIR/$THEME_NAME.css" ]; then
-    echo "❌ nwg-dock theme '$THEME_NAME' not found!"
-    ls "$NWG_DOCK_THEME_DIR"/*.css | xargs -n 1 basename | sed 's/.css$//'
-    exit 1
-fi
-
-# Create new style.css with correct imports
-cat > "$NWG_DOCK_CURRENT" << EOF
-/* Import color definitions first */
-@import url("themes/$THEME_NAME.css");
-
-/* Import base styles that use the color definitions */
-@import url("base-styles.css");
-EOF
-
-echo "✔ nwg-dock theme set to: $THEME_NAME"
-
-# Restart nwg-dock to apply new theme
 pkill -f nwg-dock-hyprland || true
 sleep 0.2
-if nwg-dock-hyprland -nolauncher -d -hd 0 -iw "special" >/dev/null 2>&1 & then
-    echo "✔ nwg-dock restarted"
-else
-    echo "⚠ nwg-dock restart failed, continuing..."
-fi
+nwg-dock-hyprland -nolauncher -d -hd 0 -iw "special" >/dev/null 2>&1 &
+echo "✔ nwg-dock restarted"
 
-# -------------------------
-# wlogout
-# -------------------------
-WLOGOUT_THEME_DIR="$HOME/.config/wlogout/themes"
-WLOGOUT_STYLE="$HOME/.config/wlogout/style.css"
+# Save current theme
+echo "$THEME_NAME" > "$CURRENT_THEME_FILE"
 
-if [ ! -f "$WLOGOUT_THEME_DIR/$THEME_NAME.css" ]; then
-    echo "❌ wlogout theme '$THEME_NAME' not found!"
-    ls "$WLOGOUT_THEME_DIR"/*.css | xargs -n 1 basename | sed 's/.css$//'
-    exit 1
-fi
-
-# Create new style.css with correct imports
-cat > "$WLOGOUT_STYLE" << EOF
-/* Import color definitions first */
-@import url("themes/$THEME_NAME.css");
-
-/* Import base styles that use the color definitions */
-@import url("base-styles.css");
-EOF
-
-echo "✔ wlogout theme set to: $THEME_NAME"
-
-echo "✅ Theme switch complete: $THEME_NAME"
+echo "✅ Theme switched to: $THEME_NAME"
