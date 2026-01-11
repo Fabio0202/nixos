@@ -1,0 +1,614 @@
+#!/usr/bin/env bash
+
+# Everything Menu - Command Center with nested sub-menus
+# Structure defined in: documentation/everything-menu-structure.md
+
+ROFI_OPTS="-dmenu -i -markup-rows"
+
+show_rofi() {
+    local prompt="$1"
+    shift
+    echo -e "$@" | rofi $ROFI_OPTS -kb-cancel "" -kb-remove-char-back "" -kb-custom-1 "Escape" -kb-custom-2 "BackSpace" -p "$prompt"
+    return $?
+}
+
+notify() {
+    notify-send -t 2000 "Everything Menu" "$1"
+}
+
+edit_config() {
+    kitty --title "Edit: $1" -e nvim "$2"
+}
+
+# ============================================
+# MAIN MENU
+# ============================================
+main_menu() {
+    while true; do
+        # Check hyprsunset state for toggle display
+        if pgrep -x hyprsunset > /dev/null; then
+            sunset_entry="󱩐  Hyprsunset (ON)"
+        else
+            sunset_entry="󱩐  Hyprsunset (OFF)"
+        fi
+
+        choice=$(show_rofi "Menu" \
+"󰒓  System
+󰖩  Wi-Fi
+󰂯  Bluetooth
+󰕾  Audio
+󰆏  Screenshots
+󰎈  Media
+󰗀  Themes
+󰸉  Wallpaper
+󰒼  Config
+󰏘  Color Picker
+$sunset_entry")
+        rofi_exit=$?
+
+        if [[ $rofi_exit -eq 10 ]]; then
+            exit 0
+        fi
+
+        if [[ $rofi_exit -eq 11 ]]; then
+            exit 0
+        fi
+
+        case "$choice" in
+            *"System"*) system_menu ;;
+            *"Wi-Fi"*) wifi_menu ;;
+            *"Bluetooth"*) bluetooth_menu ;;
+            *"Audio"*) audio_menu ;;
+            *"Screenshots"*) screenshots_menu ;;
+            *"Media"*) media_menu ;;
+            *"Themes"*) themes_menu ;;
+            *"Wallpaper"*) wallpaper_menu ;;
+            *"Config"*) config_menu ;;
+            *"Color Picker"*)
+                color=$(hyprpicker -a)
+                [[ -n "$color" ]] && notify "Copied: $color"
+                ;;
+            *"Hyprsunset"*)
+                if pgrep -x hyprsunset > /dev/null; then
+                    pkill hyprsunset
+                    notify "Hyprsunset disabled"
+                else
+                    hyprsunset -t 4500 &
+                    notify "Hyprsunset enabled (4500K)"
+                fi
+                ;;
+            "") exit 0 ;;
+        esac
+    done
+}
+
+# ============================================
+# SYSTEM
+# ============================================
+system_menu() {
+    while true; do
+        choice=$(show_rofi "System" \
+"󰐥  Shutdown
+󰜉  Reboot
+󰤄  Suspend
+󰒳  Lock
+←  Back")
+        rofi_exit=$?
+
+        if [[ $rofi_exit -eq 10 ]]; then
+            exit 0
+        fi
+
+        if [[ $rofi_exit -eq 11 ]]; then
+            break
+        fi
+
+        case "$choice" in
+            *"Shutdown"*) systemctl poweroff ;;
+            *"Reboot"*) systemctl reboot ;;
+            *"Suspend"*) systemctl suspend ;;
+            *"Lock"*) hyprlock ;;
+            *"Back"*|"") break ;;
+        esac
+    done
+}
+
+# ============================================
+# WI-FI
+# ============================================
+wifi_menu() {
+    while true; do
+        # Check wifi status for toggle display
+        if nmcli radio wifi | grep -q enabled; then
+            toggle_entry="󰤨  Toggle (ON)"
+        else
+            toggle_entry="󰤭  Toggle (OFF)"
+        fi
+
+        choice=$(show_rofi "Wi-Fi" \
+"󰖩  Connect
+󰖩  Status
+$toggle_entry
+󰖪  Disconnect
+󰌆  Settings
+←  Back")
+        rofi_exit=$?
+
+        if [[ $rofi_exit -eq 10 ]]; then
+            exit 0
+        fi
+
+        if [[ $rofi_exit -eq 11 ]]; then
+            break
+        fi
+
+        case "$choice" in
+            *"Connect"*)
+                # Scan and list networks with signal strength
+                networks=$(nmcli -t -f SSID,SIGNAL,SECURITY device wifi list | grep -v '^:' | sort -t: -k2 -nr | awk -F: '{
+                    signal=$2
+                    if (signal >= 75) icon="󰤨"
+                    else if (signal >= 50) icon="󰤥"
+                    else if (signal >= 25) icon="󰤢"
+                    else icon="󰤟"
+                    security=$3 ? "󰌆" : ""
+                    printf "%s %s %s %s\n", icon, $1, security, signal"%"
+                }')
+
+                if [[ -z "$networks" ]]; then
+                    notify "No networks found"
+                else
+                    selected=$(echo "$networks" | rofi $ROFI_OPTS -p "Connect")
+                    if [[ -n "$selected" ]]; then
+                        # Extract SSID (second field after icon)
+                        ssid=$(echo "$selected" | awk '{print $2}')
+                        nmcli device wifi connect "$ssid" && notify "Connected to $ssid" || notify "Failed to connect"
+                    fi
+                fi
+                ;;
+            *"Status"*)
+                active=$(nmcli -t -f NAME,DEVICE connection show --active | grep -v "lo:" | head -1)
+                if [[ -n "$active" ]]; then
+                    name=$(echo "$active" | cut -d: -f1)
+                    device=$(echo "$active" | cut -d: -f2)
+                    ip=$(nmcli -t -f IP4.ADDRESS device show "$device" | cut -d: -f2 | head -1)
+                    notify "Connected: $name\nIP: $ip"
+                else
+                    notify "Not connected"
+                fi
+                ;;
+            *"Toggle"*)
+                nmcli radio wifi toggle
+                sleep 0.5
+                if nmcli radio wifi | grep -q enabled; then
+                    notify "Wi-Fi enabled"
+                else
+                    notify "Wi-Fi disabled"
+                fi
+                ;;
+            *"Disconnect"*)
+                active=$(nmcli -t -f NAME,TYPE connection show --active | grep wireless | cut -d: -f1)
+                if [[ -n "$active" ]]; then
+                    nmcli connection down "$active" && notify "Disconnected from $active"
+                else
+                    notify "No active connection"
+                fi
+                ;;
+            *"Settings"*)
+                kitty --title "Wi-Fi Settings" -e nmtui &
+                ;;
+            *"Back"*|"") break ;;
+        esac
+    done
+}
+
+# ============================================
+# BLUETOOTH
+# ============================================
+bluetooth_menu() {
+    while true; do
+        # Check bluetooth status for toggle display
+        if bluetoothctl show | grep -q "Powered: yes"; then
+            toggle_entry="󰂯  Toggle (ON)"
+        else
+            toggle_entry="󰂲  Toggle (OFF)"
+        fi
+
+        choice=$(show_rofi "Bluetooth" \
+"󰂱  Connect
+󰂯  Status
+$toggle_entry
+󰂲  Disconnect
+󰒓  Settings
+←  Back")
+        rofi_exit=$?
+
+        if [[ $rofi_exit -eq 10 ]]; then
+            exit 0
+        fi
+
+        if [[ $rofi_exit -eq 11 ]]; then
+            break
+        fi
+
+        case "$choice" in
+            *"Connect"*)
+                # List paired devices first, then scan for new ones
+                devices=$(bluetoothctl devices | awk '{
+                    mac=$2
+                    $1=$2=""
+                    name=substr($0,3)
+                    printf "󰂱  %s (%s)\n", name, mac
+                }')
+
+                if [[ -z "$devices" ]]; then
+                    notify "No paired devices. Opening settings..."
+                    kitty --title "Bluetooth" -e bluetoothctl &
+                else
+                    selected=$(echo "$devices" | rofi $ROFI_OPTS -p "Connect")
+                    if [[ -n "$selected" ]]; then
+                        # Extract MAC address from selection
+                        mac=$(echo "$selected" | grep -oE '[0-9A-F:]{17}')
+                        bluetoothctl connect "$mac" && notify "Connected" || notify "Failed to connect"
+                    fi
+                fi
+                ;;
+            *"Status"*)
+                connected=$(bluetoothctl devices Connected | awk '{$1=$2=""; print substr($0,3)}' | head -1)
+                if [[ -n "$connected" ]]; then
+                    notify "Connected: $connected"
+                else
+                    notify "No device connected"
+                fi
+                ;;
+            *"Toggle"*)
+                if bluetoothctl show | grep -q "Powered: yes"; then
+                    bluetoothctl power off
+                    notify "Bluetooth disabled"
+                else
+                    bluetoothctl power on
+                    notify "Bluetooth enabled"
+                fi
+                ;;
+            *"Disconnect"*)
+                connected_mac=$(bluetoothctl devices Connected | awk '{print $2}' | head -1)
+                if [[ -n "$connected_mac" ]]; then
+                    bluetoothctl disconnect "$connected_mac" && notify "Disconnected"
+                else
+                    notify "No device connected"
+                fi
+                ;;
+            *"Settings"*)
+                kitty --title "Bluetooth" -e bluetuith &
+                exit 0
+                ;;
+            *"Back"*|"") break ;;
+        esac
+    done
+}
+
+# ============================================
+# AUDIO
+# ============================================
+audio_menu() {
+    while true; do
+        # Get current output and mute state
+        current_sink=$(wpctl inspect @DEFAULT_AUDIO_SINK@ 2>/dev/null | grep "node.description" | cut -d'"' -f2)
+        [[ -z "$current_sink" ]] && current_sink="Unknown"
+
+        if wpctl get-volume @DEFAULT_AUDIO_SINK@ 2>/dev/null | grep -q MUTED; then
+            mute_entry="󰖁  Toggle Mute (ON)"
+        else
+            mute_entry="󰕾  Toggle Mute (OFF)"
+        fi
+
+        choice=$(show_rofi "Audio ($current_sink)" \
+"󰓃  Output Device
+󰍬  Input Device
+$mute_entry
+󰍭  Mute Mic
+󰒓  Settings
+←  Back")
+        rofi_exit=$?
+
+        if [[ $rofi_exit -eq 10 ]]; then
+            exit 0
+        fi
+
+        if [[ $rofi_exit -eq 11 ]]; then
+            break
+        fi
+
+        case "$choice" in
+            *"Output Device"*)
+                # List audio sinks
+                sinks=$(pactl list sinks short | while read -r id name _; do
+                    desc=$(pactl list sinks | grep -A 20 "Sink #$id" | grep "Description:" | cut -d: -f2 | xargs)
+                    echo "󰓃  $desc"
+                done)
+
+                if [[ -n "$sinks" ]]; then
+                    selected=$(echo "$sinks" | rofi $ROFI_OPTS -p "Output")
+                    if [[ -n "$selected" ]]; then
+                        # Find sink by description
+                        desc=$(echo "$selected" | sed 's/󰓃  //')
+                        sink_name=$(pactl list sinks | grep -B 20 "$desc" | grep "Name:" | tail -1 | cut -d: -f2 | xargs)
+                        [[ -n "$sink_name" ]] && pactl set-default-sink "$sink_name" && notify "Output: $desc"
+                    fi
+                fi
+                ;;
+            *"Input Device"*)
+                # List audio sources (microphones)
+                sources=$(pactl list sources short | grep -v monitor | while read -r id name _; do
+                    desc=$(pactl list sources | grep -A 20 "Source #$id" | grep "Description:" | cut -d: -f2 | xargs)
+                    [[ -n "$desc" ]] && echo "󰍬  $desc"
+                done)
+
+                if [[ -n "$sources" ]]; then
+                    selected=$(echo "$sources" | rofi $ROFI_OPTS -p "Input")
+                    if [[ -n "$selected" ]]; then
+                        desc=$(echo "$selected" | sed 's/󰍬  //')
+                        source_name=$(pactl list sources | grep -B 20 "$desc" | grep "Name:" | tail -1 | cut -d: -f2 | xargs)
+                        [[ -n "$source_name" ]] && pactl set-default-source "$source_name" && notify "Input: $desc"
+                    fi
+                fi
+                ;;
+            *"Toggle Mute"*)
+                wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+                if wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED; then
+                    notify "Audio muted"
+                else
+                    notify "Audio unmuted"
+                fi
+                ;;
+            *"Mute Mic"*)
+                wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+                if wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED; then
+                    notify "Microphone muted"
+                else
+                    notify "Microphone unmuted"
+                fi
+                ;;
+            *"Settings"*)
+                kitty --title "Audio" -e pulsemixer &
+                exit 0
+                ;;
+            *"Back"*|"") break ;;
+        esac
+    done
+}
+
+# ============================================
+# SCREENSHOTS
+# ============================================
+screenshots_menu() {
+    while true; do
+        choice=$(show_rofi "Screenshots" \
+"󰹑  Screenshot Area
+󰹑  Screenshot Full
+←  Back")
+        rofi_exit=$?
+
+        if [[ $rofi_exit -eq 10 ]]; then
+            exit 0
+        fi
+
+        if [[ $rofi_exit -eq 11 ]]; then
+            break
+        fi
+
+        case "$choice" in
+            *"Area"*)
+                grim -g "$(slurp)" - | wl-copy
+                notify "Screenshot copied to clipboard"
+                ;;
+            *"Full"*)
+                grim - | wl-copy
+                notify "Screenshot copied to clipboard"
+                ;;
+            *"Back"*|"") break ;;
+        esac
+    done
+}
+
+# ============================================
+# MEDIA
+# ============================================
+media_menu() {
+    while true; do
+        # Get now playing info
+        now_playing=$(playerctl metadata --format '{{artist}} - {{title}}' 2>/dev/null)
+        if [[ -z "$now_playing" ]]; then
+            now_playing="Nothing playing"
+        fi
+
+        # Get play/pause state
+        status=$(playerctl status 2>/dev/null)
+        if [[ "$status" == "Playing" ]]; then
+            play_entry="󰏤  Pause"
+        else
+            play_entry="󰐎  Play"
+        fi
+
+        choice=$(show_rofi "Media" \
+"󰎈  $now_playing
+󰒮  Previous
+$play_entry
+󰒭  Next
+  Spotify
+←  Back")
+        rofi_exit=$?
+
+        if [[ $rofi_exit -eq 10 ]]; then
+            exit 0
+        fi
+
+        if [[ $rofi_exit -eq 11 ]]; then
+            break
+        fi
+
+        case "$choice" in
+            *"Previous"*) playerctl previous ;;
+            *"Play"*|*"Pause"*) playerctl play-pause ;;
+            *"Next"*) playerctl next ;;
+            *"Spotify"*) spotify & ;;
+            *"Back"*|"") break ;;
+        esac
+    done
+}
+
+# ============================================
+# THEMES
+# ============================================
+themes_menu() {
+    while true; do
+        current_theme=$(cat ~/.config/.current-theme 2>/dev/null || echo "unknown")
+
+        choice=$(show_rofi "Themes ($current_theme)" \
+"󰔎  Catppuccin Mocha
+󰖔  Catppuccin Latte
+󰌪  Everforest
+󰒲  Cycle
+←  Back")
+        rofi_exit=$?
+
+        if [[ $rofi_exit -eq 10 ]]; then
+            exit 0
+        fi
+
+        if [[ $rofi_exit -eq 11 ]]; then
+            break
+        fi
+
+        case "$choice" in
+            *"Catppuccin Mocha"*)
+                theme catppuccin-mocha
+                notify "Theme: Catppuccin Mocha"
+                ;;
+            *"Catppuccin Latte"*)
+                theme catppuccin-latte-minimal
+                notify "Theme: Catppuccin Latte"
+                ;;
+            *"Everforest"*)
+                theme everforest
+                notify "Theme: Everforest"
+                ;;
+            *"Cycle"*)
+                theme
+                current=$(cat ~/.config/.current-theme 2>/dev/null)
+                notify "Theme: $current"
+                ;;
+            *"Back"*|"") break ;;
+        esac
+    done
+}
+
+# ============================================
+# WALLPAPER
+# ============================================
+wallpaper_menu() {
+    WALLPAPER_BASE="$HOME/nixos/files/wallpapers"
+    WAYPAPER_CONFIG="$HOME/.config/waypaper/config.ini"
+
+    while true; do
+        choice=$(show_rofi "Wallpaper" \
+"󰸉  Change Wallpaper
+󰒭  Next Wallpaper
+󰉋  Open Wallpaper Folder
+←  Back")
+        rofi_exit=$?
+
+        if [[ $rofi_exit -eq 10 ]]; then
+            exit 0
+        fi
+
+        if [[ $rofi_exit -eq 11 ]]; then
+            break
+        fi
+
+        case "$choice" in
+            *"Change Wallpaper"*)
+                waypaper &
+                exit 0
+                ;;
+            *"Next Wallpaper"*)
+                # Get current wallpaper folder and file from waypaper config
+                if [[ -f "$WAYPAPER_CONFIG" ]]; then
+                    current_folder=$(grep "^folder" "$WAYPAPER_CONFIG" | cut -d'=' -f2 | xargs)
+                    current_folder="${current_folder/#\~/$HOME}"
+                    current_wallpaper=$(grep "^wallpaper" "$WAYPAPER_CONFIG" | cut -d'=' -f2 | xargs)
+                    current_name=$(basename "$current_wallpaper")
+
+                    # Get all wallpapers in folder
+                    mapfile -t wallpapers < <(find "$current_folder" -maxdepth 1 -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.jpeg" \) | sort)
+
+                    if [[ ${#wallpapers[@]} -gt 0 ]]; then
+                        # Find current index and get next
+                        next_wallpaper="${wallpapers[0]}"
+                        for i in "${!wallpapers[@]}"; do
+                            if [[ "$(basename "${wallpapers[$i]}")" == "$current_name" ]]; then
+                                next_idx=$(( (i + 1) % ${#wallpapers[@]} ))
+                                next_wallpaper="${wallpapers[$next_idx]}"
+                                break
+                            fi
+                        done
+
+                        # Set wallpaper with swww
+                        swww img "$next_wallpaper" --transition-type any --transition-duration 1 &
+
+                        # Update waypaper config
+                        sed -i "s|^wallpaper = .*|wallpaper = $next_wallpaper|" "$WAYPAPER_CONFIG"
+
+                        notify "Wallpaper: $(basename "$next_wallpaper")"
+                    else
+                        notify "No wallpapers found in folder"
+                    fi
+                else
+                    notify "Waypaper config not found"
+                fi
+                exit 0
+                ;;
+            *"Open Wallpaper Folder"*)
+                nautilus "$WALLPAPER_BASE" &
+                exit 0
+                ;;
+            *"Back"*|"") break ;;
+        esac
+    done
+}
+
+# ============================================
+# CONFIG
+# ============================================
+config_menu() {
+    while true; do
+        choice=$(show_rofi "Config" \
+"󰌌  Keybinds
+󰀻  Waybar
+󰍹  Monitors
+󱄅  NixOS Packages
+←  Back")
+        rofi_exit=$?
+
+        if [[ $rofi_exit -eq 10 ]]; then
+            exit 0
+        fi
+
+        if [[ $rofi_exit -eq 11 ]]; then
+            break
+        fi
+
+        case "$choice" in
+            *"Keybinds"*) edit_config "Keybinds" ~/.config/hypr/keybinds.conf ;;
+            *"Waybar"*) edit_config "Waybar" ~/.config/waybar/config.jsonc ;;
+            *"Monitors"*) edit_config "Monitors" ~/.config/hypr/monitors.conf ;;
+            *"NixOS Packages"*) edit_config "NixOS Packages" ~/nixos/home/simon/common-gui.nix ;;
+            *"Back"*|"") break ;;
+        esac
+    done
+}
+
+# ============================================
+# ENTRY POINT
+# ============================================
+main_menu

@@ -20,7 +20,6 @@
   stylix.targets.rofi.enable = false;
   stylix.targets.swaync.enable = false;
   stylix.targets.waybar.enable = true;
-  stylix.targets.wofi.enable = true;
   stylix.targets.yazi.enable = true;
   stylix.targets.zathura.enable = true;
   # todo: once spifetify is fixed

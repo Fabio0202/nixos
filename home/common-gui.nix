@@ -22,6 +22,8 @@
     hyprsunset # Screen color temperature adjustment for eye comfort
     stow # GNU Stow for dotfiles management
     rofi
+    bluetuith # TUI bluetooth manager
+    pulsemixer # TUI audio mixer
   ];
 
   services.blueman-applet.enable = true; # Enable system tray applet for Bluetooth
@@ -36,7 +38,6 @@
     ./modules/scripts.nix # Custom user scripts (helpers, automation, etc.)
     ./modules/stylix.nix # Stylix (theme management for GTK, GRUB, etc.)
     ./modules/icons-theme.nix # Icon theme configuration for GTK/desktop apps
-    ./modules/wofi.nix # Wofi (Wayland app launcher) setup
     ./modules/nwg-dock.nix # Dock/panel (like a taskbar for Wayland)
     ./modules/show-binds/default.nix # Show keybindings overlay/help popup
     ./modules/sunset-at-night.nix # Color temperature adjustment at night (like redshift)

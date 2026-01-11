@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
+# Base stow source directory (where config files live in git)
+STOW_BASE="$HOME/nixos/dotfiles/stow-common/.config"
+
 # Directory definitions
-KITTY_THEME_DIR="$HOME/nixos/dotfiles/stow-common/.config/kitty/themes"
+KITTY_THEME_DIR="$STOW_BASE/kitty/themes"
 CURRENT_THEME_FILE="$HOME/.config/.current-theme"
 
 # Available themes (based on kitty themes)
@@ -33,8 +36,13 @@ else
 fi
 
 # More directory definitions
+# Source directories (in stow/git) - used for symlink targets
+ROFI_THEME_SOURCE="$STOW_BASE/rofi"
+FIREFOX_THEME_SOURCE="$STOW_BASE/firefox-themes"
+TELEGRAM_THEME_SOURCE="$STOW_BASE/telegram-themes"
+
+# Runtime directories (in ~/.config) - where symlinks are created
 WAYBAR_THEME_DIR="$HOME/.config/waybar/themes"
-ROFI_THEME_DIR="$HOME/.config/rofi"
 ROFI_CURRENT="$HOME/.config/rofi/config.rasi"
 SWAYNC_THEME_DIR="$HOME/.config/swaync/themes"
 SWAYNC_CURRENT="$SWAYNC_THEME_DIR/current.css"
@@ -44,10 +52,8 @@ NWG_DOCK_THEME_DIR="$HOME/.config/nwg-dock-hyprland/themes"
 NWG_DOCK_CURRENT="$HOME/.config/nwg-dock-hyprland/style.css"
 WLOGOUT_THEME_DIR="$HOME/.config/wlogout/themes"
 WLOGOUT_STYLE="$HOME/.config/wlogout/style.css"
-FIREFOX_THEME_DIR="$HOME/.config/firefox-themes"
 FIREFOX_PROFILE_DIR="$HOME/.mozilla/firefox/z34ufndn.default"
 FIREFOX_CHROME_DIR="$FIREFOX_PROFILE_DIR/chrome"
-TELEGRAM_THEME_DIR="$HOME/.config/telegram-themes"
 TELEGRAM_CURRENT="$HOME/.config/telegram-themes/current.tdesktop-theme"
 WALLPAPER_BASE="$HOME/nixos/files/wallpapers"
 WALLPAPER_STATE="$WALLPAPER_BASE/.theme-state.json"
@@ -74,9 +80,9 @@ ln -sf "$KITTY_THEME_DIR/$THEME_NAME.conf" "$KITTY_THEME_DIR/current.conf"
 [ -f "$WAYBAR_THEME_DIR/$THEME_NAME.css" ] && \
     ln -sf "$WAYBAR_THEME_DIR/$THEME_NAME.css" "$WAYBAR_THEME_DIR/current.css"
 
-# Rofi
-[ -f "$ROFI_THEME_DIR/$THEME_NAME.rasi" ] && \
-    ln -sf "$ROFI_THEME_DIR/$THEME_NAME.rasi" "$ROFI_CURRENT"
+# Rofi - symlink to source file in stow directory
+[ -f "$ROFI_THEME_SOURCE/$THEME_NAME.rasi" ] && \
+    ln -sf "$ROFI_THEME_SOURCE/$THEME_NAME.rasi" "$ROFI_CURRENT"
 
 # swaync
 [ -f "$SWAYNC_THEME_DIR/$THEME_NAME.css" ] && \
@@ -106,16 +112,16 @@ cat > "$WLOGOUT_STYLE" << EOF
 @import url("base-styles.css");
 EOF
 
-# Firefox
-if [ -f "$FIREFOX_THEME_DIR/$THEME_NAME/chrome/userChrome.css" ]; then
+# Firefox - symlink to source files in stow directory
+if [ -f "$FIREFOX_THEME_SOURCE/$THEME_NAME/chrome/userChrome.css" ]; then
     mkdir -p "$FIREFOX_CHROME_DIR"
-    ln -sf "$FIREFOX_THEME_DIR/$THEME_NAME/chrome/userChrome.css" "$FIREFOX_CHROME_DIR/userChrome.css"
-    ln -sf "$FIREFOX_THEME_DIR/$THEME_NAME/chrome/userContent.css" "$FIREFOX_CHROME_DIR/userContent.css"
+    ln -sf "$FIREFOX_THEME_SOURCE/$THEME_NAME/chrome/userChrome.css" "$FIREFOX_CHROME_DIR/userChrome.css"
+    ln -sf "$FIREFOX_THEME_SOURCE/$THEME_NAME/chrome/userContent.css" "$FIREFOX_CHROME_DIR/userContent.css"
 fi
 
-# Telegram
-if [ -f "$TELEGRAM_THEME_DIR/$THEME_NAME.tdesktop-theme" ]; then
-    ln -sf "$TELEGRAM_THEME_DIR/$THEME_NAME.tdesktop-theme" "$TELEGRAM_CURRENT"
+# Telegram - symlink to source file in stow directory
+if [ -f "$TELEGRAM_THEME_SOURCE/$THEME_NAME.tdesktop-theme" ]; then
+    ln -sf "$TELEGRAM_THEME_SOURCE/$THEME_NAME.tdesktop-theme" "$TELEGRAM_CURRENT"
 fi
 
 # -------------------------
@@ -159,7 +165,7 @@ echo "✔ Config updated for: $THEME_NAME"
 # -------------------------
 # Wallpaper (first for immediate visual feedback)
 # -------------------------
-if [ -n "$NEW_WALLPAPER" ] && [ -f "$WALLPAPER_THEME_DIR/$NEW_WALLPAPER" ]; then
+if [ -n "$NEW_WALLPAPER" ] && [ -f "$WALLPAPER_THEME_DIR/$NEW_WALLPAPER" ] && command -v swww &>/dev/null; then
     swww img "$WALLPAPER_THEME_DIR/$NEW_WALLPAPER" --transition-type any --transition-duration 1 &
     echo "✔ Wallpaper set to: $NEW_WALLPAPER"
 fi
@@ -175,10 +181,12 @@ if kitty @ ls >/dev/null 2>&1; then
 fi
 
 # Waybar
-pkill waybar || true
-sleep 0.3
-waybar >/dev/null 2>&1 & disown
-echo "✔ Waybar restarted"
+if command -v waybar &>/dev/null; then
+    pkill waybar || true
+    sleep 0.3
+    waybar >/dev/null 2>&1 & disown
+    echo "✔ Waybar restarted"
+fi
 
 # swaync
 systemctl --user restart swaync 2>/dev/null && echo "✔ swaync restarted"
@@ -187,10 +195,12 @@ systemctl --user restart swaync 2>/dev/null && echo "✔ swaync restarted"
 systemctl --user restart swayosd 2>/dev/null && echo "✔ swayosd restarted"
 
 # nwg-dock
-pkill -f nwg-dock-hyprland || true
-sleep 0.2
-nwg-dock-hyprland -nolauncher -d -hd 0 -iw "special" >/dev/null 2>&1 &
-echo "✔ nwg-dock restarted"
+if command -v nwg-dock-hyprland &>/dev/null; then
+    pkill -f nwg-dock-hyprland || true
+    sleep 0.2
+    nwg-dock-hyprland -nolauncher -d -hd 0 -iw "special" >/dev/null 2>&1 &
+    echo "✔ nwg-dock restarted"
+fi
 
 # Firefox (notify only - don't force restart to avoid losing work)
 if [ -f "$FIREFOX_CHROME_DIR/userChrome.css" ]; then
@@ -198,7 +208,7 @@ if [ -f "$FIREFOX_CHROME_DIR/userChrome.css" ]; then
 fi
 
 # Telegram
-if [ -f "$TELEGRAM_CURRENT" ]; then
+if [ -f "$TELEGRAM_CURRENT" ] && command -v telegram-desktop &>/dev/null; then
     pkill -f telegram-desktop || true
     sleep 0.3
     telegram-desktop &>/dev/null & disown

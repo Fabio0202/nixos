@@ -12,10 +12,14 @@ A Rofi-based "Command Center" with nested sub-menus, back navigation, and state-
 - ✅ wl-clipboard installed
 
 ## What Needs Building
-- [ ] Core dispatcher script with back navigation
+- [x] Core dispatcher script with back navigation
 - [ ] NOPASSWD sudo rules for nixos-rebuild
 - [ ] cliphist integration
 - [ ] Sub-menus: System, Dev/Sync, Config, Utils, Media
+
+## Scripts Location
+Scripts live in `dotfiles/stow-common/.local/bin/` and are symlinked to `~/.local/bin/` via stow.
+No Nix rebuild required for script changes.
 
 ---
 
@@ -53,9 +57,8 @@ main_menu() {
 ```
 
 **Deliverables:**
-- [ ] `everything-menu.sh` - Main dispatcher script
-- [ ] Nix module to package it as `pkgs.everything-menu`
-- [ ] Keybind in hyprland (e.g., `Super+Space` or `Super+D`)
+- [x] `everything-menu` - Main dispatcher script (`dotfiles/stow-common/.local/bin/everything-menu`)
+- [x] Keybind in hyprland (`Super+E`)
 
 ---
 
@@ -224,40 +227,30 @@ now_playing=$(playerctl metadata --format '{{artist}} - {{title}}' 2>/dev/null |
 
 ---
 
-## Step 9: Nix Module & Keybind
+## Step 9: Keybind & Stow Setup
 
-**Package the script:**
-```nix
-# home/modules/everything-menu.nix
-{ pkgs, ... }: {
-  home.packages = [
-    (pkgs.writeShellScriptBin "everything-menu" (builtins.readFile ../scripts/everything-menu.sh))
-  ];
-}
-```
+**Script location:** `dotfiles/stow-common/.local/bin/everything-menu`
 
-**Add keybind:**
+**Keybind (already added):**
 ```conf
-# In keybinds.conf or keybinds.nix
-bind = $mainMod, D, exec, everything-menu
+# In keybinds.conf
+bind = $mainMod, E, exec, everything-menu
 ```
 
 **Deliverables:**
-- [ ] Nix module for the script
-- [ ] Keybind configuration
-- [ ] Required packages (cliphist, etc.)
+- [x] Script in stow directory
+- [x] Keybind configuration
+- [ ] Required packages in Nix (cliphist, etc.)
 
 ---
 
 ## Implementation Order
 
-| Phase | Steps | Complexity |
-|-------|-------|------------|
-| **Phase 1** | Step 1 (Core) + Step 2 (Sudo) | Foundation |
-| **Phase 2** | Step 3 (System) + Step 4 (Dev/Sync) | High value |
-| **Phase 3** | Step 5 (Config) + Step 6 (Utils) | Medium |
-| **Phase 4** | Step 7 (Media) + Step 8 (Styles) | Polish |
-| **Phase 5** | Step 9 (Nix integration) | Final |
+| Phase | Steps | Status |
+|-------|-------|--------|
+| **Phase 1** | Step 1 (Core) + Step 9 (Keybind) | ✅ Done |
+| **Phase 2** | Step 2 (Sudo) | Foundation |
+| **Phase 3** | Steps 3-8 already implemented in script | Polish & Testing |
 
 ---
 
@@ -286,7 +279,7 @@ exec-once = wl-paste --type image --watch cliphist store
 
 ## Testing Checklist
 
-- [ ] Main menu opens with `Super+D`
+- [ ] Main menu opens with `Super+E`
 - [ ] Back button returns to parent menu
 - [ ] Escape closes menu entirely
 - [ ] Git sync detects conflicts correctly
