@@ -77,6 +77,6 @@ ${cfg.content}THEMEEOF
   themeFiles);
 in {
   home.activation.createThemeDefaults = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    run ${createScript}
+    run bash -c ${lib.escapeShellArg createScript}
   '';
 }
