@@ -10,6 +10,7 @@
     hyprpicker # Color picker tool compatible with Hyprland
     grim # Screenshot utility for Wayland, works well with slurp for selective screenshots
     slurp # Selection tool for Wayland, often used with grim to capture selected screen regions
+    swappy # Screenshot annotation tool
     wl-clip-persist # Clipboard manager for Wayland, keeps clipboard content after the app closes
     wf-recorder # Screen recording tool for Wayland, compatible with Hyprland
     hyprcursor

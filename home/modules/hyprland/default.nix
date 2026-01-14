@@ -13,7 +13,7 @@
     ./swaync.nix
     ./swayosd.nix
 
-    # ./config/default.nix # DISABLED - using traditional config
+    ./config/default.nix # Plugin installation (config via stow)
     ./hyprlock.nix
     ./swww.nix
     ./hypridle.nix

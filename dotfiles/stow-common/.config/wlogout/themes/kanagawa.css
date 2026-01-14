@@ -1,0 +1,22 @@
+/* Kanagawa Color Variables */
+@define-color foreground #dcd7ba;
+@define-color background rgba(31, 31, 40, 0.85);
+@define-color cursor #dcd7ba;
+
+/* 16-color palette */
+@define-color color0 #1f1f28;
+@define-color color1 #c34043;
+@define-color color2 #76946a;
+@define-color color3 #c0a36e;
+@define-color color4 #7e9cd8;
+@define-color color5 #957fb8;
+@define-color color6 #6a9589;
+@define-color color7 #dcd7ba;
+@define-color color8 #2a2a37;
+@define-color color9 #c34043;
+@define-color color10 #76946a;
+@define-color color11 #c0a36e;
+@define-color color12 #7e9cd8;
+@define-color color13 #957fb8;
+@define-color color14 #6a9589;
+@define-color color15 #c8c093;

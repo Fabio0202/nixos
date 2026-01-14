@@ -1,0 +1,22 @@
+/* Nord theme for nwg-dock */
+window {
+  background: #2e3440;
+  border-color: #434c5e;
+}
+
+#active {
+  border-color: #88c0d0;
+}
+
+button,
+image {
+  color: #a3abb8;
+}
+
+button {
+  color: #d8dee9;
+}
+
+button:hover {
+  background-color: #3b4252;
+}

@@ -3,73 +3,7 @@
   lib,
   pkgs,
   ...
-}: let
-  myAliases = {
-    mkdir = "mkdir -p";
-    ssh-allow = "sudo systemctl start sshd";
-    ssh-deny = "sudo systemctl stop sshd";
-    l = "eza --icons";
-    oc = "opencode";
-    ls = "eza --icons";
-    ping = "gping";
-    lst = "ls -T -L=2";
-    fl = "y";
-    lf = "y";
-    nivm = "nvim";
-    open = "xdg-open";
-    ll = "eza -lha --icons=auto --sort=name --group-directories-first";
-    c = "z";
-    lg = "ls | grep";
-    ".." = "cd ..";
-    "..." = "cd ../..";
-    cd = "z";
-    ci = "zi";
-    b = "cd ..";
-    gg = "lazygit";
-    cadd = "zoxide add";
-    cdadd = "zoxide add";
-    t = "task";
-    tt = "taskwarrior-tui";
-    td = "task done"; #task wird als done markiert
-    ta = "task add";
-    tm = "task modify";
-    pip = "pip-global";
-    pip3 = "pip-global";
-    python = "python-global";
-    python3 = "python-global";
-    mkpy = ''
-        poetry init -n --python "^3.12"
-        poetry env use $(which python3)
-        poetry install --no-root
-
-        cat > .envrc <<'EOF'
-      # use Poetry's virtualenv automatically
-      PYTHON_FULL=$(which python3)
-
-      # ensure venv is built with the correct Python
-      if ! poetry env info -p 2>/dev/null | grep -q "$PYTHON_FULL"; then
-        echo "🔁 Rebuilding Poetry venv using $PYTHON_FULL..."
-        poetry env use "$PYTHON_FULL"
-        poetry install --no-root
-      fi
-
-      # activate venv so "python" and "pip" work directly
-      VENV_PATH=$(poetry env info --path 2>/dev/null || true)
-      if [ -n "$VENV_PATH" ] && [ -d "$VENV_PATH" ]; then
-        source "$VENV_PATH/bin/activate"
-        echo "✅ Activated Poetry virtualenv"
-      else
-        echo "⚠️ No Poetry virtualenv found. Run 'poetry install'."
-      fi
-      EOF
-
-        direnv allow
-        echo "✓ Project ready! Type 'python main.py' directly."
-    '';
-  };
-  tc = "task context";
-  rm = "trash-put";
-in {
+}: {
   # to make sure global npm packages and local binaries are accessible
   home.sessionPath = [
     "$HOME/.local/bin"
@@ -80,10 +14,6 @@ in {
     enableZshIntegration = true;
   };
 
-  programs.ssh.extraConfig = ''
-    ServerAliveInterval 30
-    ServerAliveCountMax 3
-  '';
   programs.fzf.enable = true;
   programs.fish.enable = false;
 
@@ -91,24 +21,23 @@ in {
     export PATH="$HOME/.npm-global/bin:$PATH"
   '';
   programs.zsh.initExtra = ''
-              source ~/.p10k.zsh
-            function fzf() {
-              local selected_file
-              selected_file=$(command fzf) || return
-              xdg-open "$selected_file"
-            }
-              function y() {
-              	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-              	yazi "$@" --cwd-file="$tmp"
-              	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-              		builtin cd -- "$cwd"
-              	fi
-              	rm -f -- "$tmp"
-              }
+    source ~/.p10k.zsh
+    source ~/.zsh/aliases.zsh
 
-      # Show a chemistry fun fact at shell startupaugustine's confessions
-     # misfortune science | cowsay -f tux | lolcat
-    alias update="sudo nixos-rebuild switch --flake ~/nixos#$(hostname) --impure"
+    function fzf() {
+      local selected_file
+      selected_file=$(command fzf) || return
+      xdg-open "$selected_file"
+    }
+
+    function y() {
+      local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+      yazi "$@" --cwd-file="$tmp"
+      if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        builtin cd -- "$cwd"
+      fi
+      rm -f -- "$tmp"
+    }
   '';
   programs.zsh = {
     enable = true;
@@ -145,7 +74,6 @@ in {
     oh-my-zsh = {
       enable = true;
     };
-    shellAliases = myAliases;
   };
 
   home.packages = with pkgs; [

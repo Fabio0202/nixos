@@ -1,0 +1,19 @@
+/* =========================
+   THEME TOKENS (Nord)
+   ========================= */
+
+@define-color bg #2e3440;
+@define-color fg #d8dee9;
+@define-color fg-muted #a3abb8;
+
+@define-color surface-0 #3b4252;
+@define-color surface-1 #434c5e;
+@define-color surface-2 #4c566a;
+
+@define-color accent-primary #88c0d0;
+@define-color accent-secondary #81a1c1;
+@define-color accent-success #a3be8c;
+@define-color accent-warning #ebcb8b;
+@define-color accent-danger #bf616a;
+@define-color accent-info #5e81ac;
+@define-color accent-special #b48ead;

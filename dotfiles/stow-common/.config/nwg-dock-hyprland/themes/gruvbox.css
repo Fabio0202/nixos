@@ -1,0 +1,22 @@
+/* Gruvbox theme for nwg-dock */
+window {
+  background: #282828;
+  border-color: #504945;
+}
+
+#active {
+  border-color: #fe8019;
+}
+
+button,
+image {
+  color: #d5c4a1;
+}
+
+button {
+  color: #ebdbb2;
+}
+
+button:hover {
+  background-color: #3c3836;
+}

@@ -1,0 +1,42 @@
+/* Rose Pine - Firefox Content Styles */
+:root {
+  --bg: #191724;
+  --fg: #e0def4;
+  --surface-0: #1f1d2e;
+  --surface-1: #26233a;
+  --accent-primary: #9ccfd8;
+}
+
+/* New Tab Page */
+@-moz-document url("about:newtab"), url("about:home") {
+  body {
+    background-color: var(--bg) !important;
+  }
+
+  .search-wrapper .search-handoff-button {
+    background-color: var(--surface-0) !important;
+    border: 1px solid var(--surface-1) !important;
+  }
+
+  .search-wrapper .search-handoff-button .fake-caret {
+    color: var(--fg) !important;
+  }
+
+  .top-site-outer .title {
+    color: var(--fg) !important;
+  }
+}
+
+/* Blank page */
+@-moz-document url("about:blank") {
+  body {
+    background-color: var(--bg) !important;
+  }
+}
+
+/* Private browsing page */
+@-moz-document url("about:privatebrowsing") {
+  body {
+    background-color: var(--bg) !important;
+  }
+}

@@ -1,0 +1,24 @@
+/* Kanagawa palette */
+@define-color base   #1f1f28;
+@define-color mantle #16161d;
+@define-color crust  #090618;
+@define-color text   #dcd7ba;
+@define-color subtext0 #c8c093;
+@define-color subtext1 #727169;
+@define-color overlay0 #2a2a37;
+@define-color overlay1 #363646;
+@define-color overlay2 #54546d;
+@define-color blue   #7e9cd8;
+@define-color lavender #957fb8;
+@define-color sapphire #6a9589;
+@define-color sky    #6a9589;
+@define-color teal   #6a9589;
+@define-color green  #76946a;
+@define-color yellow #c0a36e;
+@define-color peach  #ffa066;
+@define-color maroon #ffa066;
+@define-color red    #c34043;
+@define-color mauve  #957fb8;
+@define-color pink   #957fb8;
+@define-color flamingo #c8c093;
+@define-color rosewater #c8c093;

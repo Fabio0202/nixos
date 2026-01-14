@@ -1,40 +1,13 @@
 {
   pkgs,
   inputs,
-  config,
-  pkgs-unstable,
   ...
-}: let
-in {
-  # DISABLED: Using traditional dotfiles instead
-  # imports = [
-  #   ./keybinds.nix
-  #   ./animations.nix
-  #   ./touch-gestures.nix
-  #   ./windowrules.nix
-  #   ./blur.nix
-  #   ./monitors.nix
-  # ];
+}: {
+  # Plugins are installed via Nix, configuration is in stow (~/.config/hypr/)
 
   home.packages = with pkgs; [
     rose-pine-cursor
   ];
-
-  systemd.user.services.waybar = {
-    Unit = {
-      Description = "Waybar";
-      After = ["graphical-session.target"];
-      PartOf = ["graphical-session.target"];
-    };
-    Service = {
-      ExecStart = "${pkgs.waybar}/bin/waybar -c %h/.config/waybar/config.json --log-level=error";
-      Restart = "always";
-      RestartSec = 2;
-      StandardOutput = "append:%h/.cache/waybar.log";
-      StandardError = "append:%h/.cache/waybar.log";
-    };
-    Install.WantedBy = ["graphical-session.target"];
-  };
 
   home.sessionVariables = {
     HYPRCURSOR_THEME = "rose-pine-hyprcursor";
@@ -44,43 +17,15 @@ in {
   };
 
   wayland.windowManager.hyprland = {
+    enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     plugins = [
       inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo
-      # inputs.hyprtasking.packages.${pkgs.system}.hyprtasking
       inputs.hypr-dynamic-cursors.packages.${pkgs.system}.hypr-dynamic-cursors
-      # inputs.hyprland-plugins.packages.${pkgs.system}.hyprspace
     ];
-
-    enable = true;
-
-    # DISABLED: Using traditional dotfiles managed with GNU Stow
-    # Configuration is now in ~/dotfiles/stow-common/hyprland/.config/hypr/hyprland.conf
-    # settings = {
-    #   misc = {
-    #     disable_hyprland_logo = true;
-    #     disable_splash_rendering = true;
-    #   };
-    #   plugin = {
-    #     dynamic-cursors = {
-    #       enable = true;
-    #       mode = "stretch";
-    #     };
-    #   };
-    #   input = import ./input.nix;
-    # };
-    # extraConfig = ''
-    #         monitor=,preferred,auto,auto
-    #         exec-once = nwg-dock-hyprland -nolauncher -d -hd 0 -iw "special"
-    #         exec-once = udiskie -a
-    #         exec-once = hypridle
-    #         exec-once = ags
-    #   exec-once = waypaper --restore
-    #         xwayland {
-    #           force_zero_scaling = true;
-    #         }
-    #         exec-once = nm-applet --indicator
-    # '';
+    # Minimal HM config - just load plugins and source stow-managed config
+    extraConfig = ''
+      source = ~/.config/hypr/hyprland-stow.conf
+    '';
   };
-  systemd.user.services.ax-shell = {};
 }

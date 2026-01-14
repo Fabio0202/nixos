@@ -8,7 +8,7 @@ ROFI_OPTS="-dmenu -i -markup-rows"
 show_rofi() {
     local prompt="$1"
     shift
-    echo -e "$@" | rofi $ROFI_OPTS -kb-cancel "" -kb-remove-char-back "" -kb-custom-1 "Escape" -kb-custom-2 "BackSpace" -p "$prompt"
+    echo -e "$@" | rofi $ROFI_OPTS -kb-cancel "" -kb-custom-1 "Escape" -p "$prompt"
     return $?
 }
 
@@ -32,6 +32,17 @@ main_menu() {
             sunset_entry="󱩐  Hyprsunset (OFF)"
         fi
 
+        # Check timer state
+        timer_status=$(timer status 2>/dev/null)
+        if [[ "$timer_status" == "ringing" ]]; then
+            timer_entry="󰂞  Timer (ALARM!)"
+        elif [[ "$timer_status" == "running" ]]; then
+            timer_remaining=$(timer remaining 2>/dev/null)
+            timer_entry="󰄉  Timer ($timer_remaining)"
+        else
+            timer_entry="󰄉  Timer"
+        fi
+
         choice=$(show_rofi "Menu" \
 "󰒓  System
 󰖩  Wi-Fi
@@ -42,15 +53,13 @@ main_menu() {
 󰗀  Themes
 󰸉  Wallpaper
 󰒼  Config
+󰣀  SSH
+$timer_entry
 󰏘  Color Picker
 $sunset_entry")
         rofi_exit=$?
 
         if [[ $rofi_exit -eq 10 ]]; then
-            exit 0
-        fi
-
-        if [[ $rofi_exit -eq 11 ]]; then
             exit 0
         fi
 
@@ -64,6 +73,8 @@ $sunset_entry")
             *"Themes"*) themes_menu ;;
             *"Wallpaper"*) wallpaper_menu ;;
             *"Config"*) config_menu ;;
+            *"SSH"*) ssh_menu ;;
+            *"Timer"*) timer_menu ;;
             *"Color Picker"*)
                 color=$(hyprpicker -a)
                 [[ -n "$color" ]] && notify "Copied: $color"
@@ -96,10 +107,6 @@ system_menu() {
         rofi_exit=$?
 
         if [[ $rofi_exit -eq 10 ]]; then
-            exit 0
-        fi
-
-        if [[ $rofi_exit -eq 11 ]]; then
             break
         fi
 
@@ -108,6 +115,112 @@ system_menu() {
             *"Reboot"*) systemctl reboot ;;
             *"Suspend"*) systemctl suspend ;;
             *"Lock"*) hyprlock ;;
+            *"Back"*|"") break ;;
+        esac
+    done
+}
+
+# ============================================
+# SSH
+# ============================================
+ssh_menu() {
+    # Parse SSH config for hosts (excluding wildcards)
+    hosts=$(grep -E "^Host " ~/.ssh/config 2>/dev/null | awk '{print $2}' | grep -v '\*')
+
+    if [[ -z "$hosts" ]]; then
+        notify "No SSH hosts found in ~/.ssh/config"
+        return
+    fi
+
+    # Build menu entries
+    menu_entries=$(echo "$hosts" | while read -r host; do
+        echo "󰣀  $host"
+    done)
+    menu_entries="$menu_entries
+←  Back"
+
+    while true; do
+        choice=$(show_rofi "SSH" "$menu_entries")
+        rofi_exit=$?
+
+        if [[ $rofi_exit -eq 10 ]]; then
+            break
+        fi
+
+        case "$choice" in
+            *"Back"*|"") break ;;
+            *)
+                # Extract hostname from selection
+                host=$(echo "$choice" | sed 's/󰣀  //')
+                kitty --title "SSH: $host" -e ssh "$host" &
+                exit 0
+                ;;
+        esac
+    done
+}
+
+# ============================================
+# TIMER
+# ============================================
+timer_menu() {
+    while true; do
+        # Check timer state for dynamic menu
+        timer_status=$(timer status 2>/dev/null)
+
+        if [[ "$timer_status" == "ringing" ]]; then
+            choice=$(show_rofi "Timer (ALARM!)" \
+"󰂛  Dismiss Alarm
+←  Back")
+        elif [[ "$timer_status" == "running" ]]; then
+            timer_remaining=$(timer remaining 2>/dev/null)
+            choice=$(show_rofi "Timer ($timer_remaining)" \
+"󰜺  Cancel Timer
+←  Back")
+        else
+            choice=$(show_rofi "Timer" \
+"󰄉  Set Timer
+󰥔  5 minutes
+󰥔  10 minutes
+󰥔  15 minutes
+󰥔  30 minutes
+←  Back")
+        fi
+        rofi_exit=$?
+
+        if [[ $rofi_exit -eq 10 ]]; then
+            exit 0
+        fi
+
+        case "$choice" in
+            *"Dismiss"*)
+                timer dismiss
+                ;;
+            *"Cancel"*)
+                timer cancel
+                ;;
+            *"Set Timer"*)
+                minutes=$(rofi -dmenu -p "Minutes" -theme-str 'entry { placeholder: "Enter minutes..."; }')
+                if [[ -n "$minutes" && "$minutes" =~ ^[0-9]+$ ]]; then
+                    timer set "$minutes"
+                    exit 0
+                fi
+                ;;
+            *"5 minutes"*)
+                timer set 5
+                exit 0
+                ;;
+            *"10 minutes"*)
+                timer set 10
+                exit 0
+                ;;
+            *"15 minutes"*)
+                timer set 15
+                exit 0
+                ;;
+            *"30 minutes"*)
+                timer set 30
+                exit 0
+                ;;
             *"Back"*|"") break ;;
         esac
     done
@@ -135,10 +248,6 @@ $toggle_entry
         rofi_exit=$?
 
         if [[ $rofi_exit -eq 10 ]]; then
-            exit 0
-        fi
-
-        if [[ $rofi_exit -eq 11 ]]; then
             break
         fi
 
@@ -224,10 +333,6 @@ $toggle_entry
         rofi_exit=$?
 
         if [[ $rofi_exit -eq 10 ]]; then
-            exit 0
-        fi
-
-        if [[ $rofi_exit -eq 11 ]]; then
             break
         fi
 
@@ -312,10 +417,6 @@ $mute_entry
         rofi_exit=$?
 
         if [[ $rofi_exit -eq 10 ]]; then
-            exit 0
-        fi
-
-        if [[ $rofi_exit -eq 11 ]]; then
             break
         fi
 
@@ -382,29 +483,48 @@ $mute_entry
 # SCREENSHOTS
 # ============================================
 screenshots_menu() {
+    RECORDINGS_DIR="$HOME/Videos/Recordings"
+
     while true; do
         choice=$(show_rofi "Screenshots" \
-"󰹑  Screenshot Area
-󰹑  Screenshot Full
+"󰹑  Area → Clipboard
+󰹑  Full → Clipboard
+󰏫  Area → Edit → Clipboard
+󰕧  Record Area
 ←  Back")
         rofi_exit=$?
 
         if [[ $rofi_exit -eq 10 ]]; then
-            exit 0
-        fi
-
-        if [[ $rofi_exit -eq 11 ]]; then
             break
         fi
 
         case "$choice" in
-            *"Area"*)
+            *"Area → Clipboard"*)
                 grim -g "$(slurp)" - | wl-copy
                 notify "Screenshot copied to clipboard"
                 ;;
-            *"Full"*)
+            *"Full → Clipboard"*)
                 grim - | wl-copy
                 notify "Screenshot copied to clipboard"
+                ;;
+            *"Edit"*)
+                grim -g "$(slurp)" - | swappy -f -
+                ;;
+            *"Record Area"*)
+                mkdir -p "$RECORDINGS_DIR"
+                filename="$RECORDINGS_DIR/recording-$(date +%Y%m%d-%H%M%S).mp4"
+                notify "Select area, recording starts in 3s..."
+                geometry=$(slurp)
+                if [[ -n "$geometry" ]]; then
+                    sleep 3
+                    notify "Recording... Press Super+Shift+R to stop"
+                    wf-recorder -g "$geometry" -f "$filename"
+                    if [[ -f "$filename" ]]; then
+                        echo -n "$filename" | wl-copy
+                        notify "Saved: $(basename "$filename")\n(Path copied to clipboard)"
+                        nautilus "$RECORDINGS_DIR" &
+                    fi
+                fi
                 ;;
             *"Back"*|"") break ;;
         esac
@@ -440,10 +560,6 @@ $play_entry
         rofi_exit=$?
 
         if [[ $rofi_exit -eq 10 ]]; then
-            exit 0
-        fi
-
-        if [[ $rofi_exit -eq 11 ]]; then
             break
         fi
 
@@ -461,42 +577,57 @@ $play_entry
 # THEMES
 # ============================================
 themes_menu() {
+    local theme_cmd="$HOME/nixos/dotfiles/stow-common/.local/bin/theme"
+    if [[ ! -x "$theme_cmd" ]]; then
+        theme_cmd="$HOME/.local/bin/theme"
+    fi
+
     while true; do
         current_theme=$(cat ~/.config/.current-theme 2>/dev/null || echo "unknown")
 
         choice=$(show_rofi "Themes ($current_theme)" \
 "󰔎  Catppuccin Mocha
-󰖔  Catppuccin Latte
 󰌪  Everforest
+󰗀  Rose Pine
+󰛩  Gruvbox
+󰒘  Kanagawa
+󰍂  Nord
 󰒲  Cycle
 ←  Back")
         rofi_exit=$?
 
         if [[ $rofi_exit -eq 10 ]]; then
-            exit 0
-        fi
-
-        if [[ $rofi_exit -eq 11 ]]; then
             break
         fi
 
         case "$choice" in
             *"Catppuccin Mocha"*)
-                theme catppuccin-mocha
-                notify "Theme: Catppuccin Mocha"
-                ;;
-            *"Catppuccin Latte"*)
-                theme catppuccin-latte-minimal
-                notify "Theme: Catppuccin Latte"
+                "$theme_cmd" catppuccin-mocha && notify "Theme: Catppuccin Mocha" || notify "Theme switch failed"
+                exit 0
                 ;;
             *"Everforest"*)
-                theme everforest
-                notify "Theme: Everforest"
+                "$theme_cmd" everforest && notify "Theme: Everforest" || notify "Theme switch failed"
+                exit 0
+                ;;
+            *"Rose Pine"*)
+                "$theme_cmd" rose-pine && notify "Theme: Rose Pine" || notify "Theme switch failed"
+                exit 0
+                ;;
+            *"Gruvbox"*)
+                "$theme_cmd" gruvbox && notify "Theme: Gruvbox" || notify "Theme switch failed"
+                exit 0
+                ;;
+            *"Kanagawa"*)
+                "$theme_cmd" kanagawa && notify "Theme: Kanagawa" || notify "Theme switch failed"
+                exit 0
+                ;;
+            *"Nord"*)
+                "$theme_cmd" nord && notify "Theme: Nord" || notify "Theme switch failed"
+                exit 0
                 ;;
             *"Cycle"*)
-                theme
-                current=$(cat ~/.config/.current-theme 2>/dev/null)
-                notify "Theme: $current"
+                "$theme_cmd" && current=$(cat ~/.config/.current-theme 2>/dev/null) && notify "Theme: $current" || notify "Theme cycle failed"
+                exit 0
                 ;;
             *"Back"*|"") break ;;
         esac
@@ -519,10 +650,6 @@ wallpaper_menu() {
         rofi_exit=$?
 
         if [[ $rofi_exit -eq 10 ]]; then
-            exit 0
-        fi
-
-        if [[ $rofi_exit -eq 11 ]]; then
             break
         fi
 
@@ -587,14 +714,12 @@ config_menu() {
 󰀻  Waybar
 󰍹  Monitors
 󱄅  NixOS Packages
+󰘳  Shell Aliases
+󰣀  SSH Clients
 ←  Back")
         rofi_exit=$?
 
         if [[ $rofi_exit -eq 10 ]]; then
-            exit 0
-        fi
-
-        if [[ $rofi_exit -eq 11 ]]; then
             break
         fi
 
@@ -603,6 +728,8 @@ config_menu() {
             *"Waybar"*) edit_config "Waybar" ~/.config/waybar/config.jsonc ;;
             *"Monitors"*) edit_config "Monitors" ~/.config/hypr/monitors.conf ;;
             *"NixOS Packages"*) edit_config "NixOS Packages" ~/nixos/home/simon/common-gui.nix ;;
+            *"Shell Aliases"*) edit_config "Shell Aliases" ~/.zsh/aliases.zsh ;;
+            *"SSH Clients"*) edit_config "SSH Config" ~/.ssh/config ;;
             *"Back"*|"") break ;;
         esac
     done

@@ -1,0 +1,382 @@
+// Rose Pine for Telegram Desktop
+
+windowBg: #191724;
+windowFg: #e0def4;
+windowBgOver: #1f1d2e;
+windowBgRipple: #26233a;
+windowFgOver: #e0def4;
+windowSubTextFg: #908caa;
+windowSubTextFgOver: #e0def4;
+windowBoldFg: #e0def4;
+windowBoldFgOver: #e0def4;
+windowBgActive: #9ccfd8;
+windowFgActive: #191724;
+windowActiveTextFg: #9ccfd8;
+windowShadowFg: #191724;
+windowShadowFgFallback: #191724;
+
+shadowFg: #19172400;
+slideFadeOutBg: #191724;
+slideFadeOutShadowFg: #191724;
+
+imageBg: #191724;
+imageBgTransparent: #191724;
+
+activeButtonBg: #9ccfd8;
+activeButtonBgOver: #c4a7e7;
+activeButtonBgRipple: #31748f;
+activeButtonFg: #191724;
+activeButtonFgOver: #191724;
+activeButtonSecondaryFg: #e0def4;
+activeButtonSecondaryFgOver: #e0def4;
+activeLineFg: #9ccfd8;
+activeLineFgError: #eb6f92;
+
+lightButtonBg: #191724;
+lightButtonBgOver: #1f1d2e;
+lightButtonBgRipple: #26233a;
+lightButtonFg: #9ccfd8;
+lightButtonFgOver: #9ccfd8;
+
+attentionButtonFg: #eb6f92;
+attentionButtonFgOver: #eb6f92;
+attentionButtonBgOver: #26233a;
+attentionButtonBgRipple: #403d52;
+
+outlineButtonBg: #191724;
+outlineButtonBgOver: #1f1d2e;
+outlineButtonOutlineFg: #9ccfd8;
+outlineButtonBgRipple: #26233a;
+
+menuBg: #191724;
+menuBgOver: #1f1d2e;
+menuBgRipple: #26233a;
+menuIconFg: #908caa;
+menuIconFgOver: #e0def4;
+menuSubmenuArrowFg: #6e6a86;
+menuFgDisabled: #6e6a86;
+menuSeparatorFg: #1f1d2e;
+
+scrollBarBg: #9ccfd899;
+scrollBarBgOver: #9ccfd8cc;
+scrollBg: #1f1d2e66;
+scrollBgOver: #26233a99;
+
+smallCloseIconFg: #6e6a86;
+smallCloseIconFgOver: #e0def4;
+
+radialFg: #e0def4;
+radialBg: #191724;
+
+placeholderFg: #6e6a86;
+placeholderFgActive: #908caa;
+inputBorderFg: #1f1d2e;
+filterInputBorderFg: #9ccfd8;
+filterInputInactiveBg: #1f1d2e;
+checkboxFg: #6e6a86;
+
+dialogsMenuIconFg: #908caa;
+dialogsMenuIconFgOver: #e0def4;
+dialogsBg: #191724;
+dialogsBgOver: #1f1d2e;
+dialogsBgActive: #1f1d2e;
+dialogsBgRipple: #26233a;
+dialogsNameFg: #e0def4;
+dialogsNameFgOver: #e0def4;
+dialogsChatIconFg: #9ccfd8;
+dialogsChatIconFgOver: #9ccfd8;
+dialogsChatIconFgActive: #9ccfd8;
+dialogsDateFg: #908caa;
+dialogsDateFgOver: #908caa;
+dialogsDateFgActive: #908caa;
+dialogsTextFg: #908caa;
+dialogsTextFgOver: #908caa;
+dialogsTextFgActive: #e0def4;
+dialogsTextFgService: #9ccfd8;
+dialogsTextFgServiceOver: #9ccfd8;
+dialogsTextFgServiceActive: #9ccfd8;
+dialogsDraftFg: #eb6f92;
+dialogsDraftFgOver: #eb6f92;
+dialogsDraftFgActive: #eb6f92;
+dialogsVerifiedIconBg: #9ccfd8;
+dialogsVerifiedIconFg: #191724;
+dialogsSendingIconFg: #9ccfd8;
+dialogsSentIconFg: #31748f;
+dialogsUnreadBg: #9ccfd8;
+dialogsUnreadBgOver: #9ccfd8;
+dialogsUnreadBgActive: #9ccfd8;
+dialogsUnreadBgMuted: #403d52;
+dialogsUnreadBgMutedOver: #403d52;
+dialogsUnreadBgMutedActive: #403d52;
+dialogsUnreadFg: #191724;
+dialogsUnreadFgOver: #191724;
+dialogsUnreadFgActive: #191724;
+dialogsOnlineBadgeFg: #31748f;
+dialogsScamFg: #eb6f92;
+dialogsForwardBg: #9ccfd8;
+dialogsForwardFg: #191724;
+
+historyTextInFg: #e0def4;
+historyTextInFgSelected: #e0def4;
+historyTextOutFg: #e0def4;
+historyTextOutFgSelected: #e0def4;
+historyLinkInFg: #9ccfd8;
+historyLinkInFgSelected: #9ccfd8;
+historyLinkOutFg: #9ccfd8;
+historyLinkOutFgSelected: #9ccfd8;
+historyFileNameInFg: #e0def4;
+historyFileNameInFgSelected: #e0def4;
+historyFileNameOutFg: #e0def4;
+historyFileNameOutFgSelected: #e0def4;
+historyOutIconFg: #31748f;
+historyOutIconFgSelected: #31748f;
+historyIconFgInverted: #191724;
+historySendingOutIconFg: #9ccfd8;
+historySendingInIconFg: #9ccfd8;
+historySendingInvertedIconFg: #e0def4;
+
+historySystemBg: #403d52;
+historySystemBgSelected: #6e6a86;
+historySystemFg: #e0def4;
+
+historyUnreadBarBg: #1f1d2e;
+historyUnreadBarBorder: #1f1d2e;
+historyUnreadBarFg: #908caa;
+
+historyForwardChooseBg: #191724cc;
+historyForwardChooseFg: #e0def4;
+
+historyPeer1NameFg: #eb6f92;
+historyPeer1UserpicBg: #eb6f92;
+historyPeer2NameFg: #ebbcba;
+historyPeer2UserpicBg: #ebbcba;
+historyPeer3NameFg: #f6c177;
+historyPeer3UserpicBg: #f6c177;
+historyPeer4NameFg: #31748f;
+historyPeer4UserpicBg: #31748f;
+historyPeer5NameFg: #9ccfd8;
+historyPeer5UserpicBg: #9ccfd8;
+historyPeer6NameFg: #c4a7e7;
+historyPeer6UserpicBg: #c4a7e7;
+historyPeer7NameFg: #9ccfd8;
+historyPeer7UserpicBg: #9ccfd8;
+historyPeer8NameFg: #ebbcba;
+historyPeer8UserpicBg: #ebbcba;
+historyPeerUserpicFg: #191724;
+
+historyScrollBarBg: #9ccfd899;
+historyScrollBarBgOver: #9ccfd8cc;
+historyScrollBg: #1f1d2e66;
+historyScrollBgOver: #26233a99;
+
+msgInBg: #1f1d2e;
+msgInBgSelected: #26233a;
+msgOutBg: #26233a;
+msgOutBgSelected: #403d52;
+msgSelectOverlay: #9ccfd844;
+msgStickerOverlay: #9ccfd844;
+msgInServiceFg: #9ccfd8;
+msgInServiceFgSelected: #9ccfd8;
+msgOutServiceFg: #9ccfd8;
+msgOutServiceFgSelected: #9ccfd8;
+msgInShadow: #19172422;
+msgInShadowSelected: #19172444;
+msgOutShadow: #19172422;
+msgOutShadowSelected: #19172444;
+msgInDateFg: #908caa;
+msgInDateFgSelected: #908caa;
+msgOutDateFg: #908caa;
+msgOutDateFgSelected: #908caa;
+msgServiceFg: #e0def4;
+msgServiceBg: #403d52;
+msgServiceBgSelected: #6e6a86;
+msgInReplyBarColor: #9ccfd8;
+msgInReplyBarSelColor: #9ccfd8;
+msgOutReplyBarColor: #9ccfd8;
+msgOutReplyBarSelColor: #9ccfd8;
+msgImgReplyBarColor: #9ccfd8;
+msgInMonoFg: #31748f;
+msgOutMonoFg: #31748f;
+msgInMonoFgSelected: #31748f;
+msgOutMonoFgSelected: #31748f;
+msgDateImgFg: #e0def4;
+msgDateImgBg: #191724cc;
+msgDateImgBgOver: #191724dd;
+msgDateImgBgSelected: #191724ee;
+
+msgFileThumbLinkInFg: #9ccfd8;
+msgFileThumbLinkInFgSelected: #9ccfd8;
+msgFileThumbLinkOutFg: #9ccfd8;
+msgFileThumbLinkOutFgSelected: #9ccfd8;
+msgFileInBg: #9ccfd8;
+msgFileInBgOver: #c4a7e7;
+msgFileInBgSelected: #31748f;
+msgFileOutBg: #9ccfd8;
+msgFileOutBgOver: #c4a7e7;
+msgFileOutBgSelected: #31748f;
+
+msgFile1Bg: #9ccfd8;
+msgFile1BgDark: #7aa2f7;
+msgFile1BgOver: #c4a7e7;
+msgFile1BgSelected: #31748f;
+msgFile2Bg: #31748f;
+msgFile2BgDark: #94d99b;
+msgFile2BgOver: #b8f0b3;
+msgFile2BgSelected: #87d686;
+msgFile3Bg: #eb6f92;
+msgFile3BgDark: #e07a96;
+msgFile3BgOver: #f5a0b8;
+msgFile3BgSelected: #e67593;
+msgFile4Bg: #f6c177;
+msgFile4BgDark: #e6d09d;
+msgFile4BgOver: #faeabf;
+msgFile4BgSelected: #f5da9f;
+
+historyFileInIconFg: #191724;
+historyFileInIconFgSelected: #191724;
+historyFileInRadialFg: #191724;
+historyFileInRadialFgSelected: #191724;
+historyFileOutIconFg: #191724;
+historyFileOutIconFgSelected: #191724;
+historyFileOutRadialFg: #191724;
+historyFileOutRadialFgSelected: #191724;
+
+historyVideoMessageProgressFg: #9ccfd8;
+
+youtubePlayIconBg: #eb6f92cc;
+youtubePlayIconFg: #e0def4;
+videoPlayIconBg: #191724cc;
+videoPlayIconFg: #e0def4;
+toastBg: #191724ee;
+toastFg: #e0def4;
+
+reportSpamBg: #1f1d2e;
+reportSpamFg: #e0def4;
+
+historyToDownBg: #1f1d2e;
+historyToDownBgOver: #26233a;
+historyToDownBgRipple: #403d52;
+historyToDownFg: #908caa;
+historyToDownFgOver: #e0def4;
+historyToDownShadow: #19172444;
+
+historyComposeButtonBg: #191724;
+historyComposeButtonBgOver: #1f1d2e;
+historyComposeButtonBgRipple: #26233a;
+
+overviewCheckBg: #191724cc;
+overviewCheckFg: #e0def4;
+overviewCheckFgActive: #e0def4;
+overviewPhotoSelectOverlay: #19172466;
+
+profileStatusFgOver: #908caa;
+profileVerifiedCheckBg: #9ccfd8;
+profileVerifiedCheckFg: #191724;
+profileAdminStartFg: #f6c177;
+
+notificationsBoxMonitorFg: #e0def4;
+notificationsBoxScreenBg: #403d52;
+
+notificationSampleUserpicFg: #9ccfd8;
+notificationSampleCloseFg: #6e6a86;
+notificationSampleTextFg: #908caa;
+notificationSampleNameFg: #e0def4;
+
+changePhoneSimcardFrom: #ebbcba;
+changePhoneSimcardTo: #31748f;
+
+mainMenuBg: #191724;
+mainMenuCoverBg: #1f1d2e;
+mainMenuCoverFg: #e0def4;
+mainMenuCloudFg: #9ccfd8;
+mainMenuCloudBg: #1f1d2e;
+
+mediaInFg: #908caa;
+mediaInFgSelected: #e0def4;
+mediaOutFg: #908caa;
+mediaOutFgSelected: #e0def4;
+
+mediaPlayerBg: #191724;
+mediaPlayerActiveFg: #9ccfd8;
+mediaPlayerInactiveFg: #403d52;
+mediaPlayerDisabledFg: #26233a;
+
+mediaviewFileBg: #1f1d2e;
+mediaviewFileNameFg: #e0def4;
+mediaviewFileSizeFg: #908caa;
+mediaviewFileRedCornerFg: #eb6f92;
+mediaviewFileYellowCornerFg: #f6c177;
+mediaviewFileGreenCornerFg: #31748f;
+mediaviewFileBlueCornerFg: #9ccfd8;
+mediaviewFileExtFg: #191724;
+
+mediaviewMenuBg: #191724;
+mediaviewMenuBgOver: #1f1d2e;
+mediaviewMenuBgRipple: #26233a;
+mediaviewMenuFg: #e0def4;
+
+mediaviewBg: #191724ee;
+mediaviewVideoBg: #191724;
+mediaviewControlBg: #191724cc;
+mediaviewControlFg: #e0def4;
+mediaviewCaptionBg: #191724cc;
+mediaviewCaptionFg: #e0def4;
+mediaviewTextLinkFg: #9ccfd8;
+mediaviewSaveMsgBg: #31748fcc;
+mediaviewSaveMsgFg: #191724;
+mediaviewPlaybackActive: #9ccfd8;
+mediaviewPlaybackInactive: #403d52;
+mediaviewPlaybackActiveOver: #c4a7e7;
+mediaviewPlaybackInactiveOver: #6e6a86;
+mediaviewPlaybackProgressFg: #e0def4;
+mediaviewPlaybackIconFg: #e0def4;
+mediaviewPlaybackIconFgOver: #9ccfd8;
+mediaviewTransparentBg: #191724;
+mediaviewTransparentFg: #403d52;
+
+callBg: #191724;
+callNameFg: #e0def4;
+callFingerprintBg: #1f1d2e;
+callStatusFg: #908caa;
+callIconFg: #e0def4;
+callAnswerBg: #31748f;
+callAnswerRipple: #94d99b;
+callAnswerBgOuter: #31748f33;
+callHangupBg: #eb6f92;
+callHangupRipple: #e07a96;
+callCancelBg: #6e6a86;
+callCancelFg: #191724;
+callCancelRipple: #403d52;
+callMuteRipple: #26233a;
+callBarBg: #1f1d2e;
+callBarMuteRipple: #26233a;
+callBarBgMuted: #26233a;
+callBarUnmuteRipple: #403d52;
+callBarFg: #e0def4;
+
+importantTooltipBg: #1f1d2e;
+importantTooltipFg: #e0def4;
+importantTooltipFgLink: #9ccfd8;
+
+groupCallBg: #191724;
+groupCallTooltipBg: #1f1d2e;
+groupCallTooltipFg: #e0def4;
+groupCallMembersBg: #191724;
+groupCallMembersFg: #e0def4;
+groupCallMembersBgOver: #1f1d2e;
+groupCallMembersBgRipple: #26233a;
+groupCallMembersInactiveIcon: #6e6a86;
+groupCallMembersActiveIcon: #31748f;
+groupCallMembersMuted: #eb6f92;
+groupCallMembersNameFg: #e0def4;
+
+groupCallMembersMutedIcon: #eb6f92;
+groupCallMembersMutedIconOver: #eb6f92;
+groupCallMembersMutedByMeIcon: #eb6f92;
+groupCallMembersMutedByMeIconOver: #eb6f92;
+groupCallMembersHand: #f6c177;
+groupCallMembersHandIcon: #191724;
+groupCallMembersHandIconBg: #f6c177;
+groupCallMembersHandRaised: #9ccfd8;
+groupCallMembersListBg: #191724;
+groupCallMembersListHeaderFg: #9ccfd8;

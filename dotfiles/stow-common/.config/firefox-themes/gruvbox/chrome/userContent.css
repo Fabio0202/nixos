@@ -1,0 +1,39 @@
+/* Gruvbox Dark - Firefox Content Styles */
+:root {
+  --bg: #282828;
+  --fg: #ebdbb2;
+  --surface-0: #3c3836;
+  --surface-1: #504945;
+  --accent-primary: #83a598;
+}
+
+@-moz-document url("about:newtab"), url("about:home") {
+  body {
+    background-color: var(--bg) !important;
+  }
+
+  .search-wrapper .search-handoff-button {
+    background-color: var(--surface-0) !important;
+    border: 1px solid var(--surface-1) !important;
+  }
+
+  .search-wrapper .search-handoff-button .fake-caret {
+    color: var(--fg) !important;
+  }
+
+  .top-site-outer .title {
+    color: var(--fg) !important;
+  }
+}
+
+@-moz-document url("about:blank") {
+  body {
+    background-color: var(--bg) !important;
+  }
+}
+
+@-moz-document url("about:privatebrowsing") {
+  body {
+    background-color: var(--bg) !important;
+  }
+}

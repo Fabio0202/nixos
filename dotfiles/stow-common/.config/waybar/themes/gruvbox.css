@@ -1,0 +1,19 @@
+/* =========================
+   THEME TOKENS (Gruvbox Dark)
+   ========================= */
+
+@define-color bg #282828;
+@define-color fg #ebdbb2;
+@define-color fg-muted #928374;
+
+@define-color surface-0 #3c3836;
+@define-color surface-1 #504945;
+@define-color surface-2 #665c54;
+
+@define-color accent-primary #83a598;
+@define-color accent-secondary #d3869b;
+@define-color accent-success #b8bb26;
+@define-color accent-warning #fabd2f;
+@define-color accent-danger #fb4934;
+@define-color accent-info #8ec07c;
+@define-color accent-special #fe8019;

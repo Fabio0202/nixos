@@ -39,7 +39,6 @@
     ./modules/stylix.nix # Stylix (theme management for GTK, GRUB, etc.)
     ./modules/icons-theme.nix # Icon theme configuration for GTK/desktop apps
     ./modules/nwg-dock.nix # Dock/panel (like a taskbar for Wayland)
-    ./modules/show-binds/default.nix # Show keybindings overlay/help popup
     ./modules/sunset-at-night.nix # Color temperature adjustment at night (like redshift)
     ./modules/neovim/latex.nix
     ./modules/hyprsettings.nix # HyprSettings GUI configurator for Hyprland

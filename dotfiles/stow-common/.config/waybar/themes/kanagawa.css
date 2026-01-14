@@ -1,0 +1,19 @@
+/* =========================
+   THEME TOKENS (Kanagawa)
+   ========================= */
+
+@define-color bg #1f1f28;
+@define-color fg #dcd7ba;
+@define-color fg-muted #727169;
+
+@define-color surface-0 #16161d;
+@define-color surface-1 #2a2a37;
+@define-color surface-2 #363646;
+
+@define-color accent-primary #7e9cd8;
+@define-color accent-secondary #957fb8;
+@define-color accent-success #76946a;
+@define-color accent-warning #c0a36e;
+@define-color accent-danger #c34043;
+@define-color accent-info #6a9589;
+@define-color accent-special #ffa066;

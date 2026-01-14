@@ -1,0 +1,125 @@
+/* Nord Firefox Theme */
+:root {
+  --bg: #2e3440;
+  --fg: #d8dee9;
+  --fg-muted: #a3abb8;
+  --surface-0: #3b4252;
+  --surface-1: #434c5e;
+  --surface-2: #4c566a;
+  --accent-primary: #88c0d0;
+  --accent-secondary: #81a1c1;
+  --accent-success: #a3be8c;
+  --accent-warning: #ebcb8b;
+  --accent-danger: #bf616a;
+  --accent-info: #5e81ac;
+  --accent-special: #b48ead;
+}
+
+#navigator-toolbox {
+  background-color: var(--bg) !important;
+  border-bottom: 1px solid var(--surface-1) !important;
+}
+
+#urlbar-background {
+  background-color: var(--surface-0) !important;
+  border: 1px solid var(--surface-1) !important;
+}
+
+#urlbar:not([focused]) #urlbar-background {
+  background-color: var(--surface-0) !important;
+}
+
+#urlbar[focused] #urlbar-background {
+  background-color: var(--surface-1) !important;
+  border-color: var(--accent-primary) !important;
+}
+
+#urlbar-input {
+  color: var(--fg) !important;
+}
+
+.tabbrowser-tab {
+  background-color: var(--bg) !important;
+  color: var(--fg-muted) !important;
+}
+
+.tabbrowser-tab[selected] {
+  background-color: var(--surface-0) !important;
+  color: var(--fg) !important;
+}
+
+.tabbrowser-tab[selected] .tab-background {
+  background-color: var(--surface-0) !important;
+  border-bottom: 2px solid var(--accent-primary) !important;
+}
+
+.tab-background:not([selected]) {
+  background-color: var(--bg) !important;
+}
+
+.tabbrowser-tab:hover:not([selected]) .tab-background {
+  background-color: var(--surface-1) !important;
+}
+
+.tab-text {
+  color: var(--fg) !important;
+}
+
+#tabs-newtab-button {
+  fill: var(--fg-muted) !important;
+}
+
+#tabs-newtab-button:hover {
+  background-color: var(--surface-1) !important;
+}
+
+#nav-bar {
+  background-color: var(--bg) !important;
+}
+
+.toolbarbutton-1 {
+  fill: var(--fg) !important;
+}
+
+.toolbarbutton-1:hover {
+  background-color: var(--surface-1) !important;
+}
+
+#sidebar-box {
+  background-color: var(--bg) !important;
+}
+
+#sidebar-header {
+  background-color: var(--surface-0) !important;
+  color: var(--fg) !important;
+}
+
+findbar {
+  background-color: var(--surface-0) !important;
+  color: var(--fg) !important;
+}
+
+menupopup {
+  --panel-background: var(--surface-0) !important;
+  --panel-color: var(--fg) !important;
+}
+
+menu, menuitem {
+  color: var(--fg) !important;
+}
+
+menu:hover, menuitem:hover {
+  background-color: var(--surface-1) !important;
+}
+
+#PersonalToolbar {
+  background-color: var(--bg) !important;
+}
+
+toolbarbutton.bookmark-item {
+  color: var(--fg) !important;
+}
+
+toolbarbutton.bookmark-item:hover {
+  background-color: var(--surface-1) !important;
+}

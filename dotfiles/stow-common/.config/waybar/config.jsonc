@@ -1,4 +1,4 @@
-  {
+{
     "height": 28,
     "position": "top",
     "layer": "top",
@@ -8,13 +8,14 @@
       "custom/music",
       "cpu",
       "memory",
-      "custom/cpu_temp",
+      "custom/cpu_temp"
     ],
     "modules-center": [
       "clock"
     ],
 
     "modules-right": [
+      "custom/timer",
       "tray",
       "custom/kblayout",
       "pulseaudio",
@@ -25,6 +26,14 @@
       "custom/notifications",
       "custom/power"
     ],
+
+"custom/timer": {
+  "exec": "timer waybar",
+  "return-type": "json",
+  "interval": 1,
+  "on-click": "timer dismiss 2>/dev/null || everything-menu",
+  "tooltip": true
+},
 
 "custom/battery": {
   "exec": "~/nixos/home/scripts/custom-battery-waybar.sh",
@@ -182,6 +191,3 @@
       "spacing": 10
     }
   }
-}
-  }
-]

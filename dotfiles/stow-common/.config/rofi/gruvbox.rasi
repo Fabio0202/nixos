@@ -1,0 +1,172 @@
+/* =========================================== */
+/*           COLOR VARIABLES                   */
+/* =========================================== */
+/* Change ONLY these colors for different themes! */
+
+* {
+    /* Gruvbox Dark Color Palette */
+    background-color:    #28282830;
+    foreground:          #ebdbb2;
+    text-color:          #ebdbb2;
+    alternate-background: #3c383680;
+
+    selected:            #83a598;
+    active:              #b8bb26;
+    urgent:              #fb4934;
+
+    placeholder-color:   #928374;
+    highlight-fg:        #fbf1c7;
+    mainbox-bg:          #282828CC;
+    selection-bg:        #83a59810;
+
+    font: "SF Pro Display 14";
+}
+
+configuration {
+    modi: "drun";
+    show-icons: true;
+    drun-display-format: "{icon} {name}";
+    disable-history: false;
+    sort: true;
+    display-drun: "Apps ";
+}
+
+window {
+    fullscreen: false;
+    location: center;
+    anchor: center;
+    width: 800px;
+    height: 520px;
+    transparency: "real";
+    border-radius: 12px;
+    background-color: transparent;
+    border: 0px;
+    padding: 0px;
+}
+
+mainbox {
+    margin: 0px;
+    padding: 0px;
+    border-radius: 12px;
+    background-color: var(mainbox-bg);
+    children: [ "inputbar", "listview" ];
+}
+
+inputbar {
+    padding: 24px 32px;
+    border-radius: 6px;
+    background-color: var(alternate-background);
+    text-color: #ffffff;
+    children: [ "prompt", "entry" ];
+}
+
+prompt {
+    enabled: true;
+    text-color: #ffffff;
+    background-color: transparent;
+    padding: 0px;
+    margin: 0px 12px 0px 0px;
+}
+
+entry {
+    background-color: transparent;
+    foreground: #ffffff;
+    text-color: #ffffff;
+    cursor: text;
+    placeholder-color: var(placeholder-color);
+    highlight: none;
+}
+
+listview {
+    lines: 8;
+    fixed-height: true;
+    spacing: 10px;
+    background-color: transparent;
+    scrollbar: false;
+    cycle: true;
+}
+
+element {
+    padding: 20px;
+    border-radius: 6px;
+    background-color: transparent;
+    text-color: var(foreground);
+    orientation: horizontal;
+    children: [ "element-icon", "element-text" ];
+}
+
+element-text {
+    background-color: transparent;
+    text-color: #ffffff;
+    vertical-align: 0.5;
+    highlight: var(selected);
+    highlight-background: transparent;
+    highlight-foreground: var(highlight-fg);
+}
+
+element-icon {
+    size: 24px;
+    background-color: transparent;
+    text-color: inherit;
+    margin: 0px 12px 0px 0px;
+    vertical-align: 0.5;
+}
+
+element selected.normal {
+    background-color: var(selection-bg);
+    border: 1px solid;
+    border-color: var(selected);
+    border-radius: 6px;
+    text-color: #ffffff;
+}
+
+element selected.active {
+    background-color: var(active);
+    border-radius: 6px;
+    text-color: #282828;
+}
+
+element selected.urgent {
+    background-color: var(urgent);
+    border-radius: 6px;
+    text-color: #282828;
+}
+
+element normal.normal,
+element normal.active,
+element normal.urgent {
+    background-color: transparent;
+}
+
+element alternate.normal,
+element alternate.active,
+element alternate.urgent {
+    background-color: transparent;
+}
+
+element normal.active,
+element alternate.active {
+    text-color: var(active);
+}
+
+element normal.urgent,
+element alternate.urgent {
+    text-color: var(urgent);
+}
+
+message {
+    background-color: transparent;
+    border-color: var(selected);
+    border: 1px solid;
+    border-radius: 6px;
+    margin: 8px;
+    padding: 8px;
+    text-color: var(foreground);
+}
+
+textbox {
+    background-color: transparent;
+    text-color: var(foreground);
+    highlight: var(selected);
+    highlight-background: transparent;
+}

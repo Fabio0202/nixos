@@ -1,0 +1,145 @@
+#!/usr/bin/env bash
+
+# Timer script with persistent state
+# Usage: timer set <minutes> | cancel | dismiss | status | remaining
+
+TIMER_DIR="/tmp/user-timer-$(id -u)"
+TIMER_FILE="$TIMER_DIR/timer"
+SOUND_PID_FILE="$TIMER_DIR/sound_pid"
+ALARM_SOUND="/run/current-system/sw/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga"
+
+mkdir -p "$TIMER_DIR"
+
+notify() {
+    notify-send -u critical -t 0 "Timer" "$1"
+}
+
+play_alarm() {
+    # Loop the alarm sound until dismissed
+    while true; do
+        paplay "$ALARM_SOUND" 2>/dev/null || mpv --no-video --really-quiet "$ALARM_SOUND" 2>/dev/null || break
+        sleep 0.5
+    done
+}
+
+timer_done() {
+    # Start alarm sound in background
+    play_alarm &
+    echo $! > "$SOUND_PID_FILE"
+
+    # Show persistent notification
+    notify "Time's up!"
+
+    # Clean up timer file but keep sound_pid for dismiss
+    rm -f "$TIMER_FILE"
+}
+
+set_timer() {
+    local minutes="$1"
+
+    if [[ -z "$minutes" || ! "$minutes" =~ ^[0-9]+$ ]]; then
+        echo "Usage: timer set <minutes>"
+        return 1
+    fi
+
+    # Cancel any existing timer
+    cancel_timer quiet
+
+    local end_time=$(($(date +%s) + minutes * 60))
+
+    # Start background timer process
+    (
+        sleep "$((minutes * 60))"
+        timer_done
+    ) &
+
+    local timer_pid=$!
+
+    # Save timer info
+    echo "$end_time $timer_pid" > "$TIMER_FILE"
+
+    notify-send -t 3000 "Timer" "Set for $minutes minutes"
+    echo "Timer set for $minutes minutes"
+}
+
+cancel_timer() {
+    local quiet="$1"
+
+    if [[ -f "$TIMER_FILE" ]]; then
+        local pid=$(awk '{print $2}' "$TIMER_FILE")
+        kill "$pid" 2>/dev/null
+        # Kill any child sleep processes
+        pkill -P "$pid" 2>/dev/null
+        rm -f "$TIMER_FILE"
+        [[ "$quiet" != "quiet" ]] && notify-send -t 2000 "Timer" "Cancelled"
+    fi
+
+    # Also dismiss any ringing alarm
+    dismiss_alarm quiet
+}
+
+dismiss_alarm() {
+    local quiet="$1"
+
+    if [[ -f "$SOUND_PID_FILE" ]]; then
+        local pid=$(cat "$SOUND_PID_FILE")
+        kill "$pid" 2>/dev/null
+        rm -f "$SOUND_PID_FILE"
+        [[ "$quiet" != "quiet" ]] && notify-send -t 2000 "Timer" "Dismissed"
+    fi
+}
+
+get_status() {
+    if [[ -f "$SOUND_PID_FILE" ]]; then
+        echo "ringing"
+    elif [[ -f "$TIMER_FILE" ]]; then
+        echo "running"
+    else
+        echo "none"
+    fi
+}
+
+get_remaining() {
+    if [[ -f "$TIMER_FILE" ]]; then
+        local end_time=$(awk '{print $1}' "$TIMER_FILE")
+        local now=$(date +%s)
+        local remaining=$((end_time - now))
+
+        if [[ $remaining -gt 0 ]]; then
+            local mins=$((remaining / 60))
+            local secs=$((remaining % 60))
+            printf "%d:%02d\n" "$mins" "$secs"
+        else
+            echo "0:00"
+        fi
+    else
+        echo ""
+    fi
+}
+
+# For waybar JSON output
+waybar_output() {
+    local status=$(get_status)
+    local remaining=$(get_remaining)
+
+    if [[ "$status" == "ringing" ]]; then
+        echo '{"text": "󰂞 ALARM!", "class": "ringing", "tooltip": "Click to dismiss"}'
+    elif [[ "$status" == "running" && -n "$remaining" ]]; then
+        echo "{\"text\": \"󰄉 $remaining\", \"class\": \"running\", \"tooltip\": \"Timer: $remaining remaining\"}"
+    else
+        echo '{"text": "", "class": "none"}'
+    fi
+}
+
+case "$1" in
+    set) set_timer "$2" ;;
+    cancel) cancel_timer ;;
+    dismiss) dismiss_alarm ;;
+    status) get_status ;;
+    remaining) get_remaining ;;
+    waybar) waybar_output ;;
+    *)
+        echo "Usage: timer {set <minutes>|cancel|dismiss|status|remaining|waybar}"
+        exit 1
+        ;;
+esac
