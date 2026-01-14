@@ -182,14 +182,64 @@ fi
 # -------------------------
 
 # Kitty
-# When run from Hyprland keybind/rofi, `KITTY_LISTEN_ON` is often missing.
-# Prefer a stable socket if configured, otherwise fall back to env-based remote control.
-KITTY_TO="unix:/tmp/kitty"
-if kitty @ load-config >/dev/null 2>&1; then
+# Reload *all* running kitty instances.
+# When invoked outside kitty (Hyprland keybind/rofi), we don't have a single $KITTY_LISTEN_ON.
+# So we discover sockets and send `load-config` to each.
+reload_kitty_all() {
+    local kitty_bin
+    kitty_bin="$(command -v kitty 2>/dev/null || true)"
+    [ -z "$kitty_bin" ] && return 0
+
+    local -a targets=()
+    local pid sock path
+
+    # 1) If kitty processes exported KITTY_LISTEN_ON, use it.
+    for pid in $(pgrep -x kitty 2>/dev/null || true); do
+        if [ -r "/proc/$pid/environ" ]; then
+            sock="$(tr '\0' '\n' < "/proc/$pid/environ" | sed -n 's/^KITTY_LISTEN_ON=//p' | head -n 1)"
+            [ -n "$sock" ] && targets+=("$sock")
+        fi
+    done
+
+    # 2) Also probe common socket locations.
+    local had_nullglob=0
+    shopt -q nullglob && had_nullglob=1
+    shopt -s nullglob
+
+    if [ -n "${XDG_RUNTIME_DIR:-}" ]; then
+        for path in "$XDG_RUNTIME_DIR"/kitty* "$XDG_RUNTIME_DIR"/kitty/*; do
+            [ -S "$path" ] && targets+=("unix:$path")
+        done
+    fi
+
+    for path in /tmp/kitty /tmp/kitty-*; do
+        [ -S "$path" ] && targets+=("unix:$path")
+    done
+
+    [ "$had_nullglob" -eq 1 ] || shopt -u nullglob
+
+    # 3) De-dup and send load-config.
+    local -A seen=()
+    local t
+    for t in "${targets[@]}"; do
+        [ -z "$t" ] && continue
+        if [[ "$t" != unix:* && "$t" != tcp:* ]]; then
+            [[ "$t" = /* ]] && t="unix:$t"
+        fi
+        [ -n "${seen[$t]:-}" ] && continue
+        seen[$t]=1
+        "$kitty_bin" @ --to "$t" load-config >/dev/null 2>&1 || true
+    done
+
+    # Fallback: if we couldn't find sockets, try default dispatch.
+    if [ "${#seen[@]}" -eq 0 ]; then
+        "$kitty_bin" @ load-config >/dev/null 2>&1 || true
+    fi
+
     echo "✔ Kitty reloaded"
-elif [ -S "/tmp/kitty" ] && kitty @ --to "$KITTY_TO" load-config >/dev/null 2>&1; then
-    echo "✔ Kitty reloaded"
-fi
+}
+
+reload_kitty_all
 
 # Waybar
 WAYBAR_BIN="$(command -v waybar 2>/dev/null || true)"
