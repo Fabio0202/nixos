@@ -6,8 +6,8 @@ Keep Home Manager for package installation, but remove dotfile generation so Sto
 ## Workflow
 - Before starting: `notify-send "dotfiles migration" "START Task D (HM trim)"`
 - When done: `notify-send "dotfiles migration" "DONE Task D (HM trim)"`
-
-Note: The repo policy forbids running `git`/`jj` commands.
+- Create a jj commit with all changes when complete
+- Rename this file to `task-hm-trim-done.md`
 
 ## Inputs
 - `home/modules/wrapScripts.nix` (to retire)

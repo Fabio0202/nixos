@@ -6,6 +6,8 @@ After scripts move from HM/Nix-generated wrappers to Stow-managed `~/.local/bin/
 ## Workflow
 - Before starting: `notify-send "dotfiles migration" "START Task E (hypr keybinds)"`
 - When done: `notify-send "dotfiles migration" "DONE Task E (hypr keybinds)"`
+- Create a jj commit with all changes when complete
+- Rename this file to `task-hypr-keybinds-done.md`
 
 ## Inputs
 - Hypr keybinds: `dotfiles/stow-common/.config/hypr/keybinds.conf`

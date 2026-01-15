@@ -37,7 +37,6 @@
   imports = [
     ./modules/neovim/neovim.nix
     ./modules/sh.nix
-    ./modules/wrapScripts.nix
     # add more generic modules here
   ];
 }
