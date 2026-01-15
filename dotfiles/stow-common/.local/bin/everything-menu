@@ -58,6 +58,7 @@ $timer_entry
 $sunset_entry
 󰎈  Media
 󰒓  System
+󱄅  Nix
 EOF
         )
 
@@ -80,6 +81,7 @@ EOF
             *"Config"*) config_menu ;;
             *"SSH"*) ssh_menu ;;
             *"Timer"*) timer_menu ;;
+            *"Nix"*) nix_menu ;;
             *"Color Picker"*)
                 color=$(hyprpicker -a)
                 [[ -n "$color" ]] && notify "Copied: $color"
@@ -94,6 +96,35 @@ EOF
                 fi
                 ;;
             "") exit 0 ;;
+        esac
+    done
+}
+
+# ============================================
+# NIX
+# ============================================
+nix_menu() {
+    while true; do
+        choice=$(show_rofi "Nix" \
+"󱄅  Update
+←  Back")
+        rofi_exit=$?
+
+        if [[ $rofi_exit -eq 10 ]]; then
+            break
+        fi
+
+        case "$choice" in
+            *"Update"*)
+                if [[ ! -f "$HOME/.zsh/aliases.zsh" ]]; then
+                    notify "Missing: ~/.zsh/aliases.zsh"
+                    continue
+                fi
+
+                kitty --title "Nix: Update" -e zsh -c 'setopt aliases; source ~/.zsh/aliases.zsh; eval update' &
+                exit 0
+                ;;
+            *"Back"*|"") break ;;
         esac
     done
 }
