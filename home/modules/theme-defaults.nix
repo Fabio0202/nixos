@@ -32,6 +32,10 @@
       # Points to installed location since waybar reads from ~/.config
       target = "/home/simon/.config/waybar/themes/${defaultTheme}.css";
     };
+    "${stowBase}/hypr/themes/current.conf" = {
+      type = "symlink";
+      target = "${stowBase}/hypr/themes/${defaultTheme}.conf";
+    };
     "${stowBase}/nwg-dock-hyprland/style.css" = {
       type = "import";
       content = ''

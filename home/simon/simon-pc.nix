@@ -16,7 +16,6 @@
   ];
 
   imports = [
-    ../modules/hyprland/hypridle.nix
     ../modules/gitSimon.nix
     ./common.nix
     ./common-gui.nix

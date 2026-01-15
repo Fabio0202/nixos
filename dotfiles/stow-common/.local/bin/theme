@@ -44,6 +44,7 @@ fi
 
 # More directory definitions
 # Source directories (in stow/git) - used for symlink targets
+HYPRLOCK_THEME_DIR="$STOW_BASE/hypr/themes"
 ROFI_THEME_SOURCE="$STOW_BASE/rofi"
 FIREFOX_THEME_SOURCE="$STOW_BASE/firefox-themes"
 TELEGRAM_THEME_SOURCE="$STOW_BASE/telegram-themes"
@@ -82,6 +83,10 @@ fi
 
 # Kitty
 ln -sf "$KITTY_THEME_DIR/$THEME_NAME.conf" "$KITTY_THEME_DIR/current.conf"
+
+# Hyprlock
+[ -f "$HYPRLOCK_THEME_DIR/$THEME_NAME.conf" ] && \
+    ln -sf "$HYPRLOCK_THEME_DIR/$THEME_NAME.conf" "$HOME/.config/hypr/themes/current.conf"
 
 # Waybar
 [ -f "$WAYBAR_THEME_DIR/$THEME_NAME.css" ] && \
@@ -174,6 +179,8 @@ echo "✔ Config updated for: $THEME_NAME"
 # -------------------------
 if [ -n "$NEW_WALLPAPER" ] && [ -f "$WALLPAPER_THEME_DIR/$NEW_WALLPAPER" ] && command -v swww &>/dev/null; then
     swww img "$WALLPAPER_THEME_DIR/$NEW_WALLPAPER" --transition-type any --transition-duration 1 &
+    # Update hyprlock wallpaper symlink
+    ln -sf "$WALLPAPER_THEME_DIR/$NEW_WALLPAPER" "$HOME/.config/hypr/current-wallpaper"
     echo "✔ Wallpaper set to: $NEW_WALLPAPER"
 fi
 

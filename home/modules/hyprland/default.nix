@@ -14,9 +14,7 @@
     ./swayosd.nix
 
     ./config/default.nix # Plugin installation (config via stow)
-    ./hyprlock.nix
     ./swww.nix
-    ./hypridle.nix
     ./variables.nix
   ];
 
@@ -24,5 +22,7 @@
     libnotify # User-level notifications
     playerctl # Media control via DBus which is a message bus system, a way for applications to talk to each other
     uwsm # unified wayland session management - better compatibility layer for XWayland apps
+    hyprlock # Screen locker (config via stow)
+    hypridle # Idle daemon (config via stow)
   ];
 }
