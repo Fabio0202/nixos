@@ -65,7 +65,15 @@
   };
 
   # Generate shell script to create missing files
-  createScript = lib.concatStringsSep "\n" (lib.mapAttrsToList (path: cfg:
+  createScript = ''
+    ensure_parent_dir() {
+      local parent
+      parent="$(dirname "$1")"
+      if [ ! -e "$parent" ]; then
+        mkdir -p "$parent"
+      fi
+    }
+  '' + lib.concatStringsSep "\n" (lib.mapAttrsToList (path: cfg:
     if cfg.type == "symlink"
     then ''
       if [ -L "${path}" ]; then
@@ -74,7 +82,7 @@
       fi
       if [ ! -e "${path}" ]; then
         echo "Creating default theme symlink: ${path}"
-        mkdir -p "$(dirname "${path}")"
+        ensure_parent_dir "${path}"
         ln -sf "${cfg.target}" "${path}"
       fi
     ''
@@ -85,7 +93,7 @@
       fi
       if [ ! -e "${path}" ]; then
         echo "Creating default theme file: ${path}"
-        mkdir -p "$(dirname "${path}")"
+        ensure_parent_dir "${path}"
         cat > "${path}" << 'THEMEEOF'
 ${cfg.content}THEMEEOF
       fi
