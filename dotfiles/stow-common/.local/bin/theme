@@ -8,11 +8,11 @@ export PATH="$HOME/.local/bin:$HOME/.nix-profile/bin:/etc/profiles/per-user/$USE
 # Make Kitty remote control work outside Kitty shells.
 export KITTY_LISTEN_ON="${KITTY_LISTEN_ON:-unix:/tmp/kitty}"
 
-# Base stow source directory (where config files live in git)
+# Base stow source directory (static theme sources live here)
 STOW_BASE="$HOME/nixos/dotfiles/stow-common/.config"
 
 # Directory definitions
-KITTY_THEME_DIR="$STOW_BASE/kitty/themes"
+KITTY_THEME_DIR="$HOME/.config/kitty/themes"
 CURRENT_THEME_FILE="$HOME/.config/.current-theme"
 
 # Available themes (based on kitty themes)
@@ -64,9 +64,14 @@ FIREFOX_PROFILE_DIR="$HOME/.mozilla/firefox/z34ufndn.default"
 FIREFOX_CHROME_DIR="$FIREFOX_PROFILE_DIR/chrome"
 TELEGRAM_CURRENT="$HOME/.config/telegram-themes/current.tdesktop-theme"
 WALLPAPER_BASE="$HOME/nixos/files/wallpapers"
-WALLPAPER_STATE="$WALLPAPER_BASE/.theme-state.json"
+THEME_STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/theme"
+WALLPAPER_STATE="$THEME_STATE_DIR/wallpapers.json"
 WALLPAPER_THEME_DIR="$WALLPAPER_BASE/$THEME_NAME"
 WAYPAPER_CONFIG="$HOME/.config/waypaper/config.ini"
+
+# Ensure state dir exists for wallpaper persistence
+mkdir -p "$THEME_STATE_DIR"
+[ -f "$WALLPAPER_STATE" ] || echo '{}' > "$WALLPAPER_STATE"
 
 # -------------------------
 # Validate theme exists

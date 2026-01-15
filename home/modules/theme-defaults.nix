@@ -6,51 +6,53 @@
   # Default theme - change this to switch the default on fresh clones
   defaultTheme = "catppuccin-mocha";
 
-  # Base path for stow dotfiles in the nixos repo
-  stowBase = "/home/simon/nixos/dotfiles/stow-common/.config";
+  homeDir = config.home.homeDirectory;
+  configDir = "${homeDir}/.config";
+  stateDir = "${homeDir}/.local/state";
 
   # Theme file definitions: path -> type (symlink target or import content)
   themeFiles = {
-    "${stowBase}/kitty/themes/current.conf" = {
+    "${configDir}/kitty/themes/current.conf" = {
       type = "symlink";
-      target = "${stowBase}/kitty/themes/${defaultTheme}.conf";
+      target = "${configDir}/kitty/themes/${defaultTheme}.conf";
     };
-    "${stowBase}/swaync/themes/current.css" = {
+    "${configDir}/swaync/themes/current.css" = {
+      type = "import";
+      content = ''
+        @import url("${defaultTheme}.css");
+        @import url("base-styles.css");
+      '';
+    };
+    "${configDir}/swayosd/themes/current.css" = {
+      type = "import";
+      content = ''
+        @import url("${defaultTheme}.css");
+        @import url("base-styles.css");
+      '';
+    };
+    "${configDir}/telegram-themes/current.tdesktop-theme" = {
       type = "symlink";
-      target = "${stowBase}/swaync/themes/${defaultTheme}.css";
+      target = "${configDir}/telegram-themes/${defaultTheme}.tdesktop-theme";
     };
-    "${stowBase}/swayosd/themes/current.css" = {
+    "${configDir}/waybar/themes/current.css" = {
       type = "symlink";
-      target = "${stowBase}/swayosd/themes/${defaultTheme}.css";
+      target = "${configDir}/waybar/themes/${defaultTheme}.css";
     };
-    "${stowBase}/telegram-themes/current.tdesktop-theme" = {
-      type = "symlink";
-      target = "${stowBase}/telegram-themes/${defaultTheme}.tdesktop-theme";
-    };
-    "${stowBase}/waybar/themes/current.css" = {
-      type = "symlink";
-      # Points to installed location since waybar reads from ~/.config
-      target = "/home/simon/.config/waybar/themes/${defaultTheme}.css";
-    };
-    "${stowBase}/hypr/themes/current.conf" = {
-      type = "symlink";
-      target = "${stowBase}/hypr/themes/${defaultTheme}.conf";
-    };
-    "${stowBase}/nwg-dock-hyprland/style.css" = {
+    "${configDir}/nwg-dock-hyprland/style.css" = {
       type = "import";
       content = ''
         @import url("themes/${defaultTheme}.css");
         @import url("base-styles.css");
       '';
     };
-    "${stowBase}/wlogout/style.css" = {
+    "${configDir}/wlogout/style.css" = {
       type = "import";
       content = ''
         @import url("themes/${defaultTheme}.css");
         @import url("base-styles.css");
       '';
     };
-    "/home/simon/nixos/files/wallpapers/.theme-state.json" = {
+    "${stateDir}/theme/wallpapers.json" = {
       type = "json";
       content = ''
         {
@@ -66,14 +68,24 @@
   createScript = lib.concatStringsSep "\n" (lib.mapAttrsToList (path: cfg:
     if cfg.type == "symlink"
     then ''
+      if [ -L "${path}" ]; then
+        echo "Removing existing symlink: ${path}"
+        rm -f "${path}"
+      fi
       if [ ! -e "${path}" ]; then
         echo "Creating default theme symlink: ${path}"
+        mkdir -p "$(dirname "${path}")"
         ln -sf "${cfg.target}" "${path}"
       fi
     ''
     else ''
+      if [ -L "${path}" ]; then
+        echo "Removing existing symlink: ${path}"
+        rm -f "${path}"
+      fi
       if [ ! -e "${path}" ]; then
         echo "Creating default theme file: ${path}"
+        mkdir -p "$(dirname "${path}")"
         cat > "${path}" << 'THEMEEOF'
 ${cfg.content}THEMEEOF
       fi
