@@ -51,7 +51,26 @@ alias python="python-global"
 alias python3="python-global"
 
 # NixOS update
-alias update="sudo nixos-rebuild switch --flake ~/nixos#\$(hostname) --impure"
+update() {
+  local flake_dir="${NIXOS_FLAKE_DIR:-$HOME/nixos}"
+  local host="${1:-$(hostname)}"
+
+  if [ ! -e "$flake_dir/flake.nix" ]; then
+    echo "update: missing flake at $flake_dir (set NIXOS_FLAKE_DIR or clone to ~/nixos)" >&2
+    return 1
+  fi
+
+  sudo nixos-rebuild switch --flake "$flake_dir#$host" --impure || return $?
+
+  if [ -d "$flake_dir/dotfiles" ]; then
+    if ! command -v stow >/dev/null 2>&1; then
+      echo "update: stow not found; skipping restow (install pkgs.stow then re-run update)" >&2
+      return 0
+    fi
+
+    stow --dir="$flake_dir/dotfiles" --target="$HOME" --restow stow-common zsh ssh || return $?
+  fi
+}
 
 # Project setup
 alias mkpy='
