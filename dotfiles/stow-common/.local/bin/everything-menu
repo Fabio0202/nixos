@@ -43,20 +43,25 @@ main_menu() {
             timer_entry="󰄉  Timer"
         fi
 
-        choice=$(show_rofi "Menu" \
-"󰒓  System
-󰖩  Wi-Fi
+        menu=$(
+            cat <<EOF
+󰒼  Config
+󰆏  Screenshots
+󰣀  SSH
 󰂯  Bluetooth
 󰕾  Audio
-󰆏  Screenshots
-󰎈  Media
 󰗀  Themes
+󰖩  Wi-Fi
 󰸉  Wallpaper
-󰒼  Config
-󰣀  SSH
 $timer_entry
 󰏘  Color Picker
-$sunset_entry")
+$sunset_entry
+󰎈  Media
+󰒓  System
+EOF
+        )
+
+        choice=$(show_rofi "Menu" "$menu")
         rofi_exit=$?
 
         if [[ $rofi_exit -eq 10 ]]; then

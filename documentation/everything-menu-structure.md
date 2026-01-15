@@ -2,16 +2,19 @@
 
 ## Main Menu
 
-- 󰒓 System
-- 󰖩 Wi-Fi
+- 󰒼 Config
+- 󰆏 Screenshots
+- 󰣀 SSH
 - 󰂯 Bluetooth
 - 󰕾 Audio
-- 󰆏 Screenshots
-- 󰎈 Media
 - 󰗀 Themes
-- 󰒼 Config
+- 󰖩 Wi-Fi
+- 󰸉 Wallpaper
+- 󰄉 Timer
 - 󰏘 Color Picker
 - 󱩐 Hyprsunset (toggle, shows ON/OFF)
+- 󰎈 Media
+- 󰒓 System
 - 󰊢 Dev & Sync (skip for now)
 - 󰅍 Clipboard History (skip for now)
 
