@@ -21,7 +21,6 @@
     export PATH="$HOME/.npm-global/bin:$PATH"
   '';
   programs.zsh.initExtra = ''
-    source ~/.p10k.zsh
     source ~/.zsh/aliases.zsh
 
     function fzf() {
