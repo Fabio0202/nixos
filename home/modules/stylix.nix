@@ -21,7 +21,6 @@
   stylix.targets.swaync.enable = false;
   stylix.targets.waybar.enable = true;
   stylix.targets.yazi.enable = true;
-  stylix.targets.zathura.enable = true;
   # todo: once spifetify is fixed
   # stylix.targets.spicetify.enable = true;
   # stylix.targets.firefox.profileNames = ["my-profile"];

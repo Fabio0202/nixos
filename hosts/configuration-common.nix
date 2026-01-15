@@ -43,9 +43,9 @@
 
   boot.kernelPackages = pkgs.linuxPackages;
 
-  programs.kdeconnect.enable = true;
   programs.firefox.enable = true;
   programs.zsh.enable = true;
 
+  programs.kdeconnect.enable = true;
   services.printing.enable = true;
 }

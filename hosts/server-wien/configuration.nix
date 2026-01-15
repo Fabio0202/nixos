@@ -1,11 +1,10 @@
-{ pkgs
-, inputs
-, ...
-}:
-let
-  UUID = "09f44854-89fb-4598-9a1e-73815cd530de";
-in
 {
+  pkgs,
+  inputs,
+  ...
+}: let
+  UUID = "09f44854-89fb-4598-9a1e-73815cd530de";
+in {
   imports = [
     ./hardware-configuration.nix
 
@@ -33,18 +32,18 @@ in
 
   # Make NFS server depend on your drive being mounted
   systemd.services.nfs-server = {
-    after = [ "mnt-drive.mount" ];
-    requires = [ "mnt-drive.mount" ];
-    partOf = [ "mnt-drive.mount" ];
-    bindsTo = [ "mnt-drive.mount" ];
+    after = ["mnt-drive.mount"];
+    requires = ["mnt-drive.mount"];
+    partOf = ["mnt-drive.mount"];
+    bindsTo = ["mnt-drive.mount"];
     serviceConfig.Restart = "on-failure";
   };
-  #
+
   systemd.services.syncthing = {
-    after = [ "mnt-drive.mount" ];
-    requires = [ "mnt-drive.mount" ];
-    partOf = [ "mnt-drive.mount" ];
-    bindsTo = [ "mnt-drive.mount" ];
+    after = ["mnt-drive.mount"];
+    requires = ["mnt-drive.mount"];
+    partOf = ["mnt-drive.mount"];
+    bindsTo = ["mnt-drive.mount"];
     serviceConfig.Restart = "on-failure";
   };
   environment.systemPackages = with pkgs; [
@@ -62,7 +61,7 @@ in
   #   extrapackages = with pkgs; [intel-media-driver];
   # };
 
-  users.users.fabio.extraGroups = [ "video" "wheel" ];
+  users.users.fabio.extraGroups = ["video" "wheel"];
   programs.zsh.enable = true;
   networking.hostName = "server-wien";
 
@@ -77,10 +76,9 @@ in
     fsType = "ext4";
     options = [
       "nofail"
-      "x-systemd.device-timeout=1s"
-      "x-systemd.automount"
+      "x-systemd.device-timeout=5s"
     ];
   };
 
-  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 }

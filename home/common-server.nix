@@ -9,7 +9,7 @@
     gh # GitHub CLI tool for repo management
     dysk # Show disk usage (like df but nicer)
     distrobox # Run other Linux distros inside containers
-    wine # Run Windows programs on Linux
+    # wine # Run Windows programs on Linux
     ncdu # Visualize disk usage per folder
     btop # Resource monitor (CPU, memory, disk, network)
     direnv # Manage environment variables per project directory
