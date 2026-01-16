@@ -1,1 +1,22 @@
-/nix/store/kc45fc10kf7gcbv90zm382m161j9rvbi-home-manager-files/.config/swaync/config.json
+{
+  "positionX": "right",
+  "positionY": "top",
+  "timeout": 6,
+  "timeout-low": 5,
+  "timeout-critical": 0,
+  "widgets": [
+    "title",
+    "dnd",
+    "notifications"
+  ],
+  "widget-config": {
+    "title": {
+      "text": "Notifications",
+      "clear-all-button": true,
+      "button-text": "Clear All"
+    },
+    "dnd": {
+      "text": "Do Not Disturb"
+    }
+  }
+}

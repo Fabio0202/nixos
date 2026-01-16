@@ -64,7 +64,8 @@
     };
   };
 
-  # Generate shell script to create missing files
+  # Generate shell script to create missing files (only on fresh clones)
+  # Never removes existing files or symlinks - respects stow-managed configs
   createScript = ''
     ensure_parent_dir() {
       local parent
@@ -76,22 +77,16 @@
   '' + lib.concatStringsSep "\n" (lib.mapAttrsToList (path: cfg:
     if cfg.type == "symlink"
     then ''
-      if [ -L "${path}" ]; then
-        echo "Removing existing symlink: ${path}"
-        rm -f "${path}"
-      fi
-      if [ ! -e "${path}" ]; then
+      # Only create if nothing exists (not even a symlink)
+      if [ ! -e "${path}" ] && [ ! -L "${path}" ]; then
         echo "Creating default theme symlink: ${path}"
         ensure_parent_dir "${path}"
         ln -sf "${cfg.target}" "${path}"
       fi
     ''
     else ''
-      if [ -L "${path}" ]; then
-        echo "Removing existing symlink: ${path}"
-        rm -f "${path}"
-      fi
-      if [ ! -e "${path}" ]; then
+      # Only create if nothing exists (not even a symlink)
+      if [ ! -e "${path}" ] && [ ! -L "${path}" ]; then
         echo "Creating default theme file: ${path}"
         ensure_parent_dir "${path}"
         cat > "${path}" << 'THEMEEOF'
