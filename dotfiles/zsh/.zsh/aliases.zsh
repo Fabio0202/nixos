@@ -60,16 +60,7 @@ update() {
     return 1
   fi
 
-  sudo nixos-rebuild switch --flake "$flake_dir#$host" --impure || return $?
-
-  if [ -d "$flake_dir/dotfiles" ]; then
-    if ! command -v stow >/dev/null 2>&1; then
-      echo "update: stow not found; skipping restow (install pkgs.stow then re-run update)" >&2
-      return 0
-    fi
-
-    stow --dir="$flake_dir/dotfiles" --target="$HOME" --restow stow-common zsh ssh || return $?
-  fi
+  sudo nixos-rebuild switch --flake "$flake_dir#$host" --impure
 }
 
 # Project setup

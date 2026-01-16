@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -18,8 +18,7 @@
 
   environment.systemPackages = with pkgs; [
     pamixer
-    # `pavucontrol` - A graphical volume control tool for PulseAudio.
-    pavucontrol
+    pavucontrol # - A graphical volume control tool for PulseAudio.
     alsa-utils
   ];
 }
