@@ -7,12 +7,8 @@
   # Configuration is now in ~/dotfiles/stow-common/hyprland/.config/hypr/
   imports = [
     ./hyprland.nix # Keep for package installation only
-    #./swaylock.nix
     ./waybar.nix
-
-    ./swaync.nix
     ./swayosd.nix
-
     ./config/default.nix # Plugin installation (config via stow)
     ./swww.nix
     ./variables.nix
