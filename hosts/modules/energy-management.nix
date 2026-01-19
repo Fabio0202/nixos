@@ -16,6 +16,15 @@
 
   services.upower.enable = true;
 
+  # Disable systemd-logind lid switch handling
+  # Hyprland handles lid events via keybinds.conf (switch:on:Lid Switch)
+  # Having both handle it causes race conditions and double-wake on lid open
+  services.logind = {
+    lidSwitch = "ignore";
+    lidSwitchExternalPower = "ignore";
+    lidSwitchDocked = "ignore";
+  };
+
   boot.kernelParams = [
     "8250.nr_uarts=0" # disable legacy serial ports → faster boot (most machines don't need them)
 
