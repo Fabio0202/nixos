@@ -2,34 +2,29 @@
   pkgs,
   pkgs-unstable,
   ...
-}: let
-  mainMod = "Super";
-in {
+}: {
   home.packages = with pkgs; [
     (pkgs-unstable.vintagestory)
     nomachine-client
-
     _1password-gui # 1Password password manager (GUI)
     (pkgs-unstable.walker)
     (pkgs-unstable.elephant)
-    # blocky
     (pkgs-unstable.telegram-desktop)
-    vi-mongo # mongo db gui client
     (pkgs-unstable.godot_4)
     (pkgs-unstable.chromium)
-
-    # teams-for-linux
-    # (pkgs-unstable.jetbrains.webstorm)
-    (pkgs-unstable.mongodb-compass)
+    teams-for-linux
+    vi-mongo # mongo db tui client
+    godot
+    chromium
     logseq # notetaking like obsidian but better
     (pkgs-unstable.bitwig-studio)
+    filezilla # for sending files to my webserver
+    warehouse # GUI flatpak manager
     # gitkraken # git gui client - temporarily disabled due to download issues
     # slack # work chat
     # monolith # save complete web pages as a single HTML file
     # presenterm # for presentations in the terminal
-    filezilla # for sending files to my webserver
-    posting # to test http requests like postman
-    warehouse # GUI flatpak manager
+    # posting # to test http requests like postman
   ];
 
   xdg.desktopEntries.lf = {
