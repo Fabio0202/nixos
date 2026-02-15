@@ -7,6 +7,10 @@
 in {
   home.packages = with pkgs; [
     (pkgs-unstable.vintagestory)
+    nomachine-client
+
+    (pkgs-unstable.walker)
+    (pkgs-unstable.elephant)
     # blocky
     telegram-desktop
     vi-mongo # mongo db gui client
