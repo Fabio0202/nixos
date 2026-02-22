@@ -25,10 +25,12 @@ in
     virtualHosts = {
       "jellyfin.simone-muscas.com".extraConfig = jellyfinProxy;
       "radarr.simone-muscas.com".extraConfig = mkProxy 7878;
+      "vintagestory.simone-muscas.com".extraConfig = mkProxy 7878;
       "sonarr.simone-muscas.com".extraConfig = mkProxy 8989;
       "bazarr.simone-muscas.com".extraConfig = mkProxy 6768;
       "prowlarr.simone-muscas.com".extraConfig = mkProxy 9696;
       "deluge.simone-muscas.com".extraConfig = mkProxy 8112;
+      "share.simone-muscas.com".extraConfig = mkProxy 8081;
       "overseerr.simone-muscas.com".extraConfig = mkProxy 12345;
       "app.simone-muscas.com".extraConfig = ''
         root * /var/www/react-app/dist

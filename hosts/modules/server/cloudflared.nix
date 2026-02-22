@@ -17,6 +17,7 @@ in
       # Direct → apps (no Caddy needed)
       "jellyfin.${domain}" = "http://localhost:8096";
       "overseerr.${domain}" = "http://localhost:12345";
+      "share.${domain}" = "http://localhost:8081";
 
       # Route app through Caddy
       "app.${domain}" = "http://localhost:80";

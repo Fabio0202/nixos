@@ -1,12 +1,11 @@
-{ config
-, pkgs
-, inputs
-, ...
-}:
-let
-  UUID = "04c67b4a-ead1-4613-9abc-2985e9202e5c";
-in
 {
+  config,
+  pkgs,
+  inputs,
+  ...
+}: let
+  UUID = "04c67b4a-ead1-4613-9abc-2985e9202e5c";
+in {
   imports = [
     ./hardware-configuration.nix
 
@@ -18,6 +17,7 @@ in
     ./../modules/server/media-stack.nix
     ../modules/server/deploy-solid-app.nix
     ./../modules/server/vintage-story.nix
+    ../modules/server/whisper-server.nix
 
     (import ../modules/syncthing {
       user = "simon";
@@ -42,21 +42,22 @@ in
 
   # Make NFS (network file system) server depend on your drive being mounted
   systemd.services.nfs-server = {
-    after = [ "mnt-drive.mount" ];
-    requires = [ "mnt-drive.mount" ];
-    partOf = [ "mnt-drive.mount" ];
-    bindsTo = [ "mnt-drive.mount" ];
+    after = ["mnt-drive.mount"];
+    requires = ["mnt-drive.mount"];
+    partOf = ["mnt-drive.mount"];
+    bindsTo = ["mnt-drive.mount"];
     serviceConfig.Restart = "on-failure";
   };
 
   systemd.services.syncthing = {
-    after = [ "mnt-drive.mount" ];
-    requires = [ "mnt-drive.mount" ];
-    partOf = [ "mnt-drive.mount" ];
-    bindsTo = [ "mnt-drive.mount" ];
+    after = ["mnt-drive.mount"];
+    requires = ["mnt-drive.mount"];
+    partOf = ["mnt-drive.mount"];
+    bindsTo = ["mnt-drive.mount"];
     serviceConfig.Restart = "on-failure";
   };
   environment.systemPackages = with pkgs; [
+    dotnet-runtime_8
     xorg.xauth
     firefox
     cloudflared
@@ -66,6 +67,100 @@ in
   # → Required for most laptops and many network adapters to function properly
   hardware.enableRedistributableFirmware = true;
   security.sudo.enable = true;
+
+  # Passwordless sudo for common system operations
+  security.sudo.extraRules = [
+    {
+      users = ["simon"];
+      commands = [
+        {
+          command = "/run/current-system/sw/bin/systemctl start jellyfin";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/run/current-system/sw/bin/systemctl stop jellyfin";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/run/current-system/sw/bin/systemctl restart jellyfin";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/run/current-system/sw/bin/systemctl start jellyseerr";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/run/current-system/sw/bin/systemctl stop jellyseerr";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/run/current-system/sw/bin/systemctl restart jellyseerr";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/run/current-system/sw/bin/systemctl start syncthing";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/run/current-system/sw/bin/systemctl stop syncthing";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/run/current-system/sw/bin/systemctl restart syncthing";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/run/current-system/sw/bin/systemctl start sonarr";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/run/current-system/sw/bin/systemctl stop sonarr";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/run/current-system/sw/bin/systemctl restart sonarr";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/run/current-system/sw/bin/systemctl start radarr";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/run/current-system/sw/bin/systemctl stop radarr";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/run/current-system/sw/bin/systemctl restart radarr";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/run/current-system/sw/bin/systemctl start bazarr";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/run/current-system/sw/bin/systemctl stop bazarr";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/run/current-system/sw/bin/systemctl restart bazarr";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/run/current-system/sw/bin/mount";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/run/current-system/sw/bin/umount";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/run/current-system/sw/bin/nixos-rebuild";
+          options = ["NOPASSWD"];
+        }
+      ];
+    }
+  ];
+
   boot.extraModulePackages = with config.boot.kernelPackages; [
     rtl88xxau-aircrack
   ];
@@ -73,10 +168,10 @@ in
   # Enable Intel iGPU video acceleration
   hardware.opengl = {
     enable = true;
-    extraPackages = with pkgs; [ intel-media-driver ];
+    extraPackages = with pkgs; [intel-media-driver];
   };
 
-  users.users.simon.extraGroups = [ "video" "wheel" ];
+  users.users.simon.extraGroups = ["video" "wheel"];
   programs.zsh.enable = true;
   networking.hostName = "server";
 
@@ -118,5 +213,5 @@ in
     group = "users";
   };
 
-  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 }
