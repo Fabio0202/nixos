@@ -63,5 +63,29 @@ in
       devices = [ "server-wien" "server-schweiz" ];
       versioning = defaultVersioning;
     };
+
+    # Paperless documents archive
+    "paperless-simon" = {
+      path = "/mnt/drive/paperless/simon";
+      devices = [
+        "server-wien"
+        "simon-pc"
+        "simon-laptop"
+        "server-schweiz"
+      ];
+      versioning = defaultVersioning;
+    };
+
+    # OpenClaw workspace (memory, projects, etc.)
+    "openclaw-workspace-simon" = {
+      path = "/home/simon/.openclaw/workspace";
+      devices = [
+        "server-wien"
+        "simon-pc"
+        "simon-laptop"
+        "server-schweiz"
+      ];
+      versioning = defaultVersioning;
+    };
   };
 }

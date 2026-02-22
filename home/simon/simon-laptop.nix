@@ -6,6 +6,7 @@
   home.packages = with pkgs; [
     moonlight-qt
     sunshine
+    _1password-gui # 1Password password manager (GUI)
     # alle Software die ich nur am Laptop haben will
     # TODO: allow unstable imports
     # (pkgs-unstable.vintagestory)

@@ -19,5 +19,11 @@
       devices = [ "simon-pc" "simon-laptop" "server-schweiz" "server-wien" ];
       versioning = { type = "trashcan"; };
     };
+
+    "openclaw-workspace-simon" = {
+      path = "/home/simon/.openclaw/workspace";
+      devices = ["simon-pc" "simon-laptop" "server-schweiz" "server-wien"];
+      versioning = {type = "trashcan";};
+    };
   };
 }

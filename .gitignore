@@ -9,3 +9,4 @@ dotfiles/stow-common/.config/waybar/themes/current.css
 dotfiles/stow-common/.config/nwg-dock-hyprland/style.css
 dotfiles/stow-common/.config/wlogout/style.css
 files/wallpapers/.theme-state.json
+*.backup.*
