@@ -199,7 +199,7 @@ in {
 
   # Vintage Story Server Configuration
   services.vintage-story = {
-    enable = true;
+    enable = false;
     serverName = "Simon's Vintage Story Server";
     port = 42420;
     maxClients = 10;
