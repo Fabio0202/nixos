@@ -208,7 +208,6 @@ in {
     whitelistMode = "default"; # Whitelist enabled by default
     defaultRole = "suplayer";
     memory = "3G"; # Allocate 3GB RAM
-    version = "1.21.5"; # Latest stable version
     user = "simon";
     group = "users";
   };
