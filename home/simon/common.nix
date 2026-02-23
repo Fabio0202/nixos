@@ -20,7 +20,7 @@
 
     jjui # tui for jujutsu
     awscli2 # AWS Command Line Interface v2
-    _1password # 1Password CLI
+    _1password-cli # 1Password CLI
     # Java development here
     # google-java-format
     # jdk17 # Java 17 for Spring Boot
