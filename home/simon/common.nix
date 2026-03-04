@@ -4,6 +4,7 @@
   ...
 }: {
   home.packages = with pkgs; [
+    w3m # browsing with your terminal
     deluge # Lightweight, full-featured BitTorrent client
     speedtest-cli # Test internet bandwidth using speedtest.net
     (pkgs-unstable.devenv) # Dev environment manager (like direnv but more powerful)

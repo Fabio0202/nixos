@@ -3,7 +3,10 @@
 # Basic commands
 alias mkdir="mkdir -p"
 alias rm="trash-put"
-alias open="xdg-open"
+alias ggl='noglob _ggl'
+_ggl() {
+  w3m "https://lite.duckduckgo.com/lite/?q=$(printf '%s' "$*" | jq -sRr @uri)"
+}
 
 # SSH control
 alias ssh-allow="sudo systemctl start sshd"
