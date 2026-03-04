@@ -56,22 +56,14 @@
   };
 
   programs.zsh = {
-    plugins = [
-      {
-        name = "powerlevel10k";
-        src = pkgs.zsh-powerlevel10k;
-        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-      }
-      {
-        name = "powerlevel10k-config";
-        src = ./p10k-config;
-        file = "p10k.zsh";
-      }
-    ];
-
     oh-my-zsh = {
       enable = true;
     };
+  };
+
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
   };
 
   home.packages = with pkgs; [
@@ -96,7 +88,8 @@
     btop # resource monitor (CPU, RAM, GPU, etc.)
     wget # download files from web
     xclip # clipboard CLI for X11/Wayland
-    kitty # GPU-accelerated terminal - moved to stow
+    # kitty # GPU-accelerated terminal - moved to stow
+    ghostty
     bat # modern replacement for cat (with syntax highlighting)
     trash-cli # move files to trash instead of rm
     yazi # fast TUI file manager (like lf but modern)

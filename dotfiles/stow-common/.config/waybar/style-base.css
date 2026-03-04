@@ -147,6 +147,7 @@
 #custom-power,
 #custom-mic,
 #custom-nightmode,
+#custom-nixos-sync,
 #backlight,
 #group-quick-settings {
   border-radius: 6px;
@@ -174,7 +175,8 @@
 #custom-battery,
 #quick-settings,
 #custom-notifications,
-#custom-power {
+#custom-power,
+#custom-nixos-sync {
   padding: 0 12px;
 }
 
@@ -250,6 +252,18 @@
 }
 
 #custom-power {
+  color: @accent-warning;
+}
+
+#custom-nixos-sync.behind {
+  color: @accent-danger;
+}
+
+#custom-nixos-sync.ahead {
+  color: @accent-success;
+}
+
+#custom-nixos-sync.diverged {
   color: @accent-warning;
 }
 

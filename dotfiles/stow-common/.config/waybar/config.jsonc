@@ -17,6 +17,7 @@
     "modules-right": [
       "custom/timer",
       "tray",
+      "custom/nixos-sync",
       "custom/kblayout",
       "pulseaudio",
       "custom/mic",
@@ -26,6 +27,14 @@
       "custom/notifications",
       "custom/power"
     ],
+
+"custom/nixos-sync": {
+  "exec": "~/nixos/home/scripts/nixos-sync-status.sh",
+  "return-type": "json",
+  "interval": 300,
+  "on-click": "~/nixos/home/scripts/nixos-jj-sync.sh",
+  "tooltip": true
+},
 
 "custom/timer": {
   "exec": "timer waybar",

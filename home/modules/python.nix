@@ -3,6 +3,7 @@
   home.packages = with pkgs; [
     python312
     python312Packages.tkinter
+    pipx
   ];
 
   # Create global Python environment for pip installs

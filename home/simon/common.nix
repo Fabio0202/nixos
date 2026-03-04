@@ -5,6 +5,9 @@
 }: {
   home.packages = with pkgs; [
     w3m # browsing with your terminal
+    sqlite # Lightweight database engine
+    himalaya # CLI email client for Gmail/IMAP
+    aerc # tui email client
     deluge # Lightweight, full-featured BitTorrent client
     speedtest-cli # Test internet bandwidth using speedtest.net
     (pkgs-unstable.devenv) # Dev environment manager (like direnv but more powerful)

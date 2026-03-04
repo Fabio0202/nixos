@@ -1,19 +1,15 @@
-{ pkgs
-, inputs
-, pkgs-unstable
-, ...
+{
+  pkgs,
+  inputs,
+  pkgs-unstable,
+  ...
 }: {
   # I need to permit insecure packages because of logseq for now
-  home.packages = with pkgs; [
-    sunshine
-    moonlight-qt
-    pkgs-unstable.freerdp
-    pkgs-unstable.winboat
-    # alle Software die ich nur am Laptop haben will
-    # TODO: allow unstable imports
-    # (pkgs-unstable.vintagestory)
-    # (pkgs-unstable.mongodb-compass)
-  ];
+  # not sure if I wanna go the winboat route rn lets see
+  # home.packages = with pkgs; [
+  #   pkgs-unstable.freerdp
+  #   pkgs-unstable.winboat
+  # ];
 
   imports = [
     ../modules/gitSimon.nix
@@ -21,11 +17,4 @@
     ./common-gui.nix
     ../common.nix
   ];
-
-  # DISABLED: Using traditional dotfiles instead
-  # User-specific config now in ~/dotfiles/stow-simon/hyprland/.config/hypr/user-simon.conf
-  # wayland.windowManager.hyprland.settings.input = {
-  #   kb_layout = "us, de";
-  #   sensitivity = 1.4;
-  # };
 }

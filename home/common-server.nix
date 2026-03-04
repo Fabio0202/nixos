@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   home.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
@@ -21,8 +21,6 @@
     # TODO: do I still need this though?
     neovim # Terminal text editor
     lazygit # TUI for Git
-    sqlite # Lightweight database engine
-    himalaya # CLI email client for Gmail/IMAP
   ];
 
   # Fonts (needed by GUI + CLI tools rendering text/icons)
