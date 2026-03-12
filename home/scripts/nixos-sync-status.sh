@@ -9,7 +9,7 @@ timeout 10 jj -R "$NIXOS_DIR" git fetch --quiet 2>/dev/null
 
 # Compare @ (working copy) against master@origin — not the master bookmark
 # This means you never need to manually advance master; @ is always the source of truth
-ahead=$(jj -R "$NIXOS_DIR" log -r "present(master@origin)..@" --no-graph -T 'commit_id.short() ++ "\n"' 2>/dev/null | grep -c .)
+ahead=$(jj -R "$NIXOS_DIR" log -r "(present(master@origin)..@) ~ empty()" --no-graph -T 'commit_id.short() ++ "\n"' 2>/dev/null | grep -c .)
 behind=$(jj -R "$NIXOS_DIR" log -r "@..present(master@origin)" --no-graph -T 'commit_id.short() ++ "\n"' 2>/dev/null | grep -c .)
 
 [[ "$ahead" -eq 0 && "$behind" -eq 0 ]] && exit 0
