@@ -50,7 +50,7 @@ do_reboot()   { systemctl reboot; }
 do_suspend()  { systemctl suspend; }
 do_lock()     { hyprlock; }
 
-# Wi-Fi
+# Wifi
 do_wifi_connect() {
     local networks selected ssid
     networks=$(nmcli -t -f SSID,SIGNAL,SECURITY device wifi list | grep -v '^:' | sort -t: -k2 -nr | awk -F: '{
@@ -63,7 +63,7 @@ do_wifi_connect() {
         printf "%s %s %s %s\n", icon, $1, security, signal"%"
     }')
     [[ -z "$networks" ]] && { notify "No networks found"; return; }
-    selected=$(echo "$networks" | rofi $ROFI_OPTS -p "Connect to Wi-Fi")
+    selected=$(echo "$networks" | rofi $ROFI_OPTS -p "Connect to Wifi")
     [[ -z "$selected" ]] && return
     ssid=$(echo "$selected" | awk '{print $2}')
     nmcli device wifi connect "$ssid" && notify "Connected to $ssid" || notify "Failed to connect"
@@ -71,7 +71,7 @@ do_wifi_connect() {
 
 do_wifi_toggle() {
     nmcli radio wifi toggle; sleep 0.5
-    nmcli radio wifi | grep -q enabled && notify "Wi-Fi enabled" || notify "Wi-Fi disabled"
+    nmcli radio wifi | grep -q enabled && notify "Wifi enabled" || notify "Wifi disabled"
 }
 
 do_wifi_disconnect() {
@@ -93,7 +93,7 @@ do_wifi_status() {
     fi
 }
 
-do_wifi_settings() { kitty --title "Wi-Fi Settings" -e nmtui & }
+do_wifi_settings() { kitty --title "Wifi Settings" -e nmtui & }
 
 # Bluetooth
 do_bt_connect() {
@@ -289,76 +289,77 @@ do_timer_dismiss() { timer dismiss; }
 ENTRY_IDS=()
 ENTRY_LABELS=()
 ENTRY_ACTIONS=()
+ENTRY_ICONS=()
 
-reg() { ENTRY_IDS+=("$1"); ENTRY_LABELS+=("$2"); ENTRY_ACTIONS+=("$3"); }
+reg() { ENTRY_IDS+=("$1"); ENTRY_LABELS+=("$2"); ENTRY_ACTIONS+=("$3"); ENTRY_ICONS+=("$4"); }
 
 register_entries() {
-    reg "system_shutdown"    "󰐥  System › Shutdown"               "do_shutdown"
-    reg "system_reboot"      "󰜉  System › Reboot"                 "do_reboot"
-    reg "system_suspend"     "󰤄  System › Suspend"                "do_suspend"
-    reg "system_lock"        "󰒳  System › Lock"                   "do_lock"
+    reg "system_shutdown"    "System › Shutdown"                  "do_shutdown"             "system-shutdown"
+    reg "system_reboot"      "System › Reboot"                    "do_reboot"               "system-reboot"
+    reg "system_suspend"     "System › Suspend"                   "do_suspend"              "system-suspend"
+    reg "system_lock"        "System › Lock"                      "do_lock"                 "system-lock-screen"
 
-    reg "wifi_connect"       "󰖩  Wi-Fi › Connect"                 "do_wifi_connect"
-    reg "wifi_toggle"        "󰖩  Wi-Fi › Toggle"                  "do_wifi_toggle"
-    reg "wifi_disconnect"    "󰖪  Wi-Fi › Disconnect"               "do_wifi_disconnect"
-    reg "wifi_status"        "󰖩  Wi-Fi › Status"                  "do_wifi_status"
-    reg "wifi_settings"      "󰌆  Wi-Fi › Settings"                "do_wifi_settings"
+    reg "wifi_connect"       "Wifi › Connect"                     "do_wifi_connect"         "network-wireless"
+    reg "wifi_toggle"        "Wifi › Toggle"                      "do_wifi_toggle"          "network-wireless"
+    reg "wifi_disconnect"    "Wifi › Disconnect"                  "do_wifi_disconnect"      "network-wireless-offline"
+    reg "wifi_status"        "Wifi › Status"                      "do_wifi_status"          "network-wireless"
+    reg "wifi_settings"      "Wifi › Settings"                    "do_wifi_settings"        "preferences-system-network"
 
-    reg "bt_connect"         "󰂱  Bluetooth › Connect"             "do_bt_connect"
-    reg "bt_toggle"          "󰂯  Bluetooth › Toggle"              "do_bt_toggle"
-    reg "bt_disconnect"      "󰂲  Bluetooth › Disconnect"          "do_bt_disconnect"
-    reg "bt_status"          "󰂯  Bluetooth › Status"              "do_bt_status"
-    reg "bt_settings"        "󰒓  Bluetooth › Settings"            "do_bt_settings"
+    reg "bt_connect"         "Bluetooth › Connect"                "do_bt_connect"           "bluetooth-active"
+    reg "bt_toggle"          "Bluetooth › Toggle"                 "do_bt_toggle"            "bluetooth"
+    reg "bt_disconnect"      "Bluetooth › Disconnect"             "do_bt_disconnect"        "bluetooth-disabled"
+    reg "bt_status"          "Bluetooth › Status"                 "do_bt_status"            "bluetooth"
+    reg "bt_settings"        "Bluetooth › Settings"               "do_bt_settings"          "preferences-system-bluetooth"
 
-    reg "audio_output"       "󰓃  Audio › Output Device"           "do_audio_output"
-    reg "audio_input"        "󰍬  Audio › Input Device"            "do_audio_input"
-    reg "audio_mute"         "󰕾  Audio › Toggle Mute"             "do_audio_mute_toggle"
-    reg "audio_mic"          "󰍭  Audio › Mute Mic"                "do_audio_mic_toggle"
-    reg "audio_settings"     "󰒓  Audio › Settings"                "do_audio_settings"
+    reg "audio_output"       "Audio › Output Device"              "do_audio_output"         "audio-speakers"
+    reg "audio_input"        "Audio › Input Device"               "do_audio_input"          "audio-input-microphone"
+    reg "audio_mute"         "Audio › Toggle Mute"                "do_audio_mute_toggle"    "audio-volume-muted"
+    reg "audio_mic"          "Audio › Mute Mic"                   "do_audio_mic_toggle"     "microphone-sensitivity-muted"
+    reg "audio_settings"     "Audio › Settings"                   "do_audio_settings"       "multimedia-volume-control"
 
-    reg "screenshot_area"    "󰹑  Screenshots › Area → Clipboard"  "do_screenshot_area"
-    reg "screenshot_full"    "󰹑  Screenshots › Full → Clipboard"  "do_screenshot_full"
-    reg "screenshot_edit"    "󰏫  Screenshots › Area → Edit"       "do_screenshot_edit"
-    reg "screenshot_record"  "󰕧  Screenshots › Record Area"       "do_screenshot_record"
+    reg "screenshot_area"    "Screenshots › Area → Clipboard"     "do_screenshot_area"      "screenshot"
+    reg "screenshot_full"    "Screenshots › Full → Clipboard"     "do_screenshot_full"      "screenshot"
+    reg "screenshot_edit"    "Screenshots › Area → Edit"          "do_screenshot_edit"      "image-editor"
+    reg "screenshot_record"  "Screenshots › Record Area"          "do_screenshot_record"    "camera-video"
 
-    reg "media_prev"         "󰒮  Media › Previous"                "do_media_prev"
-    reg "media_play"         "󰐎  Media › Play/Pause"              "do_media_play_pause"
-    reg "media_next"         "󰒭  Media › Next"                    "do_media_next"
-    reg "media_spotify"      "  Media › Spotify"                 "do_media_spotify"
+    reg "media_prev"         "Media › Previous"                   "do_media_prev"           "media-skip-backward"
+    reg "media_play"         "Media › Play/Pause"                 "do_media_play_pause"     "media-playback-start"
+    reg "media_next"         "Media › Next"                       "do_media_next"           "media-skip-forward"
+    reg "media_spotify"      "Media › Spotify"                    "do_media_spotify"        "spotify"
 
-    reg "ssh_connect"        "󰣀  SSH › Connect"                   "do_ssh_connect"
+    reg "ssh_connect"        "SSH › Connect"                      "do_ssh_connect"          "utilities-terminal"
 
-    reg "theme_catppuccin"   "󰔎  Themes › Catppuccin Mocha"       "do_theme_catppuccin"
-    reg "theme_everforest"   "󰌪  Themes › Everforest"             "do_theme_everforest"
-    reg "theme_rose_pine"    "󰗀  Themes › Rose Pine"              "do_theme_rose_pine"
-    reg "theme_gruvbox"      "󰛩  Themes › Gruvbox"                "do_theme_gruvbox"
-    reg "theme_kanagawa"     "󰒘  Themes › Kanagawa"               "do_theme_kanagawa"
-    reg "theme_nord"         "󰍂  Themes › Nord"                   "do_theme_nord"
-    reg "theme_cycle"        "󰒲  Themes › Cycle"                  "do_theme_cycle"
+    reg "theme_catppuccin"   "Themes › Catppuccin Mocha"          "do_theme_catppuccin"     "preferences-desktop-theme"
+    reg "theme_everforest"   "Themes › Everforest"                "do_theme_everforest"     "preferences-desktop-theme"
+    reg "theme_rose_pine"    "Themes › Rose Pine"                 "do_theme_rose_pine"      "preferences-desktop-theme"
+    reg "theme_gruvbox"      "Themes › Gruvbox"                   "do_theme_gruvbox"        "preferences-desktop-theme"
+    reg "theme_kanagawa"     "Themes › Kanagawa"                  "do_theme_kanagawa"       "preferences-desktop-theme"
+    reg "theme_nord"         "Themes › Nord"                      "do_theme_nord"           "preferences-desktop-theme"
+    reg "theme_cycle"        "Themes › Cycle"                     "do_theme_cycle"          "preferences-desktop-theme"
 
-    reg "wallpaper_change"   "󰸉  Wallpaper › Change"              "do_wallpaper_change"
-    reg "wallpaper_next"     "󰒭  Wallpaper › Next"                "do_wallpaper_next"
-    reg "wallpaper_folder"   "󰉋  Wallpaper › Open Folder"         "do_wallpaper_folder"
+    reg "wallpaper_change"   "Wallpaper › Change"                 "do_wallpaper_change"     "preferences-desktop-wallpaper"
+    reg "wallpaper_next"     "Wallpaper › Next"                   "do_wallpaper_next"       "go-next"
+    reg "wallpaper_folder"   "Wallpaper › Open Folder"            "do_wallpaper_folder"     "folder-pictures"
 
-    reg "nix_update"         "󱄅  Nix › Update"                    "do_nix_update"
+    reg "nix_update"         "Nix › Update"                       "do_nix_update"           "system-software-install"
 
-    reg "config_keybinds"    "󰌌  Config › Keybinds"               "do_edit_keybinds"
-    reg "config_waybar"      "󰀻  Config › Waybar"                 "do_edit_waybar"
-    reg "config_monitors"    "󰍹  Config › Monitors"               "do_edit_monitors"
-    reg "config_packages"    "󱄅  Config › NixOS Packages"         "do_edit_packages"
-    reg "config_aliases"     "󰘳  Config › Shell Aliases"          "do_edit_aliases"
-    reg "config_ssh"         "󰣀  Config › SSH Config"             "do_edit_ssh_config"
+    reg "config_keybinds"    "Config › Keybinds"                  "do_edit_keybinds"        "input-keyboard"
+    reg "config_waybar"      "Config › Waybar"                    "do_edit_waybar"          "preferences-system"
+    reg "config_monitors"    "Config › Monitors"                  "do_edit_monitors"        "video-display"
+    reg "config_packages"    "Config › NixOS Packages"            "do_edit_packages"        "system-software-install"
+    reg "config_aliases"     "Config › Shell Aliases"             "do_edit_aliases"         "utilities-terminal"
+    reg "config_ssh"         "Config › SSH Config"                "do_edit_ssh_config"      "utilities-terminal"
 
-    reg "toggle_hyprsunset"  "󱩐  Toggle › Hyprsunset"             "do_hyprsunset_toggle"
-    reg "color_picker"       "󰏘  Color Picker"                    "do_color_picker"
+    reg "toggle_hyprsunset"  "Toggle › Hyprsunset"                "do_hyprsunset_toggle"    "night-light"
+    reg "color_picker"       "Color Picker"                       "do_color_picker"         "color-picker"
 
-    reg "timer_set"          "󰄉  Timer › Set"                     "do_timer_set"
-    reg "timer_5"            "󰥔  Timer › 5 minutes"               "do_timer_5"
-    reg "timer_10"           "󰥔  Timer › 10 minutes"              "do_timer_10"
-    reg "timer_15"           "󰥔  Timer › 15 minutes"              "do_timer_15"
-    reg "timer_30"           "󰥔  Timer › 30 minutes"              "do_timer_30"
-    reg "timer_cancel"       "󰜺  Timer › Cancel"                  "do_timer_cancel"
-    reg "timer_dismiss"      "󰂛  Timer › Dismiss Alarm"           "do_timer_dismiss"
+    reg "timer_set"          "Timer › Set"                        "do_timer_set"            "alarm-clock"
+    reg "timer_5"            "Timer › 5 minutes"                  "do_timer_5"              "alarm-clock"
+    reg "timer_10"           "Timer › 10 minutes"                 "do_timer_10"             "alarm-clock"
+    reg "timer_15"           "Timer › 15 minutes"                 "do_timer_15"             "alarm-clock"
+    reg "timer_30"           "Timer › 30 minutes"                 "do_timer_30"             "alarm-clock"
+    reg "timer_cancel"       "Timer › Cancel"                     "do_timer_cancel"         "process-stop"
+    reg "timer_dismiss"      "Timer › Dismiss Alarm"              "do_timer_dismiss"        "dialog-ok"
 }
 
 # ─── APP SCANNER ──────────────────────────────────────────────────────────────
@@ -415,10 +416,10 @@ build_menu() {
     local tmp
     tmp=$(mktemp)
 
-    # System entries: score<TAB>label<TAB>(empty icon)
+    # System entries: score<TAB>label<TAB>icon
     for i in "${!ENTRY_IDS[@]}"; do
         local score="${scores[${ENTRY_IDS[$i]}]:-0}"
-        printf '%010d\t%s\t\n' "$score" "${ENTRY_LABELS[$i]}" >> "$tmp"
+        printf '%010d\t%s\t%s\n' "$score" "${ENTRY_LABELS[$i]}" "${ENTRY_ICONS[$i]}" >> "$tmp"
     done
 
     # App entries: score<TAB>name<TAB>icon_name
@@ -491,7 +492,7 @@ hier_main_menu() {
             "󰂯  Bluetooth" \
             "󰕾  Audio" \
             "󰗀  Themes" \
-            "󰖩  Wi-Fi" \
+            "󰖩  Wifi" \
             "󰸉  Wallpaper" \
             "$timer_entry" \
             "󰏘  Color Picker" \
@@ -503,7 +504,7 @@ hier_main_menu() {
 
         case "$choice" in
             *"System"*)       hier_system_menu ;;
-            *"Wi-Fi"*)        hier_wifi_menu ;;
+            *"Wifi"*)        hier_wifi_menu ;;
             *"Bluetooth"*)    hier_bt_menu ;;
             *"Audio"*)        hier_audio_menu ;;
             *"Screenshots"*)  hier_screenshots_menu ;;
@@ -539,7 +540,7 @@ hier_wifi_menu() {
     while true; do
         local toggle_entry choice
         nmcli radio wifi | grep -q enabled && toggle_entry="󰤨  Toggle (ON)" || toggle_entry="󰤭  Toggle (OFF)"
-        choice=$(show_rofi "Wi-Fi" "󰖩  Connect" "󰖩  Status" "$toggle_entry" "󰖪  Disconnect" "󰌆  Settings" "←  Back")
+        choice=$(show_rofi "Wifi" "󰖩  Connect" "󰖩  Status" "$toggle_entry" "󰖪  Disconnect" "󰌆  Settings" "←  Back")
         [[ $? -eq 10 ]] && return
         case "$choice" in
             *"Connect"*)    do_wifi_connect ;;

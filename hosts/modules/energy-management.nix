@@ -28,9 +28,12 @@
   boot.kernelParams = [
     "8250.nr_uarts=0" # disable legacy serial ports → faster boot (most machines don't need them)
 
-    # Automatically suspend idle USB devices after a short timeout.
-    # → Lowers power use (esp. webcam, fingerprint, smartcard reader) when idle.
-    "usbcore.autosuspend=-1"
+    # Use AMD's firmware-level power curve instead of generic acpi-cpufreq.
+    # Gives finer-grained voltage/frequency control → 2-4W savings at light load.
+    "amd_pstate=active"
+
+    # Suspend idle USB devices after 2s (Linux default, was accidentally disabled with -1).
+    "usbcore.autosuspend=2"
   ];
 
   # Custom Powertop service (non-blocking, runs after boot)
@@ -70,24 +73,19 @@
 
       # Runtime power management (PCI devices)
       RUNTIME_PM_ON_AC = "auto";
+      RUNTIME_PM_ON_BAT = "auto"; # also enable PCI runtime PM on battery
 
       # Wi-Fi power saving
       WIFI_PWR_ON_AC = "on";
       WIFI_PWR_ON_BAT = "low";
 
       # Disk Advanced Power Management (APM) levels
-      DISK_DEVICES = "sda sdb"; # list of managed disks
-      DISK_APM_LEVEL_ON_AC = "254 254"; # max performance on AC
-      DISK_APM_LEVEL_ON_BAT = "128 128"; # more aggressive savings on battery
+      # NVMe power is handled via ASPM/runtime PM, not APM — leave DISK_DEVICES unset
 
       # USB autosuspend for unused devices
-      USB_AUTOSUSPEND = false;
+      USB_AUTOSUSPEND = true;
     };
   };
-
-  # Enable thermald (Intel/AMD thermal daemon)
-  # Dynamically adjusts CPU throttling to keep temps under control
-  services.thermald.enable = true;
 
   # Udev rule: trigger Waybar battery module refresh instantly on plug/unplug
   # - SUBSYSTEM=="power_supply": fires when AC adapter or battery state changes
