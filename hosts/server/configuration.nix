@@ -186,14 +186,18 @@ in {
     fsType = "ext4";
     options = [
       "nofail"
-      "x-systemd.device-timeout=1s"
+      "x-systemd.device-timeout=60s"
       "x-systemd.automount"
     ];
   };
 
   # Mount the moment the disk appears
-  # This rule makes systemd “watch” for your specific disk by UUID, and immediately mount it when it appears, instead of lazily waiting.
+  # This rule makes systemd "watch" for your specific disk by UUID, and immediately mount it when it appears, instead of lazily waiting.
   services.udev.extraRules = ''
+    # JMicron JMS561U - disable USB autosuspend to prevent boot detection issues
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="152d", ATTR{idProduct}=="1561", ATTR{power/control}="on"
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="152d", ATTR{idProduct}=="1561", ATTR{power/autosuspend}="-1"
+    # Trigger mount when drive appears
     ACTION=="add", SUBSYSTEM=="block", ENV{ID_FS_UUID}=="${UUID}", ENV{SYSTEMD_WANTS}+="mnt-drive.mount"
   '';
 

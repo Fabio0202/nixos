@@ -14,10 +14,18 @@ in
     credentialsFile = "/etc/cloudflared/simone-tunnel.json";
 
     ingress = {
-      # Direct → apps (no Caddy needed)
-      "jellyfin.${domain}" = "http://localhost:8096";
-      "overseerr.${domain}" = "http://localhost:12345";
-      "share.${domain}" = "http://localhost:8081";
+      # Personal - Only me (PIN protected via Cloudflare Access)
+      "notes.${domain}" = "http://localhost:8003";      # Silverbullet
+      "kuma.${domain}" = "http://localhost:3001";       # Uptime monitoring
+      "homarr.${domain}" = "http://localhost:7575";     # Dashboard
+      "paperless.${domain}" = "http://localhost:8010";  # Documents
+      # Baserow NOT exposed to internet (database - too sensitive)
+
+      # Friends - Shared access (PIN or approval)
+      "jellyfin.${domain}" = "http://localhost:8096";   # Media server
+      "overseerr.${domain}" = "http://localhost:12345";  # Media requests
+      "filebrowser.${domain}" = "http://localhost:8080"; # File sharing
+      "share.${domain}" = "http://localhost:8081";      # File sharing (alt)
 
       # Route app through Caddy
       "app.${domain}" = "http://localhost:80";
