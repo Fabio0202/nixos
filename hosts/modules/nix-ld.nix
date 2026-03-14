@@ -35,6 +35,7 @@
       mesa # provides GL + GLU
       libGL
       libGLU
+      portaudio # audio I/O (used by voice dictation / faster-whisper)
     ];
   };
 }

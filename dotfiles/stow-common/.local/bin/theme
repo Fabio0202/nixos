@@ -89,17 +89,17 @@ fi
 # Kitty
 ln -sf "$KITTY_THEME_DIR/$THEME_NAME.conf" "$KITTY_THEME_DIR/current.conf"
 
-# Hyprlock
+# Hyprlock - use relative symlink in stow source dir so stow restow works
 [ -f "$HYPRLOCK_THEME_DIR/$THEME_NAME.conf" ] && \
-    ln -sf "$HYPRLOCK_THEME_DIR/$THEME_NAME.conf" "$HOME/.config/hypr/themes/current.conf"
+    ln -sf "$THEME_NAME.conf" "$HYPRLOCK_THEME_DIR/current.conf"
 
 # Waybar
 [ -f "$WAYBAR_THEME_DIR/$THEME_NAME.css" ] && \
     ln -sf "$WAYBAR_THEME_DIR/$THEME_NAME.css" "$WAYBAR_THEME_DIR/current.css"
 
-# Rofi - symlink to source file in stow directory
+# Rofi - use relative symlink in stow source dir so stow restow works
 [ -f "$ROFI_THEME_SOURCE/$THEME_NAME.rasi" ] && \
-    ln -sf "$ROFI_THEME_SOURCE/$THEME_NAME.rasi" "$ROFI_CURRENT"
+    ln -sf "$THEME_NAME.rasi" "$ROFI_THEME_SOURCE/config.rasi"
 
 # swaync
 [ -f "$SWAYNC_THEME_DIR/$THEME_NAME.css" ] && \

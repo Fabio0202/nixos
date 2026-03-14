@@ -10,12 +10,10 @@
     (pkgs-unstable.walker)
     (pkgs-unstable.elephant)
     (pkgs-unstable.telegram-desktop)
-    (pkgs-unstable.godot_4)
     (pkgs-unstable.chromium)
     teams-for-linux
     vi-mongo # mongo db tui client
     godot
-    chromium
     logseq # notetaking like obsidian but better
     (pkgs-unstable.bitwig-studio)
     filezilla # for sending files to my webserver

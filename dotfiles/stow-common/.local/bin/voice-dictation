@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+# Voice Dictation - Push-to-talk for Wayland/Hyprland
+# Uses a background daemon to keep the Whisper model loaded (~0.5s vs ~5s)
+# Toggle: first call starts recording, second call stops and transcribes
+
+export PATH="$HOME/.local/bin:$HOME/.nix-profile/bin:/etc/profiles/per-user/$USER/bin:/run/current-system/sw/bin:$PATH"
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}/run/current-system/sw/share/nix-ld/lib"
+
+msg() { echo "$1"; notify-send "Voice Dictation" "$1" -t "${2:-3000}" 2>/dev/null || true; }
+
+PIDFILE="/tmp/voice-dictation.pid"
+AUDIOFILE="/tmp/voice-dictation.wav"
+SOCKET="/tmp/voice-dictation.sock"
+VENV_DIR="$HOME/.local/share/voice-dictation"
+DAEMON="$VENV_DIR/daemon.py"
+
+# Ensure daemon is running (model stays loaded in memory)
+ensure_daemon() {
+    if [ ! -S "$SOCKET" ]; then
+        msg "Starting dictation engine..." 2000
+        "$VENV_DIR/bin/python" "$DAEMON" &>/tmp/voice-dictation-daemon.log &
+        disown
+        # Wait for socket to appear
+        for i in $(seq 1 30); do
+            [ -S "$SOCKET" ] && return 0
+            sleep 0.5
+        done
+        msg "Failed to start daemon. Check /tmp/voice-dictation-daemon.log"
+        return 1
+    fi
+}
+
+# Send file path to daemon, get transcription back
+transcribe() {
+    echo "$AUDIOFILE" | socat -t 30 - UNIX-CONNECT:"$SOCKET" 2>/dev/null
+}
+
+# If recording is running, stop it and transcribe
+if [ -f "$PIDFILE" ]; then
+    PID=$(cat "$PIDFILE")
+    kill "$PID" 2>/dev/null
+    wait "$PID" 2>/dev/null
+    rm -f "$PIDFILE"
+
+    msg "Transcribing..." 2000
+
+    TEXT=$(transcribe)
+
+    if [ -n "$TEXT" ] && [[ "$TEXT" != ERROR:* ]]; then
+        wtype -- "$TEXT"
+        echo -n "$TEXT" | wl-copy
+        msg "Typed: $TEXT"
+    else
+        msg "No speech detected"
+    fi
+
+    rm -f "$AUDIOFILE"
+else
+    ensure_daemon || exit 1
+
+    # Start recording
+    rec -q "$AUDIOFILE" rate 16000 channels 1 2>/dev/null &
+    REC_PID=$!
+    sleep 0.3
+    if kill -0 "$REC_PID" 2>/dev/null; then
+        echo "$REC_PID" > "$PIDFILE"
+        msg "Recording... press Super+I again to stop" 0
+    else
+        msg "Failed to start recording"
+    fi
+fi

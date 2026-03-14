@@ -32,6 +32,8 @@ in {
     rofi
     bluetuith # TUI bluetooth manager
     pulsemixer # TUI audio mixer
+    wtype # Wayland text typing (used by voice dictation)
+    sox # Audio recording/processing (used by voice dictation)
   ];
 
   services.blueman-applet.enable = true; # Enable system tray applet for Bluetooth
