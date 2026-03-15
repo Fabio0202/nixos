@@ -23,6 +23,9 @@
     # Allows the kernel to auto-recover the GPU if it hangs (prevents full system freeze)
     "amdgpu.gpu_recovery=1"
 
+    # Allow GPU to retry failed page faults instead of immediately escalating to IH ring overflow + system crash
+    "amdgpu.noretry=0"
+
     # Use the more stable deep sleep (S3) instead of s2idle — reduces suspend/resume bugs
     "mem_sleep_default=deep"
   ];

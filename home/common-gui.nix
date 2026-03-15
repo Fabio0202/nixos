@@ -7,10 +7,10 @@
 }: let
   homeDir = config.home.homeDirectory;
 in {
-  # Run stow automatically on HM activation (makes dotfiles declarative)
   home.activation.stowDotfiles = lib.hm.dag.entryAfter ["writeBoundary"] ''
     run ${pkgs.stow}/bin/stow -d ${homeDir}/nixos/dotfiles -t ${homeDir} stow-common zsh ssh --restow
   '';
+
   home.packages = with pkgs; [
     obsidian # Note-taking with markdown and plugins
     libreoffice # Office suite (Word, Excel, PowerPoint, etc.)

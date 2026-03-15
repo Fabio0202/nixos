@@ -4,44 +4,28 @@
     python312
     python312Packages.tkinter
     pipx
-  ];
 
-  # Create global Python environment for pip installs
-  home.file.".local/bin/pip-global" = {
-    text = ''
-      #!/usr/bin/env bash
+    (pkgs.writeShellScriptBin "pip-global" ''
       VENV_DIR="$HOME/.local/share/global-python"
-      
       if [ ! -d "$VENV_DIR" ]; then
         echo "Creating global Python environment..."
         ${pkgs.python312}/bin/python3 -m venv --system-site-packages "$VENV_DIR"
       fi
-      
-      # Unset PIP_USER to prevent conflicts with venv
       unset PIP_USER
       "$VENV_DIR/bin/pip" "$@"
-    '';
-    executable = true;
-  };
+    '')
 
-  home.file.".local/bin/python-global" = {
-    text = ''
-      #!/usr/bin/env bash
+    (pkgs.writeShellScriptBin "python-global" ''
       VENV_DIR="$HOME/.local/share/global-python"
-      
       if [ ! -d "$VENV_DIR" ]; then
         echo "Creating global Python environment..."
         ${pkgs.python312}/bin/python3 -m venv --system-site-packages "$VENV_DIR"
       fi
-      
-      # Ensure NIX_LD paths are set for C extensions
       export NIX_LD_LIBRARY_PATH="''${NIX_LD_LIBRARY_PATH:-/run/current-system/sw/share/nix-ld/lib}"
       export LD_LIBRARY_PATH="''${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$NIX_LD_LIBRARY_PATH"
-      
       "$VENV_DIR/bin/python" "$@"
-    '';
-    executable = true;
-  };
+    '')
+  ];
 
   # Poetry configuration for users
   home.sessionVariables = {

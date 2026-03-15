@@ -1,6 +1,7 @@
-{ config
-, pkgs
-, ...
+{
+  config,
+  pkgs,
+  ...
 }: {
   # Enable weekly TRIM for SSDs/NVMe
   # TRIM tells the SSD which blocks are unused
@@ -33,7 +34,7 @@
     "amd_pstate=active"
 
     # Suspend idle USB devices after 2s (Linux default, was accidentally disabled with -1).
-    "usbcore.autosuspend=2"
+    "usbcore.autosuspend=30"
   ];
 
   # Custom Powertop service (non-blocking, runs after boot)
@@ -46,7 +47,7 @@
   };
   systemd.timers.powertop-autotune = {
     description = "Delayed Powertop tunings";
-    wantedBy = [ "timers.target" ];
+    wantedBy = ["timers.target"];
     timerConfig = {
       OnBootSec = "1min"; # wait 1 minute after boot
       Persistent = true; # catch up if missed
@@ -83,7 +84,7 @@
       # NVMe power is handled via ASPM/runtime PM, not APM — leave DISK_DEVICES unset
 
       # USB autosuspend for unused devices
-      USB_AUTOSUSPEND = true;
+      USB_AUTOSUSPEND = false;
     };
   };
 
