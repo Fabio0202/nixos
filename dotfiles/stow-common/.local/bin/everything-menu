@@ -371,6 +371,8 @@ scan_apps() {
         "/etc/profiles/per-user/$USER/share/applications"
         "$HOME/.nix-profile/share/applications"
         "$HOME/.local/share/applications"
+        "/var/lib/flatpak/exports/share/applications"
+        "$HOME/.local/share/flatpak/exports/share/applications"
     )
     local existing_dirs=()
     for dir in "${desktop_dirs[@]}"; do
@@ -378,9 +380,9 @@ scan_apps() {
     done
     [[ ${#existing_dirs[@]} -eq 0 ]] && return
 
-    find "${existing_dirs[@]}" -maxdepth 1 -name "*.desktop" 2>/dev/null \
-    | sort \
-    | xargs -r awk '
+    find "${existing_dirs[@]}" -maxdepth 1 -name "*.desktop" -print0 2>/dev/null \
+    | sort -z \
+    | xargs -0 -r awk '
         FNR == 1 {
             if (started && show && name != "") {
                 n = split(prev, a, "/"); base = a[n]; sub(/\.desktop$/, "", base)

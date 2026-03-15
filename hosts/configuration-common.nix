@@ -39,6 +39,7 @@
     adwaita-icon-theme
     steam-run
     papirus-icon-theme
+    rustdesk-flutter
   ];
 
   boot.kernelPackages = pkgs.linuxPackages;
