@@ -5,11 +5,18 @@
 }: {
   home.packages = with pkgs; [
     (pkgs-unstable.vintagestory)
-    nomachine-client
+    discord # Voice, video, and text chat (gaming/community)
+    spotify # Music streaming client
+    anki # Flashcard-based learning tool (spaced repetition)
+    libreoffice # Office suite (Word, Excel, PowerPoint, etc.)
+    gnome-clocks # World clocks, stopwatch, timers, alarms
+    qalculate-gtk # Advanced calculator with many features
+    vscode # GUI code editor (Visual Studio Code)
+    # nomachine-client # like rustdesk but faster I've heard but its not working so whatever
     _1password-gui # 1Password password manager (GUI)
-    bun
-    comma
-    nix-index
+    bun # like node but faster
+    comma # to be able to run ", cowsay" for one time commands
+    nix-index # to be able to run nix-locate
     (pkgs-unstable.walker)
     (pkgs-unstable.elephant)
     (pkgs-unstable.telegram-desktop)
@@ -26,6 +33,7 @@
     # monolith # save complete web pages as a single HTML file
     # presenterm # for presentations in the terminal
     # posting # to test http requests like postman
+    # bruno like postman but cool
   ];
 
   xdg.desktopEntries.lf = {

@@ -1,6 +1,7 @@
-{ config
-, pkgs
-, ...
+{
+  config,
+  pkgs,
+  ...
 }: {
   imports = [
     ./hardware-configuration.nix
@@ -16,11 +17,6 @@
     })
   ];
 
-  services.sunshine = {
-    enable = true;
-    openFirewall = true;
-  };
-
   virtualisation.windows-vm = {
     enable = true;
     user = "simon"; # optional (defaults to simon)
@@ -31,13 +27,13 @@
   fileSystems."/mnt/server" = {
     device = "simon-server:/mnt/drive";
     fsType = "nfs";
-    options = [ "x-systemd.automount" "noauto" "nofail" "x-systemd.idle-timeout=10s" "bg" "x-systemd.requires=network-online.target" "x-systemd.after=network-online.target" ];
+    options = ["x-systemd.automount" "noauto" "nofail" "x-systemd.idle-timeout=10s" "bg" "x-systemd.requires=network-online.target" "x-systemd.after=network-online.target"];
   };
 
   fileSystems."/mnt/cloud" = {
     device = "simon-server:/mnt/drive/cloud/simon";
     fsType = "nfs";
-    options = [ "x-systemd.automount" "noauto" "nofail" "x-systemd.idle-timeout=10s" "bg" "x-systemd.requires=network-online.target" "x-systemd.after=network-online.target" ];
+    options = ["x-systemd.automount" "noauto" "nofail" "x-systemd.idle-timeout=10s" "bg" "x-systemd.requires=network-online.target" "x-systemd.after=network-online.target"];
   };
 
   nixpkgs.config.permittedInsecurePackages = [

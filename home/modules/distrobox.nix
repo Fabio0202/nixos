@@ -62,5 +62,16 @@ in {
 
     # Quick enter dev container
     alias dev="distrobox enter dev"
+
+    # Fix environment when inside a distrobox container
+    if [ -f /run/.containerenv ] || [ -f /.dockerenv ]; then
+      # Add standard Debian/Ubuntu paths missing from NixOS PATH
+      for p in /usr/local/sbin /usr/local/games /usr/sbin /sbin /usr/games; do
+        [[ -d "$p" ]] && [[ ":$PATH:" != *":$p:"* ]] && export PATH="$PATH:$p"
+      done
+      # Unset NixOS locale archive — it doesn't exist in the container
+      # and causes Perl locale warnings. The container uses its own glibc locales.
+      unset LOCALE_ARCHIVE
+    fi
   '';
 }

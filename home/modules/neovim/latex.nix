@@ -36,7 +36,7 @@
             get_codex_term():toggle()
           end
               -- Viewer / compiler
-              vim.g.vimtex_view_method = "okular"
+              vim.g.vimtex_view_method = "sjoyek"
               vim.g.vimtex_compiler_method = "latexmk"
 
               -- Force latexmk settings

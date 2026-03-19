@@ -1,6 +1,7 @@
-{ config
-, pkgs
-, ...
+{
+  config,
+  pkgs,
+  ...
 }: {
   imports = [
     ./hardware-configuration.nix
@@ -17,11 +18,6 @@
     })
   ];
 
-  services.sunshine = {
-    enable = true;
-    # openFirewall = true;
-  };
-
   virtualisation.windows-vm = {
     enable = true;
     user = "simon"; # optional (defaults to simon)
@@ -29,17 +25,17 @@
     cpuCores = 8;
   };
 
-  boot.kernelModules = [ "iptables" "iptable_nat" ];
+  boot.kernelModules = ["iptables" "iptable_nat"];
   fileSystems."/mnt/server" = {
     device = "simon-server:/mnt/drive";
     fsType = "nfs";
-    options = [ "x-systemd.automount" "noauto" "nofail" "x-systemd.idle-timeout=10s" "bg" ];
+    options = ["x-systemd.automount" "noauto" "nofail" "x-systemd.idle-timeout=10s" "bg"];
   };
 
   fileSystems."/mnt/cloud" = {
     device = "simon-server:/mnt/drive/cloud/simon";
     fsType = "nfs";
-    options = [ "x-systemd.automount" "noauto" "nofail" "x-systemd.idle-timeout=10s" "bg" ];
+    options = ["x-systemd.automount" "noauto" "nofail" "x-systemd.idle-timeout=10s" "bg"];
   };
 
   nixpkgs.config.permittedInsecurePackages = [

@@ -12,21 +12,11 @@ in {
   '';
 
   home.packages = with pkgs; [
-    obsidian # Note-taking with markdown and plugins
-    libreoffice # Office suite (Word, Excel, PowerPoint, etc.)
-    anki # Flashcard-based learning tool (spaced repetition)
     blueman # GTK-based Bluetooth manager
-    gnome-clocks # World clocks, stopwatch, timers, alarms
-    qalculate-gtk # Advanced calculator with many features
     nautilus # GNOME file manager
-    (pkgs-unstable.kdePackages.kdeconnect-kde)
-    discord # Voice, video, and text chat (gaming/community)
-    kdePackages.okular # PDF and document viewer
-    audacious # Simple and lightweight music player
+    sioyek # PDF and document viewer
     mpv # Media player (video/audio) with wide codec support
     viewnior # Simple, fast image viewer
-    vscode # GUI code editor (Visual Studio Code)
-    spotify # Music streaming client
     hyprsunset # Screen color temperature adjustment for eye comfort
     stow # GNU Stow for dotfiles management
     rofi
@@ -34,6 +24,8 @@ in {
     pulsemixer # TUI audio mixer
     wtype # Wayland text typing (used by voice dictation)
     sox # Audio recording/processing (used by voice dictation)
+    # audacious # Simple and lightweight music player
+    # (pkgs-unstable.kdePackages.kdeconnect-kde)
   ];
 
   services.blueman-applet.enable = true; # Enable system tray applet for Bluetooth
@@ -61,7 +53,7 @@ in {
       "video/*" = ["mpv.desktop"]; # Use mpv for all video files
       "audio/*" = ["audacious.desktop"]; # Use Audacious for audio
       "image/*" = ["viewnior.desktop"]; # Use Viewnior for images
-      "application/pdf" = ["okular.desktop"]; # Okular as PDF viewer
+      "application/pdf" = ["sioyek.desktop"]; # Okular as PDF viewer
       "text/html" = ["firefox.desktop"]; # Firefox for HTML
       "x-scheme-handler/http" = ["firefox.desktop"]; # HTTP links → Firefox
       "x-scheme-handler/https" = ["firefox.desktop"]; # HTTPS links → Firefox

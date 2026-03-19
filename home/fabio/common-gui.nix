@@ -10,6 +10,14 @@ in {
     (pkgs-unstable.vintagestory)
     imagej # Scientific image analysis (popular in research)
     gimp3-with-plugins # Advanced image editing (Photoshop alternative)
+    obsidian # Note-taking with markdown and plugins
+    discord # Voice, video, and text chat (gaming/community)
+    spotify # Music streaming client
+    anki # Flashcard-based learning tool (spaced repetition)
+    libreoffice # Office suite (Word, Excel, PowerPoint, etc.)
+    gnome-clocks # World clocks, stopwatch, timers, alarms
+    vscode # GUI code editor (Visual Studio Code)
+    qalculate-gtk # Advanced calculator with many features
     drawio # Diagram and flowchart creation
     blender # 3D modeling, animation, rendering
     veusz # Scientific plotting and graphing tool
