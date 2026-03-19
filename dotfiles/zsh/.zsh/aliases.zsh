@@ -2,7 +2,9 @@
 
 # Basic commands
 alias mkdir="mkdir -p"
-alias rm="trash-put"
+if command -v trash-put &>/dev/null; then
+  alias rm="trash-put"
+fi
 alias ggl='noglob _ggl'
 _ggl() {
   w3m "https://lite.duckduckgo.com/lite/?q=$(printf '%s' "$*" | jq -sRr @uri)"
@@ -12,29 +14,46 @@ _ggl() {
 alias ssh-allow="sudo systemctl start sshd"
 alias ssh-deny="sudo systemctl stop sshd"
 
-# Navigation
-alias l="eza --icons"
-alias ls="eza --icons"
-alias ll="eza -lha --icons=auto --sort=name --group-directories-first"
-alias lst="ls -T -L=2"
-alias lsg="ls | grep"
+# Navigation (guarded for distrobox compatibility)
+if command -v eza &>/dev/null; then
+  alias l="eza --icons"
+  alias ls="eza --icons"
+  alias ll="eza -lha --icons=auto --sort=name --group-directories-first"
+  alias lst="ls -T -L=2"
+  alias lsg="ls | grep"
+else
+  alias l="ls"
+  alias ll="ls -lha"
+  alias lst="ls"
+  alias lsg="ls | grep"
+fi
 alias ".."="cd .."
 alias "..."="cd ../.."
 alias b="cd .."
-alias c="z"
-alias cd="z"
-alias ci="zi"
-alias cadd="zoxide add"
-alias cdadd="zoxide add"
+if command -v zoxide &>/dev/null; then
+  alias c="z"
+  alias cd="z"
+  alias ci="zi"
+  alias cadd="zoxide add"
+  alias cdadd="zoxide add"
+fi
 
 # File managers
-alias fl="y"
-alias lf="y"
+if command -v yazi &>/dev/null; then
+  alias fl="y"
+  alias lf="y"
+fi
 
 # Tools
-alias ping="gping"
-alias gg="lazygit"
-alias oc="opencode"
+if command -v gping &>/dev/null; then
+  alias ping="gping"
+fi
+if command -v lazygit &>/dev/null; then
+  alias gg="lazygit"
+fi
+if command -v opencode &>/dev/null; then
+  alias oc="opencode"
+fi
 
 # Typo fixes
 alias nivm="nvim"
@@ -47,11 +66,15 @@ alias ta="task add"
 alias tm="task modify"
 alias tc="task context"
 
-# Python (global wrappers)
-alias pip="pip-global"
-alias pip3="pip-global"
-alias python="python-global"
-alias python3="python-global"
+# Python (global wrappers - only on NixOS host)
+if command -v pip-global &>/dev/null; then
+  alias pip="pip-global"
+  alias pip3="pip-global"
+fi
+if command -v python-global &>/dev/null; then
+  alias python="python-global"
+  alias python3="python-global"
+fi
 
 # NixOS update
 update() {
