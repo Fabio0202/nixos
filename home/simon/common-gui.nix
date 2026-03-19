@@ -7,6 +7,7 @@
     (pkgs-unstable.vintagestory)
     nomachine-client
     _1password-gui # 1Password password manager (GUI)
+    bun
     (pkgs-unstable.walker)
     (pkgs-unstable.elephant)
     (pkgs-unstable.telegram-desktop)
