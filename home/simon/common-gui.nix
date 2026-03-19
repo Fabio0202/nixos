@@ -8,6 +8,8 @@
     nomachine-client
     _1password-gui # 1Password password manager (GUI)
     bun
+    comma
+    nix-index
     (pkgs-unstable.walker)
     (pkgs-unstable.elephant)
     (pkgs-unstable.telegram-desktop)
