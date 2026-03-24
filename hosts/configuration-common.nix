@@ -44,6 +44,10 @@
 
   boot.kernelPackages = pkgs.linuxPackages;
 
+  programs.appimage = {
+    enable = true;
+    binfmt = true; # Allows you to run .AppImage files directly like ./file.AppImage
+  };
   programs.firefox.enable = true;
   programs.zsh.enable = true;
 
