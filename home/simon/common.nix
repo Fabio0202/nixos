@@ -21,6 +21,7 @@
     vi-mongo # MongoDB shell with vim keybindings
     # rainfrog # a tui for db connections
     docker-compose
+    dotnet-sdk # .NET SDK for C#/F# development
 
     jjui # tui for jujutsu
     awscli2 # AWS Command Line Interface v2
