@@ -21,6 +21,7 @@
     (pkgs-unstable.elephant)
     (pkgs-unstable.telegram-desktop)
     (pkgs-unstable.chromium)
+    google-chrome
     teams-for-linux
     vi-mongo # mongo db tui client
     godot
