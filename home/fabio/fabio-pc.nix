@@ -10,6 +10,11 @@
     pkgs-unstable.freerdp
     pkgs-unstable.winboat
   ];
+  programs.dank-material-shell = {
+    enable = true;
+    dgop.package = pkgs-unstable.dgop;
+  };
+
   imports = [
     ./common.nix
     ./common-gui.nix
@@ -17,6 +22,7 @@
     ../common-gui.nix # GUI-only apps and modules
     ../modules/gitFabio.nix
     ../modules/logitech-tastatur.nix
+    inputs.dms.homeModules.dank-material-shell
   ];
 
   # DISABLED: Using traditional dotfiles instead

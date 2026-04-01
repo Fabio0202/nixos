@@ -25,7 +25,6 @@
 
   # Fonts (needed by GUI + CLI tools rendering text/icons)
   fonts.fontconfig.enable = true;
-
   programs = {
     direnv = {
       enable = true;

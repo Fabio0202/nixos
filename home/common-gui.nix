@@ -17,7 +17,6 @@ in {
     sioyek # PDF and document viewer
     mpv # Media player (video/audio) with wide codec support
     viewnior # Simple, fast image viewer
-    hyprsunset # Screen color temperature adjustment for eye comfort
     stow # GNU Stow for dotfiles management
     rofi
     bluetuith # TUI bluetooth manager
@@ -39,10 +38,10 @@ in {
     ./modules/hyprland/default.nix # Hyprland WM settings (Wayland tiling compositor)
     ./modules/stylix.nix # Stylix (theme management for GTK, GRUB, etc.)
     ./modules/icons-theme.nix # Icon theme configuration for GTK/desktop apps
-    ./modules/nwg-dock.nix # Dock/panel (like a taskbar for Wayland)
-    ./modules/sunset-at-night.nix # Color temperature adjustment at night (like redshift)
+    # ./modules/nwg-dock.nix # Dock/panel (like a taskbar for Wayland)
+    ./modules/dms-night-mode.nix # Night mode via DMS (replaces hyprsunset)
     ./modules/neovim/latex.nix
-    ./modules/hyprsettings.nix # HyprSettings GUI configurator for Hyprland
+    # ./modules/hyprsettings.nix # HyprSettings GUI configurator for Hyprland
     ./modules/theme-defaults.nix # Creates default theme symlinks on fresh clones
   ];
 

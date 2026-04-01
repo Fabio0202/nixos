@@ -4,12 +4,12 @@ NIXOS_DIR="${NIXOS_FLAKE_DIR:-$HOME/nixos}"
 HOST="$(hostname)"
 
 # Show loading state in waybar immediately
-echo '{"text": "󱍸 …", "tooltip": "syncing…", "class": "syncing"}' > /tmp/nixos-sync-override
-pkill -RTMIN+11 waybar 2>/dev/null
+# echo '{"text": "󱍸 …", "tooltip": "syncing…", "class": "syncing"}' > /tmp/nixos-sync-override
+# pkill -RTMIN+11 waybar 2>/dev/null
 
 _cleanup() {
   rm -f /tmp/nixos-sync-override
-  pkill -RTMIN+11 waybar 2>/dev/null
+  # pkill -RTMIN+11 waybar 2>/dev/null
 }
 trap _cleanup EXIT
 

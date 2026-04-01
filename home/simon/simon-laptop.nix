@@ -1,17 +1,24 @@
 {
   pkgs,
+  inputs,
   pkgs-unstable,
   config,
   ...
 }: let
   homeDir = config.home.homeDirectory;
 in {
+  programs.dank-material-shell = {
+    enable = true;
+    dgop.package = pkgs-unstable.dgop;
+  };
+
   imports = [
     ./common.nix
     ./common-gui.nix
     ../common.nix
     ../modules/battery-monitor.nix
     ../modules/gitSimon.nix
+    inputs.dms.homeModules.dank-material-shell
   ];
 
   # wayland.windowManager.hyprland.settings.input = {

@@ -1,10 +1,12 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }: {
   imports = [
     ./hardware-configuration.nix
+    inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t14s-amd-gen1
     ../configuration-common.nix
     ../modules/userSimon.nix
     ../modules/windows.nix

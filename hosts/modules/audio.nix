@@ -8,6 +8,16 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     wireplumber.enable = true;
+    # Prevent auto-switching bluetooth from A2DP (high quality stereo) to
+    # HSP/HFP (low quality mono) when an app opens a mic (e.g. Discord).
+    # To use the headset mic, manually switch profile in pavucontrol.
+    wireplumber.extraConfig = {
+      "11-bluetooth-policy" = {
+        "wireplumber.settings" = {
+          "bluetooth.autoswitch-to-headset-profile" = false;
+        };
+      };
+    };
     # If you want to use JACK applications, uncomment this
     # jack.enable = true;
 

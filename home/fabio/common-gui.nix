@@ -11,7 +11,7 @@ in {
     imagej # Scientific image analysis (popular in research)
     gimp3-with-plugins # Advanced image editing (Photoshop alternative)
     obsidian # Note-taking with markdown and plugins
-    discord # Voice, video, and text chat (gaming/community)
+    vesktop # discord but faster |  Voice, video, and text chat (gaming/community)
     spotify # Music streaming client
     anki # Flashcard-based learning tool (spaced repetition)
     libreoffice # Office suite (Word, Excel, PowerPoint, etc.)

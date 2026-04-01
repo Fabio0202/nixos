@@ -22,6 +22,7 @@
     ./modules/fonts.nix
     ./modules/gaming.nix
     ./modules/gc.nix
+    ./modules/nix-cache.nix
     ./modules/light.nix
     ./modules/networking.nix
     ./modules/swap.nix
@@ -52,6 +53,7 @@
   programs.zsh.enable = true;
 
   programs.kdeconnect.enable = true;
+  services.accounts-daemon.enable = true;
   services.printing.enable = true;
   services.flatpak.enable = true;
 }

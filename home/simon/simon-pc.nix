@@ -11,10 +11,16 @@
   #   pkgs-unstable.winboat
   # ];
 
+  programs.dank-material-shell = {
+    enable = true;
+    dgop.package = pkgs-unstable.dgop;
+  };
+
   imports = [
     ../modules/gitSimon.nix
     ./common.nix
     ./common-gui.nix
     ../common.nix
+    inputs.dms.homeModules.dank-material-shell
   ];
 }

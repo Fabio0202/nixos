@@ -5,12 +5,13 @@
 }: {
   home.packages = with pkgs; [
     (pkgs-unstable.vintagestory)
-    discord # Voice, video, and text chat (gaming/community)
+    vesktop # Voice, video, and text chat (gaming/community)
     spotify # Music streaming client
     anki # Flashcard-based learning tool (spaced repetition)
     libreoffice # Office suite (Word, Excel, PowerPoint, etc.)
     gnome-clocks # World clocks, stopwatch, timers, alarms
     qalculate-gtk # Advanced calculator with many features
+    todoist-electron # Task management & to-do list app
     vscode # GUI code editor (Visual Studio Code)
     # nomachine-client # like rustdesk but faster I've heard but its not working so whatever
     _1password-gui # 1Password password manager (GUI)

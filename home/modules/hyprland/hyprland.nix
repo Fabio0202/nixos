@@ -7,6 +7,7 @@
   # Include user-specific packages via Home Manager
   home.packages = with pkgs; [
     # Grimblast: Enhanced screenshot tool for Wayland (commented out here, might be used later)
+    brightnessctl # Backlight/brightness control
     hyprpicker # Color picker tool compatible with Hyprland
     grim # Screenshot utility for Wayland, works well with slurp for selective screenshots
     slurp # Selection tool for Wayland, often used with grim to capture selected screen regions
@@ -18,9 +19,7 @@
     wl-clipboard
     wlinhibit # User-space inhibitor
     hyprlock # lock screen
-    hyprsunset # bluelight filter I think
-
-    hyprpicker # color picker I think
+    hyprpicker # color picker
     glib # Core library providing data structure handling, portability, and utility functions
 
     # some hyprpanel dependencies
