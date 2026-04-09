@@ -11,7 +11,7 @@
   stylix.polarity = "dark";
   stylix.targets.gtk.enable = true;
 
-  stylix.targets.grub.enable = true;
+  stylix.targets.grub.enable = false;
   stylix.targets.plymouth.enable = false;
   stylix.targets.gnome.enable = false;
 }

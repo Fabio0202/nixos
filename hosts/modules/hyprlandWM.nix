@@ -1,6 +1,6 @@
-{ inputs
-, lib
+{ lib
 , pkgs
+, pkgs-unstable
 , ...
 }: {
   # Disable X11 completely
@@ -10,7 +10,7 @@
   # use latest hyprland from unstable
   programs.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    package = pkgs-unstable.hyprland;
     # UWSM is required for Hyprland 0.53+ (provides start-hyprland)
     # It properly activates systemd user session and graphical-session.target
     withUWSM = true;

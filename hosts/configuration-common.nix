@@ -7,7 +7,6 @@
   imports = [
     ./modules/hardware.nix
     ./modules/hyprlandWM.nix
-    ./modules/stylix.nix
     ./modules/podman.nix
     ./modules/nix-ld.nix
     ./modules/python.nix
@@ -22,6 +21,7 @@
     ./modules/fonts.nix
     ./modules/gaming.nix
     ./modules/gc.nix
+    ./modules/auto-update.nix
     ./modules/nix-cache.nix
     ./modules/light.nix
     ./modules/networking.nix
@@ -56,4 +56,6 @@
   services.accounts-daemon.enable = true;
   services.printing.enable = true;
   services.flatpak.enable = true;
+
+  virtualisation.docker.enableOnBoot = false; # socket-activated, starts on first use
 }

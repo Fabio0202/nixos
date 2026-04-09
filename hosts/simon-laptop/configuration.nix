@@ -47,6 +47,11 @@
   # boot.loader.grub.device = "/dev/nvme0n1";
   # boot.loader.grub.useOSProber = true;
 
+  services.nixos-auto-update = {
+    enable = true;
+    flakePath = "/home/simon/nixos";
+  };
+
   networking.hostName = "simon-laptop";
 
   system.stateVersion = "25.11";

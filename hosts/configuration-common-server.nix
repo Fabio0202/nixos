@@ -23,6 +23,7 @@
 
   #docker because you need docker on your servers of course
   virtualisation.docker.enable = true;
+  virtualisation.docker.enableOnBoot = true;
   # Stick with stable kernel unless you need bleeding-edge hardware support
   # (safer for servers)
   # boot.kernelPackages = pkgs.linuxPackages_latest;

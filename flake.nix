@@ -2,43 +2,21 @@
   description = "My NixOS config with Home Manager, multi-host, and one-user-per-host support";
 
   inputs = {
-    nvf.url = "github:notashelf/nvf/v0.8";
+    nvf.url = "github:notashelf/nvf";
+    nvf.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-    # Hyprland + plugins: these are built from source (not in the NixOS binary cache),
-    # so they are the main reason updates/rebuilds take a long time.
-    # The Hyprland Cachix cache is configured in hosts/modules/nix-cache.nix to avoid
-    # compiling these locally. All plugins follow the hyprland input to stay in sync.
-    hyprland.url = "github:hyprwm/Hyprland";
-
-    hyprtasking = {
-      url = "github:raybbian/hyprtasking";
-      inputs.hyprland.follows = "hyprland";
-    };
-
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
-
-    hypr-dynamic-cursors = {
-      url = "github:VirtCode/hypr-dynamic-cursors";
-      inputs.hyprland.follows = "hyprland";
-    };
 
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    stylix = {
-      url = "github:danth/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
+    rose-pine-hyprcursor.inputs.nixpkgs.follows = "nixpkgs-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     hyprsettings.url = "github:acropolis914/hyprsettings";
+    hyprsettings.inputs.nixpkgs.follows = "nixpkgs-unstable";
     dms = {
       url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -96,7 +74,6 @@
             home-manager.backupFileExtension = "backup";
             home-manager.users.${userName} = mkUser userName hostName;
           }
-          inputs.stylix.nixosModules.stylix
         ];
       };
   in {

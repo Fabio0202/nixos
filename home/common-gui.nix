@@ -36,7 +36,6 @@ in {
   imports = [
     ./modules/obs-studio.nix # Screen recording & streaming setup (OBS Studio)
     ./modules/hyprland/default.nix # Hyprland WM settings (Wayland tiling compositor)
-    ./modules/stylix.nix # Stylix (theme management for GTK, GRUB, etc.)
     ./modules/icons-theme.nix # Icon theme configuration for GTK/desktop apps
     # ./modules/nwg-dock.nix # Dock/panel (like a taskbar for Wayland)
     ./modules/dms-night-mode.nix # Night mode via DMS (replaces hyprsunset)
