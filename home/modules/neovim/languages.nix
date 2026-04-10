@@ -76,7 +76,7 @@
       };
       vim.treesitter.enable = true;
       vim.treesitter.autotagHtml = true;
-      vim.treesitter.textobjects.enable = true;
+      vim.treesitter.textobjects.enable = false; # broken: nvf generates nvim-treesitter.config API but nixpkgs treesitter uses old nvim-treesitter.configs
       vim.statusline.lualine.enable = true;
       vim.lazy.plugins."better-escape.nvim" = {
         package = pkgs.vimPlugins.better-escape-nvim;

@@ -285,11 +285,6 @@
             ];
           };
 
-          nvim-treesitter = {
-            package = "nvim-treesitter";
-            event = ["BufReadPost" "BufNewFile"];
-          };
-
           toggleterm-nvim = {
             package = "toggleterm-nvim";
             cmd = ["ToggleTerm"];

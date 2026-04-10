@@ -23,6 +23,7 @@ in {
     pulsemixer # TUI audio mixer
     wtype # Wayland text typing (used by voice dictation)
     sox # Audio recording/processing (used by voice dictation)
+    bruno # Open-source API client
     # audacious # Simple and lightweight music player
     # (pkgs-unstable.kdePackages.kdeconnect-kde)
   ];
