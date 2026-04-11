@@ -1,6 +1,7 @@
 { lib
 , pkgs
 , pkgs-unstable
+, inputs
 , ...
 }: {
   # Disable X11 completely
@@ -48,6 +49,8 @@
     };
   };
 
-  # Import greetd login configuration
-  imports = [ ./login.nix ];
+  imports = [
+    ./login.nix
+    inputs.dms.nixosModules.greeter
+  ];
 }
