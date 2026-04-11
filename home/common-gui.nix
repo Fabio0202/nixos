@@ -45,17 +45,14 @@ in {
     ./modules/theme-defaults.nix # Creates default theme symlinks on fresh clones
   ];
 
-  # Set GUI default applications (MIME associations)
+  # Set GUI default applications (MIME associations) — non-browser defaults
   xdg.mimeApps = {
-    enable = false; # Disable Home Manager control over mimeapps.list (can switch to true later)
+    enable = true;
     defaultApplications = {
       "video/*" = ["mpv.desktop"]; # Use mpv for all video files
       "audio/*" = ["audacious.desktop"]; # Use Audacious for audio
       "image/*" = ["viewnior.desktop"]; # Use Viewnior for images
       "application/pdf" = ["sioyek.desktop"]; # Okular as PDF viewer
-      "text/html" = ["firefox.desktop"]; # Firefox for HTML
-      "x-scheme-handler/http" = ["firefox.desktop"]; # HTTP links → Firefox
-      "x-scheme-handler/https" = ["firefox.desktop"]; # HTTPS links → Firefox
     };
   };
 }

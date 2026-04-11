@@ -2,7 +2,23 @@
   pkgs,
   pkgs-unstable,
   ...
-}: {
+}: let
+  # ── Change this one line to switch your default browser everywhere ──
+  defaultBrowser = "chrome"; # "chrome" | "firefox"
+
+  browser = {
+    chrome = {
+      desktop = "google-chrome.desktop";
+      bin = "google-chrome-stable";
+      wmClass = "google-chrome";
+    };
+    firefox = {
+      desktop = "firefox.desktop";
+      bin = "firefox";
+      wmClass = "firefox";
+    };
+  }.${defaultBrowser};
+in {
   home.packages = with pkgs; [
     (pkgs-unstable.vintagestory)
     vesktop # Voice, video, and text chat (gaming/community)
@@ -37,6 +53,20 @@
     # posting # to test http requests like postman
     # bruno like postman but cool
   ];
+
+  # Browser MIME defaults — driven by `defaultBrowser` above
+  xdg.mimeApps.defaultApplications = {
+    "text/html" = [browser.desktop];
+    "x-scheme-handler/http" = [browser.desktop];
+    "x-scheme-handler/https" = [browser.desktop];
+    "x-scheme-handler/ftp" = [browser.desktop];
+  };
+
+  # Hyprland: browser keybind + window rule — driven by `defaultBrowser` above
+  wayland.windowManager.hyprland.extraConfig = ''
+    bind = $mainMod, B, exec, ${browser.bin}
+    windowrule = opacity 0.98 0.85, match:class ^(${browser.wmClass})$
+  '';
 
   xdg.desktopEntries.lf = {
     name = "lf";
