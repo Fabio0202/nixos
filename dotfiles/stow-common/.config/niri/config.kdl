@@ -1,0 +1,180 @@
+input {
+    keyboard {
+        xkb {
+            layout "us,de"
+            options "grp:alt_shift_toggle"
+        }
+        repeat-delay 600
+        repeat-rate 25
+    }
+
+    touchpad {
+        tap
+        dwt
+        natural-scroll
+        scroll-method "two-finger"
+    }
+
+}
+
+prefer-no-csd
+
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+layout {
+    gaps 8
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+        proportion 1.0
+    }
+
+    default-column-width { proportion 0.5; }
+
+    focus-ring {
+        width 1
+        active-color "#7fc8ff"
+        inactive-color "#505050"
+    }
+
+    border {
+        off
+    }
+}
+
+window-rule {
+    geometry-corner-radius 8
+    clip-to-geometry true
+}
+
+animations {
+    // window-open: bouncy entry like Hyprland's winIn (1.1 overshoot)
+    window-open {
+        spring damping-ratio=0.6 stiffness=600 epsilon=0.0001
+    }
+    // window-close: snappy exit like Hyprland's winOut
+    window-close {
+        spring damping-ratio=0.75 stiffness=700 epsilon=0.0001
+    }
+    // movement/resize: slight overshoot like Hyprland's wind bezier (1.05)
+    window-movement {
+        spring damping-ratio=0.65 stiffness=650 epsilon=0.0001
+    }
+    window-resize {
+        spring damping-ratio=0.65 stiffness=650 epsilon=0.0001
+    }
+    // workspace: slight overshoot, not too bouncy
+    workspace-switch {
+        spring damping-ratio=0.78 stiffness=750 epsilon=0.0001
+    }
+    horizontal-view-movement {
+        spring damping-ratio=0.78 stiffness=750 epsilon=0.0001
+    }
+}
+
+// Start xwayland-satellite for X11 app support
+spawn-at-startup "xwayland-satellite"
+
+binds {
+    // Volume (work on lock screen too)
+    XF86AudioLowerVolume  allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
+    XF86AudioRaiseVolume  allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
+    XF86AudioMute         allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    XF86AudioMicMute      allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+    F1  { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    F2  { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
+    F3  { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
+    F4  { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+
+    // Brightness
+    XF86MonBrightnessUp   { spawn "brightnessctl" "set" "5%+"; }
+    XF86MonBrightnessDown { spawn "brightnessctl" "set" "5%-"; }
+
+    // App launchers
+    Mod+Return       { spawn "rofi" "-show" "drun"; }
+    Mod+Space        { spawn "bash" "-c" "~/.local/bin/everything-menu"; }
+    Mod+T            { spawn "ghostty"; }
+    Mod+B            { spawn "google-chrome-stable"; }
+    Mod+F            { spawn "nautilus"; }
+    Mod+C            { spawn "code"; }
+    Mod+P            { spawn "wlogout" "--buttons-per-row" "4"; }
+    Mod+I            { set-column-width "-10%"; }
+    Mod+Shift+T      { spawn "bash" "-c" "~/.local/bin/theme"; }
+    Mod+W            { spawn "waypaper"; }
+    Mod+S            { switch-layout "next"; }
+
+    // Screenshots
+    Mod+Shift+S { spawn "bash" "-c" "grim -g \"$(slurp)\" - | wl-copy"; }
+    Print       { spawn "bash" "-c" "grim - | wl-copy && notify-send Screenshot \"Copied entire screen to clipboard\""; }
+
+    // Window management
+    Mod+D          { toggle-overview; }
+    Mod+Comma      { consume-or-expel-window-left; }
+    Mod+Period     { consume-or-expel-window-right; }
+    Mod+Q          { close-window; }
+    Mod+G          { toggle-window-floating; }
+    Mod+M          { maximize-column; }
+    Alt+Return     { fullscreen-window; }
+    Mod+O          { switch-preset-column-width; }
+
+    // Focus — hjkl + arrows
+    Mod+H         { focus-column-left; }
+    Mod+L         { focus-column-right; }
+    Mod+Ctrl+H    { focus-column-first; }
+    Mod+Ctrl+L    { focus-column-last; }
+    Mod+J     { focus-window-or-workspace-down; }
+    Mod+K     { focus-window-or-workspace-up; }
+    Mod+Left  { focus-column-left; }
+    Mod+Right { focus-column-right; }
+    Mod+Down  { focus-window-or-workspace-down; }
+    Mod+Up    { focus-window-or-workspace-up; }
+    Alt+Tab   { focus-window-previous; }
+
+    // Move windows
+    Mod+Shift+H    { move-column-left; }
+    Mod+Shift+L    { move-column-right; }
+    Mod+Shift+J    { move-window-to-workspace-down; }
+    Mod+Shift+K    { move-window-to-workspace-up; }
+    Mod+Shift+Down { move-window-to-workspace-down; }
+    Mod+Shift+Up   { move-window-to-workspace-up; }
+
+    // Workspace switching
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+
+    // Move window to workspace
+    Mod+Shift+1 { move-window-to-workspace 1; }
+    Mod+Shift+2 { move-window-to-workspace 2; }
+    Mod+Shift+3 { move-window-to-workspace 3; }
+    Mod+Shift+4 { move-window-to-workspace 4; }
+    Mod+Shift+5 { move-window-to-workspace 5; }
+    Mod+Shift+6 { move-window-to-workspace 6; }
+    Mod+Shift+7 { move-window-to-workspace 7; }
+    Mod+Shift+8 { move-window-to-workspace 8; }
+    Mod+Shift+9 { move-window-to-workspace 9; }
+
+    // Relative workspace navigation
+    Mod+Ctrl+J    { focus-workspace-down; }
+    Mod+Ctrl+K    { focus-workspace-up; }
+    Mod+Ctrl+Down { focus-workspace-down; }
+    Mod+Ctrl+Up   { focus-workspace-up; }
+
+    // Resize — matches Hyprland Mod+Ctrl+Alt+hjkl
+    Mod+Ctrl+Alt+L     { set-column-width "+20"; }
+    Mod+Ctrl+Alt+H     { set-column-width "-20"; }
+    Mod+Ctrl+Alt+J     { set-window-height "+20"; }
+    Mod+Ctrl+Alt+K     { set-window-height "-20"; }
+    Mod+Ctrl+Alt+Right { set-column-width "+20"; }
+    Mod+Ctrl+Alt+Left  { set-column-width "-20"; }
+    Mod+Ctrl+Alt+Down  { set-window-height "+20"; }
+    Mod+Ctrl+Alt+Up    { set-window-height "-20"; }
+}

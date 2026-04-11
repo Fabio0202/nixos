@@ -68,6 +68,13 @@ in {
     windowrule = opacity 0.98 0.85, match:class ^(${browser.wmClass})$
   '';
 
+  # Chrome flags: native Wayland + hardware VA-API video decode
+  xdg.configFile."google-chrome-flags.conf".text = ''
+    --ozone-platform=auto
+    --enable-features=VaapiVideoDecodeLinuxGL,VaapiVideoEncoder
+    --ignore-gpu-blocklist
+  '';
+
   xdg.desktopEntries.lf = {
     name = "lf";
     noDisplay = true; # hides it from rofi drun / menus

@@ -28,6 +28,7 @@
     ./modules/swap.nix
     ./modules/memory-management.nix
     ./modules/system.nix
+    ./modules/niri.nix
   ];
 
   boot.plymouth = {

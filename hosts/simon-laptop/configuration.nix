@@ -12,6 +12,7 @@
     ../modules/windows.nix
     # ../modules/bootloader.nix
     ../modules/grub.nix
+    ../modules/amd-gpu.nix
 
     (import ../modules/syncthing {
       user = "simon";

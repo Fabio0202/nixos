@@ -9,6 +9,7 @@
     ../modules/userSimon.nix
     # ../modules/bootloader.nix
     ../modules/grub.nix
+    ../modules/amd-gpu.nix
 
     ../modules/windows.nix
 
