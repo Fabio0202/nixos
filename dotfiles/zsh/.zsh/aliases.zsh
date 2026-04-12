@@ -67,15 +67,6 @@ alias ta="task add"
 alias tm="task modify"
 alias tc="task context"
 
-# Python (global wrappers - only on NixOS host)
-if command -v pip-global &>/dev/null; then
-  alias pip="pip-global"
-  alias pip3="pip-global"
-fi
-if command -v python-global &>/dev/null; then
-  alias python="python-global"
-  alias python3="python-global"
-fi
 
 # NixOS update
 update() {

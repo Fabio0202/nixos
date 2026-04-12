@@ -29,6 +29,8 @@ in
 
       # Route app through Caddy
       "app.${domain}" = "http://localhost:80";
+      # Seafile cloud
+      "files.${domain}" = "http://localhost:8082";
     };
 
     default = "http_status:404";
