@@ -178,6 +178,22 @@
         "type": "github"
       }
     },
+    "nix-search-tv-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771465079,
+        "narHash": "sha256-vWKMGj2fBUbsAvwoYjgT+L4hH0A96u4rDOaT0wnj7iw=",
+        "owner": "3timeslazy",
+        "repo": "nix-search-tv",
+        "rev": "73a34372b15b3824586b3f65c22c4ff8f0eb4c2c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "3timeslazy",
+        "repo": "nix-search-tv",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1775490113,
@@ -277,6 +293,7 @@
         "dms": "dms",
         "home-manager": "home-manager",
         "hyprsettings": "hyprsettings",
+        "nix-search-tv-src": "nix-search-tv-src",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",

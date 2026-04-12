@@ -21,6 +21,10 @@
       url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    nix-search-tv-src = {
+      url = "github:3timeslazy/nix-search-tv";
+      flake = false;
+    };
   };
 
   outputs = {
@@ -70,7 +74,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs pkgs-unstable;};
+            home-manager.extraSpecialArgs = {inherit inputs pkgs-unstable; nix-search-tv-src = inputs.nix-search-tv-src;};
             home-manager.backupFileExtension = "backup";
             home-manager.users.${userName} = mkUser userName hostName;
           }

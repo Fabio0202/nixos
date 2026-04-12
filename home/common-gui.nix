@@ -3,9 +3,20 @@
   pkgs-unstable,
   config,
   lib,
+  nix-search-tv-src,
   ...
 }: let
   homeDir = config.home.homeDirectory;
+
+  ns = pkgs.writeShellApplication {
+    name = "ns";
+    runtimeInputs = with pkgs; [fzf nix-search-tv bat jq];
+    text =
+      builtins.replaceStrings
+      ["nix-search-tv print"]
+      ["nix-search-tv print --indexes nixpkgs"]
+      (builtins.readFile "${nix-search-tv-src}/nixpkgs.sh");
+  };
 in {
   home.activation.stowDotfiles = lib.hm.dag.entryAfter ["writeBoundary"] ''
     run ${pkgs.stow}/bin/stow -d ${homeDir}/nixos/dotfiles -t ${homeDir} stow-common zsh ssh --restow
@@ -21,7 +32,8 @@ in {
     rofi
     bluetuith # TUI bluetooth manager
     pulsemixer # TUI audio mixer
-bruno # Open-source API client
+    bruno # Open-source API client
+    ns # nix-search-tv wrapper (packages only)
     # audacious # Simple and lightweight music player
     # (pkgs-unstable.kdePackages.kdeconnect-kde)
   ];
