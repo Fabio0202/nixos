@@ -17,12 +17,11 @@
 
   services.upower.enable = true;
 
-  # Disable systemd-logind lid switch handling
-  # Hyprland handles lid events via keybinds.conf (switch:on:Lid Switch)
-  # Having both handle it causes race conditions and double-wake on lid open
+  # Let logind handle lid switch — DMS doesn't intercept lid events,
+  # and neither does niri (unlike Hyprland which handled it via keybinds)
   services.logind = {
-    lidSwitch = "ignore";
-    lidSwitchExternalPower = "ignore";
+    lidSwitch = "suspend";
+    lidSwitchExternalPower = "suspend";
     lidSwitchDocked = "ignore";
   };
 
