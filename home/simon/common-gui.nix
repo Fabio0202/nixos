@@ -1,28 +1,33 @@
 {
   pkgs,
   pkgs-unstable,
+  inputs,
   ...
 }: let
   # ── Change this one line to switch your default browser everywhere ──
   defaultBrowser = "chrome"; # "chrome" | "firefox"
 
-  browser = {
-    chrome = {
-      desktop = "google-chrome.desktop";
-      bin = "google-chrome-stable";
-      wmClass = "google-chrome";
+  browser =
+    {
+      chrome = {
+        desktop = "google-chrome.desktop";
+        bin = "google-chrome-stable";
+        wmClass = "google-chrome";
+      };
+      firefox = {
+        desktop = "firefox.desktop";
+        bin = "firefox";
+        wmClass = "firefox";
+      };
+    }.${
+      defaultBrowser
     };
-    firefox = {
-      desktop = "firefox.desktop";
-      bin = "firefox";
-      wmClass = "firefox";
-    };
-  }.${defaultBrowser};
 in {
   home.packages = with pkgs; [
     (pkgs-unstable.vintagestory)
     vesktop # Voice, video, and text chat (gaming/community)
     spotify # Music streaming client
+    inputs.helium.packages.${system}.default
     anki # Flashcard-based learning tool (spaced repetition)
     libreoffice # Office suite (Word, Excel, PowerPoint, etc.)
     gnome-clocks # World clocks, stopwatch, timers, alarms

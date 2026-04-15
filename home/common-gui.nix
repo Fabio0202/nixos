@@ -4,6 +4,7 @@
   config,
   lib,
   nix-search-tv-src,
+  helium,
   ...
 }: let
   homeDir = config.home.homeDirectory;

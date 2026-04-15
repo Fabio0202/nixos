@@ -8,7 +8,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -24,6 +23,10 @@
     nix-search-tv-src = {
       url = "github:3timeslazy/nix-search-tv";
       flake = false;
+    };
+    helium = {
+      url = "github:schembriaiden/helium-browser-nix-flake";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
 
@@ -74,7 +77,10 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs pkgs-unstable; nix-search-tv-src = inputs.nix-search-tv-src;};
+            home-manager.extraSpecialArgs = {
+              inherit inputs pkgs-unstable;
+              nix-search-tv-src = inputs.nix-search-tv-src;
+            };
             home-manager.backupFileExtension = "backup";
             home-manager.users.${userName} = mkUser userName hostName;
           }

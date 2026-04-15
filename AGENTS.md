@@ -50,3 +50,8 @@
 - `home/` - Home Manager user configurations  
 - `modules/` - Shared configuration modules
 - `flake.nix` - Main flake with `mkHost` and `mkUser` functions
+
+## Package Installation Rules
+- **Always** add user-facing packages (browsers, GUI apps, etc.) to `home/simon/common-gui.nix` unless they're server-specific
+- Only add packages to `home/simon/<host>.nix` if they are truly host-specific (e.g., hardware drivers, specific peripherals)
+- If unsure whether a package is host-specific, default to `common-gui.nix`
