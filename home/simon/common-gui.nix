@@ -27,7 +27,10 @@ in {
     (pkgs-unstable.vintagestory)
     vesktop # Voice, video, and text chat (gaming/community)
     spotify # Music streaming client
-    inputs.helium.packages.${system}.default
+    inputs.helium.packages.${pkgs.system}.default
+    (inputs.whisrs.packages.${pkgs.system}.default.overrideAttrs (_: {
+      doCheck = false;
+    }))
     anki # Flashcard-based learning tool (spaced repetition)
     libreoffice # Office suite (Word, Excel, PowerPoint, etc.)
     gnome-clocks # World clocks, stopwatch, timers, alarms
