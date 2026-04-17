@@ -104,6 +104,8 @@ binds {
     Mod+Shift+T      { spawn "bash" "-c" "~/.local/bin/theme"; }
     Mod+W            { spawn "waypaper"; }
     Mod+S            { switch-layout "next"; }
+    Mod+V            { spawn "whisrs" "toggle"; }
+    Mod+Shift+V      { spawn "whisrs" "command"; }
 
     // Screenshots
     Mod+Shift+S { spawn "bash" "-c" "grim -g \"$(slurp)\" - | wl-copy"; }

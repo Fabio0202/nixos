@@ -28,6 +28,7 @@
       url = "github:schembriaiden/helium-browser-nix-flake";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    whisrs.url = "github:y0sif/whisrs";
   };
 
   outputs = {

@@ -71,6 +71,8 @@ in {
   wayland.windowManager.hyprland.extraConfig = ''
     bind = $mainMod, B, exec, ${browser.bin}
     windowrule = opacity 0.98 0.85, match:class ^(${browser.wmClass})$
+    bind = $mainMod, V, exec, whisrs toggle
+    bind = $mainMod SHIFT, V, exec, whisrs command
   '';
 
   # Chrome flags: native Wayland + hardware VA-API video decode
