@@ -55,6 +55,16 @@
 
   networking.hostName = "simon-laptop";
 
+  networking.stevenblack = {
+    enable = true;
+    block = [ "social" "porn" ];
+  };
+
+  networking.extraHosts = ''
+    0.0.0.0 x.com
+    0.0.0.0 twitter.com
+  '';
+
   system.stateVersion = "25.11";
   # Udev rule to skip initializing the internal smartcard reader
   # → Fixes ~11s boot delay caused by the Alcor AU9540
