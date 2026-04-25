@@ -25,7 +25,7 @@
 in {
   home.packages = with pkgs; [
     (pkgs-unstable.vintagestory)
-    vesktop # Voice, video, and text chat (gaming/community)
+    discord # Voice, video, and text chat (gaming/community)
     spotify # Music streaming client
     inputs.helium.packages.${pkgs.system}.default
     (inputs.whisrs.packages.${pkgs.system}.default.overrideAttrs (_: {
