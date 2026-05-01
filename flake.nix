@@ -2,10 +2,9 @@
   description = "My NixOS config with Home Manager, multi-host, and one-user-per-host support";
 
   inputs = {
-    nvf.url = "github:notashelf/nvf";
-    nvf.inputs.nixpkgs.follows = "nixpkgs-unstable";
-
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+
+    nvim-shell.url = "github:simonlearnscoding/nvim-shell";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     home-manager.url = "github:nix-community/home-manager/release-25.11";
@@ -61,7 +60,6 @@
       };
       imports = [
         ./home/${userName}/${hostName}.nix
-        inputs.nvf.homeManagerModules.default
       ];
     };
 

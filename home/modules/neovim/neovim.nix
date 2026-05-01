@@ -155,6 +155,20 @@
 
         autopairs.nvim-autopairs.enable = true;
 
+        ui.noice = {
+          enable = true;
+          setupOpts = {
+            presets.command_palette = true;
+            views.cmdline_popup = {
+              position = {
+                row = "50%";
+                col = "50%";
+              };
+              size = {width = 60;};
+            };
+          };
+        };
+
         theme = {
           enable = true;
           name = "catppuccin";

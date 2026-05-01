@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, inputs, ...}: {
   home.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
@@ -18,8 +18,7 @@
     neofetch # Show system info in terminal
     ffmpeg # Convert, edit, and process video/audio
     git # Version control
-    # TODO: do I still need this though?
-    neovim # Terminal text editor
+    inputs.nvim-shell.packages.x86_64-linux.local # neovim via nvim-shell
     lazygit # TUI for Git
   ];
 
@@ -33,7 +32,6 @@
     };
   };
   imports = [
-    ./modules/neovim/neovim.nix
     ./modules/sh.nix
     # add more generic modules here
   ];

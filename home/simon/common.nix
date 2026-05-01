@@ -1,6 +1,7 @@
 {
   pkgs,
   pkgs-unstable,
+  inputs,
   ...
 }: {
   home.packages = with pkgs; [
@@ -26,6 +27,7 @@
     jjui # tui for jujutsu
     awscli2 # AWS Command Line Interface v2
     _1password-cli # 1Password CLI
+    inputs.nvim-shell.packages.x86_64-linux.local
     # Java development here
     # google-java-format
     # jdk17 # Java 17 for Spring Boot
@@ -33,6 +35,8 @@
     # spring-boot-cli # Optional for project generation
     # maven # Build tool
   ];
+
+  xdg.configFile."nvim".source = /home/simon/nvim-shell/config;
 
   programs.lazygit = {
     enable = true;
