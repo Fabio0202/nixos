@@ -36,7 +36,7 @@
     # maven # Build tool
   ];
 
-  xdg.configFile."nvim".source = /home/simon/nvim-shell/config;
+  xdg.configFile."nvim".source = "${inputs.nvim-shell}/config";
 
   programs.lazygit = {
     enable = true;

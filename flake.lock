@@ -243,13 +243,13 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1777664032,
-        "narHash": "sha256-rYEPB/OPEHPFbq8CZT1QwJT8CBlrBIfetW6y6QxuznM=",
-        "path": "/home/simon/nvim-shell",
+        "lastModified": 1777923622,
+        "narHash": "sha256-5vz56cCpvc565W9gNCdvJSAOrpb9XX4cdcv1unBsFJU=",
+        "path": "/home/simon/nixos/nvim-shell",
         "type": "path"
       },
       "original": {
-        "path": "/home/simon/nvim-shell",
+        "path": "/home/simon/nixos/nvim-shell",
         "type": "path"
       }
     },

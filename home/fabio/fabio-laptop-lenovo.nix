@@ -1,4 +1,4 @@
-{pkgs, inputs, ...}: {
+{ pkgs, pkgs-unstable, inputs, ... }: {
   home.packages = with pkgs; [
     # alle Software die ich nur am Laptop haben will
   ];
@@ -14,7 +14,6 @@
     ../common-server.nix # universal CLI + shared stuff
     ../modules/battery-monitor.nix
     ../modules/gitFabio.nix
-    inputs.dms.homeModules.dank-material-shell
   ];
 
   wayland.windowManager.hyprland.settings.input = {

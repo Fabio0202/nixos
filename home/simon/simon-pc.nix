@@ -1,8 +1,7 @@
-{
-  pkgs,
-  inputs,
-  pkgs-unstable,
-  ...
+{ pkgs
+, inputs
+, pkgs-unstable
+, ...
 }: {
   # I need to permit insecure packages because of logseq for now
   # not sure if I wanna go the winboat route rn lets see
@@ -21,6 +20,5 @@
     ./common.nix
     ./common-gui.nix
     ../common.nix
-    inputs.dms.homeModules.dank-material-shell
   ];
 }

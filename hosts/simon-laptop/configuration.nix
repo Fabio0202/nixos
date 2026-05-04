@@ -57,12 +57,16 @@
 
   networking.stevenblack = {
     enable = true;
-    block = [ "social" "porn" ];
+    block = [ "porn" ];
   };
 
   networking.extraHosts = ''
     0.0.0.0 x.com
     0.0.0.0 twitter.com
+    0.0.0.0 derstandard.at
+    0.0.0.0 reddit.com
+    0.0.0.0 9gag.com
+    
   '';
 
   system.stateVersion = "25.11";

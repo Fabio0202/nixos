@@ -1,8 +1,12 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config
+, lib
+, ...
+}:
+# This module creates default theme symlinks/files ONCE on fresh clones.
+# It only writes if the target does not exist yet — never overwrites.
+# Runtime theme switching is handled by the `theme` script (~/.local/bin/theme).
+# The DAG chain ensures: prepStowDirs → stowDotfiles → fixMutableThemeFiles → createThemeDefaults.
+let
   # Default theme - change this to switch the default on fresh clones
   defaultTheme = "catppuccin-mocha";
 
@@ -12,9 +16,17 @@
 
   # Theme file definitions: path -> type (symlink target or import content)
   themeFiles = {
+    "${configDir}/hypr/themes/current.conf" = {
+      type = "symlink";
+      target = "${configDir}/hypr/themes/${defaultTheme}.conf";
+    };
     "${configDir}/kitty/themes/current.conf" = {
       type = "symlink";
       target = "${configDir}/kitty/themes/${defaultTheme}.conf";
+    };
+    "${configDir}/rofi/config.rasi" = {
+      type = "symlink";
+      target = "${configDir}/rofi/${defaultTheme}.rasi";
     };
     "${configDir}/swaync/themes/current.css" = {
       type = "import";
@@ -74,28 +86,30 @@
         mkdir -p "$parent"
       fi
     }
-  '' + lib.concatStringsSep "\n" (lib.mapAttrsToList (path: cfg:
-    if cfg.type == "symlink"
-    then ''
-      # Only create if nothing exists (not even a symlink)
-      if [ ! -e "${path}" ] && [ ! -L "${path}" ]; then
-        echo "Creating default theme symlink: ${path}"
-        ensure_parent_dir "${path}"
-        ln -sf "${cfg.target}" "${path}"
-      fi
-    ''
-    else ''
-      # Only create if nothing exists (not even a symlink)
-      if [ ! -e "${path}" ] && [ ! -L "${path}" ]; then
-        echo "Creating default theme file: ${path}"
-        ensure_parent_dir "${path}"
-        cat > "${path}" << 'THEMEEOF'
-${cfg.content}THEMEEOF
-      fi
-    '')
-  themeFiles);
-in {
-  home.activation.createThemeDefaults = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  '' + lib.concatStringsSep "\n" (lib.mapAttrsToList
+    (path: cfg:
+      if cfg.type == "symlink"
+      then ''
+        # Only create if nothing exists (not even a symlink)
+        if [ ! -e "${path}" ] && [ ! -L "${path}" ]; then
+          echo "Creating default theme symlink: ${path}"
+          ensure_parent_dir "${path}"
+          ln -sf "${cfg.target}" "${path}"
+        fi
+      ''
+      else ''
+              # Only create if nothing exists (not even a symlink)
+              if [ ! -e "${path}" ] && [ ! -L "${path}" ]; then
+                echo "Creating default theme file: ${path}"
+                ensure_parent_dir "${path}"
+                cat > "${path}" << 'THEMEEOF'
+        ${cfg.content}THEMEEOF
+              fi
+      '')
+    themeFiles);
+in
+{
+  home.activation.createThemeDefaults = lib.hm.dag.entryAfter [ "fixMutableThemeFiles" ] ''
     run bash -c ${lib.escapeShellArg createScript}
   '';
 }

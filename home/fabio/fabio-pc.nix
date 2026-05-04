@@ -1,8 +1,7 @@
-{
-  pkgs,
-  inputs,
-  pkgs-unstable,
-  ...
+{ pkgs
+, inputs
+, pkgs-unstable
+, ...
 }: {
   home.packages = with pkgs; [
     # alle Software die ich nur am Stand-PC haben will
@@ -22,7 +21,6 @@
     ../common-gui.nix # GUI-only apps and modules
     ../modules/gitFabio.nix
     ../modules/logitech-tastatur.nix
-    inputs.dms.homeModules.dank-material-shell
   ];
 
   # DISABLED: Using traditional dotfiles instead

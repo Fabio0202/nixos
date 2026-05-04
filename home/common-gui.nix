@@ -1,27 +1,81 @@
-{
-  pkgs,
-  pkgs-unstable,
-  config,
-  lib,
-  nix-search-tv-src,
-  helium,
-  ...
-}: let
+{ pkgs
+, pkgs-unstable
+, config
+, lib
+, nix-search-tv-src
+, helium
+, self
+, ...
+}:
+let
   homeDir = config.home.homeDirectory;
 
   ns = pkgs.writeShellApplication {
     name = "ns";
-    runtimeInputs = with pkgs; [fzf nix-search-tv bat jq];
+    runtimeInputs = with pkgs; [ fzf nix-search-tv bat jq ];
     text =
       builtins.replaceStrings
-      ["nix-search-tv print"]
-      ["nix-search-tv print --indexes nixpkgs"]
-      (builtins.readFile "${nix-search-tv-src}/nixpkgs.sh");
+        [ "nix-search-tv print" ]
+        [ "nix-search-tv print --indexes nixpkgs" ]
+        (builtins.readFile "${nix-search-tv-src}/nixpkgs.sh");
   };
-in {
-  home.activation.stowDotfiles = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    run ${pkgs.stow}/bin/stow -d ${homeDir}/nixos/dotfiles -t ${homeDir} stow-common zsh ssh --restow
+
+  # Directories containing runtime-mutable files that must NOT be stow directory symlinks.
+  # These are pre-created as real dirs so stow symlinks individual files instead.
+  mutableDirs = with builtins; map (d: "${homeDir}/.config/${d}") [
+    "hypr/themes"
+    "kitty/themes"
+    "rofi"
+    "swaync/themes"
+    "swayosd/themes"
+    "telegram-themes"
+    "waybar/themes"
+    "nwg-dock-hyprland"
+    "wlogout"
+  ];
+
+  # Runtime-mutable theme files that stow must not manage (these belong to theme-defaults).
+  # If stow creates a symlink here, we remove it so theme-defaults/theme script can own it.
+  mutableFiles = with builtins; map (f: "${homeDir}/.config/${f}") [
+    "hypr/themes/current.conf"
+    "kitty/themes/current.conf"
+    "rofi/config.rasi"
+    "swaync/themes/current.css"
+    "swayosd/themes/current.css"
+    "telegram-themes/current.tdesktop-theme"
+    "waybar/themes/current.css"
+    "nwg-dock-hyprland/style.css"
+    "wlogout/style.css"
+  ];
+in
+{
+  home.activation.prepStowDirs = lib.hm.dag.entryBefore [ "stowDotfiles" ] ''
+    # Remove old stow symlinks pointing to the old source (~/nixos/dotfiles).
+    # Without this, stow balks because existing targets aren't owned by it.
+    find ${homeDir} -maxdepth 4 -lname "*/nixos/dotfiles/*" -delete 2>/dev/null || true
+    # Create real directories for dirs that contain runtime-mutable files.
+    # This forces stow to symlink individual files, leaving runtime files alone.
+    for d in ${lib.escapeShellArgs mutableDirs}; do
+      if [ -L "$d" ]; then
+        unlink "$d"
+      fi
+      mkdir -p "$d"
+    done
   '';
+
+  home.activation.stowDotfiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    run ${pkgs.stow}/bin/stow -d ${self}/dotfiles -t ${homeDir} stow-common zsh ssh --restow
+  '';
+
+  home.activation.fixMutableThemeFiles = lib.hm.dag.entryAfter [ "stowDotfiles" ] ''
+    for f in ${lib.escapeShellArgs mutableFiles}; do
+      if [ -L "$f" ] && [[ $(readlink "$f") == /nix/store/* ]]; then
+        rm "$f"
+      fi
+    done
+  '';
+
+  home.sessionVariables.DOTFILES_PATH = self;
 
   home.packages = with pkgs; [
     blueman # GTK-based Bluetooth manager
@@ -60,10 +114,10 @@ in {
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "video/*" = ["mpv.desktop"]; # Use mpv for all video files
-      "audio/*" = ["audacious.desktop"]; # Use Audacious for audio
-      "image/*" = ["viewnior.desktop"]; # Use Viewnior for images
-      "application/pdf" = ["sioyek.desktop"]; # Okular as PDF viewer
+      "video/*" = [ "mpv.desktop" ]; # Use mpv for all video files
+      "audio/*" = [ "audacious.desktop" ]; # Use Audacious for audio
+      "image/*" = [ "viewnior.desktop" ]; # Use Viewnior for images
+      "application/pdf" = [ "sioyek.desktop" ]; # Okular as PDF viewer
     };
   };
 }

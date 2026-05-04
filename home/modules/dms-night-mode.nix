@@ -1,4 +1,8 @@
-{ pkgs, ... }: {
+{ pkgs, lib, inputs, ... }: {
+  imports = [
+    inputs.dms.homeModules.dank-material-shell
+  ];
+  programs.dank-material-shell.enable = lib.mkDefault true;
   # Initial check at login — enable night mode if between 20:00 and 07:00
   systemd.user.services.dms-night-initial = {
     Unit = {
