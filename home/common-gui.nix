@@ -50,9 +50,14 @@ let
 in
 {
   home.activation.prepStowDirs = lib.hm.dag.entryBefore [ "stowDotfiles" ] ''
-    # Remove old stow symlinks pointing to the old source (~/nixos/dotfiles).
-    # Without this, stow balks because existing targets aren't owned by it.
-    find ${homeDir} -maxdepth 4 -lname "*/nixos/dotfiles/*" -delete 2>/dev/null || true
+    # Remove old stow symlinks (both old checkout-based and store-based).
+    find ${homeDir} -maxdepth 5 -lname "*/nixos/dotfiles/*" -delete 2>/dev/null || true
+    find ${homeDir} -maxdepth 5 -type l -lname "*/nix/store/*-source/dotfiles/*" -delete 2>/dev/null || true
+    # Remove runtime-mutable files that would block stow from replacing them with symlinks.
+    # DMS/theme-script will regenerate these on next run.
+    for f in ${lib.escapeShellArgs mutableFiles}; do
+      if [ -f "$f" ]; then rm -f "$f"; fi
+    done
     # Create real directories for dirs that contain runtime-mutable files.
     # This forces stow to symlink individual files, leaving runtime files alone.
     for d in ${lib.escapeShellArgs mutableDirs}; do
@@ -64,12 +69,12 @@ in
   '';
 
   home.activation.stowDotfiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    run ${pkgs.stow}/bin/stow -d ${self}/dotfiles -t ${homeDir} stow-common zsh ssh --restow
+    run ${pkgs.stow}/bin/stow -d ${homeDir}/nixos/dotfiles -t ${homeDir} stow-common zsh ssh --restow --override=stow-common
   '';
 
   home.activation.fixMutableThemeFiles = lib.hm.dag.entryAfter [ "stowDotfiles" ] ''
     for f in ${lib.escapeShellArgs mutableFiles}; do
-      if [ -L "$f" ] && [[ $(readlink "$f") == /nix/store/* ]]; then
+      if [ -L "$f" ] && [[ $(readlink "$f") == */nixos/* ]] || [[ $(readlink "$f") == /nix/store/* ]]; then
         rm "$f"
       fi
     done
