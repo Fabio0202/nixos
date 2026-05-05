@@ -4,11 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
 
-    # NOTE: nvim-shell is a private repo. New machines must either:
-    #   1. Register an SSH key with GitHub to access it, or
-    #   2. Make the repo public on GitHub, or
-    #   3. Use sops-nix / agenix to inject an SSH deploy key
-    nvim-shell.url = "git+ssh://git@github.com/simonlearnscoding/nvim-shell.git";
+    nvim-shell.url = "path:/home/simon/nixos/nvim-shell";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     home-manager.url = "github:nix-community/home-manager/release-25.11";

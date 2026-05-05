@@ -33,6 +33,7 @@ let
     "nwg-dock-hyprland"
     "wlogout"
     "dgop"
+    "DankMaterialShell"
   ] ++ [
     "${homeDir}/.local/state/DankMaterialShell"
   ];
@@ -49,9 +50,7 @@ let
     "waybar/themes/current.css"
     "nwg-dock-hyprland/style.css"
     "wlogout/style.css"
-    "dgop/colors.json"
-  ] ++ [
-    "${homeDir}/.local/state/DankMaterialShell/session.json"
+    "DankMaterialShell/.firstlaunch"
   ];
 in
 {

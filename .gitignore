@@ -13,3 +13,4 @@ dotfiles/stow-common/.config/wlogout/style.css
 files/wallpapers/.theme-state.json
 files/wallpapers/*
 *.backup.*
+nvim-shell/

@@ -243,17 +243,14 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1777662528,
-        "narHash": "sha256-4+zOWB3+dwpvWD0fM5rxh7Bz6aqt9xQ/n+ZdQ+jKTqw=",
-        "ref": "refs/heads/main",
-        "rev": "e5cdbf051ef57f32211f33aa7ba25f23c389eddd",
-        "revCount": 3,
-        "type": "git",
-        "url": "ssh://git@github.com/simonlearnscoding/nvim-shell.git"
+        "lastModified": 1777965443,
+        "narHash": "sha256-Xmo93UnDLz209b0BUgqwkehU3Y8WKk7+wmfEmWQvg9Q=",
+        "path": "/home/simon/nixos/nvim-shell",
+        "type": "path"
       },
       "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/simonlearnscoding/nvim-shell.git"
+        "path": "/home/simon/nixos/nvim-shell",
+        "type": "path"
       }
     },
     "quickshell": {
