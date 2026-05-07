@@ -96,6 +96,7 @@ in {
   imports = [
     # hier kommen zB setup files aus /modules fuer die einzelnen pkgs bzw softwares
     ../modules/python.nix
+    ../modules/newsboat.nix
     # ../modules/neovim/obsidian.nix  # removed: nvim-shell replaces nvf
   ];
 }
