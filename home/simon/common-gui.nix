@@ -2,6 +2,7 @@
   pkgs,
   pkgs-unstable,
   inputs,
+  lib,
   ...
 }: let
   # ── Change this one line to switch your default browser everywhere ──
@@ -71,7 +72,7 @@ in {
   };
 
   # Hyprland: browser keybind + window rule — driven by `defaultBrowser` above
-  wayland.windowManager.hyprland.extraConfig = ''
+  wayland.windowManager.hyprland.extraConfig = lib.mkAfter ''
     bind = $mainMod, B, exec, ${browser.bin}
     windowrule = opacity 0.98 0.85, match:class ^(${browser.wmClass})$
     bind = $mainMod, V, exec, whisrs toggle
@@ -94,9 +95,8 @@ in {
     file:///mnt/cloud My Cloud
   '';
   imports = [
-    # hier kommen zB setup files aus /modules fuer die einzelnen pkgs bzw softwares
+    ../modules/hyprland/default.nix
     ../modules/python.nix
     ../modules/newsboat.nix
-    # ../modules/neovim/obsidian.nix  # removed: nvim-shell replaces nvf
   ];
 }

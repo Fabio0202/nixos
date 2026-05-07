@@ -56,7 +56,7 @@ in
     # Remove runtime-mutable files that would block stow from replacing them with symlinks.
     # DMS/theme-script will regenerate these on next run.
     for f in ${lib.escapeShellArgs mutableFiles}; do
-      if [ -f "$f" ]; then rm -f "$f"; fi
+      rm -f "$f"
     done
     # Create real directories for dirs that contain runtime-mutable files.
     # This forces stow to symlink individual files, leaving runtime files alone.
@@ -94,6 +94,7 @@ in
     pulsemixer # TUI audio mixer
     bruno # Open-source API client
     ns # nix-search-tv wrapper (packages only)
+    newsflash # GTK RSS feed reader
     # audacious # Simple and lightweight music player
     # (pkgs-unstable.kdePackages.kdeconnect-kde)
   ];
