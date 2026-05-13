@@ -32,6 +32,9 @@ let
     "waybar/themes"
     "nwg-dock-hyprland"
     "wlogout"
+    "dgop"
+  ] ++ [
+    "${homeDir}/.local/state/DankMaterialShell"
   ];
 
   # Runtime-mutable theme files that stow must not manage (these belong to theme-defaults).
@@ -46,6 +49,9 @@ let
     "waybar/themes/current.css"
     "nwg-dock-hyprland/style.css"
     "wlogout/style.css"
+    "dgop/colors.json"
+  ] ++ [
+    "${homeDir}/.local/state/DankMaterialShell/session.json"
   ];
 in
 {

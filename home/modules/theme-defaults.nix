@@ -74,6 +74,14 @@ let
         }
       '';
     };
+    "${configDir}/dgop/colors.json" = {
+      type = "copy";
+      source = "${homeDir}/nixos/dotfiles/stow-common/.config/dgop/colors.json";
+    };
+    "${stateDir}/DankMaterialShell/session.json" = {
+      type = "copy";
+      source = "${homeDir}/nixos/dotfiles/stow-common/.local/state/DankMaterialShell/session.json";
+    };
   };
 
   # Generate shell script to create missing files (only on fresh clones)
@@ -97,14 +105,23 @@ let
           ln -sf "${cfg.target}" "${path}"
         fi
       ''
+      else if cfg.type == "copy"
+      then ''
+        # Only create if nothing exists (not even a symlink)
+        if [ ! -e "${path}" ] && [ ! -L "${path}" ]; then
+          echo "Creating default theme copy: ${path}"
+          ensure_parent_dir "${path}"
+          cp "${cfg.source}" "${path}"
+        fi
+      ''
       else ''
-              # Only create if nothing exists (not even a symlink)
-              if [ ! -e "${path}" ] && [ ! -L "${path}" ]; then
-                echo "Creating default theme file: ${path}"
-                ensure_parent_dir "${path}"
-                cat > "${path}" << 'THEMEEOF'
-        ${cfg.content}THEMEEOF
-              fi
+        # Only create if nothing exists (not even a symlink)
+        if [ ! -e "${path}" ] && [ ! -L "${path}" ]; then
+          echo "Creating default theme file: ${path}"
+          ensure_parent_dir "${path}"
+          cat > "${path}" << 'THEMEEOF'
+${cfg.content}THEMEEOF
+        fi
       '')
     themeFiles);
 in
