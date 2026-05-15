@@ -51,6 +51,7 @@ in {
     teams-for-linux
     vi-mongo # mongo db tui client
     godot
+    (pkgs-unstable.lutris)
     logseq # notetaking like obsidian but better
     (pkgs-unstable.bitwig-studio)
     filezilla # for sending files to my webserver
