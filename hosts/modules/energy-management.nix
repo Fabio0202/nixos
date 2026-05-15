@@ -33,7 +33,7 @@
     "amd_pstate=active"
 
     # Suspend idle USB devices after 2s (Linux default, was accidentally disabled with -1).
-    "usbcore.autosuspend=30"
+    "usbcore.autosuspend=-1"
   ];
 
   # Custom Powertop service (non-blocking, runs after boot)
