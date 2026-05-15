@@ -1,6 +1,6 @@
 {
   "isLightMode": false,
-  "doNotDisturb": false,
+  "doNotDisturb": true,
   "wallpaperPath": "/home/simon/nixos/files/wallpapers/catppuccin-mocha/dark-mountains.jpg",
   "perMonitorWallpaper": false,
   "monitorWallpapers": {},
@@ -25,7 +25,7 @@
   "wallpaperCyclingInterval": 300,
   "wallpaperCyclingTime": "06:00",
   "monitorCyclingSettings": {},
-  "nightModeEnabled": true,
+  "nightModeEnabled": false,
   "nightModeTemperature": 3000,
   "nightModeHighTemperature": 6500,
   "nightModeAutoEnabled": false,

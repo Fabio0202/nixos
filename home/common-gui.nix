@@ -74,6 +74,20 @@ in
   '';
 
   home.activation.stowDotfiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    # Remove regular files that would block stow from creating symlinks.
+    # Apps sometimes write configs to stow-managed paths — these would cause
+    # "cannot stow X over existing target Y since neither a link nor a directory"
+    for pkg in stow-common zsh ssh; do
+      (
+        cd ${homeDir}/nixos/dotfiles/$pkg
+        find . -type f | while IFS= read -r relpath; do
+          target="${homeDir}/''${relpath#./}"
+          if [ -f "$target" ] && [ ! -L "$target" ]; then
+            rm -f "$target"
+          fi
+        done
+      )
+    done
     run ${pkgs.stow}/bin/stow -d ${homeDir}/nixos/dotfiles -t ${homeDir} stow-common zsh ssh --restow --override=stow-common
   '';
 
