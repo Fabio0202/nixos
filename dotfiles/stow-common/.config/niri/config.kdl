@@ -76,6 +76,7 @@ animations {
 
 // Start xwayland-satellite for X11 app support
 spawn-at-startup "xwayland-satellite"
+spawn-at-startup "systemctl" "--user" "start" "xremap"
 
 binds {
     // Volume (work on lock screen too)

@@ -56,6 +56,7 @@ in {
     (pkgs-unstable.bitwig-studio)
     filezilla # for sending files to my webserver
     warehouse # GUI flatpak manager
+    xremap # Key remapping tool (input remapper for Wayland/X11)
     # gitkraken # git gui client - temporarily disabled due to download issues
     # slack # work chat
     # monolith # save complete web pages as a single HTML file

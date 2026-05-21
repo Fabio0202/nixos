@@ -10,6 +10,7 @@
     # ../modules/bootloader.nix
     ../modules/grub.nix
     ../modules/amd-gpu.nix
+    ../modules/xremap.nix
 
     ../modules/windows.nix
 

@@ -13,6 +13,7 @@
     # ../modules/bootloader.nix
     ../modules/grub.nix
     ../modules/amd-gpu.nix
+    ../modules/xremap.nix
 
     (import ../modules/syncthing {
       user = "simon";
