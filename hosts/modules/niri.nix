@@ -1,8 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 {
   programs.niri = {
     enable = true;
-    package = pkgs.niri;
+    package = pkgs-unstable.niri;
   };
 
   # niri pulls in gcr-ssh-agent which conflicts with programs.ssh.startAgent in system.nix
