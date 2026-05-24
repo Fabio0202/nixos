@@ -53,7 +53,7 @@ in {
     godot
     (pkgs-unstable.lutris)
     logseq # notetaking like obsidian but better
-    (pkgs-unstable.bitwig-studio)
+    (pkgs-unstable.bitwig-studio6)
     filezilla # for sending files to my webserver
     warehouse # GUI flatpak manager
     xremap # Key remapping tool (input remapper for Wayland/X11)

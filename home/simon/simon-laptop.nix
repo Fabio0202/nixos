@@ -19,6 +19,7 @@ in
     ../common.nix
     ../modules/battery-monitor.nix
     ../modules/gitSimon.nix
+    ../modules/walker.nix
   ];
 
   # wayland.windowManager.hyprland.settings.input = {

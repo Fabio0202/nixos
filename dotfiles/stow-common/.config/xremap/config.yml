@@ -4,6 +4,7 @@ modmap:
         held: Super_L
         alone: Esc
 
+
 keymap:
   # Steam games — WM_CLASS is usually steam_app_<appid> (check via xremap logs)
   - name: Age of Empires II DE
@@ -66,12 +67,14 @@ keymap:
     remap:
       Ctrl-b: Left
 
-  # Native Linux games — WM_CLASS is the binary name
   - name: Shadow Tactics
-    window:
-      only: /Shadow Tactics/
+    application:
+      only: shadow_tactics
     remap:
-      Ctrl-c: Down
+      h: Left
+      j: Down
+      k: Up
+      l: Right
 
   - name: ShellShock Live
     application:
@@ -84,6 +87,12 @@ keymap:
       only: Isonzo
     remap:
       Ctrl-b: Left
+
+  # Walker launcher
+  - name: Walker Launcher
+    remap:
+      Super-Space:
+        launch: ["walker"]
 
   # Not yet installed / needs verification:
   # - Gothic 1 Remake - Nyras Prologue (not fully installed)

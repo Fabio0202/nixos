@@ -1,12 +1,12 @@
 { config, pkgs, ... }:
 let
-  xremap-niri = pkgs.rustPlatform.buildRustPackage (finalAttrs: {
-    pname = "xremap-niri";
+  xremap-hypr = pkgs.rustPlatform.buildRustPackage (finalAttrs: {
+    pname = "xremap-hypr";
     version = pkgs.xremap.version;
     src = pkgs.xremap.src;
     nativeBuildInputs = [ pkgs.pkg-config ];
     buildNoDefaultFeatures = true;
-    buildFeatures = [ "niri" ];
+    buildFeatures = [ "hypr" ];
     cargoHash = "sha256-ucyBQPCskHwz8rYzOULJ3enL6rhvpLxJzS7sTNwuBW4=";
   });
 in
@@ -21,9 +21,21 @@ in
     wantedBy = [ "graphical-session.target" ];
     serviceConfig = {
       Type = "simple";
-      ExecStart = "${xremap-niri}/bin/xremap /home/simon/.config/xremap/config.yml";
+      ExecStart = "${xremap-hypr}/bin/xremap /home/simon/.config/xremap/config.yml";
       Restart = "on-failure";
       RestartSec = 10;
+    };
+  };
+
+  systemd.user.services.xremap-environment = {
+    description = "Import Hyprland environment for xremap";
+    after = [ "graphical-session.target" ];
+    before = [ "xremap.service" ];
+    wantedBy = [ "graphical-session.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.systemd}/bin/systemctl --user import-environment HYPRLAND_INSTANCE_SIGNATURE XDG_RUNTIME_DIR";
+      RemainAfterExit = true;
     };
   };
 }
