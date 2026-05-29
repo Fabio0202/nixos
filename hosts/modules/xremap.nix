@@ -1,14 +1,6 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 let
-  xremap-hypr = pkgs.rustPlatform.buildRustPackage (finalAttrs: {
-    pname = "xremap-hypr";
-    version = pkgs.xremap.version;
-    src = pkgs.xremap.src;
-    nativeBuildInputs = [ pkgs.pkg-config ];
-    buildNoDefaultFeatures = true;
-    buildFeatures = [ "hypr" ];
-    cargoHash = "sha256-ucyBQPCskHwz8rYzOULJ3enL6rhvpLxJzS7sTNwuBW4=";
-  });
+  xremap-hypr = pkgs-unstable.xremap.override { withVariant = "hyprland"; };
 in
 {
   users.users.simon.extraGroups = [ "input" ];

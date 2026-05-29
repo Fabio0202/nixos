@@ -7,7 +7,7 @@
     };
     Service = {
       Type = "simple";
-      ExecStart = "${pkgs.elephant}/bin/elephant";
+      ExecStart = "${pkgs-unstable.elephant}/bin/elephant";
       Restart = "on-failure";
       RestartSec = 5;
     };
