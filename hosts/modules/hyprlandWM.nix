@@ -33,9 +33,8 @@
   # Make GTK handle OpenURI; Hyprland handles screencast
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs-unstable; [
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-hyprland
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
     ];
     config = {
       common.default = [ "hyprland" "gtk" ];

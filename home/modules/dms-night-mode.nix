@@ -1,41 +1,37 @@
-{ pkgs, lib, inputs, ... }: {
-  imports = [
-    inputs.dms.homeModules.dank-material-shell
-  ];
-  programs.dank-material-shell.enable = lib.mkDefault true;
-  # Initial check at login — enable night mode if between 20:00 and 07:00
-  systemd.user.services.dms-night-initial = {
+{ pkgs, pkgs-unstable, ... }: {
+  # hyprsunset uses hyprland-ctm-control-v1 which works on AMD GPUs
+  # (DMS uses wlr-gamma-control which requires hardware gamma LUT - not available on Renoir)
+  systemd.user.services.hyprsunset = {
     Unit = {
-      Description = "Set DMS night mode based on current time";
+      Description = "Blue light filter via hyprsunset (CTM-based)";
       After = [ "graphical-session.target" ];
     };
     Service = {
-      Type = "oneshot";
-      ExecStart = pkgs.writeShellScript "dms-night-initial" ''
+      Type = "simple";
+      ExecStart = pkgs.writeShellScript "hyprsunset-start" ''
         hour=$(date +%H)
         if (( hour >= 20 || hour < 7 )); then
-          dms ipc call night enable
-          dms ipc call night temperature 3000
+          temp=3000
         else
-          dms ipc call night disable
+          temp=6500
         fi
+        exec ${pkgs-unstable.hyprsunset}/bin/hyprsunset -t "$temp"
       '';
+      Restart = "on-failure";
+      RestartSec = 5;
     };
     Install.WantedBy = [ "graphical-session.target" ];
   };
 
-  # Turn ON at 20:00
-  systemd.user.services.dms-night-on = {
+  # Switch to night temperature at 20:00
+  systemd.user.services.hyprsunset-night = {
     Service = {
       Type = "oneshot";
-      ExecStart = pkgs.writeShellScript "dms-night-on" ''
-        dms ipc call night enable
-        dms ipc call night temperature 3000
-      '';
+      ExecStart = "${pkgs.procps}/bin/pkill -x hyprsunset || true";
     };
   };
-  systemd.user.timers.dms-night-on = {
-    Unit.Description = "Enable DMS night mode at 20:00";
+  systemd.user.timers.hyprsunset-night = {
+    Unit.Description = "Switch hyprsunset to night temperature";
     Timer = {
       OnCalendar = "20:00";
       Persistent = true;
@@ -43,17 +39,15 @@
     Install.WantedBy = [ "timers.target" ];
   };
 
-  # Turn OFF at 07:00
-  systemd.user.services.dms-night-off = {
+  # Switch to day temperature at 07:00
+  systemd.user.services.hyprsunset-day = {
     Service = {
       Type = "oneshot";
-      ExecStart = pkgs.writeShellScript "dms-night-off" ''
-        dms ipc call night disable
-      '';
+      ExecStart = "${pkgs.procps}/bin/pkill -x hyprsunset || true";
     };
   };
-  systemd.user.timers.dms-night-off = {
-    Unit.Description = "Disable DMS night mode at 07:00";
+  systemd.user.timers.hyprsunset-day = {
+    Unit.Description = "Switch hyprsunset to day temperature";
     Timer = {
       OnCalendar = "07:00";
       Persistent = true;

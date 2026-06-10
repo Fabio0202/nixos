@@ -10,6 +10,7 @@ in
 {
   programs.dank-material-shell = {
     enable = true;
+    systemd.enable = true;
     dgop.package = pkgs-unstable.dgop;
   };
 

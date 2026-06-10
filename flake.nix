@@ -1,9 +1,7 @@
 {
   description = "My NixOS config with Home Manager, multi-host, and one-user-per-host support";
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
-
     nvim-shell.url = "path:/home/simon/nixos/nvim-shell";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
@@ -60,6 +58,7 @@
           stateVersion = "25.11"; # pin Home Manager release compatibility
         };
         imports = [
+          inputs.dms.homeModules.dank-material-shell
           ./home/${userName}/${hostName}.nix
         ];
       };

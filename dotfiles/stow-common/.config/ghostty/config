@@ -1,0 +1,15 @@
+# Ghostty configuration
+# See: https://ghostty.org/docs/configuration
+
+font-family = JetBrainsMono Nerd Font
+font-size = 12
+
+theme = rose-pine
+
+background-opacity = 0.92
+
+window-padding-x = 4
+window-padding-y = 4
+
+# Faster startup: skip XDG config scanning
+confirm-close-surface = false

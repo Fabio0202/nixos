@@ -28,6 +28,7 @@ in {
     (pkgs-unstable.vintagestory)
     discord # Voice, video, and text chat (gaming/community)
     spotify # Music streaming client
+    zed-editor
     inputs.helium.packages.${pkgs.system}.default
     (inputs.whisrs.packages.${pkgs.system}.default.overrideAttrs (_: {
       doCheck = false;
@@ -51,7 +52,6 @@ in {
     teams-for-linux
     vi-mongo # mongo db tui client
     godot
-    (pkgs-unstable.lutris)
     logseq # notetaking like obsidian but better
     (pkgs-unstable.bitwig-studio6)
     filezilla # for sending files to my webserver

@@ -181,3 +181,4 @@ binds {
     Mod+Ctrl+Alt+Down  { set-window-height "+20"; }
     Mod+Ctrl+Alt+Up    { set-window-height "-20"; }
 }
+include "dms/binds.kdl"

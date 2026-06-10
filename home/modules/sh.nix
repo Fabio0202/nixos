@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  pkgs-unstable,
   ...
 }: {
   # to make sure global npm packages and local binaries are accessible
@@ -89,7 +90,7 @@
     wget # download files from web
     xclip # clipboard CLI for X11/Wayland
     # kitty # GPU-accelerated terminal - moved to stow
-    ghostty
+    pkgs-unstable.ghostty
     bat # modern replacement for cat (with syntax highlighting)
     trash-cli # move files to trash instead of rm
     yazi # fast TUI file manager (like lf but modern)

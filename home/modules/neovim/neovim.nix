@@ -441,8 +441,8 @@
           {
             mode = "n";
             key = "<leader>q";
-            action = "<cmd>update<cr><cmd>q<cr>";
-            desc = "Save and Quit";
+            action = "<cmd>q<cr>";
+            desc = "Close panel";
           }
         ];
       };

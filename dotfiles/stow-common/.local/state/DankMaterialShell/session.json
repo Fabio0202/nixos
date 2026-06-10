@@ -1,7 +1,7 @@
 {
   "isLightMode": false,
   "doNotDisturb": true,
-  "wallpaperPath": "/home/simon/nixos/files/wallpapers/catppuccin-mocha/dark-mountains.jpg",
+  "wallpaperPath": "/home/simon/nixos/files/wallpapers/catppuccin-mocha/dark-city.jpg",
   "perMonitorWallpaper": false,
   "monitorWallpapers": {},
   "perModeWallpaper": false,
@@ -53,7 +53,7 @@
   "hiddenTrayIds": [],
   "trayItemOrder": [],
   "recentColors": [],
-  "showThirdPartyPlugins": false,
+  "showThirdPartyPlugins": true,
   "launchPrefix": "",
   "lastBrightnessDevice": "",
   "brightnessExponentialDevices": {},
