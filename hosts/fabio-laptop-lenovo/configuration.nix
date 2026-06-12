@@ -35,12 +35,8 @@
   # boot.loader.grub.useOSProber = true;
 
   boot.kernelPackages = lib.mkForce pkgs.linuxPackages_6_12;
-  services.nixos-auto-update = {
-    enable = true;
-    flakePath = "/home/fabio/nixos";
-  };
 
   networking.hostName = "fabio-laptop-lenovo";
 
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
 }

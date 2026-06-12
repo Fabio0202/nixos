@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+
+// Dependencies
+var PI= require("../lib")
+
+console.log(PI(parseInt(process.argv[2])));

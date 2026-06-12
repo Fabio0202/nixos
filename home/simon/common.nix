@@ -12,7 +12,7 @@
     deluge # Lightweight, full-featured BitTorrent client
     speedtest-cli # Test internet bandwidth using speedtest.net
     (pkgs-unstable.devenv) # Dev environment manager (like direnv but more powerful)
-    # (pkgs-unstable.opencode) # AI agents, waiting for fix
+    (pkgs-unstable.opencode) # AI agents, waiting for fix
     (pkgs-unstable.jujutsu) # like git but apparently better
     redis # In-memory data structure store (DB, cache, message broker)
     deno # Modern JavaScript/TypeScript runtime
@@ -27,7 +27,6 @@
     jjui # tui for jujutsu
     awscli2 # AWS Command Line Interface v2
     _1password-cli # 1Password CLI
-    inputs.nvim-shell.packages.x86_64-linux.local
     # Java development here
     # google-java-format
     # jdk17 # Java 17 for Spring Boot
@@ -36,7 +35,7 @@
     # maven # Build tool
   ];
 
-  xdg.configFile."nvim".source = "${inputs.nvim-shell}/config";
+  
 
   programs.lazygit = {
     enable = true;
@@ -55,5 +54,16 @@
   imports = [
     # hier kommen zB setup files aus /modules fuer die einzelnen pkgs bzw softwares
     ../modules/distrobox.nix
+    inputs.hunk.homeManagerModules.default
   ];
+
+  programs.hunk = {
+    enable = true;
+    enableGitIntegration = true; # set hunk as default git pager
+    settings = {
+      theme = "graphite";
+      mode = "split";
+      line_numbers = true;
+    };
+  };
 }

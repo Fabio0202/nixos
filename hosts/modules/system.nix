@@ -30,7 +30,7 @@
     # make sure I can still ssh into emergency mode
     startWhenNeeded = true;
     enable = true;
-    forwardX11 = true;
+    settings.X11Forwarding = true;
   };
   programs.ssh.startAgent = true;
 }

@@ -15,7 +15,7 @@
     wl-clip-persist # Clipboard manager for Wayland, keeps clipboard content after the app closes
     wf-recorder # Screen recording tool for Wayland, compatible with Hyprland
     hyprcursor
-    inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default # Rose Pine cursor theme for Hyprland
+    inputs.rose-pine-hyprcursor.packages.${pkgs.stdenv.hostPlatform.system}.default # Rose Pine cursor theme for Hyprland
     wl-clipboard
     wlinhibit # User-space inhibitor
     hyprlock # lock screen

@@ -19,7 +19,7 @@
   boot.kernelParams = [
     "amdgpu.dpm=1" # dynamic power management (adjusts clocks/voltage)
     "amdgpu.aspm=1" # PCIe link power management
-    "amdgpu.runpm=1" # runtime suspend when GPU idle
+    "amdgpu.runpm=0" # runtime suspend DISABLED — was causing dma_fence stalls (showed up as ~24% iowait) on resume/power transitions; keeping the GPU awake avoids the wake-up fence waits
     "amdgpu.dc=1" # display core (better power handling for screens)
 
     # Fix for amdgpu suspend issues: ensures safer VRAM memory handling during suspend

@@ -49,10 +49,9 @@
   # boot.loader.grub.device = "/dev/nvme0n1";
   # boot.loader.grub.useOSProber = true;
 
-  services.nixos-auto-update = {
-    enable = true;
-    flakePath = "/home/simon/nixos";
-  };
+  # Use the latest mainline kernel — newer amdgpu has fixes for atomic-commit /
+  # dma_fence stalls on Renoir. Overrides the default in configuration-common.nix.
+  boot.kernelPackages = pkgs.lib.mkForce pkgs.linuxPackages_latest;
 
   networking.hostName = "simon-laptop";
 
@@ -66,7 +65,7 @@
     0.0.0.0 9gag.com
   '';
 
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
   # Udev rule to skip initializing the internal smartcard reader
   # → Fixes ~11s boot delay caused by the Alcor AU9540
   # Vendor ID 058f, Product ID 9540 (specific to this device)

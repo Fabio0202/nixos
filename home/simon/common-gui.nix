@@ -25,12 +25,12 @@
     };
 in {
   home.packages = with pkgs; [
+  (pkgs-unstable.zed-editor)
     (pkgs-unstable.vintagestory)
     discord # Voice, video, and text chat (gaming/community)
     spotify # Music streaming client
-    zed-editor
-    inputs.helium.packages.${pkgs.system}.default
-    (inputs.whisrs.packages.${pkgs.system}.default.overrideAttrs (_: {
+    inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
+    (inputs.whisrs.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (_: {
       doCheck = false;
     }))
     anki # Flashcard-based learning tool (spaced repetition)
@@ -57,6 +57,8 @@ in {
     filezilla # for sending files to my webserver
     warehouse # GUI flatpak manager
     xremap # Key remapping tool (input remapper for Wayland/X11)
+    omnisharp-roslyn # C# LSP — on global PATH so Zed (and other non-nvim-shell tools) can find it
+    netcoredbg # C# DAP debugger — on global PATH for Zed's netcoredbg-zed extension
     # gitkraken # git gui client - temporarily disabled due to download issues
     # slack # work chat
     # monolith # save complete web pages as a single HTML file

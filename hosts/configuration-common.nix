@@ -21,7 +21,6 @@
     ./modules/fonts.nix
     ./modules/gaming.nix
     ./modules/gc.nix
-    ./modules/auto-update.nix
     ./modules/nix-cache.nix
     ./modules/light.nix
     ./modules/networking.nix
@@ -59,4 +58,14 @@
   services.flatpak.enable = true;
 
   virtualisation.docker.enableOnBoot = false; # socket-activated, starts on first use
+
+  # # Raise file descriptor limits — nix eval opens many files
+  # security.pam.loginLimits = [
+  #   { domain = "@users"; type = "soft"; item = "nofile"; value = "65536" }
+  #   { domain = "@users"; type = "hard"; item = "nofile"; value = "65536" }
+  # ];
+
+  # environment.sessionVariables = {
+  #   NIX_ULIMIT_MAX_FILES = "65536";
+  # };
 }

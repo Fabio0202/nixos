@@ -65,6 +65,8 @@ in {
   programs.zsh.enable = true;
   networking.hostName = "server-wien";
 
+  system.stateVersion = "26.05";
+
   ##########################
   ## Drive Configuration
   ##########################

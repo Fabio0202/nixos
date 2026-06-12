@@ -1,13 +1,10 @@
 {
   description = "My NixOS config with Home Manager, multi-host, and one-user-per-host support";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
-    nvim-shell.url = "path:/home/simon/nixos/nvim-shell";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
     rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
     rose-pine-hyprcursor.inputs.nixpkgs.follows = "nixpkgs-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
@@ -26,6 +23,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     whisrs.url = "github:y0sif/whisrs";
+    hunk = {
+      url = "github:modem-dev/hunk";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # zed.url = "github:zed-industries/zed";
   };
 
   outputs =
@@ -55,7 +57,7 @@
         home = {
           username = userName;
           homeDirectory = "/home/${userName}";
-          stateVersion = "25.11"; # pin Home Manager release compatibility
+          stateVersion = "26.05"; # pin Home Manager release compatibility
         };
         imports = [
           inputs.dms.homeModules.dank-material-shell
@@ -66,7 +68,7 @@
       # --- Host abstraction ---
       mkHost = hostName: userName:
         nixpkgs.lib.nixosSystem {
-          inherit system;
+          system = null;
           specialArgs = { inherit inputs pkgs-unstable self; };
 
           modules = [

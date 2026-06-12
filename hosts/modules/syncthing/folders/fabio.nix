@@ -1,5 +1,5 @@
 { ... }: {
-  services.syncthing.folders = {
+  services.syncthing.settings.folders = {
     "documents-fabio" = {
       # this is the folder ID (shared across devices)
       path = "/home/fabio/Documents"; # local path on this machine

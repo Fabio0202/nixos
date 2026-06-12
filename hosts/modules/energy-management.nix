@@ -20,9 +20,13 @@
   # Let logind handle lid switch — DMS doesn't intercept lid events,
   # and neither does niri (unlike Hyprland which handled it via keybinds)
   services.logind = {
-    lidSwitch = "suspend";
-    lidSwitchExternalPower = "suspend";
-    lidSwitchDocked = "ignore";
+    settings = {
+      Login = {
+        HandleLidSwitch = "suspend";
+        HandleLidSwitchExternalPower = "suspend";
+        HandleLidSwitchDocked = "ignore";
+      };
+    };
   };
 
   boot.kernelParams = [

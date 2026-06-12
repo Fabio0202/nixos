@@ -4,10 +4,6 @@
   ...
 }: {
   wayland.windowManager.hyprland.settings = {
-    plugin.hyprexpo = {
-      enable_gesture = false; # prevent Hyprexpo from hijacking swipes
-    };
-
     gesture = [
       # 4-finger vertical swipe → workspace switching
       "4, vertical, scale:0.8, workspace"

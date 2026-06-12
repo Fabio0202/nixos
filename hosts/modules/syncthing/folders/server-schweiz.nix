@@ -6,7 +6,7 @@ let
   };
 in
 {
-  services.syncthing.folders = {
+  services.syncthing.settings.folders = {
     "documents-fabio" = {
       path = "/mnt/drive/syncthing/fabio/Documents";
       devices = [

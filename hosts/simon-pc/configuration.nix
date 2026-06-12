@@ -49,14 +49,9 @@
   # boot.loader.grub.device = "/dev/nvme0n1";
   # boot.loader.grub.useOSProber = true;
 
-  services.nixos-auto-update = {
-    enable = true;
-    flakePath = "/home/simon/nixos";
-  };
-
   networking.hostName = "simon-pc";
 
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
   # Udev rule to skip initializing the internal smartcard reader
   # → Fixes ~11s boot delay caused by the Alcor AU9540
   # Vendor ID 058f, Product ID 9540 (specific to this device)

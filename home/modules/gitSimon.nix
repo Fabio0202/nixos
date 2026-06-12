@@ -5,10 +5,10 @@
 }: {
   programs.git = {
     enable = true;
-    userName = "Simon";
-    userEmail = "simon.muscas@gmail.com";
+    settings = {
+      user.name = "Simon";
+      user.email = "simon.muscas@gmail.com";
 
-    extraConfig = {
       # how to handle `git pull` when branches diverge
       pull.rebase = false; # or true if you prefer rebase
       pull.ff = "only"; # safer: only fast-forward

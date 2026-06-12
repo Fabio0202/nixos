@@ -1,16 +1,14 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: let
-  homeDir = config.home.homeDirectory;
-
+{ config
+, pkgs
+, lib
+, ...
+}:
+let
   # Distrobox assemble manifest for a dev container with node, python, etc.
   distroboxAssemble = pkgs.writeText "distrobox-dev.ini" ''
     [dev]
     image=docker.io/library/ubuntu:24.04
-    replace=true
+    replace=false
     start_now=false
     init=false
     nvidia=false
@@ -18,12 +16,26 @@
     additional_packages="curl wget git zsh sudo build-essential python3 python3-pip python3-venv nodejs npm"
   '';
 
-  # Script to create/recreate the dev distrobox
+  # Script to create the dev distrobox (idempotent — skips if container exists)
   distrobox-setup = pkgs.writeShellScriptBin "distrobox-setup" ''
-    echo "Creating dev distrobox from assemble file..."
-    ${pkgs.distrobox}/bin/distrobox assemble create --file ${distroboxAssemble}
+    replace_flag=""
+    if [[ "''${1:-}" == "--recreate" ]]; then
+      replace_flag="--replace"
+    fi
+
+    if [[ -z "$replace_flag" ]] && ${pkgs.distrobox}/bin/distrobox list 2>/dev/null | awk '{print $1}' | grep -qx "dev"; then
+      echo "Container 'dev' already exists. Use 'distrobox-setup --recreate' to destroy and rebuild."
+      exit 0
+    fi
+
+    if [[ -n "$replace_flag" ]]; then
+      echo "Recreating dev distrobox (existing container will be destroyed)..."
+    else
+      echo "Creating dev distrobox from assemble file..."
+    fi
+    ${pkgs.distrobox}/bin/distrobox assemble create --file ${distroboxAssemble} $replace_flag
     echo ""
-    echo "Dev container created! Enter with: dbe dev"
+    echo "Dev container ready! Enter with: dbe dev"
     echo ""
     echo "To install extra tools inside:"
     echo "  sudo apt install -y <package>"
@@ -47,13 +59,14 @@
     fi
     exec ${pkgs.distrobox}/bin/distrobox enter "$container" -- "$@"
   '';
-in {
+in
+{
   home.packages = [
     distrobox-setup
     distrobox-run
   ];
 
-  programs.zsh.initExtra = ''
+  programs.zsh.initContent = ''
     # Distrobox shortcuts
     alias dbe="distrobox enter"
     alias dbl="distrobox list"

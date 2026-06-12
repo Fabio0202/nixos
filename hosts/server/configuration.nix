@@ -166,7 +166,7 @@ in {
   ];
 
   # Enable Intel iGPU video acceleration
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [intel-media-driver];
   };
@@ -174,6 +174,8 @@ in {
   users.users.simon.extraGroups = ["video" "wheel"];
   programs.zsh.enable = true;
   networking.hostName = "server";
+
+  system.stateVersion = "26.05";
 
   ##########################
   ## Drive Configuration

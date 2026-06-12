@@ -26,12 +26,7 @@
   boot.loader.grub.device = "/dev/nvme0n1";
   boot.loader.grub.useOSProber = true;
 
-  services.nixos-auto-update = {
-    enable = true;
-    flakePath = "/home/fabio/nixos";
-  };
-
   networking.hostName = "fabio-pc";
 
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
 }

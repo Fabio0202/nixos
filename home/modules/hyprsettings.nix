@@ -1,5 +1,5 @@
 {pkgs, inputs, ...}: {
   home.packages = [
-    inputs.hyprsettings.packages.${pkgs.system}.default
+    inputs.hyprsettings.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }

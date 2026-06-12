@@ -51,6 +51,7 @@ let
     "nwg-dock-hyprland/style.css"
     "wlogout/style.css"
     "DankMaterialShell/.firstlaunch"
+    "nvim/lazy-lock.json"
   ];
 in
 {
@@ -58,6 +59,9 @@ in
     # Remove old stow symlinks (both old checkout-based and store-based).
     find ${homeDir} -maxdepth 5 -lname "*/nixos/dotfiles/*" -delete 2>/dev/null || true
     find ${homeDir} -maxdepth 5 -type l -lname "*/nix/store/*-source/dotfiles/*" -delete 2>/dev/null || true
+    # Remove old nix-store nvim config (was xdg.configFile, now stowed).
+    # Files may be root-owned hardlinks, so delete the whole directory.
+    rm -rf ${homeDir}/.config/nvim 2>/dev/null || true
     # Remove runtime-mutable files that would block stow from replacing them with symlinks.
     # DMS/theme-script will regenerate these on next run.
     for f in ${lib.escapeShellArgs mutableFiles}; do

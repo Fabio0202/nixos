@@ -18,27 +18,29 @@
   programs.fzf.enable = true;
   programs.fish.enable = false;
 
-  programs.zsh.initExtraBeforeCompInit = ''
-    export PATH="$HOME/.npm-global/bin:$PATH"
-  '';
-  programs.zsh.initExtra = ''
-    source ~/.zsh/aliases.zsh
+  programs.zsh.initContent = lib.mkMerge [
+    (lib.mkOrder 550 ''
+      export PATH="$HOME/.npm-global/bin:$PATH"
+    '')
+    ''
+      source ~/.zsh/aliases.zsh
 
-    function fzf() {
-      local selected_file
-      selected_file=$(command fzf) || return
-      xdg-open "$selected_file"
-    }
+      function fzf() {
+        local selected_file
+        selected_file=$(command fzf) || return
+        xdg-open "$selected_file"
+      }
 
-    function y() {
-      local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-      yazi "$@" --cwd-file="$tmp"
-      if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-        builtin cd -- "$cwd"
-      fi
-      rm -f -- "$tmp"
-    }
-  '';
+      function y() {
+        local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+        yazi "$@" --cwd-file="$tmp"
+        if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+          builtin cd -- "$cwd"
+        fi
+        rm -f -- "$tmp"
+      }
+    ''
+  ];
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -72,7 +74,7 @@
     haskellPackages.misfortune # random fortune messages (misfortune quotes)
     cowsay # display messages as ASCII cows
     lolcat # rainbow-colorize terminal output
-    neofetch # system info in terminal (with ASCII logo)
+    fastfetch # system info in terminal (modern neofetch replacement)
     # Task / time management
     taskwarrior3 # CLI task manager
     timewarrior # CLI time tracking

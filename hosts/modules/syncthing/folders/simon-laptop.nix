@@ -1,5 +1,5 @@
 { config, ... }: {
-  services.syncthing.folders = {
+  services.syncthing.settings.folders = {
     "documents-simon" = {
       # this is the folder ID (shared across devices)
       path = "/home/simon/Documents"; # local path on this machine
