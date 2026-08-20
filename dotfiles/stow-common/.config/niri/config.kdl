@@ -19,10 +19,16 @@ input {
 
 prefer-no-csd
 
+cursor {
+    xcursor-theme "rose-pine-cursor"
+    xcursor-size 24
+}
+
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 layout {
     gaps 8
+    background-color "#191724"
 
     preset-column-widths {
         proportion 0.33333
@@ -44,9 +50,45 @@ layout {
     }
 }
 
+overview {
+    zoom 0.5
+    backdrop-color "#191724"
+
+    workspace-shadow {
+        softness 40
+        spread 10
+        offset x=0 y=10
+        color "#00000050"
+    }
+}
+
 window-rule {
     geometry-corner-radius 8
     clip-to-geometry true
+    // Slight transparency so the blurred wallpaper shows through opaque apps
+    opacity 0.95
+    background-effect {
+        // xray blur (default) — blurs wallpaper once, cheap & efficient
+        blur true
+    }
+}
+
+// Blur behind layer-shell surfaces like launchers & notifications
+layer-rule {
+    match namespace="^launcher$"
+    match namespace="^rof$"
+    match namespace="^logout_dialog$"
+    background-effect {
+        blur true
+    }
+}
+
+// Dim/blur effect for the exit confirmation dialog
+layer-rule {
+    match namespace="^exit_dialog$"
+    background-effect {
+        blur true
+    }
 }
 
 animations {
@@ -94,10 +136,12 @@ binds {
     XF86MonBrightnessDown { spawn "brightnessctl" "set" "5%-"; }
 
     // App launchers
-    Mod+Return       { spawn "rofi" "-show" "drun"; }
+    // Mod+Return       { spawn "rofi" "-show" "drun"; }
+     Mod+Return       { spawn "dms" "ipc" "call" "spotlight" "toggle"; }
     Mod+Space        { spawn "bash" "-c" "~/.local/bin/everything-menu"; }
     Mod+T            { spawn "ghostty"; }
     Mod+B            { spawn "google-chrome-stable"; }
+    Mod+E            { spawn "ghostty" "-e" "zsh" "-ic" "y; exec zsh"; }
     Mod+F            { spawn "nautilus"; }
     Mod+C            { spawn "code"; }
     Mod+P            { spawn "wlogout" "--buttons-per-row" "4"; }
@@ -105,6 +149,7 @@ binds {
     Mod+Shift+T      { spawn "bash" "-c" "~/.local/bin/theme"; }
     Mod+W            { spawn "waypaper"; }
     Mod+S            { switch-layout "next"; }
+    Mod+N            { spawn "monitor-toggle"; }
     Mod+V            { spawn "whisrs" "toggle"; }
     Mod+Shift+V      { spawn "whisrs" "command"; }
 
@@ -134,6 +179,14 @@ binds {
     Mod+Down  { focus-window-or-workspace-down; }
     Mod+Up    { focus-window-or-workspace-up; }
     Alt+Tab   { focus-window-previous; }
+
+    // Focus adjacent monitor
+    Mod+Ctrl+Left  { focus-monitor-left; }
+    Mod+Ctrl+Right { focus-monitor-right; }
+
+    // Move focused column to adjacent monitor
+    Mod+Ctrl+Shift+Left  { move-column-to-monitor-left; }
+    Mod+Ctrl+Shift+Right { move-column-to-monitor-right; }
 
     // Move windows
     Mod+Shift+H    { move-column-left; }
@@ -182,3 +235,7 @@ binds {
     Mod+Ctrl+Alt+Up    { set-window-height "-20"; }
 }
 include "dms/binds.kdl"
+
+include "dms/cursor.kdl"
+
+include "dms/windowrules.kdl"

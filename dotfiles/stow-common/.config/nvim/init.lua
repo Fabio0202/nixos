@@ -59,6 +59,7 @@ vim.opt.swapfile = false
 vim.opt.wrap = false
 vim.opt.laststatus = 3 -- global statusline (one bar across all windows)
 vim.opt.cmdheight = 0
+vim.opt.shortmess:append("I") -- suppress intro screen (no flash before dashboard)
 vim.opt.undofile = true
 vim.opt.undolevels = 1000
 vim.opt.grepprg = "rg --vimgrep --smart-case"
@@ -143,6 +144,13 @@ vim.keymap.set("n", "<S-h>", function()
 		vim.cmd("BufferLineCyclePrev")
 	end
 end, { desc = "Previous buffer" })
+vim.keymap.set("n", "<leader>q", function()
+	if vim.fn.tabpagenr("$") == 1 then
+		vim.cmd("qa")
+	else
+		vim.cmd("tabclose")
+	end
+end, { desc = "Close tab / quit Neovim" })
 
 --------------------------------------------------------------------------------
 -- Bootstrap lazy.nvim
@@ -167,36 +175,21 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 
-	-- Catppuccin colorscheme
+	-- Rose-pine colorscheme
 	{
-		"catppuccin/nvim",
-		name = "catppuccin",
+		"rose-pine/neovim",
+		name = "rose-pine",
 		lazy = false,
 		priority = 1000,
 		opts = {
-			flavour = "mocha",
-			transparent_background = true,
-			integrations = {
-				cmp = true,
-				gitsigns = true,
-				telescope = { enabled = true },
-				which_key = true,
-				treesitter = true,
-				indent_blankline = { enabled = true },
-				native_lsp = {
-					enabled = true,
-					underlines = {
-						errors = { "undercurl" },
-						hints = { "undercurl" },
-						warnings = { "undercurl" },
-						information = { "undercurl" },
-					},
-				},
+			variant = "main",
+			styles = {
+				italic = true,
 			},
 		},
 		config = function(_, opts)
-			require("catppuccin").setup(opts)
-			vim.cmd.colorscheme("catppuccin")
+			require("rose-pine").setup(opts)
+			vim.cmd.colorscheme("rose-pine")
 		end,
 	},
 
@@ -229,7 +222,7 @@ require("lazy").setup({
 	-- Dashboard (startup screen)
 	{
 		"nvimdev/dashboard-nvim",
-		event = "VimEnter",
+		event = "UIEnter",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("dashboard").setup({
@@ -444,9 +437,9 @@ require("lazy").setup({
 			select = { enabled = true },
 		},
 		keys = {
-			{ "<leader><leader>", function() Snacks.picker.files() end, desc = "Find files" },
-			{ "<leader>ff",       function() Snacks.picker.files() end, desc = "Find files" },
-			{ "<leader>fg",       function() Snacks.picker.grep() end,  desc = "Live grep" },
+			{ "<leader><leader>", function() Snacks.picker.files() end,     desc = "Find files" },
+			{ "<leader>ff",       function() Snacks.picker.files() end,     desc = "Find files" },
+			{ "<leader>fg",       function() Snacks.picker.grep() end,      desc = "Live grep" },
 			{ "<leader>fw",       function() Snacks.picker.grep_word() end, desc = "Grep word under cursor" },
 		},
 	},
@@ -471,11 +464,11 @@ require("lazy").setup({
 	{
 		"akinsho/bufferline.nvim",
 		version = "*",
-		event = "VeryLazy",
+		lazy = false,
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		keys = {
-			{ "<leader>bp", "<cmd>BufferLinePick<cr>", desc = "Buffer pick" },
-			{ "<leader>bh", "<cmd>BufferLineCloseLeft<cr>", desc = "Close buffers to the left" },
+			{ "<leader>bp", "<cmd>BufferLinePick<cr>",       desc = "Buffer pick" },
+			{ "<leader>bh", "<cmd>BufferLineCloseLeft<cr>",  desc = "Close buffers to the left" },
 			{ "<leader>bl", "<cmd>BufferLineCloseRight<cr>", desc = "Close buffers to the right" },
 		},
 		config = function()
@@ -619,12 +612,12 @@ require("lazy").setup({
 		branch = "harpoon2",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		keys = {
-			{ "<leader>a", desc = "Harpoon add file" },
+			{ "<leader>a",  desc = "Harpoon add file" },
 			{ "<leader>hh", desc = "Harpoon quick menu" },
-			{ "<leader>1", desc = "Harpoon file 1" },
-			{ "<leader>2", desc = "Harpoon file 2" },
-			{ "<leader>3", desc = "Harpoon file 3" },
-			{ "<leader>4", desc = "Harpoon file 4" },
+			{ "<leader>1",  desc = "Harpoon file 1" },
+			{ "<leader>2",  desc = "Harpoon file 2" },
+			{ "<leader>3",  desc = "Harpoon file 3" },
+			{ "<leader>4",  desc = "Harpoon file 4" },
 		},
 		config = function()
 			local harpoon = require("harpoon")
@@ -853,18 +846,18 @@ require("lazy").setup({
 		dependencies = { "igorlfs/nvim-dap-view" },
 		lazy = true,
 		keys = {
-			{ "<leader>Dc", function() require("dap").continue() end,         desc = "DAP: Continue / Start" },
-			{ "<leader>Do", function() require("dap").step_over() end,        desc = "DAP: Step Over" },
-			{ "<leader>Di", function() require("dap").step_into() end,        desc = "DAP: Step Into" },
-			{ "<leader>DO", function() require("dap").step_out() end,         desc = "DAP: Step Out" },
-			{ "<leader>Db", function() require("dap").toggle_breakpoint() end,desc = "DAP: Toggle Breakpoint" },
+			{ "<leader>Dc", function() require("dap").continue() end,                                             desc = "DAP: Continue / Start" },
+			{ "<leader>Do", function() require("dap").step_over() end,                                            desc = "DAP: Step Over" },
+			{ "<leader>Di", function() require("dap").step_into() end,                                            desc = "DAP: Step Into" },
+			{ "<leader>DO", function() require("dap").step_out() end,                                             desc = "DAP: Step Out" },
+			{ "<leader>Db", function() require("dap").toggle_breakpoint() end,                                    desc = "DAP: Toggle Breakpoint" },
 			{ "<leader>DB", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "DAP: Conditional Breakpoint" },
-			{ "<leader>Dt", function() require("dap").terminate() end,        desc = "DAP: Terminate" },
-			{ "<leader>Dr", function() require("dap").repl.toggle() end,      desc = "DAP: Toggle REPL" },
-			{ "<leader>Du", function() require("dap-view").toggle() end,      desc = "DAP: Toggle dap-view" },
-			{ "<leader>Dw", "<cmd>DapViewWatch<cr>",                          desc = "DAP: Watch expression" },
-			{ "<leader>Dh", "<cmd>DapViewHover<cr>",                          desc = "DAP: Hover variable" },
-			{ "<leader>De", function() require("dap.ext.vscode").load() end,  desc = "DAP: Load launch.json" },
+			{ "<leader>Dt", function() require("dap").terminate() end,                                            desc = "DAP: Terminate" },
+			{ "<leader>Dr", function() require("dap").repl.toggle() end,                                          desc = "DAP: Toggle REPL" },
+			{ "<leader>Du", function() require("dap-view").toggle() end,                                          desc = "DAP: Toggle dap-view" },
+			{ "<leader>Dw", "<cmd>DapViewWatch<cr>",                                                              desc = "DAP: Watch expression" },
+			{ "<leader>Dh", "<cmd>DapViewHover<cr>",                                                              desc = "DAP: Hover variable" },
+			{ "<leader>De", function() require("dap.ext.vscode").load() end,                                      desc = "DAP: Load launch.json" },
 		},
 		config = function()
 			local dap = require("dap")
@@ -943,15 +936,16 @@ require("lazy").setup({
 							return detected
 						end
 						local cwd = vim.fn.getcwd()
-						local picked = vim.fn.input("Path to .dll: ", cwd .. "/bin/Debug/", "file")
+						local picked = vim.fn.input("Path to .dll: ", cwd .. "/bin/Debug/",
+							"file")
 						return picked ~= "" and picked or nil
 					end,
-				cwd = "${workspaceFolder}",
-				stopOnEntry = false,
-				-- integratedTerminal: route program stdio through a nvim terminal buffer.
-				-- Required for console apps that use Console.ReadKey / WindowHeight / etc.
-				-- (internalConsole = no real terminal → those calls throw → instant crash)
-				console = "integratedTerminal",
+					cwd = "${workspaceFolder}",
+					stopOnEntry = false,
+					-- integratedTerminal: route program stdio through a nvim terminal buffer.
+					-- Required for console apps that use Console.ReadKey / WindowHeight / etc.
+					-- (internalConsole = no real terminal → those calls throw → instant crash)
+					console = "integratedTerminal",
 				},
 				{
 					type = "coreclr",
@@ -965,10 +959,10 @@ require("lazy").setup({
 			}
 
 			-- Breakpoint sign icons (match the rest of the config's nerd-font style)
-			vim.fn.sign_define("DapBreakpoint",          { text = "", texthl = "DiagnosticError" })
-			vim.fn.sign_define("DapBreakpointCondition", { text = "ﳁ", texthl = "DiagnosticWarn"  })
-			vim.fn.sign_define("DapBreakpointRejected",  { text = "", texthl = "DiagnosticError" })
-			vim.fn.sign_define("DapStopped",             { text = "", texthl = "DiagnosticOk"    })
+			vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticError" })
+			vim.fn.sign_define("DapBreakpointCondition", { text = "ﳁ", texthl = "DiagnosticWarn" })
+			vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DiagnosticError" })
+			vim.fn.sign_define("DapStopped", { text = "", texthl = "DiagnosticOk" })
 
 			-- Register which-key group label
 			vim.schedule(function()
@@ -1025,10 +1019,10 @@ require("lazy").setup({
 		"esmuellert/codediff.nvim",
 		cmd = "CodeDiff",
 		keys = {
-			{ "<leader>de", "<cmd>CodeDiff<cr>", desc = "Diff explorer (git status)" },
-			{ "<leader>dh", "<cmd>CodeDiff history<cr>", desc = "Diff history (commits)" },
+			{ "<leader>de", "<cmd>CodeDiff<cr>",           desc = "Diff explorer (git status)" },
+			{ "<leader>dh", "<cmd>CodeDiff history<cr>",   desc = "Diff history (commits)" },
 			{ "<leader>df", "<cmd>CodeDiff file HEAD<cr>", desc = "Diff current file vs HEAD" },
-			{ "<leader>dm", "<cmd>CodeDiff merge %<cr>", desc = "Diff merge conflicts" },
+			{ "<leader>dm", "<cmd>CodeDiff merge %<cr>",   desc = "Diff merge conflicts" },
 		},
 		opts = {
 			layout = "side-by-side",
@@ -1040,34 +1034,81 @@ require("lazy").setup({
 	-- Lualine (statusline)
 	{
 		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons", "catppuccin/nvim" },
+		dependencies = { "nvim-tree/nvim-web-devicons", "rose-pine/neovim" },
 		event = "VeryLazy",
 		config = function()
 			local C = {
-				rosewater = "#f5e0dc", flamingo = "#f2cdcd", pink = "#f5c2e7",
-				mauve = "#cba6f7", red = "#f38ba8", maroon = "#eba0ac",
-				peach = "#fab387", yellow = "#f9e2af", green = "#a6e3a1",
-				teal = "#94e2d5", blue = "#89b4fa", sky = "#89dceb",
-				lavender = "#b4befe", text = "#cdd6f4", subtext0 = "#a6adc8",
-				overlay0 = "#6c7086", surface2 = "#585b70", surface1 = "#45475a",
-				surface0 = "#313244", base = "#1e1e2e", mantle = "#181825",
-				crust = "#11111b",
+				-- rose-pine palette (main variant)
+				base = "#191724",
+				surface = "#1f1d2e",
+				overlay = "#26233a",
+				muted = "#6e6a86",
+				subtle = "#908caa",
+				text = "#e0def4",
+				love = "#eb6f92",
+				gold = "#f6c177",
+				rose = "#ebbcba",
+				pine = "#3e8fb0",
+				foam = "#9ccfd8",
+				iris = "#c4a7e7",
+				-- aliases used by the statusline sections below
+				red = "#eb6f92",
+				teal = "#9ccfd8",
+				mauve = "#c4a7e7",
+				yellow = "#f6c177",
+				green = "#9ccfd8",
+				blue = "#3e8fb0",
+				peach = "#f6c177",
+				purple = "#c4a7e7",
+				cyan = "#9ccfd8",
+				mantle = "#191724",
+				surface0 = "#1f1d2e",
 			}
 
 			local mode_icons = {
-				n = "(ಠ_ಠ)", i = "(◠‿◠)", v = "(ʘ‿ʘ)", V = "(ʘ‿ʘ)",
-				["\22"] = "(ʘ‿ʘ)", c = "(°ʖ°)", no = "",
-				s = "(¬‿¬)", S = "", ["\19"] = "", ic = "",
-				R = "律", Rv = "律", cv = "", ce = "",
-				r = "", rm = "", ["r?"] = "", ["!"] = "ﲵ", t = "",
+				n = "(ಠ_ಠ)",
+				i = "(◠‿◠)",
+				v = "(ʘ‿ʘ)",
+				V = "(ʘ‿ʘ)",
+				["\22"] = "(ʘ‿ʘ)",
+				c = "(°ʖ°)",
+				no = "",
+				s = "(¬‿¬)",
+				S = "",
+				["\19"] = "",
+				ic = "",
+				R = "律",
+				Rv = "律",
+				cv = "",
+				ce = "",
+				r = "",
+				rm = "",
+				["r?"] = "",
+				["!"] = "ﲵ",
+				t = "",
 			}
 
 			local mode_color = {
-				n = C.red, i = C.teal, v = C.mauve, ["\22"] = C.mauve,
-				V = C.red, c = C.yellow, no = C.red, s = C.yellow,
-				S = C.yellow, ["\19"] = C.yellow, ic = C.yellow,
-				R = C.green, Rv = C.purple, cv = C.red, ce = C.red,
-				r = C.cyan, rm = C.cyan, ["r?"] = C.cyan, ["!"] = C.red, t = C.peach,
+				n = C.red,
+				i = C.teal,
+				v = C.mauve,
+				["\22"] = C.mauve,
+				V = C.red,
+				c = C.yellow,
+				no = C.red,
+				s = C.yellow,
+				S = C.yellow,
+				["\19"] = C.yellow,
+				ic = C.yellow,
+				R = C.green,
+				Rv = C.purple,
+				cv = C.red,
+				ce = C.red,
+				r = C.cyan,
+				rm = C.cyan,
+				["r?"] = C.cyan,
+				["!"] = C.red,
+				t = C.peach,
 			}
 
 			local function space()
@@ -1083,7 +1124,7 @@ require("lazy").setup({
 
 			require("lualine").setup({
 				options = {
-					theme = "catppuccin",
+					theme = "auto",
 					globalstatus = true,
 					section_separators = { left = "", right = "" },
 					component_separators = { left = "", right = "" },
@@ -1100,7 +1141,12 @@ require("lazy").setup({
 								return mode_icons[mode] or mode
 							end,
 							color = function()
-								return { bg = mode_color[vim.fn.mode()] or C.blue, fg = C.mantle, gui = "bold" }
+								return {
+									bg = mode_color[vim.fn.mode()] or C.blue,
+									fg = C
+									    .mantle,
+									gui = "bold"
+								}
 							end,
 							separator = { left = "", right = "" },
 						},
@@ -1302,7 +1348,8 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = "vimwiki",
 	callback = function()
 		local wiki = vim.fn.expand("~/vimwiki/")
-		vim.keymap.set("v", "<leader>wn", vimwiki_extract_note, { buffer = true, desc = "Wiki: extract to new note" })
+		vim.keymap.set("v", "<leader>wn", vimwiki_extract_note,
+			{ buffer = true, desc = "Wiki: extract to new note" })
 		vim.keymap.set("n", "<leader>wf", function()
 			Snacks.picker.files({ cwd = wiki })
 		end, { buffer = true, desc = "Wiki: find notes" })
@@ -1338,11 +1385,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			k("n", "gr", ext.lsp_references, { buffer = buf, desc = "Go to References" })
 			k("n", "<leader>gr", ext.lsp_references, { buffer = buf, desc = "Go to References" })
 			k("n", "<leader>rn", function()
-				vim.ui.input({ prompt = "Rename: ", default = vim.fn.expand("<cword>") }, function(new_name)
-					if new_name and new_name ~= "" then
-						vim.lsp.buf.rename(new_name)
-					end
-				end)
+				vim.ui.input({ prompt = "Rename: ", default = vim.fn.expand("<cword>") },
+					function(new_name)
+						if new_name and new_name ~= "" then
+							vim.lsp.buf.rename(new_name)
+						end
+					end)
 			end, { buffer = buf, desc = "Smart Rename" })
 		else
 			k("n", "gd", vim.lsp.buf.definition, { buffer = buf, desc = "Go to Definition" })
@@ -1362,27 +1410,30 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		if client and client.name == "vtsls" then
 			k("n", "<leader>rf", function()
 				local old = vim.api.nvim_buf_get_name(buf)
-				vim.ui.input({ prompt = "Rename file: ", default = old, completion = "file" }, function(new)
-					if not new or new == "" or new == old then
-						return
-					end
-					local params = {
-						files = { { oldUri = vim.uri_from_fname(old), newUri = vim.uri_from_fname(new) } },
-					}
-					client:request("workspace/willRenameFiles", params, function(_, result)
-						if result then
-							vim.lsp.util.apply_workspace_edit(result, client.offset_encoding)
-						end
-						vim.fn.mkdir(vim.fs.dirname(new), "p")
-						local ok, err = os.rename(old, new)
-						if not ok then
-							vim.notify("rename failed: " .. tostring(err), vim.log.levels.ERROR)
+				vim.ui.input({ prompt = "Rename file: ", default = old, completion = "file" },
+					function(new)
+						if not new or new == "" or new == old then
 							return
 						end
-						vim.cmd.edit(new)
-						pcall(vim.api.nvim_buf_delete, buf, { force = true })
-					end, buf)
-				end)
+						local params = {
+							files = { { oldUri = vim.uri_from_fname(old), newUri = vim.uri_from_fname(new) } },
+						}
+						client:request("workspace/willRenameFiles", params, function(_, result)
+							if result then
+								vim.lsp.util.apply_workspace_edit(result,
+									client.offset_encoding)
+							end
+							vim.fn.mkdir(vim.fs.dirname(new), "p")
+							local ok, err = os.rename(old, new)
+							if not ok then
+								vim.notify("rename failed: " .. tostring(err),
+									vim.log.levels.ERROR)
+								return
+							end
+							vim.cmd.edit(new)
+							pcall(vim.api.nvim_buf_delete, buf, { force = true })
+						end, buf)
+					end)
 			end, { buffer = buf, desc = "Rename file (update imports)" })
 
 			k("n", "<leader>co", function()
@@ -1436,9 +1487,10 @@ vim.keymap.set("v", "<leader>ar", function()
 			{
 				parts = {
 					{
-						text = "Review this code for syntax errors and logic bugs. Be concise.\n\n```\n"
-							.. code
-							.. "\n```",
+						text =
+						    "Review this code for syntax errors and logic bugs. Be concise.\n\n```\n"
+						    .. code
+						    .. "\n```",
 					},
 				},
 			},

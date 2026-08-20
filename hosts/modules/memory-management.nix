@@ -8,9 +8,8 @@
     freeMemThreshold = 15; # Kill when <15% memory free (was 4, fired too late)
     freeSwapThreshold = 20; # Kill when <20% swap free
     extraArgs = [
-      "-g" # Kill entire process groups
       "--avoid"
-      "(^|/)(systemd|ssh|Xorg|gnome-shell|hyprland|soffice|nvim)$" # Protect critical processes
+      "(^|/)(systemd|ssh|Xorg|gnome-shell|niri|hyprland|soffice|nvim)$" # Protect critical processes (incl. compositor)
       "--prefer"
       "(^|/)(firefox|chromium|chrome|electron|node|npm|cargo)$" # Kill these first
     ];

@@ -145,10 +145,10 @@
 
 
   "custom/nightmode": {
-    "exec": "~/nixos/home/scripts/toggle_hyprsunset.sh --status",
+    "exec": "bash -c 'if dms ipc night status 2>/dev/null | grep -qi true; then echo \"\"; else echo \"󰖨\"; fi'",
     "format": "{}",
     "interval": 60,
-    "on-click": "~/nixos/home/scripts/toggle_hyprsunset.sh"
+    "on-click": "dms ipc night toggle"
   },
 
     "custom/power": {

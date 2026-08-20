@@ -34,10 +34,13 @@
 
     # Use AMD's firmware-level power curve instead of generic acpi-cpufreq.
     # Gives finer-grained voltage/frequency control → 2-4W savings at light load.
-    "amd_pstate=active"
+    "amd_pstate=guided"
 
     # Suspend idle USB devices after 2s (Linux default, was accidentally disabled with -1).
     "usbcore.autosuspend=-1"
+
+    # Disable lap detection on supported thinkpads
+    "thinkpad_acpi.dytc_lapmode=0"
   ];
 
   # Custom Powertop service (non-blocking, runs after boot)

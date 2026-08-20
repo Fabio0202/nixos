@@ -14,6 +14,16 @@
     enable = true;
     systemd.enable = true;
     dgop.package = pkgs-unstable.dgop;
+    settings = {
+      showLauncherButton = false;
+      barConfigs = [{
+        id = "default";
+        name = "Main Bar";
+        leftWidgets = ["workspaceSwitcher" "focusedWindow"];
+        centerWidgets = ["music" "clock" "weather"];
+        rightWidgets = ["systemTray" "clipboard" "cpuUsage" "memUsage" "notificationButton" "battery" "controlCenterButton"];
+      }];
+    };
   };
 
   imports = [

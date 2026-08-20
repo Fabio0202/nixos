@@ -26,36 +26,38 @@
 in {
   home.packages = with pkgs; [
   (pkgs-unstable.zed-editor)
-    (pkgs-unstable.vintagestory)
+  # (pkgs-unstable.vintagestory)
     discord # Voice, video, and text chat (gaming/community)
-    spotify # Music streaming client
+    # spotify # Music streaming client
     inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
+    gitbutler
+    inputs.tuxedo.packages.${pkgs.stdenv.hostPlatform.system}.default
     (inputs.whisrs.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (_: {
       doCheck = false;
     }))
     anki # Flashcard-based learning tool (spaced repetition)
-    libreoffice # Office suite (Word, Excel, PowerPoint, etc.)
-    gnome-clocks # World clocks, stopwatch, timers, alarms
-    qalculate-gtk # Advanced calculator with many features
-    todoist-electron # Task management & to-do list app
-    vscode # GUI code editor (Visual Studio Code)
+    # libreoffice # Office suite (Word, Excel, PowerPoint, etc.)
+    # gnome-clocks # World clocks, stopwatch, timers, alarms
+    # qalculate-gtk # Advanced calculator with many features
+    # todoist-electron # Task management & to-do list app
+    # vscode # GUI code editor (Visual Studio Code)
     # nomachine-client # like rustdesk but faster I've heard but its not working so whatever
     _1password-gui # 1Password password manager (GUI)
-    bun # like node but faster
+    # bun # like node but faster
     comma # to be able to run ", cowsay" for one time commands
     nix-index # to be able to run nix-locate
-    (pkgs-unstable.walker)
-    (pkgs-unstable.elephant)
+    # (pkgs-unstable.walker)
+    # (pkgs-unstable.elephant)
     (pkgs-unstable.telegram-desktop)
-    (pkgs-unstable.chromium)
+    # (pkgs-unstable.chromium)
     google-chrome
-    teams-for-linux
-    vi-mongo # mongo db tui client
-    godot
-    logseq # notetaking like obsidian but better
+    # teams-for-linux
+    # vi-mongo # mongo db tui client
+    # godot
+     # logseq # notetaking like obsidian but better
     (pkgs-unstable.bitwig-studio6)
-    filezilla # for sending files to my webserver
-    warehouse # GUI flatpak manager
+    # filezilla # for sending files to my webserver
+    # warehouse # GUI flatpak manager
     xremap # Key remapping tool (input remapper for Wayland/X11)
     omnisharp-roslyn # C# LSP — on global PATH so Zed (and other non-nvim-shell tools) can find it
     netcoredbg # C# DAP debugger — on global PATH for Zed's netcoredbg-zed extension
@@ -64,7 +66,7 @@ in {
     # monolith # save complete web pages as a single HTML file
     # presenterm # for presentations in the terminal
     # posting # to test http requests like postman
-    # bruno like postman but cool
+    # bruno # like postman but cool
   ];
 
   # Browser MIME defaults — driven by `defaultBrowser` above

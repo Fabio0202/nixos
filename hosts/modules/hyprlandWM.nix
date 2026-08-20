@@ -37,7 +37,8 @@
       pkgs.xdg-desktop-portal-gtk
     ];
     config = {
-      common.default = [ "hyprland" "gtk" ];
+      # gtk portal works everywhere — no desktop-environment dependency
+      common.default = [ "gtk" ];
       hyprland = {
         default = [ "hyprland" "gtk" ];
         "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];

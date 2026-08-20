@@ -9,7 +9,12 @@
 ## ⚠️ CRITICAL RESTRICTIONS - NEVER RUN THESE COMMANDS
 - **NEVER** run `nixos-rebuild switch` under any circumstances
 - **NEVER** run `home-manager switch` under any circumstances  
-- **NEVER** run any `git` or `jj` commands - you are not allowed to use version control
+- **NEVER** push to any remote (`git push`, `jj git push`, `jj git clone` into remotes, etc.) - local reads/diffs/logs/commits are fine, but never push
+
+### Version control (read-only / local-only)
+- You MAY run `git` and `jj` for read-only inspection: `jj log`, `jj diff`, `jj show`, `git log`, `git diff`, `git show`, etc.
+- You MAY create local commits/new changesets (`jj new`, `jj describe`, `git commit`) if asked.
+- You must NEVER push, fetch-into-remote, or otherwise publish changes.
 
 ## Code Style Guidelines
 

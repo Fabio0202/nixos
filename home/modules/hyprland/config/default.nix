@@ -17,6 +17,10 @@
   wayland.windowManager.hyprland = {
     enable = true;
     package = pkgs-unstable.hyprland;
+    # Keep generating hyprland.conf (not .lua) — our config lives in stow'd
+    # hyprlang .conf files (animations.conf, keybinds.conf, etc.),
+    # not in Hyprland's new hl.* Lua API.
+    configType = "hyprlang";
     extraConfig = ''
       source = ~/.config/hypr/hyprland-stow.conf
     '';

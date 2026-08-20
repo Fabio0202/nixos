@@ -27,6 +27,10 @@
       url = "github:modem-dev/hunk";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    tuxedo = {
+      url = "github:webstonehq/tuxedo";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     # zed.url = "github:zed-industries/zed";
   };
 

@@ -57,6 +57,11 @@
   services.printing.enable = true;
   services.flatpak.enable = true;
 
+  # Allow older electron version used by todoist-electron
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-39.8.10"
+  ];
+
   virtualisation.docker.enableOnBoot = false; # socket-activated, starts on first use
 
   # # Raise file descriptor limits — nix eval opens many files

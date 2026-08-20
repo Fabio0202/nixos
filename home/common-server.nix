@@ -24,6 +24,10 @@
     enable = true;
     defaultEditor = true; # sets EDITOR / VISUAL to nvim
     vimAlias = true;
+    # Config lives in the stowed ~/.config/nvim/init.lua (admin'd via stow).
+    # sideloadInitLua makes HM inject its provider-disabling lua via --cmd
+    # instead of stomping our stowed init.lua with one of its own.
+    sideloadInitLua = true;
     viAlias = true;
     plugins = [
       (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: with p; [

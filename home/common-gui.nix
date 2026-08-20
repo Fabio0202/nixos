@@ -133,7 +133,6 @@ in
     ./modules/hyprland/default.nix # Hyprland WM settings (Wayland tiling compositor)
     ./modules/icons-theme.nix # Icon theme configuration for GTK/desktop apps
     # ./modules/nwg-dock.nix # Dock/panel (like a taskbar for Wayland)
-    ./modules/dms-night-mode.nix # Night mode via hyprsunset (CTM-based, works on AMD)
     # ./modules/neovim/latex.nix  # removed: nvim-shell replaces nvf
     # ./modules/hyprsettings.nix # HyprSettings GUI configurator for Hyprland
     ./modules/theme-defaults.nix # Creates default theme symlinks on fresh clones
