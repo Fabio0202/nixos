@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+# Brightness control with DDC/CI support.
+# Internal panels are controlled via the kernel backlight (brightnessctl).
+# External DDC-capable monitors are controlled over DDC/CI (ddcci-driver kernel module).
+# The device matching the currently focused monitor is preferred; otherwise any is used.
+set -e
+
+export PATH="$HOME/.local/bin:$HOME/.nix-profile/bin:/etc/profiles/per-user/$USER/bin:/run/current-system/sw/bin:/usr/bin:/bin:$PATH"
+
+step=5
+action="${1:-up}"
+
+# Classify backlight devices: ddcci* = external monitors via DDC/CI, rest = internal panels.
+ddc_dev=""
+int_dev=""
+while IFS= read -r d; do
+    case "$d" in
+        *ddcci*) ddc_dev="$d" ;;
+        *) int_dev="${int_dev:+$int_dev }$d" ;;
+    esac
+done < <(find /sys/class/backlight -mindepth 1 -maxdepth 1 -type d -printf '%f\n' 2>/dev/null || true)
+
+# Pick the device matching the focused monitor; fall back to any available device.
+focused="$(hyprctl -j activewindow 2>/dev/null | jq -r '.monitor // empty' 2>/dev/null)"
+target=""
+case "$focused" in
+    eDP* | DSI* | LVDS* | DSS*) target="$int_dev" ;;
+    *) target="$ddc_dev" ;;
+esac
+[ -z "$target" ] && target="$ddc_dev $int_dev"
+
+dev="${target%% *}"
+if [ -z "$dev" ]; then
+    echo "brightness: no backlight device found" >&2
+    exit 1
+fi
+
+if command -v brightnessctl >/dev/null 2>&1; then
+    if [ "$action" = "up" ]; then
+        brightnessctl --device="$dev" set "${step}%+" 2>/dev/null \
+            || brightnessctl set "${step}%+"
+    else
+        brightnessctl --device="$dev" set "${step}%-" 2>/dev/null \
+            || brightnessctl set "${step}%-"
+    fi
+else
+    # Fallback: write directly to sysfs.
+    cur="$(cat "/sys/class/backlight/$dev/brightness")"
+    max="$(cat "/sys/class/backlight/$dev/max_brightness")"
+    delta="$((max * step / 100))"
+    [ "$delta" -lt 1 ] && delta=1
+    if [ "$action" = "up" ]; then
+        new="$((cur + delta > max ? max : cur + delta))"
+    else
+        new="$((cur - delta < 0 ? 0 : cur - delta))"
+    fi
+    echo "$new" > "/sys/class/backlight/$dev/brightness"
+fi

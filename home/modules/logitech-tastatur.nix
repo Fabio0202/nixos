@@ -3,9 +3,9 @@
   mainMod = "Super";
 in {
   wayland.windowManager.hyprland.settings.bindel = [
-    # Brightness controls
-    ", XF86MonBrightnessUp, exec, swayosd-client --brightness raise"
-    ", XF86MonBrightnessDown, exec, swayosd-client --brightness lower"
+    # Brightness controls (DDC/CI-aware, internal panels via brightnessctl)
+    ", XF86MonBrightnessUp, exec, ~/.local/bin/brightness up"
+    ", XF86MonBrightnessDown, exec, ~/.local/bin/brightness down"
   ];
   wayland.windowManager.hyprland.settings.bind = [
     # "${mainMod}, mouse_down, workspace, e+1"
