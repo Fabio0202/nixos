@@ -132,8 +132,9 @@ binds {
     F4  { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
     // Brightness
-    XF86MonBrightnessUp   { spawn "brightnessctl" "set" "5%+"; }
-    XF86MonBrightnessDown { spawn "brightnessctl" "set" "5%-"; }
+    // Brightness — DDC/CI-aware (external monitors via ddcci, internal via brightnessctl)
+    XF86MonBrightnessUp   { spawn "~/.local/bin/brightness" "up"; }
+    XF86MonBrightnessDown { spawn "~/.local/bin/brightness" "down"; }
 
     // App launchers
     // Mod+Return       { spawn "rofi" "-show" "drun"; }
@@ -143,7 +144,7 @@ binds {
     Mod+B            { spawn "google-chrome-stable"; }
     Mod+E            { spawn "ghostty" "-e" "zsh" "-ic" "y; exec zsh"; }
     Mod+F            { spawn "nautilus"; }
-    Mod+C            { spawn "code"; }
+    Mod+C            { spawn "zed"; }
     Mod+P            { spawn "wlogout" "--buttons-per-row" "4"; }
     Mod+I            { set-column-width "-10%"; }
     Mod+Shift+T      { spawn "bash" "-c" "~/.local/bin/theme"; }
