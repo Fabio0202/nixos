@@ -106,6 +106,7 @@ in
   home.sessionVariables.DOTFILES_PATH = self;
 
   home.packages = with pkgs; [
+    wlogout # Power menu (lock/suspend/shutdown/restart) — Super+P
     blueman # GTK-based Bluetooth manager
     nautilus # GNOME file manager
     sioyek # PDF and document viewer
