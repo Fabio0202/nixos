@@ -51,12 +51,7 @@ FIREFOX_THEME_SOURCE="$HOME/.config/firefox-themes"
 TELEGRAM_THEME_SOURCE="$HOME/.config/telegram-themes"
 
 # Runtime directories (in ~/.config) - where symlinks are created
-WAYBAR_THEME_DIR="$HOME/.config/waybar/themes"
 ROFI_CURRENT="$HOME/.config/rofi/config.rasi"
-SWAYNC_THEME_DIR="$HOME/.config/swaync/themes"
-SWAYNC_CURRENT="$SWAYNC_THEME_DIR/current.css"
-SWAYOSD_THEME_DIR="$HOME/.config/swayosd/themes"
-SWAYOSD_CURRENT="$SWAYOSD_THEME_DIR/current.css"
 NWG_DOCK_THEME_DIR="$HOME/.config/nwg-dock-hyprland/themes"
 NWG_DOCK_CURRENT="$HOME/.config/nwg-dock-hyprland/style.css"
 WLOGOUT_THEME_DIR="$HOME/.config/wlogout/themes"
@@ -94,27 +89,9 @@ ln -sf "$KITTY_THEME_DIR/$THEME_NAME.conf" "$KITTY_THEME_DIR/current.conf"
 [ -f "$HYPRLOCK_THEME_DIR/$THEME_NAME.conf" ] && \
     ln -sf "$HYPRLOCK_THEME_DIR/$THEME_NAME.conf" "$HYPRLOCK_THEME_DIR/current.conf"
 
-# Waybar
-[ -f "$WAYBAR_THEME_DIR/$THEME_NAME.css" ] && \
-    ln -sf "$WAYBAR_THEME_DIR/$THEME_NAME.css" "$WAYBAR_THEME_DIR/current.css"
-
 # Rofi
 [ -f "$ROFI_THEME_SOURCE/$THEME_NAME.rasi" ] && \
     ln -sf "$ROFI_THEME_SOURCE/$THEME_NAME.rasi" "$ROFI_CURRENT"
-
-# swaync
-[ -f "$SWAYNC_THEME_DIR/$THEME_NAME.css" ] && \
-cat > "$SWAYNC_CURRENT" << EOF
-@import url("$THEME_NAME.css");
-@import url("base-styles.css");
-EOF
-
-# swayosd
-[ -f "$SWAYOSD_THEME_DIR/$THEME_NAME.css" ] && \
-cat > "$SWAYOSD_CURRENT" << EOF
-@import url("$THEME_NAME.css");
-@import url("base-styles.css");
-EOF
 
 # nwg-dock
 [ -f "$NWG_DOCK_THEME_DIR/$THEME_NAME.css" ] && \
@@ -253,44 +230,6 @@ reload_kitty_all() {
 }
 
 reload_kitty_all
-
-# Waybar
-WAYBAR_BIN="$(command -v waybar 2>/dev/null || true)"
-if [ -z "$WAYBAR_BIN" ]; then
-    for candidate in "/run/current-system/sw/bin/waybar" "$HOME/.nix-profile/bin/waybar" "/etc/profiles/per-user/$USER/bin/waybar"; do
-        if [ -x "$candidate" ]; then
-            WAYBAR_BIN="$candidate"
-            break
-        fi
-    done
-fi
-
-if [ -n "$WAYBAR_BIN" ]; then
-    # In Nix setups the process name isn't always exactly "waybar", so match by command line.
-    WAYBAR_MATCH='(^|/)(waybar)(\s|$)'
-
-    if pgrep -f "$WAYBAR_MATCH" >/dev/null 2>&1; then
-        pkill -TERM -f "$WAYBAR_MATCH" || true
-        # Wait for a clean exit to avoid double bars.
-        for _ in $(seq 1 10); do
-            pgrep -f "$WAYBAR_MATCH" >/dev/null 2>&1 || break
-            sleep 0.1
-        done
-        if pgrep -f "$WAYBAR_MATCH" >/dev/null 2>&1; then
-            pkill -KILL -f "$WAYBAR_MATCH" || true
-            sleep 0.1
-        fi
-    fi
-
-    nohup "$WAYBAR_BIN" >/dev/null 2>&1 &
-    echo "✔ Waybar restarted"
-fi
-
-# swaync
-systemctl --user restart swaync 2>/dev/null && echo "✔ swaync restarted"
-
-# swayosd
-systemctl --user restart swayosd 2>/dev/null && echo "✔ swayosd restarted"
 
 # nwg-dock
 if command -v nwg-dock-hyprland &>/dev/null; then
