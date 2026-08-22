@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Fast theme picker — shows all themes in a rofi menu and applies the selection.
+set -e
+
+export PATH="$HOME/.local/bin:$HOME/.nix-profile/bin:/etc/profiles/per-user/$USER/bin:/run/current-system/sw/bin:/usr/bin:/bin:$PATH"
+
+THEMES_DIR="$HOME/.config/kitty/themes"
+CURRENT="$(cat "$HOME/.config/.current-theme" 2>/dev/null || echo "unknown")"
+
+choice="$(
+    for t in "$THEMES_DIR"/*.conf; do
+        basename "$t" .conf
+    done | grep -v '^current$' | \
+    rofi -dmenu -i -p "Theme" -mesg "Current: $CURRENT"
+)"
+
+[ -z "$choice" ] && exit 0
+
+"$HOME/.local/bin/theme" "$choice"
+notify-send "Theme" "Switched to $choice"
