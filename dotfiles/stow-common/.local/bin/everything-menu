@@ -250,7 +250,6 @@ do_nix_update() {
 
 # Config
 do_edit_keybinds()   { edit_config "Keybinds"      ~/.config/hypr/keybinds.conf;     exit 0; }
-do_edit_waybar()     { edit_config "Waybar"         ~/.config/waybar/config.jsonc;    exit 0; }
 do_edit_monitors()   { edit_config "Monitors"       ~/.config/hypr/monitors.conf;     exit 0; }
 do_edit_packages()   { edit_config "NixOS Packages" ~/nixos/home/simon/common-gui.nix; exit 0; }
 do_edit_aliases()    { edit_config "Shell Aliases"  ~/.zsh/aliases.zsh;               exit 0; }
@@ -344,7 +343,6 @@ register_entries() {
     reg "nix_update"         "Nix › Update"                       "do_nix_update"           "system-software-install"
 
     reg "config_keybinds"    "Config › Keybinds"                  "do_edit_keybinds"        "input-keyboard"
-    reg "config_waybar"      "Config › Waybar"                    "do_edit_waybar"          "preferences-system"
     reg "config_monitors"    "Config › Monitors"                  "do_edit_monitors"        "video-display"
     reg "config_packages"    "Config › NixOS Packages"            "do_edit_packages"        "system-software-install"
     reg "config_aliases"     "Config › Shell Aliases"             "do_edit_aliases"         "utilities-terminal"
@@ -705,12 +703,11 @@ hier_config_menu() {
     while true; do
         local choice
         choice=$(show_rofi "Config" \
-            "󰌌  Keybinds" "󰀻  Waybar" "󰍹  Monitors" \
+            "󰌌  Keybinds" "󰍹  Monitors" \
             "󱄅  NixOS Packages" "󰘳  Shell Aliases" "󰣀  SSH Clients" "←  Back")
         [[ $? -eq 10 ]] && return
         case "$choice" in
             *"Keybinds"*)       do_edit_keybinds ;;
-            *"Waybar"*)         do_edit_waybar ;;
             *"Monitors"*)       do_edit_monitors ;;
             *"NixOS Packages"*) do_edit_packages ;;
             *"Shell Aliases"*)  do_edit_aliases ;;

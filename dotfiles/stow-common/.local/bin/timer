@@ -117,29 +117,14 @@ get_remaining() {
     fi
 }
 
-# For waybar JSON output
-waybar_output() {
-    local status=$(get_status)
-    local remaining=$(get_remaining)
-
-    if [[ "$status" == "ringing" ]]; then
-        echo '{"text": "󰂞 ALARM!", "class": "ringing", "tooltip": "Click to dismiss"}'
-    elif [[ "$status" == "running" && -n "$remaining" ]]; then
-        echo "{\"text\": \"󰄉 $remaining\", \"class\": \"running\", \"tooltip\": \"Timer: $remaining remaining\"}"
-    else
-        echo '{"text": "", "class": "none"}'
-    fi
-}
-
 case "$1" in
     set) set_timer "$2" ;;
     cancel) cancel_timer ;;
     dismiss) dismiss_alarm ;;
     status) get_status ;;
     remaining) get_remaining ;;
-    waybar) waybar_output ;;
     *)
-        echo "Usage: timer {set <minutes>|cancel|dismiss|status|remaining|waybar}"
+        echo "Usage: timer {set <minutes>|cancel|dismiss|status|remaining}"
         exit 1
         ;;
 esac

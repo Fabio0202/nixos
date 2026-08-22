@@ -28,27 +28,9 @@ let
       type = "symlink";
       target = "${configDir}/rofi/${defaultTheme}.rasi";
     };
-    "${configDir}/swaync/themes/current.css" = {
-      type = "import";
-      content = ''
-        @import url("${defaultTheme}.css");
-        @import url("base-styles.css");
-      '';
-    };
-    "${configDir}/swayosd/themes/current.css" = {
-      type = "import";
-      content = ''
-        @import url("${defaultTheme}.css");
-        @import url("base-styles.css");
-      '';
-    };
     "${configDir}/telegram-themes/current.tdesktop-theme" = {
       type = "symlink";
       target = "${configDir}/telegram-themes/${defaultTheme}.tdesktop-theme";
-    };
-    "${configDir}/waybar/themes/current.css" = {
-      type = "symlink";
-      target = "${configDir}/waybar/themes/${defaultTheme}.css";
     };
     "${configDir}/nwg-dock-hyprland/style.css" = {
       type = "import";
