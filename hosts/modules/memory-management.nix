@@ -24,9 +24,18 @@
     "vm.panic_on_oom" = 0; # Don't panic, let OOM killer work
   };
 
-  # SystemD OOM handling
+  # SystemD OOM handling — complements earlyoom:
+  # earlyoom protects the whole system (esp. the compositor); oomd kills runaway
+  # *cgroups*, so a single bloated app gets reaped instead of the session.
   systemd.oomd = {
-    enable = false; # Disable if using earlyoom (they can conflict)
+    enable = true;
+    enableRootSlice = true;
+    enableUserSlices = true;
+    settings.OOM = {
+      DefaultMemoryPressureLimit = "60%";
+      DefaultMemoryPressureDurationUSec = "30s";
+      SwapUsedLimit = "20%";
+    };
   };
 }
 
