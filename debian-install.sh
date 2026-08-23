@@ -14,7 +14,7 @@ set -Eeuo pipefail
 REPO_URL="https://github.com/Fabio0202/nixos.git"
 BRANCH="master"
 STOW_PKG="stow-cli"
-APT_PKGS=(neovim git curl stow fzf jq ripgrep bat btop trash-cli unzip tar xz-utils ca-certificates)
+APT_PKGS=(neovim git curl stow fzf jq ripgrep bat btop trash-cli unzip tar xz-utils ca-certificates openssh-server)
 
 STOW_TARGETS=(
   ".config/bash/aliases.bash"
@@ -129,6 +129,18 @@ install_apt() {
     SKIPPED+=("apt packages already installed")
   fi
   ok "apt packages ready"
+
+  STEP="sshd"
+  if command -v sshd >/dev/null 2>&1; then
+    if systemctl is-enabled --quiet ssh; then
+      SKIPPED+=("sshd already enabled")
+    else
+      as_root systemctl enable --now ssh
+      ok "sshd enabled (ssh on port 22)"
+    fi
+  else
+    SKIPPED+=("openssh-server not installed — skipping sshd enable")
+  fi
 }
 
 # Latest release tag of a GitHub repo (grep-based, no jq/python needed).
