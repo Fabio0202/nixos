@@ -143,27 +143,6 @@ install_apt() {
   fi
 }
 
-# ── keyboard layout (us,de + Alt+Shift toggle) ──────────────────────────
-setup_keyboard() {
-  STEP="keyboard layout"
-  local kbd=/etc/default/keyboard
-  if [[ -f "$kbd" ]] && grep -q 'XKBLAYOUT="us,de"' "$kbd"; then
-    SKIPPED+=("keyboard layout already us,de")
-    return 0
-  fi
-  as_root tee "$kbd" >/dev/null <<'EOF'
-# Configured by debian-install.sh (matches Simon's desktop setup).
-XKBMODEL="pc105"
-XKBLAYOUT="us,de"
-XKBVARIANT=""
-XKBOPTIONS="grp:alts_toggle"
-BACKSPACE="guess"
-EOF
-  # Apply to the current console + X11/VTs (safe to ignore if not present).
-  as_root setupcon --save 2>/dev/null || true
-  ok "keyboard layout us,de (Alt+Shift toggles)"
-}
-
 # Latest release tag of a GitHub repo (grep-based, no jq/python needed).
 gh_latest() {
   curl -fsSL --max-time 15 "https://api.github.com/repos/$1/releases/latest" \
@@ -359,7 +338,6 @@ main() {
   preflight
   self_locate
   install_apt
-  setup_keyboard
   install_binaries
   install_blesh
   install_tailscale
