@@ -1,0 +1,93 @@
+modmap:
+  - remap:
+      CapsLock:
+        held: Super_L
+        alone: Esc
+
+
+keymap:
+  # Steam games — WM_CLASS is usually steam_app_<appid> (check via xremap logs)
+  - name: Age of Empires II DE
+    application:
+      only: steam_app_813780
+    remap:
+      Ctrl-b: Down
+
+  - name: ELDEN RING
+    application:
+      only: steam_app_1245620
+    remap:
+      Ctrl-b: Left
+
+  - name: Dark Messiah
+    application:
+      only: steam_app_2100
+    remap:
+      Ctrl-b: Left
+
+  - name: Gothic II
+    application:
+      only: steam_app_39510
+    remap:
+      Ctrl-b: Left
+
+  - name: The Chronicles of Myrtana (Gothic 2 mod)
+    application:
+      only: steam_app_1467450
+    remap:
+      Ctrl-b: Left
+
+  - name: Styx Shards of Darkness
+    application:
+      only: steam_app_355790
+    remap:
+      Ctrl-b: Left
+
+  - name: Tomb Raider IV-VI
+    application:
+      only: steam_app_2525380
+    remap:
+      Ctrl-b: Left
+
+  - name: Rainbow Six Siege TS
+    application:
+      only: steam_app_623990
+    remap:
+      Ctrl-b: Left
+
+  - name: Wolfenstein TNO
+    application:
+      only: steam_app_201810
+    remap:
+      Ctrl-b: Left
+
+  - name: Yu-Gi-Oh! Legacy of the Duelist
+    application:
+      only: steam_app_480650
+    remap:
+      Ctrl-b: Left
+
+  - name: Shadow Tactics
+    application:
+      only: shadow_tactics
+    remap:
+      h: Left
+      j: Down
+      k: Up
+      l: Right
+
+  - name: ShellShock Live
+    application:
+      only: ShellShockLive.x64
+    remap:
+      Ctrl-b: Left
+
+  - name: Isonzo
+    application:
+      only: Isonzo
+    remap:
+      Ctrl-b: Left
+
+  # Not yet installed / needs verification:
+  # - Gothic 1 Remake - Nyras Prologue (not fully installed)
+  # - MTGA (not installed)

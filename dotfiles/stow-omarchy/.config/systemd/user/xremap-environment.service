@@ -1,0 +1,13 @@
+[Unit]
+Description=Import Hyprland environment for xremap
+After=graphical-session.target
+Before=xremap.service
+PartOf=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl --user import-environment HYPRLAND_INSTANCE_SIGNATURE XDG_RUNTIME_DIR
+RemainAfterExit=true
+
+[Install]
+WantedBy=graphical-session.target
