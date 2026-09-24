@@ -12,8 +12,10 @@ set -Eeuo pipefail
 
 REPO_URL="https://github.com/Fabio0202/nixos.git"
 BRANCH="master"
-STOW_PKGS=(stow-cli stow-omarchy)
-PACMAN_PKGS=(stow yazi trash-cli anki fzf zoxide eza cmake cpio discord)
+STOW_PKGS=(stow-cli stow-nvim stow-omarchy)
+PACMAN_PKGS=(stow yazi trash-cli anki fzf zoxide eza cmake cpio discord \
+  neovim lua-language-server pyright typescript-language-server rust-analyzer \
+  ripgrep fd)
 AUR_PKGS=(blesh) # bash line editor: syntax highlighting + C-F autosuggestions
 
 # hyprpm (Hyprland plugin manager) plugin. Omarchy ships a release Hyprland,
@@ -34,6 +36,12 @@ STOW_TARGETS=(
   ".config/xremap"
   ".config/systemd/user/xremap.service"
   ".config/systemd/user/xremap-environment.service"
+  ".config/nvim/init.lua"
+  ".config/nvim/lazy-lock.json"
+  ".config/nvim/lua/os/linux.lua"
+  ".config/nvim/lua/os/windows.lua"
+  ".config/nvim/lua/plugins/all-themes.lua"
+  ".config/nvim/lua/plugins/omarchy-theme.lua"
 )
 
 UDEV_RULE='KERNEL=="uinput", GROUP="input", MODE="0660", OPTIONS+="static_node=uinput"'
@@ -218,6 +226,53 @@ purge_stale_stow_links() {
       a="$(dirname "$a")"
     done
   done
+}
+
+# ── nvim ────────────────────────────────────────────────────────────────
+# The nvim package (stow-nvim) is stowed with --no-folding, so ~/.config/nvim
+# stays a real directory that Omarchy's theme migrations can write into. On the
+# first run, move the stock LazyVim config aside; later runs see our symlinks.
+nvim_is_stowed() {
+  local f="$HOME/.config/nvim/init.lua"
+  [[ -L "$f" ]] && [[ "$(readlink -m "$f")" == */dotfiles/stow-nvim/* ]]
+}
+
+prepare_nvim() {
+  STEP="nvim config"
+  [[ -d "$REPO_DIR/dotfiles/stow-nvim" ]] || return 0
+  local dest="$HOME/.config/nvim"
+  if [[ -L "$dest" ]]; then
+    rm "$dest" # left over from a folded install — lay down a real dir instead
+    info "removed folded ~/.config/nvim symlink"
+  elif [[ -e "$dest" ]] && ! nvim_is_stowed; then
+    local backup_dir="$HOME/.config/stow-backup-$(date +%Y%m%d-%H%M%S)"
+    mkdir -p "$backup_dir/.config"
+    mv "$dest" "$backup_dir/.config/nvim"
+    info "backed up stock ~/.config/nvim"
+  fi
+}
+
+# Omarchy stages the active theme's Neovim spec at
+# ~/.local/state/omarchy/current/theme/neovim.lua and expects
+# lua/plugins/theme.lua to symlink to it. The stow package omits that link
+# (it is runtime/machine specific), so recreate it here.
+setup_nvim_theme() {
+  STEP="nvim theme link"
+  [[ -d "$HOME/.config/nvim" ]] || return 0
+  local link="$HOME/.config/nvim/lua/plugins/theme.lua"
+  local target="$HOME/.local/state/omarchy/current/theme/neovim.lua"
+  if [[ -L "$link" ]] && [[ "$(readlink "$link")" == *"omarchy/current/theme/neovim.lua" ]]; then
+    SKIPPED+=("nvim theme link already in place")
+    return 0
+  fi
+  if [[ ! -e "$target" ]]; then
+    warn "no staged Omarchy theme spec yet ($target) — skipping nvim theme link"
+    SKIPPED+=("nvim theme link (no staged theme)")
+    return 0
+  fi
+  mkdir -p "$(dirname "$link")"
+  ln -sfn "../../../../.local/state/omarchy/current/theme/neovim.lua" "$link"
+  ok "linked nvim theme.lua to the staged Omarchy theme"
 }
 
 backup_and_stow() {
@@ -416,7 +471,9 @@ main() {
   self_locate
   acquire_sudo
   install_packages
+  prepare_nvim
   backup_and_stow
+  setup_nvim_theme
   wire_bashrc
   setup_xremap
   setup_hyprpm_plugin
