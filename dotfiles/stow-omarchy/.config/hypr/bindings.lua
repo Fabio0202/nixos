@@ -154,9 +154,11 @@ o.bind("SUPER + SHIFT + C", "Calendar", { webapp = "https://app.hey.com/calendar
 o.bind("SUPER + SHIFT + E", "Email", { webapp = "https://app.fastmail.com/mail/" })
 o.bind("SUPER + SHIFT + ALT + E", "New email", { webapp = "https://app.fastmail.com/mail/compose/" })
 
--- ── Apps: messaging (Telegram, WhatsApp, Discord) ───────────────────
+-- ── Apps: messaging (WhatsApp, Discord) ─────────────────────────────
 -- WhatsApp is already bound by default (SUPER+SHIFT+ALT+G), don't re-add.
-o.bind("SUPER + SHIFT + T", "Telegram", { launch = "Telegram", focus = "^org.telegram.desktop$" })
+-- Telegram is intentionally NOT bound: the launch target only exists if the
+-- Telegram app is installed, so the shared install would leave a dead key.
+-- o.bind("SUPER + SHIFT + T", "Telegram", { launch = "Telegram", focus = "^org.telegram.desktop$" })
 
 -- Discord: use the native app, not the chromium webapp (the webapp's video
 -- calls pegged the CPU). SUPER+SHIFT+D was the default "Docker" (lazydocker) TUI.
