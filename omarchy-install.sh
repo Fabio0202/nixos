@@ -16,7 +16,7 @@ STOW_PKGS=(stow-cli stow-nvim stow-omarchy)
 PACMAN_PKGS=(stow yazi trash-cli anki fzf zoxide eza cmake cpio discord \
   neovim lua-language-server pyright typescript-language-server rust-analyzer \
   ripgrep fd)
-AUR_PKGS=(blesh) # bash line editor: syntax highlighting + C-F autosuggestions
+AUR_PKGS=(blesh rose-pine-cursor rose-pine-hyprcursor) # blesh: bash line editor; rose-pine: cursor theme
 
 # hyprpm (Hyprland plugin manager) plugin. Omarchy ships a release Hyprland,
 # so the repo's default branch is used (not origin/new-release).
@@ -33,9 +33,6 @@ STOW_TARGETS=(
   ".config/bash/aliases.bash"
   ".config/bash/ble.bash"
   ".config/bash/tools.bash"
-  ".config/xremap"
-  ".config/systemd/user/xremap.service"
-  ".config/systemd/user/xremap-environment.service"
   ".config/nvim/init.lua"
   ".config/nvim/lazy-lock.json"
   ".config/nvim/lua/os/linux.lua"
@@ -43,8 +40,6 @@ STOW_TARGETS=(
   ".config/nvim/lua/plugins/all-themes.lua"
   ".config/nvim/lua/plugins/omarchy-theme.lua"
 )
-
-UDEV_RULE='KERNEL=="uinput", GROUP="input", MODE="0660", OPTIONS+="static_node=uinput"'
 
 # ── logging ─────────────────────────────────────────────────────────────
 USE_COLOR=1
@@ -69,8 +64,7 @@ trap 'on_error $LINENO' ERR
 
 # ── sudo caching ────────────────────────────────────────────────────────
 # Prompt for the sudo password once up front, then keep the timestamp alive
-# so pacman, the xremap setup and hyprpm's internal sudo calls don't
-# re-prompt.
+# so pacman and hyprpm's internal sudo calls don't re-prompt.
 SUDO_KEEPALIVE_PID=""
 acquire_sudo() {
   STEP="sudo"
@@ -93,7 +87,6 @@ trap release_sudo EXIT
 
 # Collected for the final summary.
 DONE=() SKIPPED=() ACTIONS=()
-NEED_RELOGIN=0
 
 usage() {
   cat <<EOF
@@ -309,6 +302,22 @@ backup_and_stow() {
   ok "dotfiles stowed (symlinks into ${STOW_PKGS[*]})"
 }
 
+# ── cursor theme ────────────────────────────────────────────────────────
+# Hyprland's XCURSOR_THEME/HYPRCURSOR_THEME come from input.lua, but GTK apps
+# read the gsettings value. The AUR rose-pine-cursor package installs its
+# XCursor theme as BreezeX-RosePine-Linux (not "rose-pine-cursor").
+setup_cursor() {
+  STEP="cursor theme"
+  command -v gsettings >/dev/null 2>&1 || return 0
+  local theme="BreezeX-RosePine-Linux"
+  if [[ "$(gsettings get org.gnome.desktop.interface cursor-theme 2>/dev/null)" == "'$theme'" ]]; then
+    SKIPPED+=("GTK cursor theme already set")
+    return 0
+  fi
+  gsettings set org.gnome.desktop.interface cursor-theme "$theme"
+  ok "GTK cursor theme set to $theme"
+}
+
 # ── .bashrc wiring ──────────────────────────────────────────────────────
 wire_bashrc() {
   STEP="wire .bashrc"
@@ -332,46 +341,6 @@ wire_bashrc() {
     SKIPPED+=(".bashrc ble.sh line already present")
   fi
   ok ".bashrc wired"
-}
-
-# ── xremap (only wired up if the binary is already installed) ───────────
-setup_xremap() {
-  STEP="xremap setup"
-  if ! command -v xremap >/dev/null 2>&1; then
-    SKIPPED+=("xremap not installed — CapsLock remap inactive (by design)")
-    return 0
-  fi
-
-  if [[ ! -f /etc/udev/rules.d/90-uinput.rules ]]; then
-    printf '%s\n' "$UDEV_RULE" | sudo tee /etc/udev/rules.d/90-uinput.rules >/dev/null
-    sudo udevadm control --reload
-    sudo udevadm trigger
-    info "wrote udev uinput rule"
-  else
-    SKIPPED+=("udev uinput rule already present")
-  fi
-
-  if [[ ! -f /etc/modules-load.d/uinput.conf ]]; then
-    printf 'uinput\n' | sudo tee /etc/modules-load.d/uinput.conf >/dev/null
-    info "enabled uinput module at boot"
-  else
-    SKIPPED+=("uinput module config already present")
-  fi
-
-  if ! id -nG "$USER" | tr ' ' '\n' | grep -qx input; then
-    sudo usermod -aG input "$USER"
-    NEED_RELOGIN=1
-    info "added $USER to input group"
-  else
-    SKIPPED+=("input group membership already set")
-  fi
-
-  systemctl --user daemon-reload
-  systemctl --user enable xremap-environment.service xremap.service >/dev/null
-  if systemctl --user is-active --quiet graphical-session.target; then
-    systemctl --user start xremap-environment.service xremap.service
-  fi
-  ok "xremap services enabled"
 }
 
 # ── hyprpm plugin (scrolloverview) ──────────────────────────────────────
@@ -447,7 +416,6 @@ reload_and_verify() {
 }
 
 summary() {
-  ((NEED_RELOGIN)) && ACTIONS+=("re-login required for the input group (xremap uinput access)")
   ACTIONS+=("open a NEW terminal for aliases + ble.sh to activate")
   printf '\n%s═══ summary ═══%s\n' "$c_dim" "$c_off"
   local s
@@ -474,8 +442,8 @@ main() {
   prepare_nvim
   backup_and_stow
   setup_nvim_theme
+  setup_cursor
   wire_bashrc
-  setup_xremap
   setup_hyprpm_plugin
   reload_and_verify
   summary

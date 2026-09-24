@@ -6,8 +6,10 @@
 -- the bar widget to report. The option must be spelled grp:alt_shift_toggle,
 -- as xkb silently drops names it does not know.
 
--- Rose Pine cursor theme (restored from NixOS).
-hl.env("XCURSOR_THEME", "rose-pine-cursor")
+-- Rose Pine cursor theme. On Arch the AUR rose-pine-cursor package installs
+-- its XCursor theme as BreezeX-RosePine-Linux (the NixOS name rose-pine-cursor
+-- does not exist here, which silently fell back to the default cursor).
+hl.env("XCURSOR_THEME", "BreezeX-RosePine-Linux")
 hl.env("HYPRCURSOR_THEME", "rose-pine-hyprcursor")
 
 hl.config({
