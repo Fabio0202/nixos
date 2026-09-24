@@ -18,3 +18,4 @@ Hier findest du 3 folder und 2 files.
 Related Concepts:
 [[Hyprland]]
 [[Window Manager]]
+[[omarchy-scrolling-resize]]

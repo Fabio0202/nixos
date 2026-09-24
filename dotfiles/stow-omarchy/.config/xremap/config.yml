@@ -1,10 +1,3 @@
-modmap:
-  - remap:
-      CapsLock:
-        held: Super_L
-        alone: Esc
-
-
 keymap:
   # Steam games — WM_CLASS is usually steam_app_<appid> (check via xremap logs)
   - name: Age of Empires II DE

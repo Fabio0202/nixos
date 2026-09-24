@@ -13,14 +13,21 @@ set -Eeuo pipefail
 REPO_URL="https://github.com/Fabio0202/nixos.git"
 BRANCH="master"
 STOW_PKGS=(stow-cli stow-omarchy)
-PACMAN_PKGS=(stow yazi trash-cli anki fzf zoxide eza)
+PACMAN_PKGS=(stow yazi trash-cli anki fzf zoxide eza cmake cpio)
 AUR_PKGS=(blesh) # bash line editor: syntax highlighting + C-F autosuggestions
+
+# hyprpm (Hyprland plugin manager) plugin. Omarchy ships a release Hyprland,
+# so the repo's default branch is used (not origin/new-release).
+HYPRPM_REPO="https://github.com/yayuuu/hyprland-scroll-overview.git"
+HYPRPM_PLUGIN="scrolloverview"
 
 # Stow targets that may exist as real files and must be backed up first.
 STOW_TARGETS=(
   ".config/hypr/bindings.lua"
   ".config/hypr/input.lua"
   ".config/hypr/looknfeel.lua"
+  ".config/hypr/autostart.lua"
+  ".config/hypr/monitors.lua"
   ".config/bash/aliases.bash"
   ".config/bash/ble.bash"
   ".config/bash/tools.bash"
@@ -276,6 +283,53 @@ setup_xremap() {
   ok "xremap services enabled"
 }
 
+# ── hyprpm plugin (scrolloverview) ──────────────────────────────────────
+# Installs the scrolloverview Hyprland plugin (SUPER+D / 4-finger swipe) from
+# its hyprpm repo. The plugin is loaded on login by ~/.config/hypr/autostart.lua
+# (stowed above via stow-omarchy), which runs `hyprpm reload`.
+setup_hyprpm_plugin() {
+  STEP="hyprpm plugin ($HYPRPM_PLUGIN)"
+  if ! command -v hyprpm >/dev/null 2>&1; then
+    SKIPPED+=("hyprpm not found — $HYPRPM_PLUGIN plugin not installed")
+    return 0
+  fi
+  if [[ -z "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]]; then
+    ACTIONS+=("run the hyprpm step inside a Hyprland session to install $HYPRPM_PLUGIN")
+    SKIPPED+=("hyprpm plugin (no running Hyprland session)")
+    return 0
+  fi
+  if hyprctl plugin list 2>/dev/null | grep -q "$HYPRPM_PLUGIN"; then
+    hyprpm reload >/dev/null 2>&1 || true
+    SKIPPED+=("hyprpm plugin $HYPRPM_PLUGIN already loaded")
+    return 0
+  fi
+
+  # hyprpm shells out to sudo internally. With no TTY (e.g. a piped
+  # `curl | sh` install) sudo cannot prompt, so hand it a graphical askpass.
+  if [[ ! -t 0 ]] && command -v zenity >/dev/null 2>&1; then
+    local askpass="$HOME/.cache/omarchy-install-askpass.sh"
+    mkdir -p "$(dirname "$askpass")"
+    printf '#!/bin/sh\nexec zenity --password --title="sudo password for hyprpm" 2>/dev/null\n' >"$askpass"
+    chmod +x "$askpass"
+    export SUDO_ASKPASS="$askpass"
+  fi
+
+  info "adding plugin repo: $HYPRPM_REPO"
+  yes | hyprpm add "$HYPRPM_REPO" || true
+  info "building Hyprland headers (slow — needed to compile the plugin)"
+  hyprpm update --force || warn "hyprpm update reported problems — continuing"
+  yes | hyprpm add "$HYPRPM_REPO" || true
+  hyprpm enable "$HYPRPM_PLUGIN" || die "hyprpm failed to enable $HYPRPM_PLUGIN"
+  hyprpm reload >/dev/null 2>&1 || true
+
+  if hyprctl plugin list 2>/dev/null | grep -q "$HYPRPM_PLUGIN"; then
+    DONE+=("hyprpm plugin $HYPRPM_PLUGIN installed and loaded")
+  else
+    DONE+=("hyprpm plugin $HYPRPM_PLUGIN installed (loads on next login)")
+    ACTIONS+=("log out and back in so $HYPRPM_PLUGIN loads")
+  fi
+}
+
 # ── reload + verify ─────────────────────────────────────────────────────
 reload_and_verify() {
   STEP="hyprland reload"
@@ -336,6 +390,7 @@ main() {
   backup_and_stow
   wire_bashrc
   setup_xremap
+  setup_hyprpm_plugin
   reload_and_verify
   summary
 }

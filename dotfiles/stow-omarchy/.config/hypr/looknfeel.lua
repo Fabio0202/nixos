@@ -29,3 +29,6 @@ hl.config({
   },
 })
 
+-- Workspace switch animation: slide vertically instead of horizontally.
+hl.animation({ leaf = "workspaces", enabled = true, speed = 2, bezier = "easeOutQuint", style = "slidevert" })
+
