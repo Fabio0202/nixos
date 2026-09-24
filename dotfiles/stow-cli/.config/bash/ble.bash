@@ -8,4 +8,9 @@ if [[ $- == *i* ]]; then
     source "$HOME/.local/share/blesh/ble.sh" --noattach
   fi
   [[ ${BLE_VERSION:-} ]] && ble-attach
+  # Keep the terminal's key protocol vanilla (no modifyOtherKeys/kitty CSI-u
+  # reporting). With it enabled, foot can deliver C-c to child programs as an
+  # escape sequence instead of ^C, so SIGINT never fires (e.g. in fzf/zoxide).
+  [[ ${BLE_VERSION:-} ]] && bleopt term_modifyOtherKeys_internal=0 \
+                             term_modifyOtherKeys_external=0
 fi
