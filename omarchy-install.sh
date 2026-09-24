@@ -116,6 +116,13 @@ self_locate() {
 # ── packages ────────────────────────────────────────────────────────────
 install_packages() {
   STEP="packages (official repos)"
+  # A fresh Omarchy offline install ships only offline.db/omarchy.db, so core
+  # and extra are absent and every target resolves to "not found". Refresh the
+  # sync databases first when pacman cannot see packages we know exist.
+  if ! pacman -Si "${PACMAN_PKGS[@]}" >/dev/null 2>&1; then
+    info "package databases not synced — running 'pacman -Sy'"
+    sudo pacman -Sy --noconfirm
+  fi
   local missing=() p
   for p in "${PACMAN_PKGS[@]}"; do
     pacman -T "$p" >/dev/null 2>&1 || missing+=("$p")
