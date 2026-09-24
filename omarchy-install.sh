@@ -59,6 +59,30 @@ on_error() {
 }
 trap 'on_error $LINENO' ERR
 
+# ── sudo caching ────────────────────────────────────────────────────────
+# Prompt for the sudo password once up front, then keep the timestamp alive
+# so pacman, the xremap setup and hyprpm's internal sudo calls don't
+# re-prompt.
+SUDO_KEEPALIVE_PID=""
+acquire_sudo() {
+  STEP="sudo"
+  if [[ ! -t 0 ]] && command -v zenity >/dev/null 2>&1; then
+    # No TTY (e.g. `curl | bash`): sudo needs a graphical askpass.
+    local askpass="$HOME/.cache/omarchy-install-askpass.sh"
+    mkdir -p "$(dirname "$askpass")"
+    printf '#!/bin/sh\nexec zenity --password --title="sudo (omarchy install)" 2>/dev/null\n' >"$askpass"
+    chmod +x "$askpass"
+    export SUDO_ASKPASS="$askpass"
+  fi
+  sudo -v
+  ( while sleep 60; do sudo -n -v 2>/dev/null || break; done ) &
+  SUDO_KEEPALIVE_PID=$!
+}
+release_sudo() {
+  [[ -n "$SUDO_KEEPALIVE_PID" ]] && kill "$SUDO_KEEPALIVE_PID" 2>/dev/null || true
+}
+trap release_sudo EXIT
+
 # Collected for the final summary.
 DONE=() SKIPPED=() ACTIONS=()
 NEED_RELOGIN=0
@@ -311,16 +335,8 @@ setup_hyprpm_plugin() {
     return 0
   fi
 
-  # hyprpm shells out to sudo internally. With no TTY (e.g. a piped
-  # `curl | sh` install) sudo cannot prompt, so hand it a graphical askpass.
-  if [[ ! -t 0 ]] && command -v zenity >/dev/null 2>&1; then
-    local askpass="$HOME/.cache/omarchy-install-askpass.sh"
-    mkdir -p "$(dirname "$askpass")"
-    printf '#!/bin/sh\nexec zenity --password --title="sudo password for hyprpm" 2>/dev/null\n' >"$askpass"
-    chmod +x "$askpass"
-    export SUDO_ASKPASS="$askpass"
-  fi
-
+  # hyprpm shells out to sudo internally; acquire_sudo() already cached the
+  # timestamp (and set a graphical askpass when there is no TTY).
   info "adding plugin repo: $HYPRPM_REPO"
   yes | hyprpm add "$HYPRPM_REPO" || true
   info "building Hyprland headers (slow — needed to compile the plugin)"
@@ -393,6 +409,7 @@ main() {
   done
   preflight
   self_locate
+  acquire_sudo
   install_packages
   backup_and_stow
   wire_bashrc
