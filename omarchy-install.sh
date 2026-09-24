@@ -13,7 +13,7 @@ set -Eeuo pipefail
 REPO_URL="https://github.com/Fabio0202/nixos.git"
 BRANCH="master"
 STOW_PKGS=(stow-cli stow-omarchy)
-PACMAN_PKGS=(stow yazi trash-cli anki fzf zoxide eza cmake cpio)
+PACMAN_PKGS=(stow yazi trash-cli anki fzf zoxide eza cmake cpio discord)
 AUR_PKGS=(blesh) # bash line editor: syntax highlighting + C-F autosuggestions
 
 # hyprpm (Hyprland plugin manager) plugin. Omarchy ships a release Hyprland,
@@ -153,7 +153,12 @@ install_packages() {
   done
   if ((${#missing[@]})); then
     info "installing: ${missing[*]}"
-    sudo pacman -S --needed --noconfirm "${missing[@]}"
+    # Prefer Omarchy's own package helper; fall back to pacman if absent.
+    if command -v omarchy-pkg-add >/dev/null 2>&1; then
+      omarchy pkg add "${missing[@]}"
+    else
+      sudo pacman -S --needed --noconfirm "${missing[@]}"
+    fi
   else
     SKIPPED+=("official packages already installed")
   fi
